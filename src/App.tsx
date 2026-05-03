@@ -8,6 +8,7 @@ import Tracker from './pages/Tracker';
 import Plan from './pages/Plan';
 import History from './pages/History';
 import Assessment from './pages/Assessment';
+import TopicStudyPlan from './pages/TopicStudyPlan';
 
 function getInitialDark(): boolean {
   const stored = localStorage.getItem('analisi1_dark');
@@ -45,6 +46,7 @@ function AppShell() {
             <Route path="/plan" element={<Plan />} />
             <Route path="/history" element={<History />} />
             <Route path="/assessment" element={<Assessment />} />
+            <Route path="/topic/:topicId" element={<TopicStudyPlan />} />
           </Routes>
         </OnboardingGuard>
       </main>
