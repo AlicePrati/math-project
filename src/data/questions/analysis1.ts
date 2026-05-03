@@ -1,0 +1,448 @@
+import type { Question } from './types';
+
+export const analysis1Questions: Question[] = [
+
+  // ── ESTREMO SUPERIORE E INFERIORE ─────────────────────────
+  {
+    id: 'esup_01', topicId: 'estremo_sup', difficulty: 1,
+    question: 'Il supremo (estremo superiore) di un insieme A è:',
+    options: ['Il massimo elemento di A', 'Il più piccolo dei maggioranti di A', 'Il più grande dei minoranti di A', 'La media degli elementi di A'],
+    correct: 1,
+    explanation: 'Il supremo di A è il più piccolo dei maggioranti: sup A = min{M ∈ ℝ : a ≤ M ∀a ∈ A}. Se sup A ∈ A coincide con il massimo, ma può esistere anche senza massimo (es. sup(0,1) = 1, ma 1 ∉ (0,1)).',
+  },
+  {
+    id: 'esup_02', topicId: 'estremo_sup', difficulty: 2,
+    question: 'Quale è il sup dell\'insieme A = {1 − 1/n : n ∈ ℕ, n ≥ 1}?',
+    options: ['0', '1', '1/2', 'Non esiste'],
+    correct: 1,
+    explanation: 'Gli elementi di A sono 0, 1/2, 2/3, 3/4, … che si avvicinano a 1 senza raggiungerlo. sup A = 1, ma 1 ∉ A (A non ha massimo). inf A = 0 = min A.',
+  },
+  {
+    id: 'esup_03', topicId: 'estremo_sup', difficulty: 3,
+    question: "L'assioma di completezza di ℝ garantisce che:",
+    options: ['Ogni insieme ha un massimo', 'Ogni sottoinsieme non vuoto e limitato superiormente ha il supremo in ℝ', 'Ogni successione ha un limite', 'Ogni numero reale è razionale'],
+    correct: 1,
+    explanation: "L'assioma di completezza: ogni sottoinsieme non vuoto S ⊆ ℝ limitato superiormente ha sup S ∈ ℝ. In ℚ invece l'insieme {x ∈ ℚ : x² < 2} è limitato ma non ha sup in ℚ.",
+  },
+  {
+    id: 'esup_04', topicId: 'estremo_sup', difficulty: 4,
+    question: 'Sia A = {x ∈ ℝ : x² < 3}. Qual è sup A?',
+    options: ['3', '√3', '9', 'Non esiste perché A è aperto'],
+    correct: 1,
+    explanation: 'A = (−√3, √3). Il supremo è √3 (il più piccolo maggiorante). √3 ∉ A poiché (√3)² = 3 non è < 3.',
+  },
+  {
+    id: 'esup_05', topicId: 'estremo_sup', difficulty: 5,
+    question: 'Il lemma dell\'approssimazione del sup afferma: se s = sup A e ε > 0, allora:',
+    options: ['Esiste a ∈ A tale che a = s', 'Esiste a ∈ A tale che s − ε < a ≤ s', 'Tutti gli elementi di A sono > s − ε', 's − ε è un maggiorante di A'],
+    correct: 1,
+    explanation: 'Per ogni ε > 0, s − ε non è un maggiorante di A (altrimenti s non sarebbe il più piccolo), quindi esiste a ∈ A con s − ε < a ≤ s.',
+  },
+
+  // ── PRINCIPIO DI INDUZIONE ────────────────────────────────
+  {
+    id: 'ind_01', topicId: 'principio_induzione', difficulty: 1,
+    question: 'La somma dei primi n numeri naturali è:',
+    options: ['n²', 'n(n+1)/2', 'n(n−1)/2', '2n'],
+    correct: 1,
+    explanation: '1 + 2 + … + n = n(n+1)/2. Caso base n=1: 1 = 1·2/2 ✓. Passo: 1+…+n+(n+1) = n(n+1)/2 + (n+1) = (n+1)(n+2)/2 ✓.',
+  },
+  {
+    id: 'ind_02', topicId: 'principio_induzione', difficulty: 2,
+    question: 'Si vuole dimostrare per induzione che 2ⁿ > n per ogni n ≥ 1. Nel passo induttivo si assume:',
+    options: ['2ⁿ > n per ogni n', '2ⁿ > n per un fissato n ≥ 1 (ipotesi induttiva)', '2^(n+1) > n+1', '2ⁿ ≤ n per qualche n'],
+    correct: 1,
+    explanation: 'Si assume HP: 2ⁿ > n per un fissato n. Poi si dimostra 2^(n+1) > n+1. Usando HP: 2^(n+1) = 2·2ⁿ > 2n ≥ n+1 (per n ≥ 1). ✓',
+  },
+  {
+    id: 'ind_03', topicId: 'principio_induzione', difficulty: 3,
+    question: 'Quale delle seguenti formule è corretta per la somma dei quadrati?',
+    options: ['1² + 2² + … + n² = n(n+1)/2', '1² + 2² + … + n² = n(n+1)(2n+1)/6', '1² + 2² + … + n² = n²(n+1)²/4', '1² + 2² + … + n² = n(n+1)(n+2)/6'],
+    correct: 1,
+    explanation: '∑ k² = n(n+1)(2n+1)/6. Verifica per n=3: 1+4+9=14 e 3·4·7/6=14 ✓.',
+  },
+  {
+    id: 'ind_04', topicId: 'principio_induzione', difficulty: 4,
+    question: 'Il principio di induzione forte afferma che se P(k) è vera per tutti i k < n implica P(n), allora:',
+    options: ['P(n) è vera solo per n pari', 'P(n) è vera per tutti gli n ∈ ℕ, senza bisogno di caso base', 'P(n) è vera per tutti gli n ∈ ℕ (con caso base P(0) o P(1))', 'P(n) è vera solo se P(n−1) è vera'],
+    correct: 2,
+    explanation: "Nell'induzione forte: si assume P(k) vera per tutti i k < n e si dimostra P(n). Serve comunque il caso base. È equivalente all'induzione ordinaria ma più comodo quando P(n) dipende da più valori precedenti (es. Fibonacci).",
+  },
+  {
+    id: 'ind_05', topicId: 'principio_induzione', difficulty: 5,
+    question: 'Dimostrare per induzione che n! > 2ⁿ per n ≥ 4. Il caso base è n=4, che dà:',
+    options: ['24 > 16 ✓', '4! = 16 = 2⁴, quindi il caso base fallisce', '4! = 24 < 16, il caso base fallisce', 'Bisogna iniziare il caso base da n=5'],
+    correct: 0,
+    explanation: 'n=4: 4! = 24, 2⁴ = 16, e 24 > 16 ✓. Passo: (n+1)! = (n+1)·n! > (n+1)·2ⁿ > 2·2ⁿ = 2^(n+1) poiché n+1 ≥ 5 > 2. ✓',
+  },
+
+  // ── COMPLETEZZA DI ℝ ──────────────────────────────────────
+  {
+    id: 'comp_r_01', topicId: 'completezza_r', difficulty: 1,
+    question: 'La proprietà di Archimede afferma che:',
+    options: ['Ogni numero reale è intero', 'Per ogni x ∈ ℝ esiste n ∈ ℕ tale che n > x', 'Per ogni x > 0 esiste un razionale tra 0 e x', 'ℝ è numerabile'],
+    correct: 1,
+    explanation: 'La proprietà di Archimede: per ogni x ∈ ℝ esiste un intero n > x. Implica che per ogni ε > 0 esiste n ∈ ℕ con 1/n < ε.',
+  },
+  {
+    id: 'comp_r_02', topicId: 'completezza_r', difficulty: 2,
+    question: 'In ℚ, l\'insieme {x ∈ ℚ : x² < 2} non ha supremo in ℚ perché:',
+    options: ["L'insieme è vuoto", '√2 ∉ ℚ e non esiste in ℚ il più piccolo razionale maggiore di tutti gli elementi', "L'insieme non è limitato superiormente", "ℚ non ha la proprietà dell'ordine"],
+    correct: 1,
+    explanation: "L'insieme è limitato superiormente in ℚ (es. 2 è un maggiorante), ma il suo sup in ℝ è √2 ∉ ℚ. Questo 'buco' non esiste in ℝ.",
+  },
+  {
+    id: 'comp_r_03', topicId: 'completezza_r', difficulty: 3,
+    question: 'Una successione di Cauchy in ℝ:',
+    options: ['È sempre crescente', 'È convergente in ℝ (per la completezza di ℝ)', 'Converge in ℚ ma non sempre in ℝ', 'Ha sempre limite uguale a 0'],
+    correct: 1,
+    explanation: 'Teorema: ℝ è completo, cioè ogni successione di Cauchy in ℝ converge in ℝ. In ℚ esistono successioni di Cauchy che non convergono in ℚ (es. 1, 1.4, 1.41, … → √2 ∉ ℚ).',
+  },
+  {
+    id: 'comp_r_04', topicId: 'completezza_r', difficulty: 4,
+    question: 'Il teorema di Bolzano-Weierstrass afferma che:',
+    options: ['Ogni successione convergente è di Cauchy', 'Ogni successione limitata in ℝ ammette una sottosuccessione convergente', 'Ogni funzione continua su [a,b] è limitata', 'Ogni successione monotona e limitata converge'],
+    correct: 1,
+    explanation: 'Bolzano-Weierstrass: ogni successione limitata in ℝ ha una sottosuccessione convergente. È una conseguenza della completezza di ℝ.',
+  },
+  {
+    id: 'comp_r_05', topicId: 'completezza_r', difficulty: 5,
+    question: 'Quale delle seguenti proprietà NON è equivalente alla completezza di ℝ?',
+    options: ['Ogni successione di Cauchy converge', 'Ogni sottoinsieme non vuoto e limitato superiormente ha sup in ℝ', 'Ogni successione monotona e limitata converge', 'ℝ è un campo ordinato'],
+    correct: 3,
+    explanation: 'Essere un campo ordinato non implica la completezza: anche ℚ è un campo ordinato. Le altre tre proprietà sono tutte equivalenti alla completezza di ℝ.',
+  },
+
+  // ── LIMITE DI UNA SUCCESSIONE ─────────────────────────────
+  {
+    id: 'succ_01', topicId: 'limite_successione', difficulty: 1,
+    question: 'La successione aₙ = 1/n converge a:',
+    options: ['1', '0', '+∞', 'Non converge'],
+    correct: 1,
+    explanation: 'lim_{n→∞} 1/n = 0. Per ogni ε > 0, basta scegliere N > 1/ε: per n > N si ha |1/n − 0| = 1/n < ε.',
+  },
+  {
+    id: 'succ_02', topicId: 'limite_successione', difficulty: 2,
+    question: 'Quale delle seguenti successioni diverge a +∞?',
+    options: ['aₙ = (−1)ⁿ', 'aₙ = n²', 'aₙ = cos(n)', 'aₙ = n·(−1)ⁿ'],
+    correct: 1,
+    explanation: 'aₙ = n² → +∞. (−1)ⁿ e cos(n) oscillano e non convergono. n·(−1)ⁿ alterna tra valori positivi e negativi sempre più grandi, senza limite.',
+  },
+  {
+    id: 'succ_03', topicId: 'limite_successione', difficulty: 3,
+    question: 'Il teorema dei carabinieri afferma che se aₙ ≤ bₙ ≤ cₙ e lim aₙ = lim cₙ = L, allora:',
+    options: ['bₙ converge a un valore tra aₙ e cₙ', 'lim bₙ = L', 'bₙ è monotona', 'bₙ è limitata ma potrebbe non convergere'],
+    correct: 1,
+    explanation: 'Se aₙ ≤ bₙ ≤ cₙ e aₙ → L e cₙ → L, allora bₙ → L. Es: lim sin(n)/n = 0 perché −1/n ≤ sin(n)/n ≤ 1/n e ±1/n → 0.',
+  },
+  {
+    id: 'succ_04', topicId: 'limite_successione', difficulty: 4,
+    question: 'Qual è il limite di aₙ = (n² + 3n) / (2n² − 1)?',
+    options: ['0', '3/2', '1/2', '+∞'],
+    correct: 2,
+    explanation: 'Si divide numeratore e denominatore per n²: (1 + 3/n) / (2 − 1/n²) → 1/2.',
+  },
+  {
+    id: 'succ_05', topicId: 'limite_successione', difficulty: 5,
+    question: 'Il limite lim_{n→∞} (1 + 1/n)ⁿ è uguale a:',
+    options: ['1', '2', 'e ≈ 2.718', '+∞'],
+    correct: 2,
+    explanation: 'lim_{n→∞} (1 + 1/n)ⁿ = e. La successione è crescente e limitata superiormente da 3, quindi converge.',
+  },
+
+  // ── SUCCESSIONI MONOTONE ──────────────────────────────────
+  {
+    id: 'mono_01', topicId: 'successioni_monotone', difficulty: 1,
+    question: 'Una successione aₙ è crescente se:',
+    options: ['aₙ > 0 per ogni n', 'aₙ₊₁ > aₙ per ogni n', 'aₙ₊₁ ≥ aₙ per ogni n', 'aₙ → +∞'],
+    correct: 1,
+    explanation: 'Una successione è strettamente crescente se aₙ₊₁ > aₙ per ogni n. Non deve necessariamente tendere a +∞ (es. 1 − 1/n è crescente ma converge a 1).',
+  },
+  {
+    id: 'mono_02', topicId: 'successioni_monotone', difficulty: 2,
+    question: 'Il teorema sulle successioni monotone afferma che:',
+    options: ['Ogni successione monotona converge', 'Ogni successione monotona e limitata converge', 'Ogni successione limitata è monotona', 'Ogni successione convergente è monotona'],
+    correct: 1,
+    explanation: 'Teorema fondamentale: se una successione è monotona e limitata, allora converge. Monotona crescente e limitata superiormente → converge al sup.',
+  },
+  {
+    id: 'mono_03', topicId: 'successioni_monotone', difficulty: 3,
+    question: 'La successione aₙ = n/(n+1) è:',
+    options: ['Decrescente e limitata', 'Crescente e non limitata', 'Crescente e limitata (converge a 1)', 'Né crescente né decrescente'],
+    correct: 2,
+    explanation: 'aₙ₊₁ − aₙ = 1/((n+1)(n+2)) > 0 → crescente. 0 < aₙ < 1 per ogni n → limitata. Converge a 1.',
+  },
+  {
+    id: 'mono_04', topicId: 'successioni_monotone', difficulty: 4,
+    question: 'La successione a₁ = 1, aₙ₊₁ = (aₙ + 2)/2 converge. A quale valore?',
+    options: ['1', '2', '3/2', 'Non converge'],
+    correct: 1,
+    explanation: 'La successione è crescente e limitata da 2. Convergendo a L: L = (L+2)/2 ⟹ 2L = L+2 ⟹ L = 2.',
+  },
+  {
+    id: 'mono_05', topicId: 'successioni_monotone', difficulty: 5,
+    question: 'Sia aₙ = (2n+1)!! / (2n)!! dove !! denota il fattoriale doppio. La successione è:',
+    options: ['Crescente e converge a π/2', 'Decrescente e converge a 0', 'Crescente e diverge', 'Non monotona'],
+    correct: 2,
+    explanation: 'Il rapporto aₙ₊₁/aₙ = (2n+3)/(2n+2) > 1, quindi la successione è crescente e tende a +∞.',
+  },
+
+  // ── SUCCESSIONE DI CAUCHY ─────────────────────────────────
+  {
+    id: 'cau_01', topicId: 'cauchy_successione', difficulty: 1,
+    question: 'Una successione {aₙ} è di Cauchy se:',
+    options: ['Converge a 0', 'Per ogni ε > 0, esistono termini arbitrariamente vicini tra loro per n grande', 'È monotona e limitata', 'Ha una sottosuccessione convergente'],
+    correct: 1,
+    explanation: 'Definizione: {aₙ} è di Cauchy se ∀ε > 0, ∃N : ∀m,n > N, |aₘ − aₙ| < ε.',
+  },
+  {
+    id: 'cau_02', topicId: 'cauchy_successione', difficulty: 2,
+    question: 'Ogni successione convergente è di Cauchy?',
+    options: ['No, una convergente può non essere di Cauchy', 'Sì, sempre', 'Solo se converge a 0', 'Solo se è monotona'],
+    correct: 1,
+    explanation: 'Sì: se aₙ → L, allora |aₘ − aₙ| ≤ |aₘ − L| + |L − aₙ| → 0. Il viceversa vale in ℝ (completezza) ma non in ℚ.',
+  },
+  {
+    id: 'cau_03', topicId: 'cauchy_successione', difficulty: 3,
+    question: 'In ℝ, una successione è convergente se e solo se:',
+    options: ['È monotona', 'È limitata', 'È di Cauchy', 'Ha una sottosuccessione convergente'],
+    correct: 2,
+    explanation: 'Teorema di Cauchy per ℝ: una successione di numeri reali converge ↔ è di Cauchy.',
+  },
+  {
+    id: 'cau_04', topicId: 'cauchy_successione', difficulty: 4,
+    question: 'La successione aₙ = ∑ₖ₌₁ⁿ 1/k² è di Cauchy in ℝ?',
+    options: ['No, perché le somme parziali crescono indefinitamente', 'Sì, perché la serie ∑ 1/k² converge', 'Non si può determinare senza calcolare il limite', 'Sì, ma solo per n pari'],
+    correct: 1,
+    explanation: '∑ 1/k² converge (π²/6). Le somme parziali sono monotone crescenti e limitate, quindi convergenti e di Cauchy.',
+  },
+  {
+    id: 'cau_05', topicId: 'cauchy_successione', difficulty: 5,
+    question: 'Una successione {aₙ} con |aₙ₊₁ − aₙ| ≤ C/n (C > 0 costante) è di Cauchy?',
+    options: ['Sì, sempre', 'No, la condizione è troppo debole', 'Solo se C < 1', 'Solo se la successione è monotona'],
+    correct: 1,
+    explanation: 'Non necessariamente. La serie armonica ∑ 1/n diverge. Es: aₙ = ∑ₖ₌₁ⁿ 1/k soddisfa |aₙ₊₁−aₙ| = 1/(n+1) ma diverge. Serve |aₙ₊₁−aₙ| ≤ C·rⁿ con r < 1.',
+  },
+
+  // ── NUMERO DI EULERO ──────────────────────────────────────
+  {
+    id: 'eul_01', topicId: 'numero_eulero', difficulty: 1,
+    question: 'Il numero e è approssimativamente uguale a:',
+    options: ['1.618', '2.718', '3.141', '1.414'],
+    correct: 1,
+    explanation: 'e ≈ 2.71828… è la base del logaritmo naturale. Le altre opzioni sono φ (sezione aurea), π e √2.',
+  },
+  {
+    id: 'eul_02', topicId: 'numero_eulero', difficulty: 2,
+    question: 'Quale delle seguenti è una definizione del numero e?',
+    options: ['e = lim_{n→∞} n^(1/n)', 'e = lim_{n→∞} (1 + 1/n)ⁿ', 'e = ∑_{n=0}^∞ 1/n', 'e = lim_{x→0} (1+x)/x'],
+    correct: 1,
+    explanation: 'e = lim_{n→∞} (1+1/n)ⁿ. Equivalentemente e = ∑_{n=0}^∞ 1/n!. Nota: ∑ 1/n è la serie armonica che diverge.',
+  },
+  {
+    id: 'eul_03', topicId: 'numero_eulero', difficulty: 3,
+    question: 'Qual è il limite di (1 + x/n)ⁿ per n → ∞?',
+    options: ['1', 'x', 'eˣ', 'e'],
+    correct: 2,
+    explanation: 'lim_{n→∞} (1 + x/n)ⁿ = eˣ per ogni x ∈ ℝ. Generalizzazione del limite fondamentale (1+1/n)ⁿ → e.',
+  },
+  {
+    id: 'eul_04', topicId: 'numero_eulero', difficulty: 4,
+    question: 'Il limite lim_{x→0} (eˣ − 1)/x vale:',
+    options: ['0', 'e', '1', 'Non esiste'],
+    correct: 2,
+    explanation: 'lim_{x→0} (eˣ−1)/x = 1. È la derivata di eˣ in x=0. Con Taylor: eˣ = 1 + x + x²/2 + …, quindi (eˣ−1)/x → 1.',
+  },
+  {
+    id: 'eul_05', topicId: 'numero_eulero', difficulty: 5,
+    question: 'La successione aₙ = (1 + 1/n)ⁿ è:',
+    options: ['Decrescente e converge a e', 'Crescente e converge a e', 'Non monotona e converge a e', 'Crescente e diverge'],
+    correct: 1,
+    explanation: 'aₙ è strettamente crescente (si dimostra con la disuguaglianza di Bernoulli) e limitata superiormente da 3. Converge a e per definizione.',
+  },
+
+  // ── DEFINIZIONE ε-δ DI LIMITE ─────────────────────────────
+  {
+    id: 'eps_01', topicId: 'limite_eps_delta', difficulty: 1,
+    question: 'La definizione di lim_{x→a} f(x) = L richiede che:',
+    options: ['f(a) = L', 'Per ogni ε > 0 esiste δ > 0 tale che se 0 < |x−a| < δ allora |f(x)−L| < ε', 'f sia continua in a', 'f sia definita in a'],
+    correct: 1,
+    explanation: 'Definizione epsilon-delta: possiamo rendere f(x) vicino a L quanto vogliamo (< ε) prendendo x sufficientemente vicino ad a (0 < |x−a| < δ).',
+  },
+  {
+    id: 'eps_02', topicId: 'limite_eps_delta', difficulty: 2,
+    question: 'Nella definizione di limite, la condizione 0 < |x−a| < δ serve a:',
+    options: ['Includere il punto a nella verifica', 'Escludere il punto a (il limite non richiede che f sia definita in a)', 'Garantire che x sia positivo', 'Limitare il dominio di f'],
+    correct: 1,
+    explanation: 'La condizione 0 < |x−a| (cioè x ≠ a) esclude il punto a. Il limite descrive il comportamento di f vicino ad a, indipendentemente da f(a).',
+  },
+  {
+    id: 'eps_03', topicId: 'limite_eps_delta', difficulty: 3,
+    question: 'Per dimostrare che lim_{x→2} (3x − 1) = 5, si sceglie δ =',
+    options: ['ε/3', 'ε', '3ε', 'ε²'],
+    correct: 0,
+    explanation: '|f(x)−5| = |3x−6| = 3|x−2| < 3δ. Per avere 3δ ≤ ε basta δ = ε/3.',
+  },
+  {
+    id: 'eps_04', topicId: 'limite_eps_delta', difficulty: 4,
+    question: 'Per dimostrare che lim_{x→1} x² = 1, con la restrizione |x−1| < 1 si ottiene che |x+1| < ___, e poi si sceglie δ = min(1, ε/3).',
+    options: ['1', '2', '3', 'ε'],
+    correct: 2,
+    explanation: '|x²−1| = |x−1||x+1|. Se |x−1| < 1, allora 0 < x < 2, quindi |x+1| < 3. Così |x²−1| < 3|x−1| < 3δ ≤ ε con δ = min(1, ε/3).',
+  },
+  {
+    id: 'eps_05', topicId: 'limite_eps_delta', difficulty: 5,
+    question: 'La definizione formale di lim_{x→+∞} f(x) = L è:',
+    options: ['∀ε > 0, ∃δ > 0 : |x| > δ ⟹ |f(x)−L| < ε', '∀ε > 0, ∃M > 0 : x > M ⟹ |f(x)−L| < ε', '∀M > 0, ∃ε > 0 : x > M ⟹ |f(x)−L| < ε', '∀ε > 0, f(x) → L per x grande'],
+    correct: 1,
+    explanation: 'Per x → +∞: ∀ε > 0, ∃M > 0 : x > M ⟹ |f(x)−L| < ε. M gioca il ruolo di δ per la "vicinanza all\'infinito".',
+  },
+
+  // ── ALGEBRA DEI LIMITI ────────────────────────────────────
+  {
+    id: 'alg_01', topicId: 'algebra_limiti', difficulty: 1,
+    question: 'Se lim_{x→a} f(x) = 3 e lim_{x→a} g(x) = 2, quanto vale lim_{x→a} [f(x) + g(x)]?',
+    options: ['5', '6', '1', 'Non determinabile'],
+    correct: 0,
+    explanation: 'Per linearità del limite: lim[f(x)+g(x)] = 3+2 = 5.',
+  },
+  {
+    id: 'alg_02', topicId: 'algebra_limiti', difficulty: 2,
+    question: 'Se lim f(x) = 0 e lim g(x) = 0, il limite di f(x)/g(x) è:',
+    options: ['0', '1', 'Una forma indeterminata 0/0', '+∞'],
+    correct: 2,
+    explanation: '0/0 è una forma indeterminata: il limite può essere qualsiasi valore a seconda delle funzioni.',
+  },
+  {
+    id: 'alg_03', topicId: 'algebra_limiti', difficulty: 3,
+    question: 'Calcolare lim_{x→3} (x² − 9)/(x − 3).',
+    options: ['0', '6', '3', 'Non esiste'],
+    correct: 1,
+    explanation: 'Forma 0/0. Si fattorizza: x²−9 = (x−3)(x+3). Quindi (x²−9)/(x−3) = x+3 per x≠3, e lim_{x→3}(x+3) = 6.',
+  },
+  {
+    id: 'alg_04', topicId: 'algebra_limiti', difficulty: 4,
+    question: 'Calcolare lim_{x→0} (√(1+x) − 1)/x.',
+    options: ['0', '1/2', '1', '+∞'],
+    correct: 1,
+    explanation: 'Razionalizzando: ×(√(1+x)+1)/(√(1+x)+1) si ottiene 1/(√(1+x)+1) → 1/2. Oppure con Taylor: √(1+x) ≈ 1+x/2.',
+  },
+  {
+    id: 'alg_05', topicId: 'algebra_limiti', difficulty: 5,
+    question: 'Il limite lim_{x→+∞} (√(x²+x) − x) è:',
+    options: ['0', '1/2', '1', '+∞'],
+    correct: 1,
+    explanation: 'Forma ∞−∞. Moltiplico per il coniugato: x/(√(x²+x)+x) = 1/(√(1+1/x)+1) → 1/2.',
+  },
+
+  // ── FORME INDETERMINATE ───────────────────────────────────
+  {
+    id: 'ind_f_01', topicId: 'forme_indeterminate', difficulty: 1,
+    question: 'Quale delle seguenti è una forma indeterminata?',
+    options: ['0 · 5', '∞ + ∞', '0/0', '1/∞'],
+    correct: 2,
+    explanation: '0/0 è indeterminata: il risultato dipende da come numeratore e denominatore tendono a 0. 0·5=0, ∞+∞=+∞, 1/∞=0 non sono indeterminate.',
+  },
+  {
+    id: 'ind_f_02', topicId: 'forme_indeterminate', difficulty: 2,
+    question: 'Quante sono le principali forme indeterminate?',
+    options: ['3 (0/0, ∞/∞, 0·∞)', '7 (0/0, ∞/∞, 0·∞, ∞−∞, 0⁰, 1^∞, ∞⁰)', '5', '2'],
+    correct: 1,
+    explanation: 'Le 7 forme indeterminate classiche sono: 0/0, ∞/∞, 0·∞, ∞−∞, 0⁰, 1^∞, ∞⁰.',
+  },
+  {
+    id: 'ind_f_03', topicId: 'forme_indeterminate', difficulty: 3,
+    question: 'Calcolare lim_{x→+∞} x · e^(−x).',
+    options: ['0', '1', '+∞', 'e'],
+    correct: 0,
+    explanation: 'Forma ∞·0. Si riscrive x/eˣ (forma ∞/∞) e si applica De L\'Hôpital: lim x/eˣ = lim 1/eˣ = 0.',
+  },
+  {
+    id: 'ind_f_04', topicId: 'forme_indeterminate', difficulty: 4,
+    question: 'Il limite lim_{x→0⁺} xˣ è una forma 0⁰. Il suo valore è:',
+    options: ['0', '1', 'e', 'Non esiste'],
+    correct: 1,
+    explanation: 'xˣ = e^(x ln x). lim_{x→0⁺} x ln x = lim (ln x)/(1/x) =[De L\'Hôpital] lim (1/x)/(−1/x²) = lim(−x) = 0. Quindi lim xˣ = e⁰ = 1.',
+  },
+  {
+    id: 'ind_f_05', topicId: 'forme_indeterminate', difficulty: 5,
+    question: 'La forma indeterminata 1^∞ si affronta come lim f(x)^g(x) con f→1 e g→∞. La tecnica è:',
+    options: ['Applicare De L\'Hôpital direttamente', 'Scrivere e^(g(x)·ln(f(x))) e calcolare lim g(x)·ln(f(x))', 'Sostituire f(x) = 1 e semplificare', 'Il limite è sempre uguale a e'],
+    correct: 1,
+    explanation: 'f(x)^g(x) = e^(g(x)·ln f(x)). Poiché f→1, ln f→0 e g→∞, si ha 0·∞. Si riconduce a 0/0 per De L\'Hôpital.',
+  },
+
+  // ── LIMITI NOTEVOLI ───────────────────────────────────────
+  {
+    id: 'not_01', topicId: 'limiti_notevoli', difficulty: 1,
+    question: 'Quanto vale lim_{x→0} sin(x)/x?',
+    options: ['0', '1', '∞', 'Non esiste'],
+    correct: 1,
+    explanation: 'lim_{x→0} sin(x)/x = 1. Limite notevole fondamentale. Con Taylor: sin(x) = x − x³/6 + …, quindi sin(x)/x → 1.',
+  },
+  {
+    id: 'not_02', topicId: 'limiti_notevoli', difficulty: 2,
+    question: 'Quanto vale lim_{x→0} (1 − cos x)/x²?',
+    options: ['0', '1', '1/2', '2'],
+    correct: 2,
+    explanation: 'Con Taylor: cos x = 1 − x²/2 + …, quindi (1−cos x)/x² = (x²/2)/x² = 1/2.',
+  },
+  {
+    id: 'not_03', topicId: 'limiti_notevoli', difficulty: 3,
+    question: 'Calcolare lim_{x→0} (eˣ − 1 − x)/x².',
+    options: ['0', '1', '1/2', '2'],
+    correct: 2,
+    explanation: 'Taylor: eˣ = 1 + x + x²/2 + …, quindi eˣ−1−x = x²/2 + …, e (eˣ−1−x)/x² → 1/2.',
+  },
+  {
+    id: 'not_04', topicId: 'limiti_notevoli', difficulty: 4,
+    question: 'Calcolare lim_{x→0} (tan x − sin x)/x³.',
+    options: ['0', '1/2', '1', '1/6'],
+    correct: 1,
+    explanation: 'tan x − sin x = sin x(1/cos x − 1) = sin x·(1−cos x)/cos x. Per x→0: sin x ~ x, 1−cos x ~ x²/2, cos x → 1. Quindi il limite è x·(x²/2)/x³ = 1/2.',
+  },
+  {
+    id: 'not_05', topicId: 'limiti_notevoli', difficulty: 5,
+    question: 'Calcolare lim_{x→0} [1/sin(x) − 1/x].',
+    options: ['0', '1', '∞', '1/6'],
+    correct: 0,
+    explanation: '1/sin x − 1/x = (x − sin x)/(x sin x). Taylor: x − sin x = x³/6 + …, x sin x ~ x². Quindi il limite è (x³/6)/x² = x/6 → 0.',
+  },
+
+  // ── CONFRONTO TRA INFINITI E INFINITESIMI ─────────────────
+  {
+    id: 'cfr_01', topicId: 'confronto_infiniti', difficulty: 1,
+    question: 'Per x → +∞, quale funzione cresce più lentamente?',
+    options: ['x²', 'eˣ', 'x', 'x¹⁰⁰'],
+    correct: 2,
+    explanation: 'Gerarchia degli infiniti per x → +∞: log x ≪ xᵅ ≪ eˣ. Tra le opzioni, x = x¹ cresce più lentamente di x², x¹⁰⁰ ed eˣ.',
+  },
+  {
+    id: 'cfr_02', topicId: 'confronto_infiniti', difficulty: 2,
+    question: 'Due infinitesimi α(x) e β(x) per x→0 si dicono equivalenti (α ~ β) se:',
+    options: ['α − β = 0', 'lim α(x)/β(x) = 1', 'lim α(x)/β(x) = 0', 'α e β hanno lo stesso segno'],
+    correct: 1,
+    explanation: 'α ~ β (per x→x₀) significa lim α/β = 1. Es: sin x ~ x per x→0.',
+  },
+  {
+    id: 'cfr_03', topicId: 'confronto_infiniti', difficulty: 3,
+    question: 'La gerarchia degli infinitesimi per x → 0⁺ è:',
+    options: ['x ≪ x² ≪ x³ (le potenze maggiori sono infinitesimi più piccoli)', 'x ≫ x² ≫ x³', 'Tutte le potenze tendono a 0 alla stessa velocità', 'Dipende dal segno di x'],
+    correct: 0,
+    explanation: 'Per x → 0⁺: lim xⁿ/xᵐ = lim x^(n−m) = 0 se n > m. Quindi x³ ≪ x² ≪ x: le potenze più alte tendono a 0 più velocemente.',
+  },
+  {
+    id: 'cfr_04', topicId: 'confronto_infiniti', difficulty: 4,
+    question: 'Qual è l\'ordine dell\'infinitesimo (1 − cos x) rispetto a x per x → 0?',
+    options: ['Ordine 1', 'Ordine 2', 'Ordine 3', 'Non è un infinitesimo algebrico'],
+    correct: 1,
+    explanation: '1 − cos x ~ x²/2 per x→0 (da Taylor). Quindi lim (1−cos x)/x² = 1/2 ≠ 0,∞: infinitesimo di ordine 2.',
+  },
+  {
+    id: 'cfr_05', topicId: 'confronto_infiniti', difficulty: 5,
+    question: 'Per x → +∞, il limite lim x^(1/x) vale:',
+    options: ['0', '1', 'e', '+∞'],
+    correct: 1,
+    explanation: 'x^(1/x) = e^(ln(x)/x). Ora lim_{x→+∞} ln(x)/x = 0 (l\'esponenziale cresce più del logaritmo). Quindi x^(1/x) → e⁰ = 1.',
+  },
+];

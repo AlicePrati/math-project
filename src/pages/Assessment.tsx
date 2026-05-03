@@ -1,21 +1,151 @@
-import { useState, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { SECTIONS, ALL_TOPICS } from '../data/topics';
-import type { Topic, Section } from '../data/topics';
+import { SECTIONS } from '../data/topics';
 import {
-  INITIAL_LEVELS,
-  REASSESSMENT_LEVELS,
   INITIAL_REASSESSMENT_DAYS,
   SUBSEQUENT_REASSESSMENT_DAYS,
 } from '../data/assessmentLevels';
-import type { AssessmentLevel } from '../data/assessmentLevels';
+import { getQuestionsForTopic, computeRating } from '../data/questions';
+import type { Question } from '../data/questions';
 import { useTracker } from '../store/useTracker';
 
-const DRAFT_KEY = 'analisi1_assessment_draft';
+// ── Mapping: app topic ID → question topic ID ────────────────────────────────
+const APP_TO_QUIZ: Record<string, string | null> = {
+  logica_quantificatori: 'logica_quantificatori',
+  implicazione_contronominale: 'implicazione',
+  dimostrazione_ind: 'dimostrazione',
+  insiemi_reali: 'insiemi_operazioni',
+  intervalli_intorni: 'intervalli_intorni',
+  disug_valore_assoluto: 'valore_assoluto',
+  disug_notevoli: null,
+  funzioni_base: 'funzioni_base',
+  iniettivita: 'iniettivita',
+  funzione_composta: 'composta_inversa',
+  potenze_radicali: null,
+  esponenziale_log: 'exp_log',
+  trig: 'trigonometria',
+  insiemi_numerici: 'insiemi_numerici',
+  estremo_sup_inf: 'estremo_sup',
+  principio_induzione: 'principio_induzione',
+  valore_assoluto: 'valore_assoluto',
+  numeri_complessi: null,
+  successioni_def: null,
+  limite_successione: 'limite_successione',
+  successioni_monotone: 'successioni_monotone',
+  teorema_carabinieri: null,
+  cauchy_successione: 'cauchy_successione',
+  numero_eulero: 'numero_eulero',
+  limite_eps_delta: 'limite_eps_delta',
+  limiti_ds: null,
+  limiti_infinito: null,
+  algebra_limiti: 'algebra_limiti',
+  forme_indeterminate: 'forme_indeterminate',
+  limiti_notevoli: 'limiti_notevoli',
+  confronto_infiniti: 'confronto_infiniti',
+  teorema_confronto: null,
+  continuita_def: 'continuita_def',
+  continuita_intervallo: null,
+  bolzano: 'bolzano',
+  weierstrass: 'weierstrass',
+  tvi: null,
+  discontinuita: 'discontinuita',
+  derivata_def: 'derivata_def',
+  derivate_fondamentali: 'regole_derivazione',
+  regole_derivazione: 'regole_derivazione',
+  chain_rule: 'chain_rule',
+  derivata_inversa: null,
+  fermat: 'teoremi_derivate',
+  rolle: 'teoremi_derivate',
+  lagrange: 'teoremi_derivate',
+  cauchy_derivate: 'teoremi_derivate',
+  de_lhopital: 'de_lhopital',
+  derivate_superiori: null,
+  monotonia: 'monotonia',
+  massimi_minimi: 'massimi_minimi',
+  concavita_flessi: 'concavita',
+  studio_funzione: null,
+  asintoti: 'asintoti',
+  taylor_peano: 'taylor_peano',
+  taylor_lagrange: null,
+  maclaurin_notevoli: 'taylor_notevoli',
+  taylor_limiti: 'taylor_limiti',
+  riemann_def: 'integrale_def',
+  integrale_prop: 'proprieta_integrali',
+  teorema_media: null,
+  torricelli: 'torricelli',
+  primitiva_indefinito: 'int_immediate',
+  int_immediate: 'int_immediate',
+  sostituzione: 'int_sostituzione',
+  int_parti: 'int_parti',
+  razionali_fratte: 'razionali_fratte',
+  int_radicali: null,
+  improprio_illimitato: 'improprio_illimitato',
+  improprio_funzione: 'improprio_funzione',
+  criteri_conv: 'criteri_conv',
+  edo_separabili: 'ode_separabili',
+  edo_lineari_1: 'ode_lineari_1',
+  edo_lineari_2: 'ode_lineari_2',
+  problema_cauchy: 'cauchy_problema',
+  sovrapposizione: null,
+};
 
-type Screen = 'welcome' | 'assess' | 'done';
+// ── Types ────────────────────────────────────────────────────────────────────
 
-// ── Sub-components ──────────────────────────────────────────────────────────
+type Screen = 'welcome' | 'select' | 'quiz';
+
+interface QuizGroup {
+  quizTopicId: string;
+  appTopicIds: string[];
+  label: string;
+  sectionId: string;
+  sectionLabel: string;
+  questions: Question[];
+}
+
+// ── Helpers ──────────────────────────────────────────────────────────────────
+
+function shuffle<T>(arr: T[]): T[] {
+  const copy = [...arr];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
+function buildQuizSchedule(shuffleQuestions: boolean): QuizGroup[] {
+  const groups: QuizGroup[] = [];
+  const usedQuizTopics = new Set<string>();
+
+  for (const section of SECTIONS) {
+    for (const topic of section.topics) {
+      const quizTopicId = APP_TO_QUIZ[topic.id] ?? null;
+      if (!quizTopicId) continue;
+
+      if (usedQuizTopics.has(quizTopicId)) {
+        groups.find((g) => g.quizTopicId === quizTopicId)?.appTopicIds.push(topic.id);
+        continue;
+      }
+
+      const qs = getQuestionsForTopic(quizTopicId);
+      if (qs.length === 0) continue;
+
+      usedQuizTopics.add(quizTopicId);
+      groups.push({
+        quizTopicId,
+        appTopicIds: [topic.id],
+        label: topic.label,
+        sectionId: section.id,
+        sectionLabel: section.label,
+        questions: shuffleQuestions ? shuffle(qs) : qs,
+      });
+    }
+  }
+
+  return groups;
+}
+
+// ── WelcomeScreen ─────────────────────────────────────────────────────────────
 
 function WelcomeScreen({
   isReassessment,
@@ -26,15 +156,22 @@ function WelcomeScreen({
   assessmentCount: number;
   onStart: () => void;
 }) {
-  const nextInterval = assessmentCount <= 1 ? INITIAL_REASSESSMENT_DAYS : SUBSEQUENT_REASSESSMENT_DAYS;
+  const nextInterval =
+    assessmentCount <= 1 ? INITIAL_REASSESSMENT_DAYS : SUBSEQUENT_REASSESSMENT_DAYS;
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center p-4">
       <div className="max-w-lg w-full bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-8 text-center">
         <div className="w-16 h-16 bg-amber-100 dark:bg-amber-900/30 rounded-2xl flex items-center justify-center mx-auto mb-6">
-          <svg className="w-8 h-8 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-          </svg>
+          {isReassessment ? (
+            <svg className="w-8 h-8 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+            </svg>
+          ) : (
+            <svg className="w-8 h-8 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+            </svg>
+          )}
         </div>
 
         {isReassessment ? (
@@ -42,38 +179,39 @@ function WelcomeScreen({
             <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3">
               Tempo di rivalutarti!
             </h1>
-            <p className="text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">
-              Sono passate alcune settimane. Valutiamo i tuoi progressi con un nuovo questionario
-              — le domande sono formulate diversamente per darti un quadro fresco.
-            </p>
-            <p className="text-sm text-gray-400 dark:text-gray-500 mb-8">
-              Vedrai la tua valutazione precedente accanto a ogni argomento, cosi potrai
-              confrontare i miglioramenti.
+            <p className="text-gray-500 dark:text-gray-400 mb-8 leading-relaxed">
+              Scegli gli argomenti su cui vuoi testarti. Le domande vengono mescolate
+              ogni volta, così il test è sempre fresco. Puoi farne quanti vuoi e tornare
+              alla dashboard in qualsiasi momento.
             </p>
           </>
         ) : (
           <>
             <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3">
-              Benvenuto in Analisi 1 Tracker
+              Benvenuta in Analisi 1 Tracker
             </h1>
             <p className="text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">
-              Per costruire il tuo piano di studio personalizzato, devi prima valutare le
-              tue competenze su ogni argomento.
+              Scegli gli argomenti su cui vuoi testarti: per ognuno risponderai a
+              5 domande e riceverai le stelline automaticamente.
             </p>
             <p className="text-sm text-gray-400 dark:text-gray-500 mb-8">
-              Per ogni argomento scegli il livello che ti descrive meglio. Non ci sono risposte
-              giuste o sbagliate — sii onesto con te stesso. Puoi fermarti e riprendere in qualsiasi momento.
+              Puoi farne quanti vuoi e procedere alla dashboard quando vuoi.
+              Il test si ripete ogni {nextInterval} giorni.
             </p>
           </>
         )}
 
-        <div className="grid grid-cols-5 gap-2 mb-8 text-xs">
-          {INITIAL_LEVELS.map((l) => (
-            <div key={l.value} className="text-center">
-              <div className={`rounded-lg py-2 font-bold text-sm mb-1 ${l.selectedClass}`}>
-                {l.value}
-              </div>
-              <span className="text-gray-500 dark:text-gray-400 leading-tight">{l.short}</span>
+        <div className="grid grid-cols-5 gap-1.5 mb-8">
+          {[
+            { label: '1★', sub: '0 giuste', color: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300' },
+            { label: '2★', sub: '1 giusta', color: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300' },
+            { label: '3★', sub: '2 giuste', color: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300' },
+            { label: '4★', sub: '3-4 giuste', color: 'bg-lime-100 dark:bg-lime-900/30 text-lime-700 dark:text-lime-300' },
+            { label: '5★', sub: '5 giuste', color: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300' },
+          ].map((l) => (
+            <div key={l.label} className={`rounded-lg py-2 px-1 text-center text-xs font-semibold ${l.color}`}>
+              <div className="font-bold mb-0.5">{l.label}</div>
+              <div className="text-[10px] opacity-70">{l.sub}</div>
             </div>
           ))}
         </div>
@@ -82,427 +220,389 @@ function WelcomeScreen({
           onClick={onStart}
           className="w-full py-3 px-6 bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-white font-semibold rounded-xl transition-colors text-base"
         >
-          {isReassessment ? 'Inizia la rivalutazione' : 'Inizia la valutazione'}
+          {isReassessment ? 'Scegli gli argomenti' : 'Inizia'}
         </button>
-
-        {!isReassessment && (
-          <p className="text-xs text-gray-400 dark:text-gray-500 mt-4">
-            La valutazione si ripete ogni {nextInterval} giorni per misurare i tuoi progressi.
-          </p>
-        )}
       </div>
     </div>
   );
 }
 
-function TopicLevelPicker({
-  topic,
-  answer,
-  previousRating,
-  levels,
-  onAnswer,
-}: {
-  topic: Topic;
-  answer: number | undefined;
-  previousRating: number | undefined;
-  levels: AssessmentLevel[];
-  onAnswer: (topicId: string, value: number) => void;
-}) {
+// ── TopicSelectScreen ─────────────────────────────────────────────────────────
+
+function StarRow({ rating }: { rating: number | undefined }) {
+  if (rating === undefined) {
+    return <span className="text-gray-300 dark:text-gray-600 text-sm tracking-wider">☆☆☆☆☆</span>;
+  }
+  const STAR_COLOR: Record<number, string> = {
+    1: 'text-red-400', 2: 'text-orange-400', 3: 'text-yellow-400', 4: 'text-lime-400', 5: 'text-green-400',
+  };
   return (
-    <div className="px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors">
-      <div className="flex items-center justify-between gap-2 mb-2">
-        <p className="text-sm text-gray-800 dark:text-gray-200 leading-snug">{topic.label}</p>
-        {previousRating !== undefined && previousRating > 0 && (
-          <span className="flex-shrink-0 text-xs text-gray-400 dark:text-gray-500 tabular-nums">
-            Prima: {previousRating}★
-          </span>
-        )}
-      </div>
-      <div className="flex gap-1">
-        {levels.map((level) => {
-          const selected = answer === level.value;
-          return (
-            <button
-              key={level.value}
-              onClick={() => onAnswer(topic.id, level.value)}
-              title={level.full}
-              className={[
-                'flex-1 rounded-lg border py-1.5 px-0.5 text-center transition-all',
-                selected
-                  ? level.selectedClass
-                  : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-400 dark:text-gray-500 hover:border-gray-300 dark:hover:border-gray-600',
-              ].join(' ')}
-            >
-              <div className="text-sm font-bold leading-none">{level.value}</div>
-              <div className="text-[9px] leading-tight mt-0.5 font-medium">{level.short}</div>
-            </button>
-          );
-        })}
-      </div>
-    </div>
+    <span className={`text-sm tracking-wider ${STAR_COLOR[rating] ?? 'text-amber-400'}`}>
+      {'★'.repeat(rating)}{'☆'.repeat(5 - rating)}
+    </span>
   );
 }
 
-function SectionAssessmentView({
-  section,
-  answers,
-  previousRatings,
-  levels,
-  onAnswer,
+function TopicSelectScreen({
+  schedule,
+  sessionRatings,
+  existingRatings,
+  onSelect,
+  onFinish,
+  isReassessment,
 }: {
-  section: Section;
-  answers: Record<string, number>;
-  previousRatings: Record<string, number>;
-  levels: AssessmentLevel[];
-  onAnswer: (topicId: string, value: number) => void;
+  schedule: QuizGroup[];
+  sessionRatings: Record<string, number>;
+  existingRatings: Record<string, number>;
+  onSelect: (group: QuizGroup) => void;
+  onFinish: () => void;
+  isReassessment: boolean;
 }) {
+  const doneCount = schedule.filter((g) =>
+    g.appTopicIds.some((id) => sessionRatings[id] !== undefined),
+  ).length;
+
+  const bySection = SECTIONS.map((section) => ({
+    section,
+    groups: schedule.filter((g) => g.sectionId === section.id),
+  })).filter((s) => s.groups.length > 0);
+
   return (
-    <div
-      className={[
-        'bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700',
-        'border-l-4 overflow-hidden',
-        section.colors.border,
-      ].join(' ')}
-    >
-      <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700 flex items-center justify-between">
-        <h3 className="font-semibold text-gray-900 dark:text-gray-100 text-sm">{section.label}</h3>
-        <span className="text-xs text-gray-400 dark:text-gray-500">
-          {section.topics.filter((t) => answers[t.id] !== undefined).length}/{section.topics.length}
-        </span>
-      </div>
-      <div className="divide-y divide-gray-50 dark:divide-gray-700/50">
-        {section.topics.map((topic) => (
-          <TopicLevelPicker
-            key={topic.id}
-            topic={topic}
-            answer={answers[topic.id]}
-            previousRating={previousRatings[topic.id]}
-            levels={levels}
-            onAnswer={onAnswer}
-          />
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+      {/* Header */}
+      <header className="sticky top-0 z-20 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 px-4 py-3">
+        <div className="max-w-2xl mx-auto">
+          <div className="flex items-center justify-between mb-1">
+            <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-sm">
+              {isReassessment ? 'Rivalutazione' : 'Valutazione iniziale'}
+            </h2>
+            <span className="text-xs text-gray-400 dark:text-gray-500">
+              {doneCount}/{schedule.length} argomenti
+            </span>
+          </div>
+          <div className="h-1.5 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-amber-500 rounded-full transition-all duration-300"
+              style={{ width: `${schedule.length > 0 ? (doneCount / schedule.length) * 100 : 0}%` }}
+            />
+          </div>
+        </div>
+      </header>
+
+      {/* Sections */}
+      <div className="max-w-2xl mx-auto px-4 py-5 pb-28 space-y-4">
+        {bySection.map(({ section, groups }) => (
+          <div
+            key={section.id}
+            className={`bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 border-l-4 overflow-hidden ${section.colors.border}`}
+          >
+            <div className="px-4 py-2.5 border-b border-gray-100 dark:border-gray-800">
+              <h3 className="font-semibold text-gray-800 dark:text-gray-200 text-sm">{section.label}</h3>
+            </div>
+            <div className="divide-y divide-gray-50 dark:divide-gray-800">
+              {groups.map((group) => {
+                const sessionRating = group.appTopicIds
+                  .map((id) => sessionRatings[id])
+                  .find((r) => r !== undefined);
+                const prevRating = group.appTopicIds
+                  .map((id) => existingRatings[id])
+                  .find((r) => r !== undefined && r > 0);
+                const isDone = sessionRating !== undefined;
+
+                return (
+                  <div key={group.quizTopicId} className="flex items-center gap-3 px-4 py-3">
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm text-gray-800 dark:text-gray-200 leading-snug truncate">
+                        {group.label}
+                      </p>
+                      {isReassessment && prevRating !== undefined && !isDone && (
+                        <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
+                          Precedente: {prevRating}★
+                        </p>
+                      )}
+                    </div>
+
+                    <StarRow rating={sessionRating} />
+
+                    <button
+                      onClick={() => onSelect(group)}
+                      className={[
+                        'flex-shrink-0 text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors',
+                        isDone
+                          ? 'bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
+                          : 'bg-amber-500 hover:bg-amber-400 text-white',
+                      ].join(' ')}
+                    >
+                      {isDone ? 'Rifai' : 'Inizia'}
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         ))}
       </div>
-    </div>
-  );
-}
 
-function ResultsScreen({
-  answers,
-  previousRatings,
-  isReassessment,
-  onContinue,
-}: {
-  answers: Record<string, number>;
-  previousRatings: Record<string, number>;
-  isReassessment: boolean;
-  onContinue: () => void;
-}) {
-  const distribution = [1, 2, 3, 4, 5].map((star) => ({
-    star,
-    count: Object.values(answers).filter((v) => v === star).length,
-  }));
-  const total = ALL_TOPICS.length;
-
-  let improved = 0;
-  let regressed = 0;
-  if (isReassessment) {
-    for (const [topicId, newVal] of Object.entries(answers)) {
-      const prev = previousRatings[topicId] ?? 0;
-      if (newVal > prev) improved++;
-      if (newVal < prev) regressed++;
-    }
-  }
-
-  const solidCount = Object.values(answers).filter((v) => v >= 4).length;
-
-  const LEVEL_COLORS: Record<number, string> = {
-    1: 'bg-red-500',
-    2: 'bg-orange-500',
-    3: 'bg-yellow-500',
-    4: 'bg-lime-500',
-    5: 'bg-green-500',
-  };
-  const LEVEL_LABELS: Record<number, string> = {
-    1: 'Non conosco',
-    2: 'Vago',
-    3: 'Teoria',
-    4: 'Applico',
-    5: 'Padronanza',
-  };
-
-  return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center p-4">
-      <div className="max-w-lg w-full bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-8">
-        <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <svg className="w-8 h-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+      {/* Bottom bar */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 px-4 py-3 z-10">
+        <div className="max-w-2xl mx-auto">
+          <button
+            onClick={onFinish}
+            className="w-full py-3 rounded-xl font-semibold text-base bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-white transition-colors flex items-center justify-center gap-2"
+          >
+            {doneCount === 0 ? 'Salta per ora' : `Vai alla Dashboard`}
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
             </svg>
-          </div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">
-            {isReassessment ? 'Rivalutazione completata!' : 'Valutazione completata!'}
-          </h1>
-          <p className="text-gray-500 dark:text-gray-400 text-sm">
-            {total} argomenti valutati · {solidCount} solidi ({Math.round((solidCount / total) * 100)}%)
-          </p>
+          </button>
+          {doneCount > 0 && (
+            <p className="text-center text-xs text-gray-400 dark:text-gray-500 mt-1.5">
+              {doneCount} argomento{doneCount !== 1 ? 'i' : ''} valutato{doneCount !== 1 ? 'i' : ''} · puoi completare gli altri in seguito
+            </p>
+          )}
         </div>
-
-        {/* Distribution bars */}
-        <div className="space-y-2 mb-6">
-          {distribution.map(({ star, count }) => (
-            <div key={star} className="flex items-center gap-3">
-              <span className="text-xs text-gray-500 dark:text-gray-400 w-20 text-right">
-                {LEVEL_LABELS[star]}
-              </span>
-              <div className="flex-1 h-4 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
-                <div
-                  className={`h-full rounded-full transition-all ${LEVEL_COLORS[star]}`}
-                  style={{ width: total > 0 ? `${(count / total) * 100}%` : '0%' }}
-                />
-              </div>
-              <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 w-6 tabular-nums">
-                {count}
-              </span>
-            </div>
-          ))}
-        </div>
-
-        {/* Improvement summary for re-assessments */}
-        {isReassessment && (
-          <div className="flex gap-3 mb-6">
-            <div className="flex-1 bg-green-50 dark:bg-green-900/20 rounded-xl border border-green-200 dark:border-green-800 p-3 text-center">
-              <p className="text-2xl font-bold text-green-600 dark:text-green-400">+{improved}</p>
-              <p className="text-xs text-green-700 dark:text-green-500">argomenti migliorati</p>
-            </div>
-            {regressed > 0 && (
-              <div className="flex-1 bg-red-50 dark:bg-red-900/20 rounded-xl border border-red-200 dark:border-red-800 p-3 text-center">
-                <p className="text-2xl font-bold text-red-600 dark:text-red-400">-{regressed}</p>
-                <p className="text-xs text-red-700 dark:text-red-500">argomenti calati</p>
-              </div>
-            )}
-          </div>
-        )}
-
-        <button
-          onClick={onContinue}
-          className="w-full py-3 px-6 bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-white font-semibold rounded-xl transition-colors"
-        >
-          Vai alla Dashboard
-        </button>
       </div>
     </div>
   );
 }
 
-// ── Main component ───────────────────────────────────────────────────────────
+// ── SingleTopicQuiz ───────────────────────────────────────────────────────────
+
+function SingleTopicQuiz({
+  group,
+  onComplete,
+  onBack,
+}: {
+  group: QuizGroup;
+  onComplete: (correctCount: number) => void;
+  onBack: () => void;
+}) {
+  const [questionIdx, setQuestionIdx] = useState(0);
+  const [correct, setCorrect] = useState(0);
+  const [selected, setSelected] = useState<number | null>(null);
+  const [showFeedback, setShowFeedback] = useState(false);
+
+  const question: Question = group.questions[questionIdx];
+  const isLastQuestion = questionIdx === group.questions.length - 1;
+  const isCorrectSelected = selected === question.correct;
+  const LABELS = ['A', 'B', 'C', 'D'];
+
+  function handleConfirm() {
+    if (selected === null) return;
+
+    if (!showFeedback) {
+      if (isCorrectSelected) setCorrect((c) => c + 1);
+      setShowFeedback(true);
+      return;
+    }
+
+    const finalCorrect = isCorrectSelected ? correct + 1 : correct;
+
+    if (!isLastQuestion) {
+      setQuestionIdx((i) => i + 1);
+      setSelected(null);
+      setShowFeedback(false);
+      return;
+    }
+
+    onComplete(finalCorrect);
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col">
+      {/* Header */}
+      <header className="sticky top-0 z-20 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 px-4 py-3">
+        <div className="max-w-2xl mx-auto">
+          <div className="flex items-center gap-3 mb-2">
+            <button
+              onClick={onBack}
+              className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+              Argomenti
+            </button>
+            <div className="flex-1 text-center">
+              <p className="text-xs text-gray-400 dark:text-gray-500">{group.sectionLabel}</p>
+              <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 leading-tight">{group.label}</p>
+            </div>
+            <span className="text-xs text-gray-400 dark:text-gray-500 w-16 text-right tabular-nums">
+              {questionIdx + 1}/{group.questions.length}
+            </span>
+          </div>
+          {/* Question dots */}
+          <div className="flex gap-1">
+            {group.questions.map((_, i) => (
+              <div
+                key={i}
+                className={[
+                  'flex-1 h-1 rounded-full transition-colors',
+                  i < questionIdx || (i === questionIdx && showFeedback)
+                    ? 'bg-amber-400'
+                    : i === questionIdx
+                    ? 'bg-amber-300'
+                    : 'bg-gray-200 dark:bg-gray-700',
+                ].join(' ')}
+              />
+            ))}
+          </div>
+        </div>
+      </header>
+
+      {/* Question */}
+      <main className="flex-1 max-w-2xl mx-auto w-full px-4 py-6 pb-32">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 mb-4">
+          <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 inline-block mb-4">
+            Difficoltà {question.difficulty}
+          </span>
+          <p className="text-gray-900 dark:text-gray-100 text-base leading-relaxed font-medium">
+            {question.question}
+          </p>
+        </div>
+
+        {/* Options */}
+        <div className="space-y-3 mb-4">
+          {question.options.map((option, i) => {
+            let cls = 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200';
+            if (!showFeedback && selected === i)
+              cls = 'border-amber-400 bg-amber-50 dark:bg-amber-900/20 text-gray-900 dark:text-gray-100 ring-1 ring-amber-400';
+            if (showFeedback && i === question.correct)
+              cls = 'border-green-500 bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-200';
+            if (showFeedback && selected === i && i !== question.correct)
+              cls = 'border-red-400 bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-200';
+
+            return (
+              <button
+                key={i}
+                onClick={() => !showFeedback && setSelected(i)}
+                disabled={showFeedback}
+                className={`w-full text-left flex items-start gap-3 px-4 py-3 rounded-xl border-2 transition-all ${cls} ${!showFeedback ? 'hover:border-amber-300 dark:hover:border-amber-600 hover:bg-amber-50 dark:hover:bg-amber-900/10' : ''}`}
+              >
+                <span className="flex-shrink-0 w-6 h-6 rounded-full border-2 border-current flex items-center justify-center text-xs font-bold mt-0.5">
+                  {LABELS[i]}
+                </span>
+                <span className="text-sm leading-relaxed flex-1">{option}</span>
+                {showFeedback && i === question.correct && (
+                  <svg className="w-5 h-5 flex-shrink-0 text-green-500 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                )}
+                {showFeedback && selected === i && i !== question.correct && (
+                  <svg className="w-5 h-5 flex-shrink-0 text-red-500 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                )}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Explanation */}
+        {showFeedback && (
+          <div className={`rounded-xl border px-4 py-3 text-sm leading-relaxed ${
+            isCorrectSelected
+              ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800 text-green-800 dark:text-green-200'
+              : 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-200'
+          }`}>
+            <p className="font-semibold mb-1">{isCorrectSelected ? '✓ Corretto!' : '✗ Sbagliato'}</p>
+            <p>{question.explanation}</p>
+          </div>
+        )}
+      </main>
+
+      {/* Bottom bar */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 px-4 py-3 z-10">
+        <div className="max-w-2xl mx-auto">
+          <button
+            onClick={handleConfirm}
+            disabled={selected === null}
+            className={[
+              'w-full py-3 rounded-xl font-semibold text-base transition-colors',
+              selected === null
+                ? 'bg-gray-100 dark:bg-gray-800 text-gray-400 cursor-not-allowed'
+                : 'bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-white',
+            ].join(' ')}
+          >
+            {!showFeedback
+              ? 'Conferma risposta'
+              : isLastQuestion
+              ? 'Vedi risultato →'
+              : 'Prossima domanda →'}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Main component ────────────────────────────────────────────────────────────
 
 export default function Assessment() {
   const { data, completeAssessment } = useTracker();
   const navigate = useNavigate();
 
   const isReassessment = data.onboardingComplete;
-  const levels = isReassessment ? REASSESSMENT_LEVELS : INITIAL_LEVELS;
+
+  const schedule = useMemo(
+    () => buildQuizSchedule(isReassessment),
+    [isReassessment],
+  );
 
   const [screen, setScreen] = useState<Screen>('welcome');
-  const [sectionIdx, setSectionIdx] = useState(0);
+  const [sessionRatings, setSessionRatings] = useState<Record<string, number>>({});
+  const [activeGroup, setActiveGroup] = useState<QuizGroup | null>(null);
 
-  // Load draft answers from localStorage so the session can be resumed
-  const [answers, setAnswers] = useState<Record<string, number>>(() => {
-    try {
-      const draft = localStorage.getItem(DRAFT_KEY);
-      return draft ? (JSON.parse(draft) as Record<string, number>) : {};
-    } catch {
-      return {};
-    }
-  });
+  function handleSelectTopic(group: QuizGroup) {
+    setActiveGroup(group);
+    setScreen('quiz');
+  }
 
-  // Persist draft as user answers
-  useEffect(() => {
-    if (screen === 'assess') {
-      localStorage.setItem(DRAFT_KEY, JSON.stringify(answers));
-    }
-  }, [answers, screen]);
+  function handleTopicComplete(correctCount: number) {
+    if (!activeGroup) return;
+    const rating = computeRating(correctCount);
+    setSessionRatings((prev) => {
+      const next = { ...prev };
+      for (const appId of activeGroup.appTopicIds) next[appId] = rating;
+      return next;
+    });
+    setActiveGroup(null);
+    setScreen('select');
+  }
 
-  const handleAnswer = (topicId: string, value: number) => {
-    setAnswers((prev) => ({ ...prev, [topicId]: value }));
-  };
-
-  const handleComplete = () => {
-    completeAssessment(answers);
-    localStorage.removeItem(DRAFT_KEY);
-    setScreen('done');
-  };
-
-  const totalTopics = ALL_TOPICS.length;
-  const answeredCount = Object.keys(answers).filter(
-    (id) => answers[id] !== undefined,
-  ).length;
-  const allAnswered = answeredCount >= totalTopics;
-
-  const currentSection = SECTIONS[sectionIdx];
-
-  // Section progress: how many topics in the current section are answered
-  const sectionAnsweredCount = currentSection
-    ? currentSection.topics.filter((t) => answers[t.id] !== undefined).length
-    : 0;
-  const sectionComplete = currentSection
-    ? sectionAnsweredCount === currentSection.topics.length
-    : false;
+  function handleFinish() {
+    completeAssessment(sessionRatings);
+    navigate('/');
+  }
 
   if (screen === 'welcome') {
     return (
       <WelcomeScreen
         isReassessment={isReassessment}
         assessmentCount={data.assessmentCount}
-        onStart={() => setScreen('assess')}
+        onStart={() => setScreen('select')}
       />
     );
   }
 
-  if (screen === 'done') {
+  if (screen === 'quiz' && activeGroup) {
     return (
-      <ResultsScreen
-        answers={answers}
-        previousRatings={data.ratings}
-        isReassessment={isReassessment}
-        onContinue={() => navigate('/')}
+      <SingleTopicQuiz
+        group={activeGroup}
+        onComplete={handleTopicComplete}
+        onBack={() => { setActiveGroup(null); setScreen('select'); }}
       />
     );
   }
-
-  const isLastSection = sectionIdx === SECTIONS.length - 1;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
-      {/* Sticky header with progress */}
-      <header className="sticky top-0 z-20 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 px-4 py-3">
-        <div className="max-w-2xl mx-auto">
-          <div className="flex items-center justify-between mb-2">
-            <div>
-              <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-sm">
-                {isReassessment ? 'Rivalutazione' : 'Valutazione competenze'}
-              </h2>
-              <p className="text-xs text-gray-400 dark:text-gray-500">
-                Sezione {sectionIdx + 1}/{SECTIONS.length} · {answeredCount}/{totalTopics} argomenti
-              </p>
-            </div>
-            {!allAnswered && (
-              <span className="text-xs text-gray-400 dark:text-gray-500">
-                {totalTopics - answeredCount} rimanenti
-              </span>
-            )}
-            {allAnswered && (
-              <span className="text-xs text-green-500 font-medium">Tutto risposto</span>
-            )}
-          </div>
-          <div className="h-1.5 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-amber-500 rounded-full transition-all duration-300"
-              style={{ width: `${(answeredCount / totalTopics) * 100}%` }}
-            />
-          </div>
-        </div>
-      </header>
-
-      <div className="max-w-2xl mx-auto px-4 py-6 pb-32">
-        {/* Level legend */}
-        <div className="flex gap-1.5 mb-5 flex-wrap">
-          {levels.map((l) => (
-            <span
-              key={l.value}
-              className={`text-xs px-2.5 py-1 rounded-full font-medium ${l.legendClass}`}
-            >
-              {l.value} — {l.short}
-            </span>
-          ))}
-        </div>
-
-        {/* Section card */}
-        <SectionAssessmentView
-          section={currentSection}
-          answers={answers}
-          previousRatings={isReassessment ? data.ratings : {}}
-          levels={levels}
-          onAnswer={handleAnswer}
-        />
-
-        {/* Section jump dots */}
-        <div className="flex justify-center gap-1.5 mt-4 flex-wrap">
-          {SECTIONS.map((s, i) => {
-            const sAnswered = s.topics.filter((t) => answers[t.id] !== undefined).length;
-            const sDone = sAnswered === s.topics.length;
-            return (
-              <button
-                key={s.id}
-                onClick={() => setSectionIdx(i)}
-                title={s.label}
-                className={[
-                  'w-2.5 h-2.5 rounded-full transition-all',
-                  i === sectionIdx
-                    ? 'scale-125 bg-amber-500'
-                    : sDone
-                    ? 'bg-green-400 dark:bg-green-600'
-                    : 'bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600',
-                ].join(' ')}
-              />
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Fixed bottom nav bar */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 px-4 py-3 z-10">
-        <div className="max-w-2xl mx-auto flex items-center justify-between gap-3">
-          <button
-            onClick={() => setSectionIdx((i) => Math.max(0, i - 1))}
-            disabled={sectionIdx === 0}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 text-sm text-gray-600 dark:text-gray-400 disabled:opacity-30 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-          >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-            </svg>
-            Precedente
-          </button>
-
-          <div className="text-center">
-            <p className="text-xs text-gray-400 dark:text-gray-500 font-medium">
-              {currentSection.label}
-            </p>
-            <p className="text-xs text-gray-400 dark:text-gray-500">
-              {sectionAnsweredCount}/{currentSection.topics.length}
-              {sectionComplete && ' ✓'}
-            </p>
-          </div>
-
-          {isLastSection ? (
-            <button
-              onClick={handleComplete}
-              disabled={!allAnswered}
-              className={[
-                'flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold transition-colors',
-                allAnswered
-                  ? 'bg-amber-500 hover:bg-amber-400 text-white'
-                  : 'bg-gray-100 dark:bg-gray-800 text-gray-400 cursor-not-allowed',
-              ].join(' ')}
-            >
-              Completa
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-              </svg>
-            </button>
-          ) : (
-            <button
-              onClick={() => setSectionIdx((i) => Math.min(SECTIONS.length - 1, i + 1))}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-            >
-              Successiva
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          )}
-        </div>
-      </div>
-    </div>
+    <TopicSelectScreen
+      schedule={schedule}
+      sessionRatings={sessionRatings}
+      existingRatings={data.ratings}
+      onSelect={handleSelectTopic}
+      onFinish={handleFinish}
+      isReassessment={isReassessment}
+    />
   );
 }
