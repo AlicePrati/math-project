@@ -7,6 +7,8 @@ import {
 } from '../data/assessmentLevels';
 import { getQuestionsForTopic, computeRating } from '../data/questions';
 import type { Question } from '../data/questions';
+import { getStudyPlanForTopic } from '../data/studyPlans';
+import type { StudyPlan } from '../data/studyPlans';
 import { useTracker } from '../store/useTracker';
 
 // ── Mapping: app topic ID → question topic ID ────────────────────────────────
@@ -91,7 +93,7 @@ const APP_TO_QUIZ: Record<string, string | null> = {
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
-type Screen = 'welcome' | 'select' | 'quiz';
+type Screen = 'welcome' | 'select' | 'quiz' | 'result';
 
 interface QuizGroup {
   quizTopicId: string;
@@ -536,6 +538,157 @@ function SingleTopicQuiz({
   );
 }
 
+// ── TopicResultScreen ─────────────────────────────────────────────────────────
+
+const STAR_COLOR: Record<number, string> = {
+  1: 'text-red-400', 2: 'text-orange-400', 3: 'text-yellow-400',
+  4: 'text-lime-400', 5: 'text-green-400',
+};
+const PRIORITY_COLOR: Record<string, string> = {
+  critical: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300',
+  high: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
+  medium: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300',
+  low: 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400',
+};
+
+function TopicResultScreen({
+  group,
+  rating,
+  plan,
+  onNext,
+  onFinish,
+}: {
+  group: QuizGroup;
+  rating: 1 | 2 | 3 | 4 | 5;
+  plan: StudyPlan | undefined;
+  onNext: () => void;
+  onFinish: () => void;
+}) {
+  return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col">
+      <div className="max-w-2xl mx-auto w-full px-4 py-6 pb-32 space-y-4">
+
+        {/* Risultato */}
+        <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 text-center">
+          <p className="text-xs text-gray-400 dark:text-gray-500 uppercase tracking-wide mb-1">
+            {group.sectionLabel} · {group.label}
+          </p>
+          <p className="text-4xl tracking-wider my-3 font-bold">
+            <span className={STAR_COLOR[rating]}>{'★'.repeat(rating)}</span>
+            <span className="text-gray-200 dark:text-gray-700">{'★'.repeat(5 - rating)}</span>
+          </p>
+          <p className="text-base font-semibold text-gray-800 dark:text-gray-200">
+            {plan?.label ?? `${rating} stelle`}
+          </p>
+          {plan && (
+            <span className={`inline-block mt-2 text-xs font-semibold px-2.5 py-1 rounded-full ${PRIORITY_COLOR[plan.priority]}`}>
+              {plan.priority === 'critical' ? 'Priorità critica' :
+               plan.priority === 'high' ? 'Priorità alta' :
+               plan.priority === 'medium' ? 'Priorità media' : 'Bassa priorità'}
+              {plan.timeEstimate ? ` · ${plan.timeEstimate}` : ''}
+            </span>
+          )}
+        </div>
+
+        {plan && (
+          <>
+            {/* Cosa devi capire */}
+            <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
+              <p className="text-xs font-semibold uppercase tracking-wide text-blue-500 dark:text-blue-400 mb-2">Cosa devi capire</p>
+              <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{plan.whatYouNeed}</p>
+            </div>
+
+            {/* Come procedere */}
+            {plan.approach.length > 0 && (
+              <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
+                <p className="text-xs font-semibold uppercase tracking-wide text-amber-500 dark:text-amber-400 mb-3">Come procedere</p>
+                <ol className="space-y-2">
+                  {plan.approach.map((step, i) => (
+                    <li key={i} className="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                      <span className="flex-shrink-0 w-5 h-5 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 text-xs font-bold flex items-center justify-center mt-0.5">
+                        {i + 1}
+                      </span>
+                      <span>{step}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            )}
+
+            {/* Concetti chiave + Errori comuni */}
+            {(plan.keyPoints.length > 0 || plan.commonMistakes.length > 0) && (
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                {plan.keyPoints.length > 0 && (
+                  <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-green-600 dark:text-green-400 mb-2">Concetti chiave</p>
+                    <ul className="space-y-1.5">
+                      {plan.keyPoints.map((k, i) => (
+                        <li key={i} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+                          <span className="text-gray-400 mt-0.5">•</span><span>{k}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                {plan.commonMistakes.length > 0 && (
+                  <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-red-500 dark:text-red-400 mb-2">Errori comuni</p>
+                    <ul className="space-y-1.5">
+                      {plan.commonMistakes.map((m, i) => (
+                        <li key={i} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+                          <span className="text-gray-400 mt-0.5">•</span><span>{m}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Esercizi */}
+            {plan.exercises.length > 0 && (
+              <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
+                <p className="text-xs font-semibold uppercase tracking-wide text-purple-600 dark:text-purple-400 mb-2">Esercizi suggeriti</p>
+                <ul className="space-y-1.5">
+                  {plan.exercises.map((e, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+                      <span className="text-gray-400 mt-0.5">•</span><span>{e}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Prossimo passo */}
+            <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-2xl p-5">
+              <p className="text-xs font-semibold uppercase tracking-wide text-green-600 dark:text-green-400 mb-1">Prossimo passo</p>
+              <p className="text-sm text-green-700 dark:text-green-300 leading-relaxed">{plan.nextStep}</p>
+            </div>
+          </>
+        )}
+      </div>
+
+      {/* Bottom bar */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 px-4 py-3 z-10">
+        <div className="max-w-2xl mx-auto flex gap-3">
+          <button
+            onClick={onFinish}
+            className="flex-1 py-3 rounded-xl font-semibold text-sm border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+          >
+            Vai alla Dashboard
+          </button>
+          <button
+            onClick={onNext}
+            className="flex-1 py-3 rounded-xl font-semibold text-sm bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-white transition-colors"
+          >
+            Scegli un altro argomento →
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── Main component ────────────────────────────────────────────────────────────
 
 export default function Assessment() {
@@ -552,6 +705,7 @@ export default function Assessment() {
   const [screen, setScreen] = useState<Screen>('welcome');
   const [sessionRatings, setSessionRatings] = useState<Record<string, number>>({});
   const [activeGroup, setActiveGroup] = useState<QuizGroup | null>(null);
+  const [lastResult, setLastResult] = useState<{ group: QuizGroup; rating: 1|2|3|4|5 } | null>(null);
 
   function handleSelectTopic(group: QuizGroup) {
     setActiveGroup(group);
@@ -561,13 +715,12 @@ export default function Assessment() {
   function handleTopicComplete(correctCount: number) {
     if (!activeGroup) return;
     const rating = computeRating(correctCount);
-    setSessionRatings((prev) => {
-      const next = { ...prev };
-      for (const appId of activeGroup.appTopicIds) next[appId] = rating;
-      return next;
-    });
+    const newRatings: Record<string, number> = {};
+    for (const appId of activeGroup.appTopicIds) newRatings[appId] = rating;
+    setSessionRatings((prev) => ({ ...prev, ...newRatings }));
+    setLastResult({ group: activeGroup, rating });
     setActiveGroup(null);
-    setScreen('select');
+    setScreen('result');
   }
 
   function handleFinish() {
@@ -591,6 +744,22 @@ export default function Assessment() {
         group={activeGroup}
         onComplete={handleTopicComplete}
         onBack={() => { setActiveGroup(null); setScreen('select'); }}
+      />
+    );
+  }
+
+  if (screen === 'result' && lastResult) {
+    const plan = getStudyPlanForTopic(
+      lastResult.group.appTopicIds[0],
+      lastResult.rating,
+    );
+    return (
+      <TopicResultScreen
+        group={lastResult.group}
+        rating={lastResult.rating}
+        plan={plan}
+        onNext={() => setScreen('select')}
+        onFinish={handleFinish}
       />
     );
   }
