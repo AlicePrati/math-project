@@ -6,6 +6,7 @@ import {
   SUBSEQUENT_REASSESSMENT_DAYS,
 } from '../data/assessmentLevels';
 import { getQuestionsForTopic, computeRating } from '../data/questions';
+import { api } from '../lib/api';
 import type { Question } from '../data/questions';
 import { getStudyPlanForTopic } from '../data/studyPlans';
 import type { StudyPlan } from '../data/studyPlans';
@@ -725,6 +726,9 @@ export default function Assessment() {
 
   function handleFinish() {
     completeAssessment(sessionRatings);
+    api.ratings.completeAssessment(sessionRatings).catch(() => {
+      // fallback silenzioso: i dati sono già in localStorage
+    });
     navigate('/');
   }
 

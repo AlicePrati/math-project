@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import { useAuth } from '../store/useAuth';
 
 interface NavItem {
   to: string;
@@ -62,13 +63,15 @@ function navLinkClass(active: boolean, sidebar: boolean) {
 }
 
 export function Nav() {
+  const { user, logout } = useAuth();
+
   return (
     <>
       {/* ── Desktop sidebar ── */}
       <aside className="hidden md:flex flex-col fixed left-0 top-0 bottom-0 w-56 bg-white border-r border-gray-200 z-40">
         <div className="px-4 pt-6 pb-4 border-b border-gray-100">
           <h1 className="text-base font-bold text-gray-900">Analisi 1</h1>
-          <p className="text-xs text-gray-400">Competency Tracker</p>
+          <p className="text-xs text-gray-400 truncate">{user?.email}</p>
         </div>
         <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
           {NAV_ITEMS.map(({ to, label, icon }) => (
@@ -87,6 +90,17 @@ export function Nav() {
             </NavLink>
           ))}
         </nav>
+        <div className="px-3 pb-4">
+          <button
+            onClick={logout}
+            className="flex items-center gap-2 w-full px-3 py-2 rounded-lg text-sm text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition-colors"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+            </svg>
+            <span>Esci</span>
+          </button>
+        </div>
       </aside>
 
       {/* ── Mobile bottom bar ── */}

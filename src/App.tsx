@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeContext } from './store/useTheme';
+import { AuthProvider, useAuth } from './store/useAuth';
 import { Nav } from './components/Nav';
 import Dashboard from './pages/Dashboard';
 import Tracker from './pages/Tracker';
@@ -8,6 +9,7 @@ import Plan from './pages/Plan';
 import History from './pages/History';
 import Assessment from './pages/Assessment';
 import TopicStudyPlan from './pages/TopicStudyPlan';
+import Login from './pages/Login';
 
 function getInitialDark(): boolean {
   const stored = localStorage.getItem('analisi1_dark');
@@ -16,8 +18,20 @@ function getInitialDark(): boolean {
 }
 
 function AppShell() {
+  const { user, isLoading } = useAuth();
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="w-8 h-8 rounded-full border-2 border-amber-500 border-t-transparent animate-spin" />
+      </div>
+    );
+  }
+
+  if (!user) return <Login />;
+
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+    <div className="min-h-screen bg-gray-50">
       <Nav />
       <main className="md:ml-56 pb-20 md:pb-0 min-h-screen">
         <Routes>
@@ -35,24 +49,20 @@ function AppShell() {
 }
 
 export default function App() {
-  const [dark, setDark] = useState(getInitialDark);
+  const [dark] = useState(getInitialDark);
 
   useEffect(() => {
-    if (dark) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-    localStorage.setItem('analisi1_dark', String(dark));
+    if (dark) document.documentElement.classList.add('dark');
+    else document.documentElement.classList.remove('dark');
   }, [dark]);
 
-  const toggle = () => setDark((d) => !d);
-
   return (
-    <ThemeContext.Provider value={{ dark, toggle }}>
-      <BrowserRouter>
-        <AppShell />
-      </BrowserRouter>
+    <ThemeContext.Provider value={{ dark, toggle: () => {} }}>
+      <AuthProvider>
+        <BrowserRouter>
+          <AppShell />
+        </BrowserRouter>
+      </AuthProvider>
     </ThemeContext.Provider>
   );
 }
