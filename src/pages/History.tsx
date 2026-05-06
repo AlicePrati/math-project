@@ -11,7 +11,6 @@ import {
 import { TOPIC_MAP, PRESEED_RATINGS } from '../data/topics';
 import { useTracker } from '../store/useTracker';
 import type { RatingChange } from '../store/useTracker';
-import { useTheme } from '../store/useTheme';
 
 function getISOWeek(date: Date): string {
   const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
@@ -66,14 +65,13 @@ function buildChartData(history: RatingChange[]) {
 
 export default function History() {
   const { data } = useTracker();
-  const { dark } = useTheme();
 
   const chartData = useMemo(() => buildChartData(data.history), [data.history]);
 
   const sortedHistory = [...data.history].sort((a, b) => b.ts.localeCompare(a.ts));
 
-  const gridColor = dark ? '#374151' : '#F3F4F6';
-  const tickColor = dark ? '#9CA3AF' : '#6B7280';
+  const gridColor = '#F3F4F6';
+  const tickColor = '#6B7280';
 
   return (
     <div className="p-4 md:p-6 max-w-3xl mx-auto">
@@ -109,11 +107,11 @@ export default function History() {
               <Tooltip
                 formatter={(v) => [`${v}★`, 'Media']}
                 contentStyle={{
-                  backgroundColor: dark ? '#1F2937' : '#ffffff',
-                  borderColor: dark ? '#374151' : '#E5E7EB',
+                  backgroundColor: '#ffffff',
+                  borderColor: '#E5E7EB',
                   borderRadius: 8,
                   fontSize: 12,
-                  color: dark ? '#F9FAFB' : '#111827',
+                  color: '#111827',
                 }}
               />
               <Line

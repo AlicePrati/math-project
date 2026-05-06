@@ -1,6 +1,4 @@
-import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { ThemeContext } from './store/useTheme';
 import { AuthProvider, useAuth } from './store/useAuth';
 import { Nav } from './components/Nav';
 import Dashboard from './pages/Dashboard';
@@ -11,11 +9,6 @@ import Assessment from './pages/Assessment';
 import TopicStudyPlan from './pages/TopicStudyPlan';
 import Login from './pages/Login';
 
-function getInitialDark(): boolean {
-  const stored = localStorage.getItem('analisi1_dark');
-  if (stored !== null) return stored === 'true';
-  return window.matchMedia('(prefers-color-scheme: dark)').matches;
-}
 
 function AppShell() {
   const { user, isLoading } = useAuth();
@@ -48,21 +41,11 @@ function AppShell() {
   );
 }
 
-export default function App() {
-  const [dark] = useState(getInitialDark);
-
-  useEffect(() => {
-    if (dark) document.documentElement.classList.add('dark');
-    else document.documentElement.classList.remove('dark');
-  }, [dark]);
-
   return (
-    <ThemeContext.Provider value={{ dark, toggle: () => {} }}>
       <AuthProvider>
         <BrowserRouter>
           <AppShell />
         </BrowserRouter>
       </AuthProvider>
-    </ThemeContext.Provider>
   );
 }
