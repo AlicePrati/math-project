@@ -116,7 +116,7 @@ function shuffle<T>(arr: T[]): T[] {
   return copy;
 }
 
-function buildQuizSchedule(shuffleQuestions: boolean): QuizGroup[] {
+function buildQuizSchedule(): QuizGroup[] {
   const groups: QuizGroup[] = [];
   const usedQuizTopics = new Set<string>();
 
@@ -130,8 +130,11 @@ function buildQuizSchedule(shuffleQuestions: boolean): QuizGroup[] {
         continue;
       }
 
-      const qs = getQuestionsForTopic(quizTopicId);
-      if (qs.length === 0) continue;
+      const allQs = getQuestionsForTopic(quizTopicId);
+      if (allQs.length === 0) continue;
+
+      // Mescola sempre e prende 5 domande (mix MCQ + TF)
+      const questions = shuffle(allQs).slice(0, 5);
 
       usedQuizTopics.add(quizTopicId);
       groups.push({
@@ -140,7 +143,7 @@ function buildQuizSchedule(shuffleQuestions: boolean): QuizGroup[] {
         label: topic.label,
         sectionId: section.id,
         sectionLabel: section.label,
-        questions: shuffleQuestions ? shuffle(qs) : qs,
+        questions,
       });
     }
   }
@@ -388,7 +391,8 @@ function SingleTopicQuiz({
   const question: Question = group.questions[questionIdx];
   const isLastQuestion = questionIdx === group.questions.length - 1;
   const isCorrectSelected = selected === question.correct;
-  const LABELS = ['A', 'B', 'C', 'D'];
+  const isTF = question.type === 'tf';
+  const LABELS = isTF ? ['V', 'F'] : ['A', 'B', 'C', 'D'];
 
   function handleConfirm() {
     if (selected === null) return;
@@ -699,7 +703,7 @@ export default function Assessment() {
   const isReassessment = data.onboardingComplete;
 
   const schedule = useMemo(
-    () => buildQuizSchedule(isReassessment),
+    () => buildQuizSchedule(),
     [isReassessment],
   );
 

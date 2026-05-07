@@ -1,14 +1,16 @@
-export type { Question } from './types';
+export type { Question, QuestionType } from './types';
 import { prereqQuestions } from './prereq';
 import { analysis1Questions } from './analysis1';
 import { analysis2Questions } from './analysis2';
 import { analysis3Questions } from './analysis3';
+import { tfQuestions } from './tf';
 
 export const questions = [
   ...prereqQuestions,
   ...analysis1Questions,
   ...analysis2Questions,
   ...analysis3Questions,
+  ...tfQuestions,
 ];
 
 export function getQuestionsForTopic(topicId: string) {

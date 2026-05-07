@@ -4,28 +4,28 @@ export const prereqQuestions: Question[] = [
 
   // ── PROPOSIZIONI E CONNETTIVI LOGICI ──────────────────────
   {
-    id: 'prop_01', topicId: 'logica_proposizioni', difficulty: 1,
+    id: 'prop_01', topicId: 'logica_proposizioni', type: 'mcq', difficulty: 1,
     question: 'Quale delle seguenti è una proposizione logica (cioè un enunciato che può essere vero o falso)?',
     options: ['Chiudi la porta!', 'Il numero 7 è primo.', 'Quanto fa 2+2?', 'Che bella giornata!'],
     correct: 1,
     explanation: "Una proposizione logica è un enunciato dichiarativo con valore di verità definito. 'Il numero 7 è primo' è vero. Le altre opzioni sono un imperativo, una domanda e un'esclamazione.",
   },
   {
-    id: 'prop_02', topicId: 'logica_proposizioni', difficulty: 2,
+    id: 'prop_02', topicId: 'logica_proposizioni', type: 'mcq', difficulty: 2,
     question: 'Se P è vera e Q è falsa, qual è il valore di verità di P ∧ Q (P e Q)?',
     options: ['Vero', 'Falso', 'Dipende dal contesto', 'Non determinabile'],
     correct: 1,
     explanation: 'La congiunzione P ∧ Q è vera solo se entrambe le proposizioni sono vere. Poiché Q è falsa, P ∧ Q è falso.',
   },
   {
-    id: 'prop_03', topicId: 'logica_proposizioni', difficulty: 3,
+    id: 'prop_03', topicId: 'logica_proposizioni', type: 'mcq', difficulty: 3,
     question: "Qual è la negazione della proposizione 'P ∨ Q' (P oppure Q)?",
     options: ['¬P ∨ ¬Q', '¬P ∧ ¬Q', 'P ∧ ¬Q', '¬P ∨ Q'],
     correct: 1,
     explanation: 'Per le leggi di De Morgan: ¬(P ∨ Q) = ¬P ∧ ¬Q. La negazione di un "o" diventa un "e" con entrambi i termini negati.',
   },
   {
-    id: 'prop_04', topicId: 'logica_proposizioni', difficulty: 4,
+    id: 'prop_04', topicId: 'logica_proposizioni', type: 'mcq', difficulty: 4,
     question: 'Una tautologia è una proposizione composta che:',
     options: [
       'È vera solo quando tutte le sue parti sono vere',
@@ -37,7 +37,7 @@ export const prereqQuestions: Question[] = [
     explanation: "Una tautologia è un'espressione logica vera per qualsiasi assegnazione di valori alle sue variabili. L'esempio classico è P ∨ ¬P (principio del terzo escluso).",
   },
   {
-    id: 'prop_05', topicId: 'logica_proposizioni', difficulty: 5,
+    id: 'prop_05', topicId: 'logica_proposizioni', type: 'mcq', difficulty: 5,
     question: 'Qual è il valore di verità di (P → Q) ↔ (¬Q → ¬P)?',
     options: [
       'Sempre vero (è una tautologia)',
@@ -51,7 +51,7 @@ export const prereqQuestions: Question[] = [
 
   // ── QUANTIFICATORI ∀ E ∃ ──────────────────────────────────
   {
-    id: 'quant_01', topicId: 'logica_quantificatori', difficulty: 1,
+    id: 'quant_01', topicId: 'logica_quantificatori', type: 'mcq', difficulty: 1,
     question: 'Come si legge il simbolo ∀x ∈ ℝ, x² ≥ 0?',
     options: [
       'Esiste un numero reale x tale che x² ≥ 0',
@@ -63,14 +63,14 @@ export const prereqQuestions: Question[] = [
     explanation: "Il simbolo ∀ è il quantificatore universale e si legge 'per ogni'. Dunque ∀x ∈ ℝ, x² ≥ 0 significa 'per ogni numero reale x, il suo quadrato è non negativo'.",
   },
   {
-    id: 'quant_02', topicId: 'logica_quantificatori', difficulty: 2,
+    id: 'quant_02', topicId: 'logica_quantificatori', type: 'mcq', difficulty: 2,
     question: "Qual è la negazione corretta di '∀x ∈ ℝ, x > 0'?",
     options: ['∀x ∈ ℝ, x ≤ 0', '∃x ∈ ℝ, x ≤ 0', '∃x ∈ ℝ, x > 0', '∀x ∈ ℝ, x < 0'],
     correct: 1,
     explanation: 'Per negare un enunciato con ∀ si usa ∃ e si nega il predicato: ¬(∀x, P(x)) = ∃x, ¬P(x). Quindi ¬(∀x ∈ ℝ, x > 0) = ∃x ∈ ℝ, x ≤ 0.',
   },
   {
-    id: 'quant_03', topicId: 'logica_quantificatori', difficulty: 3,
+    id: 'quant_03', topicId: 'logica_quantificatori', type: 'mcq', difficulty: 3,
     question: 'Quale delle seguenti affermazioni è VERA?',
     options: [
       '∀x ∈ ℝ, ∃y ∈ ℝ : y > x   è equivalente a   ∃y ∈ ℝ, ∀x ∈ ℝ : y > x',
@@ -82,7 +82,7 @@ export const prereqQuestions: Question[] = [
     explanation: '∀x ∈ ℝ, ∃y ∈ ℝ : y > x è vera: per ogni x reale, basta prendere y = x+1. Le altre sono false.',
   },
   {
-    id: 'quant_04', topicId: 'logica_quantificatori', difficulty: 4,
+    id: 'quant_04', topicId: 'logica_quantificatori', type: 'mcq', difficulty: 4,
     question: "Qual è la negazione di '∃x ∈ ℕ, ∀y ∈ ℕ, x ≤ y'?",
     options: [
       '∀x ∈ ℕ, ∃y ∈ ℕ : x > y',
@@ -94,7 +94,7 @@ export const prereqQuestions: Question[] = [
     explanation: 'Per negare si invertono i quantificatori e si nega il predicato: ¬(∃x, ∀y, x≤y) = ∀x, ∃y, x>y.',
   },
   {
-    id: 'quant_05', topicId: 'logica_quantificatori', difficulty: 5,
+    id: 'quant_05', topicId: 'logica_quantificatori', type: 'mcq', difficulty: 5,
     question: "L'enunciato '∀ε > 0, ∃δ > 0 : |x − a| < δ ⟹ |f(x) − L| < ε' è:",
     options: [
       'La definizione di derivata di f in a',
@@ -108,14 +108,14 @@ export const prereqQuestions: Question[] = [
 
   // ── IMPLICAZIONE E CONTRONOMINALE ────────────────────────
   {
-    id: 'impl_01', topicId: 'implicazione', difficulty: 1,
+    id: 'impl_01', topicId: 'implicazione', type: 'mcq', difficulty: 1,
     question: 'L\'implicazione P → Q è falsa in quale caso?',
     options: ['P falsa e Q vera', 'P vera e Q vera', 'P vera e Q falsa', 'P falsa e Q falsa'],
     correct: 2,
     explanation: "L'unico caso in cui P→Q è falsa è quando la premessa P è vera ma la conclusione Q è falsa.",
   },
   {
-    id: 'impl_02', topicId: 'implicazione', difficulty: 2,
+    id: 'impl_02', topicId: 'implicazione', type: 'mcq', difficulty: 2,
     question: "Qual è il contronominale di 'Se piove, allora il terreno è bagnato'?",
     options: [
       'Se il terreno è bagnato, allora piove',
@@ -127,7 +127,7 @@ export const prereqQuestions: Question[] = [
     explanation: "Il contronominale di P→Q è ¬Q→¬P. Qui P='piove' e Q='terreno bagnato', quindi il contronominale è 'se il terreno non è bagnato, allora non piove'.",
   },
   {
-    id: 'impl_03', topicId: 'implicazione', difficulty: 3,
+    id: 'impl_03', topicId: 'implicazione', type: 'mcq', difficulty: 3,
     question: "La condizione 'n divisibile per 4' rispetto a 'n divisibile per 2' è:",
     options: [
       'Necessaria ma non sufficiente',
@@ -139,14 +139,14 @@ export const prereqQuestions: Question[] = [
     explanation: "'n divisibile per 4' implica 'n divisibile per 2' (sufficiente), ma non viceversa: 6 è divisibile per 2 ma non per 4.",
   },
   {
-    id: 'impl_04', topicId: 'implicazione', difficulty: 4,
+    id: 'impl_04', topicId: 'implicazione', type: 'mcq', difficulty: 4,
     question: 'Quale tra le seguenti è logicamente equivalente a P → Q?',
     options: ['Q → P', '¬P → ¬Q', '¬Q → ¬P', '¬P ∧ Q'],
     correct: 2,
     explanation: 'P→Q è equivalente solo al suo contronominale ¬Q→¬P. Q→P è la conversa (non equivalente); ¬P→¬Q è l\'inversa (non equivalente).',
   },
   {
-    id: 'impl_05', topicId: 'implicazione', difficulty: 5,
+    id: 'impl_05', topicId: 'implicazione', type: 'mcq', difficulty: 5,
     question: 'Nella dimostrazione che √2 è irrazionale, si usa la strategia:',
     options: [
       'Implicazione diretta: si mostra √2 ∈ ℚ',
@@ -160,7 +160,7 @@ export const prereqQuestions: Question[] = [
 
   // ── TECNICHE DI DIMOSTRAZIONE ────────────────────────────
   {
-    id: 'dim_01', topicId: 'dimostrazione', difficulty: 1,
+    id: 'dim_01', topicId: 'dimostrazione', type: 'mcq', difficulty: 1,
     question: "Nel principio di induzione matematica, il 'passo base' consiste nel:",
     options: [
       'Assumere che P(n) sia vera per un generico n',
@@ -172,7 +172,7 @@ export const prereqQuestions: Question[] = [
     explanation: 'Il principio di induzione si compone di due parti: (1) caso base: si verifica P(1); (2) passo induttivo: P(n)⟹P(n+1).',
   },
   {
-    id: 'dim_02', topicId: 'dimostrazione', difficulty: 2,
+    id: 'dim_02', topicId: 'dimostrazione', type: 'mcq', difficulty: 2,
     question: "Una dimostrazione 'per assurdo' inizia assumendo:",
     options: [
       'La tesi che si vuole dimostrare',
@@ -184,7 +184,7 @@ export const prereqQuestions: Question[] = [
     explanation: 'Nella dimostrazione per assurdo si assume la negazione di ciò che si vuole dimostrare e si mostra che questa assunzione porta a una contraddizione logica.',
   },
   {
-    id: 'dim_03', topicId: 'dimostrazione', difficulty: 3,
+    id: 'dim_03', topicId: 'dimostrazione', type: 'mcq', difficulty: 3,
     question: 'Usando il principio di induzione, quale affermazione è corretta per dimostrare 1+2+…+n = n(n+1)/2?',
     options: [
       'Basta verificare la formula per n=1 e n=2',
@@ -196,14 +196,14 @@ export const prereqQuestions: Question[] = [
     explanation: 'Caso base n=1: 1 = 1·2/2 ✓. Passo: si assume 1+…+n = n(n+1)/2 e si aggiunge (n+1), ottenendo (n+1)(n+2)/2 ✓.',
   },
   {
-    id: 'dim_04', topicId: 'dimostrazione', difficulty: 4,
+    id: 'dim_04', topicId: 'dimostrazione', type: 'mcq', difficulty: 4,
     question: "In una dimostrazione per induzione di 'P(n) per ogni n ≥ 5', il caso base è:",
     options: ['P(0)', 'P(1)', 'P(4)', 'P(5)'],
     correct: 3,
     explanation: 'Quando la proprietà deve valere per tutti gli interi ≥ 5, il caso base è P(5).',
   },
   {
-    id: 'dim_05', topicId: 'dimostrazione', difficulty: 5,
+    id: 'dim_05', topicId: 'dimostrazione', type: 'mcq', difficulty: 5,
     question: "Si vuole dimostrare: 'n³ − n è divisibile per 6 per ogni n ∈ ℕ'. Quale approccio è più diretto?",
     options: [
       'Dimostrazione per assurdo',
@@ -217,21 +217,21 @@ export const prereqQuestions: Question[] = [
 
   // ── INSIEMI E OPERAZIONI ──────────────────────────────────
   {
-    id: 'ins_01', topicId: 'insiemi_operazioni', difficulty: 1,
+    id: 'ins_01', topicId: 'insiemi_operazioni', type: 'mcq', difficulty: 1,
     question: 'Se A = {1, 2, 3} e B = {2, 3, 4}, cos\'è A ∩ B?',
     options: ['{1, 2, 3, 4}', '{2, 3}', '{1, 4}', '∅'],
     correct: 1,
     explanation: "L'intersezione A ∩ B contiene gli elementi che appartengono sia ad A che a B: {2, 3}.",
   },
   {
-    id: 'ins_02', topicId: 'insiemi_operazioni', difficulty: 2,
+    id: 'ins_02', topicId: 'insiemi_operazioni', type: 'mcq', difficulty: 2,
     question: 'Quanti sottoinsiemi ha un insieme con 3 elementi?',
     options: ['3', '6', '8', '9'],
     correct: 2,
     explanation: 'Un insieme con n elementi ha 2ⁿ sottoinsiemi. Con n=3: 2³ = 8.',
   },
   {
-    id: 'ins_03', topicId: 'insiemi_operazioni', difficulty: 3,
+    id: 'ins_03', topicId: 'insiemi_operazioni', type: 'mcq', difficulty: 3,
     question: 'La differenza A \\ B (A meno B) è uguale a:',
     options: [
       'Gli elementi di A che non appartengono a B',
@@ -243,7 +243,7 @@ export const prereqQuestions: Question[] = [
     explanation: 'A \\ B = {x : x ∈ A e x ∉ B}.',
   },
   {
-    id: 'ins_04', topicId: 'insiemi_operazioni', difficulty: 4,
+    id: 'ins_04', topicId: 'insiemi_operazioni', type: 'mcq', difficulty: 4,
     question: 'Quale delle seguenti è una legge di De Morgan per gli insiemi?',
     options: [
       '(A ∪ B)ᶜ = Aᶜ ∪ Bᶜ',
@@ -255,7 +255,7 @@ export const prereqQuestions: Question[] = [
     explanation: 'De Morgan per gli insiemi: (A ∪ B)ᶜ = Aᶜ ∩ Bᶜ e (A ∩ B)ᶜ = Aᶜ ∪ Bᶜ.',
   },
   {
-    id: 'ins_05', topicId: 'insiemi_operazioni', difficulty: 5,
+    id: 'ins_05', topicId: 'insiemi_operazioni', type: 'mcq', difficulty: 5,
     question: 'Il prodotto cartesiano A × B è definito come:',
     options: [
       '{x : x ∈ A e x ∈ B}',
@@ -269,21 +269,21 @@ export const prereqQuestions: Question[] = [
 
   // ── INSIEMI NUMERICI ℕ, ℤ, ℚ, ℝ ──────────────────────────
   {
-    id: 'num_01', topicId: 'insiemi_numerici', difficulty: 1,
+    id: 'num_01', topicId: 'insiemi_numerici', type: 'mcq', difficulty: 1,
     question: 'Quale insieme numerico contiene il numero −3?',
     options: ['ℕ (naturali)', 'ℤ (interi) ma non ℕ', 'ℚ (razionali) ma non ℤ', 'ℝ (reali) ma non ℚ'],
     correct: 1,
     explanation: '−3 è un numero intero negativo. Appartiene a ℤ (e quindi anche a ℚ e ℝ), ma non a ℕ.',
   },
   {
-    id: 'num_02', topicId: 'insiemi_numerici', difficulty: 2,
+    id: 'num_02', topicId: 'insiemi_numerici', type: 'mcq', difficulty: 2,
     question: '√2 appartiene a quale insieme?',
     options: ['ℕ', 'ℤ', 'ℚ', 'ℝ \\ ℚ (irrazionali)'],
     correct: 3,
     explanation: '√2 è un numero irrazionale: non può essere scritto come p/q con p,q interi. Appartiene a ℝ ma non a ℚ.',
   },
   {
-    id: 'num_03', topicId: 'insiemi_numerici', difficulty: 3,
+    id: 'num_03', topicId: 'insiemi_numerici', type: 'mcq', difficulty: 3,
     question: 'Quale delle seguenti affermazioni sulla densità di ℚ in ℝ è corretta?',
     options: [
       "Tra due razionali c'è sempre un irrazionale, ma non viceversa",
@@ -295,7 +295,7 @@ export const prereqQuestions: Question[] = [
     explanation: 'ℚ è denso in ℝ: tra due reali qualsiasi a < b esiste sempre un razionale. Tuttavia ℚ è numerabile mentre ℝ non lo è.',
   },
   {
-    id: 'num_04', topicId: 'insiemi_numerici', difficulty: 4,
+    id: 'num_04', topicId: 'insiemi_numerici', type: 'mcq', difficulty: 4,
     question: "La proprietà di completezza (o dell'estremo superiore) di ℝ afferma che:",
     options: [
       'Ogni numero reale è il limite di una successione di razionali',
@@ -307,7 +307,7 @@ export const prereqQuestions: Question[] = [
     explanation: "L'assioma di completezza di ℝ: ogni sottoinsieme S⊆ℝ non vuoto e limitato superiormente ammette sup S ∈ ℝ. Questo distingue ℝ da ℚ.",
   },
   {
-    id: 'num_05', topicId: 'insiemi_numerici', difficulty: 5,
+    id: 'num_05', topicId: 'insiemi_numerici', type: 'mcq', difficulty: 5,
     question: 'Quale delle seguenti affermazioni sulla cardinalità è vera?',
     options: [
       '|ℕ| > |ℤ| perché ℤ contiene anche i negativi',
@@ -321,7 +321,7 @@ export const prereqQuestions: Question[] = [
 
   // ── INTERVALLI E INTORNI ──────────────────────────────────
   {
-    id: 'int_01', topicId: 'intervalli_intorni', difficulty: 1,
+    id: 'int_01', topicId: 'intervalli_intorni', type: 'mcq', difficulty: 1,
     question: "L'intervallo (2, 5] contiene il numero 5?",
     options: [
       'Sì, perché 5 è l\'estremo destro',
@@ -333,7 +333,7 @@ export const prereqQuestions: Question[] = [
     explanation: 'La notazione (2,5] indica l\'intervallo semiaperto: la parentesi tonda esclude 2, la quadra include 5. Quindi 5 ∈ (2,5] ma 2 ∉ (2,5].',
   },
   {
-    id: 'int_02', topicId: 'intervalli_intorni', difficulty: 2,
+    id: 'int_02', topicId: 'intervalli_intorni', type: 'mcq', difficulty: 2,
     question: 'Un intorno di raggio ε > 0 del punto a ∈ ℝ è l\'insieme:',
     options: [
       '{x ∈ ℝ : x > a − ε}',
@@ -345,7 +345,7 @@ export const prereqQuestions: Question[] = [
     explanation: "L'intorno aperto di a di raggio ε è I(a,ε) = {x∈ℝ : |x−a|<ε} = (a−ε, a+ε).",
   },
   {
-    id: 'int_03', topicId: 'intervalli_intorni', difficulty: 3,
+    id: 'int_03', topicId: 'intervalli_intorni', type: 'mcq', difficulty: 3,
     question: "Un punto x₀ è detto 'punto di accumulazione' per un insieme A se:",
     options: [
       'x₀ ∈ A',
@@ -357,7 +357,7 @@ export const prereqQuestions: Question[] = [
     explanation: 'x₀ è punto di accumulazione di A se in ogni intorno (per piccolo che sia) di x₀ cade almeno un punto di A distinto da x₀.',
   },
   {
-    id: 'int_04', topicId: 'intervalli_intorni', difficulty: 4,
+    id: 'int_04', topicId: 'intervalli_intorni', type: 'mcq', difficulty: 4,
     question: "Cos'è un 'intorno bucato' di a?",
     options: [
       'Un intorno di a che non contiene a',
@@ -369,7 +369,7 @@ export const prereqQuestions: Question[] = [
     explanation: "L'intorno bucato di a è I*(a,ε) = {x∈ℝ : 0 < |x−a| < ε}. Si esclude il punto centrale a. Viene usato nella definizione di limite.",
   },
   {
-    id: 'int_05', topicId: 'intervalli_intorni', difficulty: 5,
+    id: 'int_05', topicId: 'intervalli_intorni', type: 'mcq', difficulty: 5,
     question: 'Un insieme A ⊆ ℝ è aperto se e solo se:',
     options: [
       'Non contiene i suoi estremi',
@@ -383,21 +383,21 @@ export const prereqQuestions: Question[] = [
 
   // ── VALORE ASSOLUTO E DISUGUAGLIANZE ─────────────────────
   {
-    id: 'val_01', topicId: 'valore_assoluto', difficulty: 1,
+    id: 'val_01', topicId: 'valore_assoluto', type: 'mcq', difficulty: 1,
     question: 'Quanto vale |−7 + 3|?',
     options: ['−4', '4', '10', '−10'],
     correct: 1,
     explanation: '|−7+3| = |−4| = 4. Il valore assoluto è sempre ≥ 0.',
   },
   {
-    id: 'val_02', topicId: 'valore_assoluto', difficulty: 2,
+    id: 'val_02', topicId: 'valore_assoluto', type: 'mcq', difficulty: 2,
     question: 'La disuguaglianza |x − 3| < 2 equivale a:',
     options: ['x < 5', '1 < x < 5', '−2 < x < 2', 'x > 1'],
     correct: 1,
     explanation: '|x−3| < 2 ⟺ −2 < x−3 < 2 ⟺ 1 < x < 5.',
   },
   {
-    id: 'val_03', topicId: 'valore_assoluto', difficulty: 3,
+    id: 'val_03', topicId: 'valore_assoluto', type: 'mcq', difficulty: 3,
     question: 'La disuguaglianza triangolare afferma che:',
     options: [
       '|a + b| = |a| + |b|',
@@ -409,14 +409,14 @@ export const prereqQuestions: Question[] = [
     explanation: 'Disuguaglianza triangolare: |a+b| ≤ |a|+|b|. Fondamentale nelle dimostrazioni con i limiti.',
   },
   {
-    id: 'val_04', topicId: 'valore_assoluto', difficulty: 4,
+    id: 'val_04', topicId: 'valore_assoluto', type: 'mcq', difficulty: 4,
     question: 'Risolvere: |2x − 1| ≥ 3',
     options: ['−1 ≤ x ≤ 2', 'x ≤ −1 oppure x ≥ 2', 'x ≤ −1 oppure x ≥ 1', '−3 ≤ x ≤ 3'],
     correct: 1,
     explanation: '|2x−1| ≥ 3 ⟺ 2x−1 ≥ 3 oppure 2x−1 ≤ −3 ⟺ x ≥ 2 oppure x ≤ −1.',
   },
   {
-    id: 'val_05', topicId: 'valore_assoluto', difficulty: 5,
+    id: 'val_05', topicId: 'valore_assoluto', type: 'mcq', difficulty: 5,
     question: 'In una dimostrazione di limite, si sa che |f(x) − L| ≤ 3|x − a|. Come si sceglie δ in funzione di ε?',
     options: ['δ = ε', 'δ = ε/3', 'δ = 3ε', 'δ = ε²'],
     correct: 1,
@@ -425,28 +425,28 @@ export const prereqQuestions: Question[] = [
 
   // ── FUNZIONI: DOMINIO, CODOMINIO, IMMAGINE ───────────────
   {
-    id: 'fun_01', topicId: 'funzioni_base', difficulty: 1,
+    id: 'fun_01', topicId: 'funzioni_base', type: 'mcq', difficulty: 1,
     question: 'Qual è il dominio naturale di f(x) = √(x − 4)?',
     options: ['ℝ', 'x > 4', 'x ≥ 4', 'x ≤ 4'],
     correct: 2,
     explanation: 'La radice quadrata è definita solo per argomenti ≥ 0: x−4 ≥ 0 ⟹ x ≥ 4.',
   },
   {
-    id: 'fun_02', topicId: 'funzioni_base', difficulty: 2,
+    id: 'fun_02', topicId: 'funzioni_base', type: 'mcq', difficulty: 2,
     question: "L'immagine della funzione f(x) = x² con dominio ℝ è:",
     options: ['ℝ', '[0, +∞)', '(−∞, 0]', 'ℝ \\ {0}'],
     correct: 1,
     explanation: 'Per ogni x reale, x² ≥ 0. Ogni valore y ≥ 0 è raggiunto (x = √y). Quindi Im(f) = [0, +∞).',
   },
   {
-    id: 'fun_03', topicId: 'funzioni_base', difficulty: 3,
+    id: 'fun_03', topicId: 'funzioni_base', type: 'mcq', difficulty: 3,
     question: 'Qual è il dominio naturale di f(x) = ln(x² − 1)?',
     options: ['x > 1', 'x < −1 oppure x > 1', '−1 < x < 1', 'x ≠ ±1'],
     correct: 1,
     explanation: 'Il logaritmo richiede argomento > 0: x²−1 > 0 ⟺ |x| > 1 ⟺ x < −1 o x > 1.',
   },
   {
-    id: 'fun_04', topicId: 'funzioni_base', difficulty: 4,
+    id: 'fun_04', topicId: 'funzioni_base', type: 'mcq', difficulty: 4,
     question: "La differenza tra 'codominio' e 'immagine' di una funzione f: A → B è:",
     options: [
       'Non c\'è differenza, sono sinonimi',
@@ -458,7 +458,7 @@ export const prereqQuestions: Question[] = [
     explanation: "Il codominio è B dichiarato. L'immagine Im(f) = f(A) è l'insieme dei valori effettivamente assunti. Im(f) = B solo se f è suriettiva.",
   },
   {
-    id: 'fun_05', topicId: 'funzioni_base', difficulty: 5,
+    id: 'fun_05', topicId: 'funzioni_base', type: 'mcq', difficulty: 5,
     question: 'La funzione f: ℝ → ℝ definita da f(x) = x³ − x ha immagine:',
     options: ['[−2/(3√3), 2/(3√3)]', 'ℝ', '[0, +∞)', '(−1, 1)'],
     correct: 1,
@@ -467,7 +467,7 @@ export const prereqQuestions: Question[] = [
 
   // ── INIETTIVITÀ, SURIETTIVITÀ, BIETTIVITÀ ────────────────
   {
-    id: 'ini_01', topicId: 'iniettivita', difficulty: 1,
+    id: 'ini_01', topicId: 'iniettivita', type: 'mcq', difficulty: 1,
     question: 'Una funzione f è iniettiva se:',
     options: [
       'Ogni elemento del codominio è raggiunto almeno una volta',
@@ -479,14 +479,14 @@ export const prereqQuestions: Question[] = [
     explanation: 'f è iniettiva se elementi distinti del dominio hanno immagini distinte: x₁≠x₂ ⟹ f(x₁)≠f(x₂).',
   },
   {
-    id: 'ini_02', topicId: 'iniettivita', difficulty: 2,
+    id: 'ini_02', topicId: 'iniettivita', type: 'mcq', difficulty: 2,
     question: 'f: ℝ → ℝ, f(x) = x² è:',
     options: ['Iniettiva e suriettiva', 'Né iniettiva né suriettiva', 'Solo iniettiva', 'Solo suriettiva'],
     correct: 1,
     explanation: 'f(2)=f(−2)=4, quindi non è iniettiva. −1 non ha preimmagine reale, quindi non è suriettiva.',
   },
   {
-    id: 'ini_03', topicId: 'iniettivita', difficulty: 3,
+    id: 'ini_03', topicId: 'iniettivita', type: 'mcq', difficulty: 3,
     question: 'f: ℝ → ℝ, f(x) = 2x + 1 è:',
     options: [
       'Iniettiva ma non suriettiva',
@@ -498,7 +498,7 @@ export const prereqQuestions: Question[] = [
     explanation: 'f è strettamente crescente (iniettiva). Per ogni y∈ℝ, x=(y−1)/2 è la preimmagine (suriettiva). Quindi biettiva.',
   },
   {
-    id: 'ini_04', topicId: 'iniettivita', difficulty: 4,
+    id: 'ini_04', topicId: 'iniettivita', type: 'mcq', difficulty: 4,
     question: 'La funzione f: [0,+∞) → [0,+∞), f(x) = x² è biettiva?',
     options: [
       'No, perché x² non è iniettiva',
@@ -510,7 +510,7 @@ export const prereqQuestions: Question[] = [
     explanation: 'Su [0,+∞), f è strettamente crescente (iniettiva). Per ogni y≥0 esiste x=√y (suriettiva). Quindi biettiva, con f⁻¹(x)=√x.',
   },
   {
-    id: 'ini_05', topicId: 'iniettivita', difficulty: 5,
+    id: 'ini_05', topicId: 'iniettivita', type: 'mcq', difficulty: 5,
     question: 'Se f: A→B è biettiva, quale delle seguenti è vera?',
     options: [
       'f⁻¹: B→A esiste ed è anch\'essa biettiva',
@@ -524,28 +524,28 @@ export const prereqQuestions: Question[] = [
 
   // ── FUNZIONE COMPOSTA E INVERSA ───────────────────────────
   {
-    id: 'comp_01', topicId: 'composta_inversa', difficulty: 1,
+    id: 'comp_01', topicId: 'composta_inversa', type: 'mcq', difficulty: 1,
     question: 'Se f(x) = x + 1 e g(x) = 2x, quanto vale (f ∘ g)(3)?',
     options: ['7', '8', '6', '5'],
     correct: 0,
     explanation: '(f∘g)(3) = f(g(3)) = f(6) = 7. Prima si applica g, poi f al risultato.',
   },
   {
-    id: 'comp_02', topicId: 'composta_inversa', difficulty: 2,
+    id: 'comp_02', topicId: 'composta_inversa', type: 'mcq', difficulty: 2,
     question: 'In generale, f ∘ g è uguale a g ∘ f?',
     options: ['Sì, sempre', 'No, mai', 'No, in generale f∘g ≠ g∘f', 'Sì, se entrambe sono lineari'],
     correct: 2,
     explanation: 'La composizione non è commutativa. Es: f(x)=x+1, g(x)=x². (f∘g)(x)=x²+1 ≠ (g∘f)(x)=(x+1)².',
   },
   {
-    id: 'comp_03', topicId: 'composta_inversa', difficulty: 3,
+    id: 'comp_03', topicId: 'composta_inversa', type: 'mcq', difficulty: 3,
     question: 'Se f(x) = 2x − 3, qual è f⁻¹(x)?',
     options: ['2x + 3', '(x + 3)/2', '1/(2x−3)', '3 − 2x'],
     correct: 1,
     explanation: 'Ponendo y = 2x−3 e risolvendo per x: x = (y+3)/2. Quindi f⁻¹(x) = (x+3)/2.',
   },
   {
-    id: 'comp_04', topicId: 'composta_inversa', difficulty: 4,
+    id: 'comp_04', topicId: 'composta_inversa', type: 'mcq', difficulty: 4,
     question: 'Il grafico di f⁻¹ si ottiene da quello di f:',
     options: [
       "Riflettendo rispetto all'asse x",
@@ -557,7 +557,7 @@ export const prereqQuestions: Question[] = [
     explanation: '(a,b) ∈ grafico di f ⟺ (b,a) ∈ grafico di f⁻¹, e (b,a) è la riflessione di (a,b) rispetto a y=x.',
   },
   {
-    id: 'comp_05', topicId: 'composta_inversa', difficulty: 5,
+    id: 'comp_05', topicId: 'composta_inversa', type: 'mcq', difficulty: 5,
     question: 'Se f: A→B e g: B→C sono entrambe biettive, allora (g∘f)⁻¹ è uguale a:',
     options: ['f⁻¹ ∘ g⁻¹', 'g⁻¹ ∘ f⁻¹', 'f⁻¹ ∘ g', '(f∘g)⁻¹'],
     correct: 0,
@@ -566,14 +566,14 @@ export const prereqQuestions: Question[] = [
 
   // ── ESPONENZIALE E LOGARITMO ──────────────────────────────
   {
-    id: 'exp_01', topicId: 'exp_log', difficulty: 1,
+    id: 'exp_01', topicId: 'exp_log', type: 'mcq', difficulty: 1,
     question: 'Quanto vale log₂(8)?',
     options: ['2', '3', '4', '16'],
     correct: 1,
     explanation: 'log₂(8) = 3 perché 2³ = 8.',
   },
   {
-    id: 'exp_02', topicId: 'exp_log', difficulty: 2,
+    id: 'exp_02', topicId: 'exp_log', type: 'mcq', difficulty: 2,
     question: 'Quale delle seguenti è una proprietà corretta del logaritmo?',
     options: [
       'log(a · b) = log(a) · log(b)',
@@ -585,21 +585,21 @@ export const prereqQuestions: Question[] = [
     explanation: 'log(a·b) = log(a) + log(b) è la proprietà fondamentale. log(aⁿ) = n·log(a), non +n.',
   },
   {
-    id: 'exp_03', topicId: 'exp_log', difficulty: 3,
+    id: 'exp_03', topicId: 'exp_log', type: 'mcq', difficulty: 3,
     question: 'La funzione eˣ è l\'inversa di:',
     options: ['log₁₀(x)', 'ln(x)', 'log₂(x)', 'xᵉ'],
     correct: 1,
     explanation: 'eˣ e ln(x) = logₑ(x) sono funzioni inverse: e^(ln x) = x per x>0, e ln(eˣ) = x per ogni x∈ℝ.',
   },
   {
-    id: 'exp_04', topicId: 'exp_log', difficulty: 4,
+    id: 'exp_04', topicId: 'exp_log', type: 'mcq', difficulty: 4,
     question: 'Risolvere: e^(2x) − 3eˣ + 2 = 0',
     options: ['x = 0 oppure x = ln(2)', 'x = 1 oppure x = 2', 'x = ln(3)/2', 'Nessuna soluzione reale'],
     correct: 0,
     explanation: 'Ponendo t = eˣ > 0: t²−3t+2=0 ⟹ (t−1)(t−2)=0 ⟹ t=1 o t=2. Quindi x=0 o x=ln(2).',
   },
   {
-    id: 'exp_05', topicId: 'exp_log', difficulty: 5,
+    id: 'exp_05', topicId: 'exp_log', type: 'mcq', difficulty: 5,
     question: 'Qual è la formula del cambiamento di base dei logaritmi?',
     options: [
       'logₐ(x) = logᵦ(x) + logᵦ(a)',
@@ -613,14 +613,14 @@ export const prereqQuestions: Question[] = [
 
   // ── FUNZIONI TRIGONOMETRICHE ──────────────────────────────
   {
-    id: 'trig_01', topicId: 'trigonometria', difficulty: 1,
+    id: 'trig_01', topicId: 'trigonometria', type: 'mcq', difficulty: 1,
     question: 'Quanto vale sin(π/2)?',
     options: ['0', '1', '−1', '√2/2'],
     correct: 1,
     explanation: 'sin(π/2) = sin(90°) = 1. È il valore massimo della funzione seno.',
   },
   {
-    id: 'trig_02', topicId: 'trigonometria', difficulty: 2,
+    id: 'trig_02', topicId: 'trigonometria', type: 'mcq', difficulty: 2,
     question: "Qual è l'identità fondamentale della trigonometria?",
     options: [
       'sin(x) + cos(x) = 1',
@@ -632,7 +632,7 @@ export const prereqQuestions: Question[] = [
     explanation: 'sin²(x) + cos²(x) = 1 (identità di Pitagora). Deriva dal fatto che (cos x, sin x) è un punto sul cerchio unitario x²+y²=1.',
   },
   {
-    id: 'trig_03', topicId: 'trigonometria', difficulty: 3,
+    id: 'trig_03', topicId: 'trigonometria', type: 'mcq', difficulty: 3,
     question: 'Qual è la formula per sin(α + β)?',
     options: [
       'sin(α)·sin(β) + cos(α)·cos(β)',
@@ -644,14 +644,14 @@ export const prereqQuestions: Question[] = [
     explanation: 'sin(α+β) = sin(α)cos(β) + cos(α)sin(β).',
   },
   {
-    id: 'trig_04', topicId: 'trigonometria', difficulty: 4,
+    id: 'trig_04', topicId: 'trigonometria', type: 'mcq', difficulty: 4,
     question: 'Il dominio di arcsin(x) è:',
     options: ['ℝ', '[−1, 1]', '[0, π]', '(−π/2, π/2)'],
     correct: 1,
     explanation: 'arcsin è l\'inversa di sin ristretta a [−π/2, π/2]. Il dominio di arcsin è [−1,1] e il codominio è [−π/2, π/2].',
   },
   {
-    id: 'trig_05', topicId: 'trigonometria', difficulty: 5,
+    id: 'trig_05', topicId: 'trigonometria', type: 'mcq', difficulty: 5,
     question: 'Quanto vale lim_{x→0} (sin x)/x?',
     options: ['0', '∞', '1', 'Non esiste'],
     correct: 2,
