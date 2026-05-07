@@ -9,9 +9,8 @@ import Assessment from './pages/Assessment';
 import TopicStudyPlan from './pages/TopicStudyPlan';
 import Login from './pages/Login';
 
-
 function AppShell() {
-  const { user, isLoading } = useAuth();
+  const { isLoading } = useAuth();
 
   if (isLoading) {
     return (
@@ -20,8 +19,6 @@ function AppShell() {
       </div>
     );
   }
-
-  if (!user) return <Login />;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -34,6 +31,7 @@ function AppShell() {
           <Route path="/plan" element={<Plan />} />
           <Route path="/history" element={<History />} />
           <Route path="/topic/:topicId" element={<TopicStudyPlan />} />
+          <Route path="/login" element={<Login />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
@@ -41,11 +39,12 @@ function AppShell() {
   );
 }
 
+export default function App() {
   return (
-      <AuthProvider>
-        <BrowserRouter>
-          <AppShell />
-        </BrowserRouter>
-      </AuthProvider>
+    <AuthProvider>
+      <BrowserRouter>
+        <AppShell />
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
