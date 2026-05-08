@@ -19,11 +19,11 @@ export function getQuestionsForTopic(topicId: string) {
     .sort((a, b) => a.difficulty - b.difficulty);
 }
 
-// 0 correct → 1★ | 1 → 2★ | 2 → 3★ | 3-4 → 4★ | 5 → 5★
+// 0-2 → 1★ | 3-4 → 2★ | 5-6 → 3★ | 7-9 → 4★ | 10 → 5★  (scala per 10 domande)
 export function computeRating(correctCount: number): 1 | 2 | 3 | 4 | 5 {
-  if (correctCount === 0) return 1;
-  if (correctCount === 1) return 2;
-  if (correctCount === 2) return 3;
-  if (correctCount <= 4) return 4;
+  if (correctCount <= 2) return 1;
+  if (correctCount <= 4) return 2;
+  if (correctCount <= 6) return 3;
+  if (correctCount <= 9) return 4;
   return 5;
 }

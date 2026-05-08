@@ -133,8 +133,8 @@ function buildQuizSchedule(): QuizGroup[] {
       const allQs = getQuestionsForTopic(quizTopicId);
       if (allQs.length === 0) continue;
 
-      // Mescola sempre e prende 5 domande (mix MCQ + TF)
-      const questions = shuffle(allQs).slice(0, 5);
+      // Mescola sempre e usa tutte le 10 domande disponibili (mix MCQ + TF)
+      const questions = shuffle(allQs);
 
       usedQuizTopics.add(quizTopicId);
       groups.push({
@@ -198,7 +198,7 @@ function WelcomeScreen({
             </h1>
             <p className="text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">
               Scegli gli argomenti su cui vuoi testarti: per ognuno risponderai a
-              5 domande e riceverai le stelline automaticamente.
+              10 domande e riceverai le stelline automaticamente.
             </p>
             <p className="text-sm text-gray-400 dark:text-gray-500 mb-8">
               Puoi farne quanti vuoi e procedere alla dashboard quando vuoi.
@@ -209,11 +209,11 @@ function WelcomeScreen({
 
         <div className="grid grid-cols-5 gap-1.5 mb-8">
           {[
-            { label: '1★', sub: '0 giuste', color: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300' },
-            { label: '2★', sub: '1 giusta', color: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300' },
-            { label: '3★', sub: '2 giuste', color: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300' },
-            { label: '4★', sub: '3-4 giuste', color: 'bg-lime-100 dark:bg-lime-900/30 text-lime-700 dark:text-lime-300' },
-            { label: '5★', sub: '5 giuste', color: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300' },
+            { label: '1★', sub: '0-2 giuste', color: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300' },
+            { label: '2★', sub: '3-4 giuste', color: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300' },
+            { label: '3★', sub: '5-6 giuste', color: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300' },
+            { label: '4★', sub: '7-9 giuste', color: 'bg-lime-100 dark:bg-lime-900/30 text-lime-700 dark:text-lime-300' },
+            { label: '5★', sub: '10 giuste', color: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300' },
           ].map((l) => (
             <div key={l.label} className={`rounded-lg py-2 px-1 text-center text-xs font-semibold ${l.color}`}>
               <div className="font-bold mb-0.5">{l.label}</div>

@@ -1,4 +1,4 @@
-export type QuestionType = 'mcq' | 'tf';
+export type QuestionType = 'mcq' | 'tf' | 'fill';
 
 export type Question = {
   id: string;
