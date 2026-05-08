@@ -8,8 +8,6 @@ import {
 import { getQuestionsForTopic, computeRating } from '../data/questions';
 import { api } from '../lib/api';
 import type { Question } from '../data/questions';
-import { getStudyPlanForTopic } from '../data/studyPlans';
-import type { StudyPlan } from '../data/studyPlans';
 import { useTracker } from '../store/useTracker';
 
 // ── Mapping: app topic ID → question topic ID ────────────────────────────────
@@ -97,58 +95,42 @@ const APP_TO_QUIZ: Record<string, string | null> = {
 type Screen = 'welcome' | 'select' | 'quiz' | 'result';
 
 interface QuizGroup {
-  quizTopicId: string;
+  sectionId: string;
   appTopicIds: string[];
   label: string;
-  sectionId: string;
   sectionLabel: string;
   questions: Question[];
 }
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
-function shuffle<T>(arr: T[]): T[] {
-  const copy = [...arr];
-  for (let i = copy.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [copy[i], copy[j]] = [copy[j], copy[i]];
-  }
-  return copy;
-}
-
 function buildQuizSchedule(): QuizGroup[] {
-  const groups: QuizGroup[] = [];
-  const usedQuizTopics = new Set<string>();
+  return SECTIONS.flatMap((section) => {
+    const seenQuizIds = new Set<string>();
+    const allQs: Question[] = [];
 
-  for (const section of SECTIONS) {
     for (const topic of section.topics) {
-      const quizTopicId = APP_TO_QUIZ[topic.id] ?? null;
-      if (!quizTopicId) continue;
-
-      if (usedQuizTopics.has(quizTopicId)) {
-        groups.find((g) => g.quizTopicId === quizTopicId)?.appTopicIds.push(topic.id);
-        continue;
-      }
-
-      const allQs = getQuestionsForTopic(quizTopicId);
-      if (allQs.length === 0) continue;
-
-      // Mescola sempre e usa tutte le 10 domande disponibili (mix MCQ + TF)
-      const questions = shuffle(allQs);
-
-      usedQuizTopics.add(quizTopicId);
-      groups.push({
-        quizTopicId,
-        appTopicIds: [topic.id],
-        label: topic.label,
-        sectionId: section.id,
-        sectionLabel: section.label,
-        questions,
-      });
+      const qId = APP_TO_QUIZ[topic.id];
+      if (!qId || seenQuizIds.has(qId)) continue;
+      seenQuizIds.add(qId);
+      allQs.push(...getQuestionsForTopic(qId));
     }
-  }
 
-  return groups;
+    if (allQs.length === 0) return [];
+
+    // Ordina per difficoltà crescente, prende le prime 10
+    const questions = [...allQs]
+      .sort((a, b) => a.difficulty - b.difficulty)
+      .slice(0, 10);
+
+    return [{
+      sectionId: section.id,
+      appTopicIds: section.topics.map((t) => t.id),
+      label: section.label,
+      sectionLabel: section.label,
+      questions,
+    }];
+  });
 }
 
 // ── WelcomeScreen ─────────────────────────────────────────────────────────────
@@ -268,10 +250,9 @@ function TopicSelectScreen({
     g.appTopicIds.some((id) => sessionRatings[id] !== undefined),
   ).length;
 
-  const bySection = SECTIONS.map((section) => ({
-    section,
-    groups: schedule.filter((g) => g.sectionId === section.id),
-  })).filter((s) => s.groups.length > 0);
+  const sectionColors = Object.fromEntries(
+    SECTIONS.map((s) => [s.id, s.colors]),
+  );
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
@@ -283,7 +264,7 @@ function TopicSelectScreen({
               {isReassessment ? 'Rivalutazione' : 'Valutazione iniziale'}
             </h2>
             <span className="text-xs text-gray-400 dark:text-gray-500">
-              {doneCount}/{schedule.length} argomenti
+              {doneCount}/{schedule.length} sezioni
             </span>
           </div>
           <div className="h-1.5 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
@@ -295,58 +276,56 @@ function TopicSelectScreen({
         </div>
       </header>
 
-      {/* Sections */}
-      <div className="max-w-2xl mx-auto px-4 py-5 pb-28 space-y-4">
-        {bySection.map(({ section, groups }) => (
-          <div
-            key={section.id}
-            className={`bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 border-l-4 overflow-hidden ${section.colors.border}`}
-          >
-            <div className="px-4 py-2.5 border-b border-gray-100 dark:border-gray-800">
-              <h3 className="font-semibold text-gray-800 dark:text-gray-200 text-sm">{section.label}</h3>
+      {/* Section cards */}
+      <div className="max-w-2xl mx-auto px-4 py-5 pb-28 space-y-3">
+        {schedule.map((group) => {
+          const colors = sectionColors[group.sectionId];
+          const sessionRating = group.appTopicIds
+            .map((id) => sessionRatings[id])
+            .find((r) => r !== undefined);
+          const ratings = group.appTopicIds
+            .map((id) => existingRatings[id])
+            .filter((r): r is number => r !== undefined && r > 0);
+          const avgPrev = ratings.length > 0
+            ? Math.round(ratings.reduce((a, b) => a + b, 0) / ratings.length)
+            : undefined;
+          const isDone = sessionRating !== undefined;
+
+          return (
+            <div
+              key={group.sectionId}
+              className={`bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 border-l-4 ${colors.border} flex items-center gap-3 px-4 py-3`}
+            >
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 leading-snug">
+                  {group.label}
+                </p>
+                <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
+                  {group.questions.length} domande · difficoltà crescente
+                </p>
+                {isReassessment && avgPrev !== undefined && !isDone && (
+                  <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
+                    Media precedente: {avgPrev}★
+                  </p>
+                )}
+              </div>
+
+              <StarRow rating={sessionRating} />
+
+              <button
+                onClick={() => onSelect(group)}
+                className={[
+                  'flex-shrink-0 text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors',
+                  isDone
+                    ? 'bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
+                    : 'bg-amber-500 hover:bg-amber-400 text-white',
+                ].join(' ')}
+              >
+                {isDone ? 'Rifai' : 'Inizia'}
+              </button>
             </div>
-            <div className="divide-y divide-gray-50 dark:divide-gray-800">
-              {groups.map((group) => {
-                const sessionRating = group.appTopicIds
-                  .map((id) => sessionRatings[id])
-                  .find((r) => r !== undefined);
-                const prevRating = group.appTopicIds
-                  .map((id) => existingRatings[id])
-                  .find((r) => r !== undefined && r > 0);
-                const isDone = sessionRating !== undefined;
-
-                return (
-                  <div key={group.quizTopicId} className="flex items-center gap-3 px-4 py-3">
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm text-gray-800 dark:text-gray-200 leading-snug truncate">
-                        {group.label}
-                      </p>
-                      {isReassessment && prevRating !== undefined && !isDone && (
-                        <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
-                          Precedente: {prevRating}★
-                        </p>
-                      )}
-                    </div>
-
-                    <StarRow rating={sessionRating} />
-
-                    <button
-                      onClick={() => onSelect(group)}
-                      className={[
-                        'flex-shrink-0 text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors',
-                        isDone
-                          ? 'bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
-                          : 'bg-amber-500 hover:bg-amber-400 text-white',
-                      ].join(' ')}
-                    >
-                      {isDone ? 'Rifai' : 'Inizia'}
-                    </button>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Bottom bar */}
@@ -356,14 +335,14 @@ function TopicSelectScreen({
             onClick={onFinish}
             className="w-full py-3 rounded-xl font-semibold text-base bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-white transition-colors flex items-center justify-center gap-2"
           >
-            {doneCount === 0 ? 'Salta per ora' : `Vai alla Dashboard`}
+            {doneCount === 0 ? 'Salta per ora' : 'Vai alla Dashboard'}
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
             </svg>
           </button>
           {doneCount > 0 && (
             <p className="text-center text-xs text-gray-400 dark:text-gray-500 mt-1.5">
-              {doneCount} argomento{doneCount !== 1 ? 'i' : ''} valutato{doneCount !== 1 ? 'i' : ''} · puoi completare gli altri in seguito
+              {doneCount} sezione{doneCount !== 1 ? 'i' : ''} completata{doneCount !== 1 ? 'e' : ''} · puoi continuare in seguito
             </p>
           )}
         </div>
@@ -428,10 +407,10 @@ function SingleTopicQuiz({
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
               </svg>
-              Argomenti
+              Sezioni
             </button>
             <div className="flex-1 text-center">
-              <p className="text-xs text-gray-400 dark:text-gray-500">{group.sectionLabel}</p>
+              <p className="text-xs text-gray-400 dark:text-gray-500">Quiz sezione</p>
               <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 leading-tight">{group.label}</p>
             </div>
             <span className="text-xs text-gray-400 dark:text-gray-500 w-16 text-right tabular-nums">
@@ -549,26 +528,27 @@ const STAR_COLOR: Record<number, string> = {
   1: 'text-red-400', 2: 'text-orange-400', 3: 'text-yellow-400',
   4: 'text-lime-400', 5: 'text-green-400',
 };
-const PRIORITY_COLOR: Record<string, string> = {
-  critical: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300',
-  high: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
-  medium: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300',
-  low: 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400',
-};
+
 
 function TopicResultScreen({
   group,
   rating,
-  plan,
   onNext,
   onFinish,
 }: {
   group: QuizGroup;
   rating: 1 | 2 | 3 | 4 | 5;
-  plan: StudyPlan | undefined;
   onNext: () => void;
   onFinish: () => void;
 }) {
+  const RATING_MSG: Record<number, string> = {
+    1: 'Questa sezione ha bisogno di molto lavoro. Inizia dall\'inizio.',
+    2: 'Basi presenti ma fragili. Ripassa i concetti fondamentali.',
+    3: 'Discreta padronanza. Consolida i punti ancora incerti.',
+    4: 'Buona preparazione. Rifinisci i dettagli.',
+    5: 'Ottimo! Sezione padroneggiata.',
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col">
       <div className="max-w-2xl mx-auto w-full px-4 py-6 pb-32 space-y-4">
@@ -576,101 +556,30 @@ function TopicResultScreen({
         {/* Risultato */}
         <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 text-center">
           <p className="text-xs text-gray-400 dark:text-gray-500 uppercase tracking-wide mb-1">
-            {group.sectionLabel} · {group.label}
+            Sezione completata
+          </p>
+          <p className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">
+            {group.label}
           </p>
           <p className="text-4xl tracking-wider my-3 font-bold">
             <span className={STAR_COLOR[rating]}>{'★'.repeat(rating)}</span>
             <span className="text-gray-200 dark:text-gray-700">{'★'.repeat(5 - rating)}</span>
           </p>
-          <p className="text-base font-semibold text-gray-800 dark:text-gray-200">
-            {plan?.label ?? `${rating} stelle`}
+          <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mt-2">
+            {RATING_MSG[rating]}
           </p>
-          {plan && (
-            <span className={`inline-block mt-2 text-xs font-semibold px-2.5 py-1 rounded-full ${PRIORITY_COLOR[plan.priority]}`}>
-              {plan.priority === 'critical' ? 'Priorità critica' :
-               plan.priority === 'high' ? 'Priorità alta' :
-               plan.priority === 'medium' ? 'Priorità media' : 'Bassa priorità'}
-              {plan.timeEstimate ? ` · ${plan.timeEstimate}` : ''}
-            </span>
-          )}
         </div>
 
-        {plan && (
-          <>
-            {/* Cosa devi capire */}
-            <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
-              <p className="text-xs font-semibold uppercase tracking-wide text-blue-500 dark:text-blue-400 mb-2">Cosa devi capire</p>
-              <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{plan.whatYouNeed}</p>
-            </div>
-
-            {/* Come procedere */}
-            {plan.approach.length > 0 && (
-              <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
-                <p className="text-xs font-semibold uppercase tracking-wide text-amber-500 dark:text-amber-400 mb-3">Come procedere</p>
-                <ol className="space-y-2">
-                  {plan.approach.map((step, i) => (
-                    <li key={i} className="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
-                      <span className="flex-shrink-0 w-5 h-5 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 text-xs font-bold flex items-center justify-center mt-0.5">
-                        {i + 1}
-                      </span>
-                      <span>{step}</span>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            )}
-
-            {/* Concetti chiave + Errori comuni */}
-            {(plan.keyPoints.length > 0 || plan.commonMistakes.length > 0) && (
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                {plan.keyPoints.length > 0 && (
-                  <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-green-600 dark:text-green-400 mb-2">Concetti chiave</p>
-                    <ul className="space-y-1.5">
-                      {plan.keyPoints.map((k, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
-                          <span className="text-gray-400 mt-0.5">•</span><span>{k}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-                {plan.commonMistakes.length > 0 && (
-                  <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-red-500 dark:text-red-400 mb-2">Errori comuni</p>
-                    <ul className="space-y-1.5">
-                      {plan.commonMistakes.map((m, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
-                          <span className="text-gray-400 mt-0.5">•</span><span>{m}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {/* Esercizi */}
-            {plan.exercises.length > 0 && (
-              <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
-                <p className="text-xs font-semibold uppercase tracking-wide text-purple-600 dark:text-purple-400 mb-2">Esercizi suggeriti</p>
-                <ul className="space-y-1.5">
-                  {plan.exercises.map((e, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
-                      <span className="text-gray-400 mt-0.5">•</span><span>{e}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            {/* Prossimo passo */}
-            <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-2xl p-5">
-              <p className="text-xs font-semibold uppercase tracking-wide text-green-600 dark:text-green-400 mb-1">Prossimo passo</p>
-              <p className="text-sm text-green-700 dark:text-green-300 leading-relaxed">{plan.nextStep}</p>
-            </div>
-          </>
-        )}
+        {/* Info argomenti */}
+        <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-2xl p-4">
+          <p className="text-xs font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-400 mb-1">
+            Stelline assegnate
+          </p>
+          <p className="text-sm text-blue-700 dark:text-blue-300 leading-relaxed">
+            Il voto è stato applicato a tutti gli {group.appTopicIds.length} argomenti di questa sezione.
+            Puoi vedere i piani di studio dettagliati per argomento nel Tracker.
+          </p>
+        </div>
       </div>
 
       {/* Bottom bar */}
@@ -686,7 +595,7 @@ function TopicResultScreen({
             onClick={onNext}
             className="flex-1 py-3 rounded-xl font-semibold text-sm bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-white transition-colors"
           >
-            Scegli un altro argomento →
+            Prossima sezione →
           </button>
         </div>
       </div>
@@ -757,15 +666,10 @@ export default function Assessment() {
   }
 
   if (screen === 'result' && lastResult) {
-    const plan = getStudyPlanForTopic(
-      lastResult.group.appTopicIds[0],
-      lastResult.rating,
-    );
     return (
       <TopicResultScreen
         group={lastResult.group}
         rating={lastResult.rating}
-        plan={plan}
         onNext={() => setScreen('select')}
         onFinish={handleFinish}
       />
