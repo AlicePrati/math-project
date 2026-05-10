@@ -3,6 +3,7 @@ import { prereqPlans } from './prereq';
 import { analysis1Plans } from './analysis1';
 import { analysis2Plans } from './analysis2';
 import { missingPlans } from './missing';
+import { sectionPlans } from './sections';
 
 export const studyPlans = [...prereqPlans, ...analysis1Plans, ...analysis2Plans, ...missingPlans];
 
@@ -98,4 +99,17 @@ export function getStudyPlanForTopic(
 
 export function hasPlan(appTopicId: string): boolean {
   return APP_TO_PLAN[appTopicId] !== null && APP_TO_PLAN[appTopicId] !== undefined;
+}
+
+/** Lookup study plan by section ID and current star rating (1–5). */
+export function getStudyPlanForSection(
+  sectionId: string,
+  rating: number,
+): import('./types').StudyPlan | undefined {
+  const r = Math.max(1, Math.min(5, Math.round(rating))) as 1 | 2 | 3 | 4 | 5;
+  return sectionPlans.find((p) => p.topicId === sectionId && p.rating === r);
+}
+
+export function hasSectionPlan(sectionId: string): boolean {
+  return sectionPlans.some((p) => p.topicId === sectionId);
 }

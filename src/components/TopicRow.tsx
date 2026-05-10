@@ -1,7 +1,5 @@
-import { useNavigate } from 'react-router-dom';
 import type { Topic } from '../data/topics';
 import { StarRating } from './StarRating';
-import { hasPlan } from '../data/studyPlans';
 
 interface TopicRowProps {
   topic: Topic;
@@ -21,9 +19,6 @@ function relativeTime(isoTs: string): string {
 }
 
 export function TopicRow({ topic, rating, lastTs }: TopicRowProps) {
-  const navigate = useNavigate();
-  const canShowPlan = hasPlan(topic.id);
-
   return (
     <div className="flex items-center gap-3 py-2.5 px-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors group">
       <div className="flex-1 min-w-0">
@@ -37,15 +32,6 @@ export function TopicRow({ topic, rating, lastTs }: TopicRowProps) {
         )}
       </div>
       <StarRating rating={rating} size="sm" readonly />
-      {canShowPlan && (
-        <button
-          onClick={() => navigate(`/topic/${topic.id}`)}
-          title="Vedi piano di studio"
-          className="flex-shrink-0 text-xs px-2 py-1 rounded-md bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 hover:bg-amber-200 dark:hover:bg-amber-900/50 font-medium"
-        >
-          Piano
-        </button>
-      )}
     </div>
   );
 }

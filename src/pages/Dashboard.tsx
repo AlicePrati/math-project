@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { SECTIONS, ALL_TOPICS } from '../data/topics';
+import { SECTIONS } from '../data/topics';
 import { useTracker, daysUntilReassessment, isReassessmentDue } from '../store/useTracker';
 import { ProgressRing } from '../components/ProgressRing';
 import { SectionCard } from '../components/SectionCard';
@@ -68,18 +68,21 @@ export default function Dashboard() {
   const { data } = useTracker();
   const navigate = useNavigate();
 
-  const ratedTopics = ALL_TOPICS.filter((t) => (data.ratings[t.id] ?? 0) > 0);
-  const solidCount = ALL_TOPICS.filter((t) => (data.ratings[t.id] ?? 0) >= 4).length;
-  const pct = ALL_TOPICS.length > 0 ? (solidCount / ALL_TOPICS.length) * 100 : 0;
+  const sectionRating = (s: typeof SECTIONS[number]) =>
+    s.topics.map((t) => data.ratings[t.id] ?? 0).find((r) => r > 0) ?? 0;
+
+  const ratedSections = SECTIONS.filter((s) => sectionRating(s) > 0);
+  const solidCount = ratedSections.filter((s) => sectionRating(s) >= 4).length;
+  const pct = SECTIONS.length > 0 ? (solidCount / SECTIONS.length) * 100 : 0;
 
   const countByStar = [1, 2, 3, 4, 5].map((star) => ({
     star,
-    count: ALL_TOPICS.filter((t) => (data.ratings[t.id] ?? 0) === star).length,
+    count: ratedSections.filter((s) => sectionRating(s) === star).length,
   }));
 
   const avgRating =
-    ratedTopics.length > 0
-      ? ratedTopics.reduce((sum, t) => sum + (data.ratings[t.id] ?? 0), 0) / ratedTopics.length
+    ratedSections.length > 0
+      ? ratedSections.reduce((sum, s) => sum + sectionRating(s), 0) / ratedSections.length
       : 0;
 
   const daysLeft = daysUntilReassessment(data);
@@ -105,7 +108,7 @@ export default function Dashboard() {
 
         <div className="flex-1 w-full">
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">
-            {ratedTopics.length} / {ALL_TOPICS.length} argomenti valutati
+            {ratedSections.length} / {SECTIONS.length} argomenti valutati
           </p>
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
             Media generale:{' '}
@@ -157,6 +160,7 @@ export default function Dashboard() {
             section={section}
             ratings={data.ratings}
             onClick={() => navigate(`/tracker?section=${section.id}`)}
+            onPianoClick={() => navigate(`/topic/${section.id}`)}
           />
         ))}
       </div>

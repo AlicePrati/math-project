@@ -4,9 +4,10 @@ interface SectionCardProps {
   section: Section;
   ratings: Record<string, number>;
   onClick: () => void;
+  onPianoClick: () => void;
 }
 
-export function SectionCard({ section, ratings, onClick }: SectionCardProps) {
+export function SectionCard({ section, ratings, onClick, onPianoClick }: SectionCardProps) {
   const topicRatings = section.topics.map((t) => ratings[t.id] ?? 0);
   const rated = topicRatings.filter((r) => r > 0);
   const avg = rated.length > 0 ? rated.reduce((a, b) => a + b, 0) / rated.length : 0;
@@ -14,41 +15,48 @@ export function SectionCard({ section, ratings, onClick }: SectionCardProps) {
   const pct = (avg / 5) * 100;
 
   return (
-    <button
-      onClick={onClick}
+    <div
       className={[
         'bg-white dark:bg-gray-800 rounded-xl text-left',
         'border border-gray-200 dark:border-gray-700 border-l-4',
         section.colors.border,
-        'p-4 hover:shadow-md transition-shadow w-full',
+        'hover:shadow-md transition-shadow w-full overflow-hidden',
       ].join(' ')}
     >
-      <div className="flex items-start justify-between gap-2 mb-3">
-        <h3 className="font-semibold text-gray-900 dark:text-gray-100 text-sm leading-snug">
-          {section.label}
-        </h3>
-        {critical > 0 && (
-          <span className={`text-xs px-2 py-0.5 rounded-full font-medium flex-shrink-0 ${section.colors.badge}`}>
-            {critical} critici
-          </span>
-        )}
-      </div>
-
-      <div className="flex items-center gap-2">
-        <div className="flex-1 h-1.5 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
-          <div
-            className={`h-full rounded-full transition-all duration-500 ${section.colors.bar}`}
-            style={{ width: `${pct}%` }}
-          />
+      <button onClick={onClick} className="w-full text-left p-4 pb-3">
+        <div className="flex items-start justify-between gap-2 mb-3">
+          <h3 className="font-semibold text-gray-900 dark:text-gray-100 text-sm leading-snug">
+            {section.label}
+          </h3>
+          {critical > 0 && (
+            <span className={`text-xs px-2 py-0.5 rounded-full font-medium flex-shrink-0 ${section.colors.badge}`}>
+              {critical} critici
+            </span>
+          )}
         </div>
-        <span className="text-xs text-gray-500 dark:text-gray-400 w-8 text-right tabular-nums">
-          {avg > 0 ? avg.toFixed(1) : '—'}★
-        </span>
-      </div>
 
-      <p className="text-xs text-gray-400 dark:text-gray-500 mt-1.5">
-        {rated.length}/{section.topics.length} valutati
-      </p>
-    </button>
+        <div className="flex items-center gap-2">
+          <div className="flex-1 h-1.5 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+            <div
+              className={`h-full rounded-full transition-all duration-500 ${section.colors.bar}`}
+              style={{ width: `${pct}%` }}
+            />
+          </div>
+          <span className="text-xs text-gray-500 dark:text-gray-400 w-8 text-right tabular-nums">
+            {avg > 0 ? avg.toFixed(1) : '—'}★
+          </span>
+        </div>
+
+      </button>
+
+      <div className="px-4 pb-3">
+        <button
+          onClick={onPianoClick}
+          className="text-xs px-2.5 py-1 rounded-md bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 hover:bg-amber-200 dark:hover:bg-amber-900/50 font-medium transition-colors"
+        >
+          Piano di studio
+        </button>
+      </div>
+    </div>
   );
 }

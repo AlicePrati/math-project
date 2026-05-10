@@ -1,7 +1,7 @@
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
-import { ALL_TOPICS, SECTIONS } from '../data/topics';
+import { SECTION_MAP } from '../data/topics';
 import { useTracker } from '../store/useTracker';
-import { getStudyPlanForTopic, hasPlan } from '../data/studyPlans';
+import { getStudyPlanForSection, hasSectionPlan } from '../data/studyPlans';
 
 const PRIORITY_BADGE: Record<string, string> = {
   critical: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300',
@@ -46,22 +46,25 @@ function Section({ title, items, color }: { title: string; items: string[]; colo
 }
 
 export default function TopicStudyPlan() {
-  const { topicId } = useParams<{ topicId: string }>();
+  const { topicId: sectionId } = useParams<{ topicId: string }>();
   const navigate = useNavigate();
   const { data } = useTracker();
 
   const [searchParams] = useSearchParams();
 
-  const topic = ALL_TOPICS.find((t) => t.id === topicId);
-  const section = topic ? SECTIONS.find((s) => s.id === topic.sectionId) : undefined;
+  const section = sectionId ? SECTION_MAP[sectionId] : undefined;
 
-  const rawRating = topicId ? (data.ratings[topicId] ?? 0) : 0;
+  // Section rating = the rating assigned to any topic in the section (all share the same value after quiz)
+  const sectionRating = section
+    ? section.topics.map((t) => data.ratings[t.id] ?? 0).find((r) => r > 0) ?? 0
+    : 0;
+
   const queryRating = Number(searchParams.get('rating'));
-  const displayRating = (queryRating >= 1 && queryRating <= 5 ? queryRating : rawRating > 0 ? rawRating : 1) as 1|2|3|4|5;
-  const plan = topicId ? getStudyPlanForTopic(topicId, displayRating) : undefined;
-  const hasAnyPlan = topicId ? hasPlan(topicId) : false;
+  const displayRating = (queryRating >= 1 && queryRating <= 5 ? queryRating : sectionRating > 0 ? sectionRating : 1) as 1|2|3|4|5;
+  const plan = sectionId ? getStudyPlanForSection(sectionId, displayRating) : undefined;
+  const hasAnyPlan = sectionId ? hasSectionPlan(sectionId) : false;
 
-  if (!topic) {
+  if (!section) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950">
         <div className="text-center">
@@ -89,21 +92,19 @@ export default function TopicStudyPlan() {
             Indietro
           </button>
           <div className="flex-1 min-w-0">
-            {section && (
-              <p className="text-xs text-gray-400 dark:text-gray-500 truncate">{section.label}</p>
-            )}
-            <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 truncate">{topic.label}</p>
+            <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 truncate">{section.label}</p>
+            <p className="text-xs text-gray-400 dark:text-gray-500">Piano di studio</p>
           </div>
         </div>
       </header>
 
       <div className="max-w-2xl mx-auto px-4 py-6 space-y-4">
         {/* Rating card */}
-        <div className={`bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 border-l-4 p-5 ${section?.colors.border ?? ''}`}>
+        <div className={`bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 border-l-4 p-5 ${section.colors.border}`}>
           <div className="flex items-center justify-between">
             <div>
               <p className="text-xs text-gray-400 dark:text-gray-500 mb-1">
-                {rawRating > 0 ? `Livello attuale` : 'Non ancora valutato'}
+                {sectionRating > 0 ? 'Livello attuale' : 'Non ancora valutato'}
               </p>
               <Stars rating={displayRating} />
               {plan && (
@@ -129,7 +130,7 @@ export default function TopicStudyPlan() {
 
         {plan && (
           <>
-            {/* Cosa ti serve */}
+            {/* Cosa devi capire */}
             <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
               <h3 className="text-xs font-semibold uppercase tracking-wide text-blue-500 dark:text-blue-400 mb-2">
                 Cosa devi capire
@@ -156,7 +157,7 @@ export default function TopicStudyPlan() {
               </div>
             )}
 
-            {/* Concetti chiave + Errori comuni in colonna */}
+            {/* Concetti chiave + Errori comuni */}
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {plan.keyPoints.length > 0 && (
                 <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
@@ -209,7 +210,7 @@ export default function TopicStudyPlan() {
               {([1, 2, 3, 4, 5] as const).map((r) => (
                 <button
                   key={r}
-                  onClick={() => navigate(`/topic/${topicId}?rating=${r}`)}
+                  onClick={() => navigate(`/topic/${sectionId}?rating=${r}`)}
                   className={[
                     'flex-1 py-1.5 rounded-lg text-sm font-semibold transition-colors border',
                     r === displayRating

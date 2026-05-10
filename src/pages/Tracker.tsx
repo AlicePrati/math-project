@@ -149,7 +149,10 @@ export default function Tracker() {
       {/* Sections */}
       <div className="space-y-3">
         {SECTIONS.map((section) => {
-          const sectionTopics = section.topics.filter((topic) => {
+          const assessedTopics = section.topics.filter((t) => (data.ratings[t.id] ?? 0) > 0);
+          if (assessedTopics.length === 0) return null;
+
+          const sectionTopics = assessedTopics.filter((topic) => {
             const r = data.ratings[topic.id] ?? 0;
             if (!matchesFilter(r, filter)) return false;
             if (q && !topic.label.toLowerCase().includes(q)) return false;
@@ -159,7 +162,7 @@ export default function Tracker() {
           if (sectionTopics.length === 0 && (filter !== 'tutti' || q)) return null;
 
           const isCollapsed = collapsed[section.id] ?? false;
-          const displayTopics = filter !== 'tutti' || q ? sectionTopics : section.topics;
+          const displayTopics = filter !== 'tutti' || q ? sectionTopics : assessedTopics;
 
           return (
             <div
@@ -167,27 +170,36 @@ export default function Tracker() {
               ref={(el) => { sectionRefs.current[section.id] = el; }}
               className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden"
             >
-              <button
-                onClick={() => toggleSection(section.id)}
-                className={`w-full flex items-center gap-3 px-4 py-3 text-left border-l-4 ${section.colors.border}`}
-              >
-                <span className="flex-1 font-semibold text-sm text-gray-900 dark:text-gray-100">
-                  {section.label}
-                </span>
-                <span className="text-xs text-gray-400 dark:text-gray-500">
-                  {section.topics.filter((t) => (data.ratings[t.id] ?? 0) >= 4).length}/
-                  {section.topics.length} solidi
-                </span>
-                <svg
-                  className={`w-4 h-4 text-gray-400 transition-transform ${isCollapsed ? '' : 'rotate-180'}`}
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
+              <div className={`flex items-center border-l-4 ${section.colors.border}`}>
+                <button
+                  onClick={() => toggleSection(section.id)}
+                  className="flex-1 flex items-center gap-3 px-4 py-3 text-left"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
+                  <span className="flex-1 font-semibold text-sm text-gray-900 dark:text-gray-100">
+                    {section.label}
+                  </span>
+                  <span className="text-xs text-gray-400 dark:text-gray-500">
+                    {section.topics.filter((t) => (data.ratings[t.id] ?? 0) >= 4).length}/
+                    {section.topics.length} solidi
+                  </span>
+                  <svg
+                    className={`w-4 h-4 text-gray-400 transition-transform ${isCollapsed ? '' : 'rotate-180'}`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                <button
+                  onClick={() => navigate(`/topic/${section.id}`)}
+                  title="Vedi piano di studio"
+                  className="flex-shrink-0 text-xs px-2.5 py-1 mr-3 rounded-md bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 hover:bg-amber-200 dark:hover:bg-amber-900/50 font-medium"
+                >
+                  Piano
+                </button>
+              </div>
 
               {!isCollapsed && (
                 <div className="divide-y divide-gray-50 dark:divide-gray-700/50 px-2 pb-2">
