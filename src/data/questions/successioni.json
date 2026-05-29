@@ -1,0 +1,574 @@
+[
+  {
+    "id": "succ_01",
+    "topicId": "limite_successione",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "La successione aₙ = 1/n converge a:",
+    "options": [
+      "0",
+      "1",
+      "+∞",
+      "Non converge"
+    ],
+    "explanation": "lim_{n→∞} 1/n = 0. Per ogni ε > 0, basta scegliere N > 1/ε: per n > N si ha |1/n − 0| = 1/n < ε."
+  },
+  {
+    "id": "succ_02",
+    "topicId": "limite_successione",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "Quale delle seguenti successioni diverge a +∞?",
+    "options": [
+      "aₙ = n²",
+      "aₙ = (−1)ⁿ",
+      "aₙ = cos(n)",
+      "aₙ = n·(−1)ⁿ"
+    ],
+    "explanation": "aₙ = n² → +∞. (−1)ⁿ e cos(n) oscillano e non convergono. n·(−1)ⁿ alterna tra valori positivi e negativi sempre più grandi, senza limite."
+  },
+  {
+    "id": "succ_03",
+    "topicId": "limite_successione",
+    "type": "mcq",
+    "difficulty": 3,
+    "question": "Il teorema dei carabinieri afferma che se aₙ ≤ bₙ ≤ cₙ e lim aₙ = lim cₙ = L, allora:",
+    "options": [
+      "lim bₙ = L",
+      "bₙ converge a un valore tra aₙ e cₙ",
+      "bₙ è monotona",
+      "bₙ è limitata ma potrebbe non convergere"
+    ],
+    "explanation": "Se aₙ ≤ bₙ ≤ cₙ e aₙ → L e cₙ → L, allora bₙ → L. Es: lim sin(n)/n = 0 perché −1/n ≤ sin(n)/n ≤ 1/n e ±1/n → 0."
+  },
+  {
+    "id": "succ_04",
+    "topicId": "limite_successione",
+    "type": "mcq",
+    "difficulty": 4,
+    "question": "Qual è il limite di aₙ = (n² + 3n) / (2n² − 1)?",
+    "options": [
+      "1/2",
+      "0",
+      "3/2",
+      "+∞"
+    ],
+    "explanation": "Si divide numeratore e denominatore per n²: (1 + 3/n) / (2 − 1/n²) → 1/2."
+  },
+  {
+    "id": "succ_05",
+    "topicId": "limite_successione",
+    "type": "mcq",
+    "difficulty": 5,
+    "question": "Il limite lim_{n→∞} (1 + 1/n)ⁿ è uguale a:",
+    "options": [
+      "e ≈ 2.718",
+      "1",
+      "2",
+      "+∞"
+    ],
+    "explanation": "lim_{n→∞} (1 + 1/n)ⁿ = e. La successione è crescente e limitata superiormente da 3, quindi converge."
+  },
+  {
+    "id": "mono_01",
+    "topicId": "successioni_monotone",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "Una successione aₙ è crescente se:",
+    "options": [
+      "aₙ₊₁ > aₙ per ogni n",
+      "aₙ > 0 per ogni n",
+      "aₙ₊₁ ≥ aₙ per ogni n",
+      "aₙ → +∞"
+    ],
+    "explanation": "Una successione è strettamente crescente se aₙ₊₁ > aₙ per ogni n. Non deve necessariamente tendere a +∞ (es. 1 − 1/n è crescente ma converge a 1)."
+  },
+  {
+    "id": "mono_02",
+    "topicId": "successioni_monotone",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "Il teorema sulle successioni monotone afferma che:",
+    "options": [
+      "Ogni successione monotona e limitata converge",
+      "Ogni successione monotona converge",
+      "Ogni successione limitata è monotona",
+      "Ogni successione convergente è monotona"
+    ],
+    "explanation": "Teorema fondamentale: se una successione è monotona e limitata, allora converge. Monotona crescente e limitata superiormente → converge al sup."
+  },
+  {
+    "id": "mono_03",
+    "topicId": "successioni_monotone",
+    "type": "mcq",
+    "difficulty": 3,
+    "question": "La successione aₙ = n/(n+1) è:",
+    "options": [
+      "Crescente e limitata (converge a 1)",
+      "Decrescente e limitata",
+      "Crescente e non limitata",
+      "Né crescente né decrescente"
+    ],
+    "explanation": "aₙ₊₁ − aₙ = 1/((n+1)(n+2)) > 0 → crescente. 0 < aₙ < 1 per ogni n → limitata. Converge a 1."
+  },
+  {
+    "id": "mono_04",
+    "topicId": "successioni_monotone",
+    "type": "mcq",
+    "difficulty": 4,
+    "question": "La successione a₁ = 1, aₙ₊₁ = (aₙ + 2)/2 converge. A quale valore?",
+    "options": [
+      "2",
+      "1",
+      "3/2",
+      "Non converge"
+    ],
+    "explanation": "La successione è crescente e limitata da 2. Convergendo a L: L = (L+2)/2 ⟹ 2L = L+2 ⟹ L = 2."
+  },
+  {
+    "id": "mono_05",
+    "topicId": "successioni_monotone",
+    "type": "mcq",
+    "difficulty": 5,
+    "question": "Sia aₙ = (2n+1)!! / (2n)!! dove !! denota il fattoriale doppio. La successione è:",
+    "options": [
+      "Crescente e diverge",
+      "Crescente e converge a π/2",
+      "Decrescente e converge a 0",
+      "Non monotona"
+    ],
+    "explanation": "Il rapporto aₙ₊₁/aₙ = (2n+3)/(2n+2) > 1, quindi la successione è crescente e tende a +∞."
+  },
+  {
+    "id": "cau_01",
+    "topicId": "cauchy_successione",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "Una successione {aₙ} è di Cauchy se:",
+    "options": [
+      "Per ogni ε > 0, esistono termini arbitrariamente vicini tra loro per n grande",
+      "Converge a 0",
+      "È monotona e limitata",
+      "Ha una sottosuccessione convergente"
+    ],
+    "explanation": "Definizione: {aₙ} è di Cauchy se ∀ε > 0, ∃N : ∀m,n > N, |aₘ − aₙ| < ε."
+  },
+  {
+    "id": "cau_02",
+    "topicId": "cauchy_successione",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "Ogni successione convergente è di Cauchy?",
+    "options": [
+      "Sì, sempre",
+      "No, una convergente può non essere di Cauchy",
+      "Solo se converge a 0",
+      "Solo se è monotona"
+    ],
+    "explanation": "Sì: se aₙ → L, allora |aₘ − aₙ| ≤ |aₘ − L| + |L − aₙ| → 0. Il viceversa vale in ℝ (completezza) ma non in ℚ."
+  },
+  {
+    "id": "cau_03",
+    "topicId": "cauchy_successione",
+    "type": "mcq",
+    "difficulty": 3,
+    "question": "In ℝ, una successione è convergente se e solo se:",
+    "options": [
+      "È di Cauchy",
+      "È monotona",
+      "È limitata",
+      "Ha una sottosuccessione convergente"
+    ],
+    "explanation": "Teorema di Cauchy per ℝ: una successione di numeri reali converge ↔ è di Cauchy."
+  },
+  {
+    "id": "cau_04",
+    "topicId": "cauchy_successione",
+    "type": "mcq",
+    "difficulty": 4,
+    "question": "La successione aₙ = ∑ₖ₌₁ⁿ 1/k² è di Cauchy in ℝ?",
+    "options": [
+      "Sì, perché la serie ∑ 1/k² converge",
+      "No, perché le somme parziali crescono indefinitamente",
+      "Non si può determinare senza calcolare il limite",
+      "Sì, ma solo per n pari"
+    ],
+    "explanation": "∑ 1/k² converge (π²/6). Le somme parziali sono monotone crescenti e limitate, quindi convergenti e di Cauchy."
+  },
+  {
+    "id": "cau_05",
+    "topicId": "cauchy_successione",
+    "type": "mcq",
+    "difficulty": 5,
+    "question": "Una successione {aₙ} con |aₙ₊₁ − aₙ| ≤ C/n (C > 0 costante) è di Cauchy?",
+    "options": [
+      "No, la condizione è troppo debole",
+      "Sì, sempre",
+      "Solo se C < 1",
+      "Solo se la successione è monotona"
+    ],
+    "explanation": "Non necessariamente. La serie armonica ∑ 1/n diverge. Es: aₙ = ∑ₖ₌₁ⁿ 1/k soddisfa |aₙ₊₁−aₙ| = 1/(n+1) ma diverge. Serve |aₙ₊₁−aₙ| ≤ C·rⁿ con r < 1."
+  },
+  {
+    "id": "eul_01",
+    "topicId": "numero_eulero",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "Il numero e è approssimativamente uguale a:",
+    "options": [
+      "2.718",
+      "1.618",
+      "3.141",
+      "1.414"
+    ],
+    "explanation": "e ≈ 2.71828… è la base del logaritmo naturale. Le altre opzioni sono φ (sezione aurea), π e √2."
+  },
+  {
+    "id": "eul_02",
+    "topicId": "numero_eulero",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "Quale delle seguenti è una definizione del numero e?",
+    "options": [
+      "e = lim_{n→∞} (1 + 1/n)ⁿ",
+      "e = lim_{n→∞} n^(1/n)",
+      "e = ∑_{n=0}^∞ 1/n",
+      "e = lim_{x→0} (1+x)/x"
+    ],
+    "explanation": "e = lim_{n→∞} (1+1/n)ⁿ. Equivalentemente e = ∑_{n=0}^∞ 1/n!. Nota: ∑ 1/n è la serie armonica che diverge."
+  },
+  {
+    "id": "eul_03",
+    "topicId": "numero_eulero",
+    "type": "mcq",
+    "difficulty": 3,
+    "question": "Qual è il limite di (1 + x/n)ⁿ per n → ∞?",
+    "options": [
+      "eˣ",
+      "1",
+      "x",
+      "e"
+    ],
+    "explanation": "lim_{n→∞} (1 + x/n)ⁿ = eˣ per ogni x ∈ ℝ. Generalizzazione del limite fondamentale (1+1/n)ⁿ → e."
+  },
+  {
+    "id": "eul_04",
+    "topicId": "numero_eulero",
+    "type": "mcq",
+    "difficulty": 4,
+    "question": "Il limite lim_{x→0} (eˣ − 1)/x vale:",
+    "options": [
+      "1",
+      "0",
+      "e",
+      "Non esiste"
+    ],
+    "explanation": "lim_{x→0} (eˣ−1)/x = 1. È la derivata di eˣ in x=0. Con Taylor: eˣ = 1 + x + x²/2 + …, quindi (eˣ−1)/x → 1."
+  },
+  {
+    "id": "eul_05",
+    "topicId": "numero_eulero",
+    "type": "mcq",
+    "difficulty": 5,
+    "question": "La successione aₙ = (1 + 1/n)ⁿ è:",
+    "options": [
+      "Crescente e converge a e",
+      "Decrescente e converge a e",
+      "Non monotona e converge a e",
+      "Crescente e diverge"
+    ],
+    "explanation": "aₙ è strettamente crescente (si dimostra con la disuguaglianza di Bernoulli) e limitata superiormente da 3. Converge a e per definizione."
+  },
+  {
+    "id": "tf_ls_01",
+    "topicId": "limite_successione",
+    "type": "tf",
+    "difficulty": 1,
+    "question": "lim_{n→∞} 1/n = 0.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Per ogni ε>0, basta scegliere N > 1/ε: per n>N si ha |1/n| < ε."
+  },
+  {
+    "id": "tf_ls_02",
+    "topicId": "limite_successione",
+    "type": "tf",
+    "difficulty": 2,
+    "question": "Ogni successione limitata converge.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 1,
+    "explanation": "(-1)ⁿ è limitata ma non converge: oscilla tra 1 e -1."
+  },
+  {
+    "id": "tf_ls_03",
+    "topicId": "limite_successione",
+    "type": "tf",
+    "difficulty": 3,
+    "question": "Se aₙ → L allora |aₙ| → |L|.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Per la continuità del valore assoluto: |aₙ − L| ≥ ||aₙ| − |L||, quindi se il primo → 0 anche il secondo → 0."
+  },
+  {
+    "id": "tf_ls_04",
+    "topicId": "limite_successione",
+    "type": "tf",
+    "difficulty": 4,
+    "question": "Se aₙ ≤ bₙ per ogni n e aₙ → L, bₙ → M, allora L ≤ M.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Il limite preserva le disuguaglianze (non strette)."
+  },
+  {
+    "id": "tf_ls_05",
+    "topicId": "limite_successione",
+    "type": "tf",
+    "difficulty": 5,
+    "question": "lim_{n→∞} (1 + 1/n)ⁿ = e.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "È una delle definizioni fondamentali del numero di Eulero e."
+  },
+  {
+    "id": "tf_sm_01",
+    "topicId": "successioni_monotone",
+    "type": "tf",
+    "difficulty": 1,
+    "question": "Una successione crescente è necessariamente limitata.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 1,
+    "explanation": "aₙ = n è crescente ma non limitata superiormente."
+  },
+  {
+    "id": "tf_sm_02",
+    "topicId": "successioni_monotone",
+    "type": "tf",
+    "difficulty": 2,
+    "question": "Una successione crescente e limitata superiormente converge.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Teorema fondamentale sulle successioni monotone: il limite è il sup dell'insieme dei valori."
+  },
+  {
+    "id": "tf_sm_03",
+    "topicId": "successioni_monotone",
+    "type": "tf",
+    "difficulty": 3,
+    "question": "aₙ = n/(n+1) è crescente.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "aₙ₊₁ − aₙ = 1/((n+1)(n+2)) > 0 per ogni n."
+  },
+  {
+    "id": "tf_sm_04",
+    "topicId": "successioni_monotone",
+    "type": "tf",
+    "difficulty": 4,
+    "question": "Se aₙ → L e aₙ₊₁ = f(aₙ), allora L = f(L) (equazione del punto fisso).",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Passando al limite nell'equazione di ricorrenza si ottiene la condizione L = f(L)."
+  },
+  {
+    "id": "tf_sm_05",
+    "topicId": "successioni_monotone",
+    "type": "tf",
+    "difficulty": 5,
+    "question": "Una successione decrescente e limitata inferiormente converge al suo infimo.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Duale del teorema per successioni crescenti: converge e il limite è l'inf."
+  },
+  {
+    "id": "tf_cau_01",
+    "topicId": "cauchy_successione",
+    "type": "tf",
+    "difficulty": 1,
+    "question": "Ogni successione convergente è di Cauchy.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Se aₙ → L, allora |aₙ − aₘ| ≤ |aₙ−L| + |L−aₘ| → 0."
+  },
+  {
+    "id": "tf_cau_02",
+    "topicId": "cauchy_successione",
+    "type": "tf",
+    "difficulty": 2,
+    "question": "In ℝ, ogni successione di Cauchy converge.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Questo è il criterio di Cauchy, equivalente alla completezza di ℝ."
+  },
+  {
+    "id": "tf_cau_03",
+    "topicId": "cauchy_successione",
+    "type": "tf",
+    "difficulty": 3,
+    "question": "Ogni successione di Cauchy è limitata.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Da un certo N in poi i termini stanno in un intorno di aₙ, quindi la successione è limitata."
+  },
+  {
+    "id": "tf_cau_04",
+    "topicId": "cauchy_successione",
+    "type": "tf",
+    "difficulty": 4,
+    "question": "In ℚ, ogni successione di Cauchy converge in ℚ.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 1,
+    "explanation": "ℚ non è completo: esistono successioni di Cauchy in ℚ che convergono a irrazionali."
+  },
+  {
+    "id": "tf_cau_05",
+    "topicId": "cauchy_successione",
+    "type": "tf",
+    "difficulty": 5,
+    "question": "aₙ = (-1)ⁿ è una successione di Cauchy.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 1,
+    "explanation": "|a_{n+1} − aₙ| = 2 per ogni n, quindi non può essere di Cauchy."
+  },
+  {
+    "id": "tf_eu_01",
+    "topicId": "numero_eulero",
+    "type": "tf",
+    "difficulty": 1,
+    "question": "e ≈ 2.718 è un numero irrazionale.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "e è irrazionale (e anche trascendente)."
+  },
+  {
+    "id": "tf_eu_02",
+    "topicId": "numero_eulero",
+    "type": "tf",
+    "difficulty": 2,
+    "question": "e = lim_{n→∞} (1 + 1/n)ⁿ.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "È una delle definizioni fondamentali di e."
+  },
+  {
+    "id": "tf_eu_03",
+    "topicId": "numero_eulero",
+    "type": "tf",
+    "difficulty": 3,
+    "question": "La successione (1 + 1/n)ⁿ è decrescente.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 1,
+    "explanation": "È strettamente crescente e converge a e."
+  },
+  {
+    "id": "tf_eu_04",
+    "topicId": "numero_eulero",
+    "type": "tf",
+    "difficulty": 4,
+    "question": "lim_{x→0} (eˣ − 1)/x = 1.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Limite notevole fondamentale: è la derivata di eˣ calcolata in 0."
+  },
+  {
+    "id": "tf_eu_05",
+    "topicId": "numero_eulero",
+    "type": "tf",
+    "difficulty": 5,
+    "question": "e = ∑_{n=0}^∞ 1/n! = 1 + 1 + 1/2 + 1/6 + …",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "È lo sviluppo in serie di Taylor di eˣ valutato in x=1."
+  },
+  {
+    "id": "arr_lim_seq_01",
+    "topicId": "limite_successione",
+    "type": "arrange",
+    "difficulty": 2,
+    "question": "Per ogni ε > 0 la definizione di limite chiede che esista N tale che ...",
+    "bank": [
+      "per",
+      "ogni",
+      "n",
+      ">",
+      "N",
+      ",",
+      "|aₙ − L|",
+      "<",
+      "ε",
+      "≥",
+      "="
+    ],
+    "correct": [
+      "per",
+      "ogni",
+      "n",
+      ">",
+      "N",
+      ",",
+      "|aₙ − L|",
+      "<",
+      "ε"
+    ],
+    "explanation": "La condizione è |aₙ − L| < ε per ogni n > N. \"≥\" e \"=\" invertono o fissano la distanza invece di tenerla piccola."
+  }
+]

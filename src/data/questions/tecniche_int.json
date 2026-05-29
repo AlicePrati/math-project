@@ -1,0 +1,542 @@
+[
+  {
+    "id": "imm_01",
+    "topicId": "int_immediate",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "Qual è ∫ x³ dx?",
+    "options": [
+      "x⁴/4 + C",
+      "3x²",
+      "x⁴ + C",
+      "4x³ + C"
+    ],
+    "explanation": "∫ xⁿ dx = xⁿ⁺¹/(n+1) + C per n ≠ −1. Qui n=3: x⁴/4 + C."
+  },
+  {
+    "id": "imm_02",
+    "topicId": "int_immediate",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "Qual è ∫ 1/x dx?",
+    "options": [
+      "ln|x| + C",
+      "x⁻² + C",
+      "ln(x) + C",
+      "−1/x² + C"
+    ],
+    "explanation": "∫ 1/x dx = ln|x| + C. Il valore assoluto è necessario perché il logaritmo è definito per argomenti positivi."
+  },
+  {
+    "id": "imm_03",
+    "topicId": "int_immediate",
+    "type": "mcq",
+    "difficulty": 3,
+    "question": "Calcolare ∫ sin(3x) dx.",
+    "options": [
+      "−cos(3x)/3 + C",
+      "cos(3x) + C",
+      "3cos(3x) + C",
+      "−3cos(3x) + C"
+    ],
+    "explanation": "∫ sin(ax) dx = −cos(ax)/a + C. Qui a=3: −cos(3x)/3 + C."
+  },
+  {
+    "id": "imm_04",
+    "topicId": "int_immediate",
+    "type": "mcq",
+    "difficulty": 4,
+    "question": "Calcolare ∫ e^(2x) / (1 + e^(2x)) dx.",
+    "options": [
+      "ln(1+e^(2x))/2 + C",
+      "ln(1+e^(2x)) + C",
+      "e^(2x)/(1+e^(2x)) + C",
+      "arctan(eˣ) + C"
+    ],
+    "explanation": "Si riconosce la forma f'/f: la derivata di (1+e^(2x)) è 2e^(2x). Quindi ∫ e^(2x)/(1+e^(2x)) dx = (1/2)·ln(1+e^(2x)) + C."
+  },
+  {
+    "id": "imm_05",
+    "topicId": "int_immediate",
+    "type": "mcq",
+    "difficulty": 5,
+    "question": "Calcolare ∫ 1/(1+x²) dx.",
+    "options": [
+      "arctan(x) + C",
+      "ln(1+x²) + C",
+      "arcsin(x) + C",
+      "2x/(1+x²)² + C"
+    ],
+    "explanation": "∫ 1/(1+x²) dx = arctan(x) + C. Integrale fondamentale. Analogamente: ∫ 1/√(1−x²) dx = arcsin(x) + C."
+  },
+  {
+    "id": "sub_01",
+    "topicId": "int_sostituzione",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "Per calcolare ∫ 2x·cos(x²) dx si usa la sostituzione:",
+    "options": [
+      "u = x²",
+      "u = cos(x²)",
+      "u = 2x",
+      "u = x² + 1"
+    ],
+    "explanation": "u = x² → du = 2x dx. L'integrale diventa ∫ cos(u) du = sin(u) + C = sin(x²) + C."
+  },
+  {
+    "id": "sub_02",
+    "topicId": "int_sostituzione",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "Calcolare ∫₀¹ x·e^(x²) dx.",
+    "options": [
+      "(e−1)/2",
+      "e−1",
+      "e/2",
+      "1"
+    ],
+    "explanation": "u=x²: du=2x dx, x dx=du/2. Estremi: x=0→u=0, x=1→u=1. ∫₀¹ xe^(x²)dx = (1/2)∫₀¹ eᵘ du = (e−1)/2."
+  },
+  {
+    "id": "sub_03",
+    "topicId": "int_sostituzione",
+    "type": "mcq",
+    "difficulty": 3,
+    "question": "Per calcolare ∫ √(1−x²) dx si usa la sostituzione trigonometrica:",
+    "options": [
+      "x = sin θ, dx = cos θ dθ",
+      "x = cos θ",
+      "x = tan θ",
+      "x = sec θ"
+    ],
+    "explanation": "Con x = sin θ: √(1−x²) = cos θ, dx = cos θ dθ. Si ottiene ∫ cos²θ dθ = θ/2 + sin(2θ)/4 + C = arcsin(x)/2 + x√(1−x²)/2 + C."
+  },
+  {
+    "id": "sub_04",
+    "topicId": "int_sostituzione",
+    "type": "mcq",
+    "difficulty": 4,
+    "question": "Calcolare ∫ 1/√(x² + 1) dx.",
+    "options": [
+      "ln(x + √(x²+1)) + C",
+      "arctan(x) + C",
+      "√(x²+1) + C",
+      "arcsinh(x) + C (stessa della A)"
+    ],
+    "explanation": "Con x = sinh t o x = tan θ: risulta ln(x + √(x²+1)) + C = arcsinh(x) + C."
+  },
+  {
+    "id": "sub_05",
+    "topicId": "int_sostituzione",
+    "type": "mcq",
+    "difficulty": 5,
+    "question": "Le sostituzioni di Euler si usano per integrali con:",
+    "options": [
+      "√(x²−a²)",
+      "√(ax+b)",
+      "Funzioni razionali",
+      "eˣ"
+    ],
+    "explanation": "Le sostituzioni di Euler si usano per risolvere integrali con radicali quadratici √(ax²+bx+c). Per √(x²−a²): x=a·cosh(t)."
+  },
+  {
+    "id": "par_01",
+    "topicId": "int_parti",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "La formula di integrazione per parti è:",
+    "options": [
+      "∫ f·g' dx = f·g − ∫ f'·g dx",
+      "∫ f·g' dx = f·g + ∫ f'·g dx",
+      "∫ f·g dx = f'·g − f·g'",
+      "∫ f·g' dx = f'·g' + C"
+    ],
+    "explanation": "∫ f·g' dx = f·g − ∫ f'·g dx. Si deriva dalla regola del prodotto: (fg)' = f'g + fg'."
+  },
+  {
+    "id": "par_02",
+    "topicId": "int_parti",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "Calcolare ∫ x·eˣ dx. Con f=x, g'=eˣ: f'=1, g=eˣ. Il risultato è:",
+    "options": [
+      "x·eˣ − eˣ + C",
+      "x·eˣ + C",
+      "(x−1)eˣ + C (stessa della B)",
+      "eˣ(x+1) + C (stessa della B)"
+    ],
+    "explanation": "∫ x·eˣ dx = x·eˣ − ∫ eˣ dx = x·eˣ − eˣ + C = eˣ(x−1) + C."
+  },
+  {
+    "id": "par_03",
+    "topicId": "int_parti",
+    "type": "mcq",
+    "difficulty": 3,
+    "question": "Calcolare ∫ ln(x) dx. Con f=ln x, g'=1: f'=1/x, g=x. Il risultato è:",
+    "options": [
+      "x·ln(x) − x + C",
+      "x·ln(x) + C",
+      "1/x + C",
+      "ln(x)/x + C"
+    ],
+    "explanation": "∫ ln x dx = x·ln x − ∫ x·(1/x) dx = x·ln x − x + C."
+  },
+  {
+    "id": "par_04",
+    "topicId": "int_parti",
+    "type": "mcq",
+    "difficulty": 4,
+    "question": "Per calcolare I = ∫ eˣ·sin x dx si applica due volte per parti e si ottiene:",
+    "options": [
+      "eˣ(sin x − cos x)/2 + C",
+      "eˣ·sin x − eˣ·cos x + C",
+      "eˣ·cos x + C",
+      "Non calcolabile per parti"
+    ],
+    "explanation": "Prima parte: I = eˣ·sin x − ∫eˣ·cos x dx. Seconda: ∫eˣ·cos x dx = eˣ·cos x + I. Quindi 2I = eˣ(sin x − cos x) → I = eˣ(sin x − cos x)/2 + C."
+  },
+  {
+    "id": "par_05",
+    "topicId": "int_parti",
+    "type": "mcq",
+    "difficulty": 5,
+    "question": "La formula ricorsiva per Iₙ = ∫ sinⁿ(x) dx è:",
+    "options": [
+      "Iₙ = −sinⁿ⁻¹(x)cos(x)/n + (n−1)/n · Iₙ₋₂",
+      "Iₙ = sinⁿ⁻¹(x)cos(x) − (n−1)Iₙ₋₂",
+      "Iₙ = −n·sinⁿ⁻¹(x)cos(x)",
+      "Iₙ = Iₙ₋₂ − sinⁿ(x)"
+    ],
+    "explanation": "Formula di riduzione: Iₙ = −sinⁿ⁻¹(x)cos(x)/n + (n−1)/n·Iₙ₋₂. Riduce il grado di 2 ad ogni applicazione."
+  },
+  {
+    "id": "raz_01",
+    "topicId": "razionali_fratte",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "Il metodo delle frazioni parziali si usa per integrare:",
+    "options": [
+      "Funzioni razionali fratte P(x)/Q(x)",
+      "Funzioni trigonometriche",
+      "Polinomi",
+      "Funzioni esponenziali"
+    ],
+    "explanation": "Le frazioni parziali decompongono P/Q (con deg P < deg Q) come somma di termini semplici integrabili."
+  },
+  {
+    "id": "raz_02",
+    "topicId": "razionali_fratte",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "La decomposizione in frazioni parziali di 1/((x−1)(x+1)) è:",
+    "options": [
+      "(1/2)·[1/(x−1) − 1/(x+1)]",
+      "(1/2)·[1/(x−1) + 1/(x+1)]",
+      "1/(x−1) − 1/(x+1)",
+      "1/(x²−1)"
+    ],
+    "explanation": "1/((x−1)(x+1)) = A/(x−1) + B/(x+1). x=1: A=1/2; x=−1: B=−1/2. Integrando: (1/2)ln|(x−1)/(x+1)| + C."
+  },
+  {
+    "id": "raz_03",
+    "topicId": "razionali_fratte",
+    "type": "mcq",
+    "difficulty": 3,
+    "question": "Quando il denominatore Q(x) ha una radice reale doppia (x−a)², la decomposizione include:",
+    "options": [
+      "A/(x−a) + B/(x−a)² + altri termini",
+      "Solo A/(x−a)",
+      "A/(x−a)²",
+      "A/(x−a) + Bx/(x−a)²"
+    ],
+    "explanation": "Per ogni radice (x−a)^k nel denominatore, la decomposizione include k termini: A₁/(x−a) + A₂/(x−a)² + … + Aₖ/(x−a)^k."
+  },
+  {
+    "id": "raz_04",
+    "topicId": "razionali_fratte",
+    "type": "mcq",
+    "difficulty": 4,
+    "question": "Per integrare ∫ 1/(x²+1) dx con frazioni parziali si osserva che:",
+    "options": [
+      "x²+1 è irriducibile sui reali, il termine è (Ax+B)/(x²+1), e l'integrale dà arctan(x)+C",
+      "x²+1 si fattorizza in (x+i)(x−i) sui reali",
+      "Si deve usare x=tan θ (non frazioni parziali)",
+      "Non è possibile integrare 1/(x²+1)"
+    ],
+    "explanation": "x²+1 è irriducibile su ℝ. Per fattori quadratici irriducibili si usa (Ax+B)/(x²+1). ∫ 1/(x²+1) dx = arctan(x)+C."
+  },
+  {
+    "id": "raz_05",
+    "topicId": "razionali_fratte",
+    "type": "mcq",
+    "difficulty": 5,
+    "question": "Calcolare ∫ (x²+1)/(x³−x) dx. Con x³−x = x(x−1)(x+1), la decomposizione è:",
+    "options": [
+      "A/x + B/(x−1) + C/(x+1) con A=−1, B=1, C=1",
+      "A/x + B/(x−1) + C/(x+1) con A=1, B=−1, C=1",
+      "A/x + B/x² + C/(x−1)",
+      "(x²+1)/(x³−x) non si decompone"
+    ],
+    "explanation": "x=0: A=−1; x=1: B=1; x=−1: C=1. Integrando: −ln|x|+ln|x−1|+ln|x+1|+C."
+  },
+  {
+    "id": "tf_imm_01",
+    "topicId": "int_immediate",
+    "type": "tf",
+    "difficulty": 1,
+    "question": "∫ eˣ dx = eˣ + C.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "La funzione esponenziale è uguale alla sua primitiva."
+  },
+  {
+    "id": "tf_imm_02",
+    "topicId": "int_immediate",
+    "type": "tf",
+    "difficulty": 2,
+    "question": "∫ cos(x) dx = −sin(x) + C.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 1,
+    "explanation": "∫ cos(x)dx = sin(x) + C. È ∫ sin(x)dx = −cos(x) + C."
+  },
+  {
+    "id": "tf_imm_03",
+    "topicId": "int_immediate",
+    "type": "tf",
+    "difficulty": 3,
+    "question": "∫ 1/x dx = ln|x| + C.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Il valore assoluto è necessario per coprire anche x < 0."
+  },
+  {
+    "id": "tf_imm_04",
+    "topicId": "int_immediate",
+    "type": "tf",
+    "difficulty": 4,
+    "question": "∫ 1/(1+x²) dx = arctan(x) + C.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Primitiva fondamentale."
+  },
+  {
+    "id": "tf_imm_05",
+    "topicId": "int_immediate",
+    "type": "tf",
+    "difficulty": 5,
+    "question": "∫ x/(x²+1) dx = (1/2)ln(x²+1) + C.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Forma f'/f: la derivata di x²+1 è 2x, quindi ∫x/(x²+1)dx = (1/2)∫2x/(x²+1)dx = (1/2)ln(x²+1)+C."
+  },
+  {
+    "id": "tf_sub_01",
+    "topicId": "int_sostituzione",
+    "type": "tf",
+    "difficulty": 1,
+    "question": "Per calcolare ∫ 2x·cos(x²)dx si usa la sostituzione u = x².",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "u=x², du=2x dx: l'integrale diventa ∫cos(u)du = sin(u)+C = sin(x²)+C."
+  },
+  {
+    "id": "tf_sub_02",
+    "topicId": "int_sostituzione",
+    "type": "tf",
+    "difficulty": 2,
+    "question": "Negli integrali definiti con sostituzione, gli estremi di integrazione NON devono essere cambiati.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 1,
+    "explanation": "Gli estremi si devono trasformare secondo la sostituzione: se u=g(x), i nuovi estremi sono g(a) e g(b)."
+  },
+  {
+    "id": "tf_sub_03",
+    "topicId": "int_sostituzione",
+    "type": "tf",
+    "difficulty": 3,
+    "question": "Per ∫ √(1−x²) dx si usa x = sin θ.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Sostituzione trigonometrica standard per √(1−x²)."
+  },
+  {
+    "id": "tf_sub_04",
+    "topicId": "int_sostituzione",
+    "type": "tf",
+    "difficulty": 4,
+    "question": "∫₀¹ x·e^(x²) dx = (e−1)/2.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "u=x², du=2x dx: ∫₀¹ x·e^(x²)dx = (1/2)∫₀¹ eᵘ du = (1/2)(e−1)."
+  },
+  {
+    "id": "tf_sub_05",
+    "topicId": "int_sostituzione",
+    "type": "tf",
+    "difficulty": 5,
+    "question": "La sostituzione di Weierstrass t = tan(x/2) trasforma le funzioni razionali in sin e cos in funzioni razionali in t.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Con t=tan(x/2): sin x=2t/(1+t²), cos x=(1−t²)/(1+t²), dx=2/(1+t²)dt."
+  },
+  {
+    "id": "tf_par_01",
+    "topicId": "int_parti",
+    "type": "tf",
+    "difficulty": 1,
+    "question": "La formula di integrazione per parti è ∫f·g' dx = f·g − ∫f'·g dx.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Formula di integrazione per parti."
+  },
+  {
+    "id": "tf_par_02",
+    "topicId": "int_parti",
+    "type": "tf",
+    "difficulty": 2,
+    "question": "∫ x·eˣ dx = x·eˣ − eˣ + C.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Per parti con f=x, g'=eˣ: x·eˣ − ∫eˣdx = x·eˣ − eˣ + C."
+  },
+  {
+    "id": "tf_par_03",
+    "topicId": "int_parti",
+    "type": "tf",
+    "difficulty": 3,
+    "question": "∫ ln(x) dx = x·ln(x) + C.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 1,
+    "explanation": "∫ ln(x)dx = x·ln(x) − x + C."
+  },
+  {
+    "id": "tf_par_04",
+    "topicId": "int_parti",
+    "type": "tf",
+    "difficulty": 4,
+    "question": "Per ∫ eˣ·sin(x) dx occorre applicare la formula per parti due volte.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Si ottiene un'equazione in I che si risolve, dando I = eˣ(sin x − cos x)/2 + C."
+  },
+  {
+    "id": "tf_par_05",
+    "topicId": "int_parti",
+    "type": "tf",
+    "difficulty": 5,
+    "question": "La regola LIATE suggerisce di scegliere come f il logaritmo prima dell'esponenziale.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "LIATE: Logaritmo > Inversa trigo > Algebrica > Trigonometrica > Esponenziale."
+  },
+  {
+    "id": "tf_raz_01",
+    "topicId": "razionali_fratte",
+    "type": "tf",
+    "difficulty": 1,
+    "question": "Per integrare P(x)/Q(x) con grado P ≥ grado Q, si deve prima dividere.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "La divisione riduce il grado del numeratore prima di applicare le frazioni parziali."
+  },
+  {
+    "id": "tf_raz_02",
+    "topicId": "razionali_fratte",
+    "type": "tf",
+    "difficulty": 2,
+    "question": "1/(x²−1) = 1/(2(x−1)) − 1/(2(x+1)).",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "1/((x−1)(x+1)) = A/(x−1)+B/(x+1): A=1/2, B=−1/2."
+  },
+  {
+    "id": "tf_raz_03",
+    "topicId": "razionali_fratte",
+    "type": "tf",
+    "difficulty": 3,
+    "question": "A una radice reale doppia (x−a)² corrisponde nella decomposizione un solo termine A/(x−a)².",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 1,
+    "explanation": "Servono due termini: A/(x−a) + B/(x−a)²."
+  },
+  {
+    "id": "tf_raz_04",
+    "topicId": "razionali_fratte",
+    "type": "tf",
+    "difficulty": 4,
+    "question": "∫ 1/(x²+1) dx = arctan(x) + C.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "x²+1 è irriducibile su ℝ e il suo integrale è arctan."
+  },
+  {
+    "id": "tf_raz_05",
+    "topicId": "razionali_fratte",
+    "type": "tf",
+    "difficulty": 5,
+    "question": "A un fattore quadratico irriducibile (x²+bx+c) corrisponde un termine (Ax+B)/(x²+bx+c).",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Per fattori quadratici irriducibili la forma della frazione parziale ha numeratore lineare."
+  }
+]

@@ -1,0 +1,542 @@
+[
+  {
+    "id": "ode_s_01",
+    "topicId": "ode_separabili",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "Un'equazione differenziale a variabili separabili ha la forma:",
+    "options": [
+      "y' = f(x)·g(y)",
+      "y' + p(x)y = q(x)",
+      "y'' + ay' + by = 0",
+      "y' = f(x+y)"
+    ],
+    "explanation": "Un'ODE a variabili separabili ha la forma y'=f(x)·g(y). Si risolve separando: dy/g(y) = f(x)dx e integrando."
+  },
+  {
+    "id": "ode_s_02",
+    "topicId": "ode_separabili",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "Risolvere y' = y (con y(0)=1). La soluzione è:",
+    "options": [
+      "y = eˣ",
+      "y = x + 1",
+      "y = e^(−x)",
+      "y = xeˣ"
+    ],
+    "explanation": "Separando: dy/y = dx → ln|y| = x + C → y = Aeˣ. Con y(0)=1: A=1. Soluzione: y = eˣ."
+  },
+  {
+    "id": "ode_s_03",
+    "topicId": "ode_separabili",
+    "type": "mcq",
+    "difficulty": 3,
+    "question": "Risolvere y' = −2xy con y(0) = 3.",
+    "options": [
+      "y = 3e^(−x²)",
+      "y = 3e^(−2x)",
+      "y = 3 − 2x²",
+      "y = 3/(1+x²)"
+    ],
+    "explanation": "Separando: dy/y = −2x dx → ln|y| = −x² + C → y = Ae^(−x²). Con y(0)=3: A=3."
+  },
+  {
+    "id": "ode_s_04",
+    "topicId": "ode_separabili",
+    "type": "mcq",
+    "difficulty": 4,
+    "question": "Risolvere y' = (1+y²)/(1+x²).",
+    "options": [
+      "arctan y = arctan x + C",
+      "y = arctan x + C",
+      "y = (1+y²)x + C",
+      "arcsin y = arctan x + C"
+    ],
+    "explanation": "Separando: dy/(1+y²) = dx/(1+x²) → arctan y = arctan x + C."
+  },
+  {
+    "id": "ode_s_05",
+    "topicId": "ode_separabili",
+    "type": "mcq",
+    "difficulty": 5,
+    "question": "L'equazione di Bernoulli y' + p(x)y = q(x)yⁿ (n≠0,1) si riconduce a lineare tramite la sostituzione:",
+    "options": [
+      "z = y^(1−n)",
+      "z = yⁿ",
+      "z = 1/y",
+      "z = ln y"
+    ],
+    "explanation": "Con z = y^(1−n): z' = (1−n)y^(−n)·y'. Dividendo per yⁿ si ottiene z' + (1−n)p·z = (1−n)q, lineare in z."
+  },
+  {
+    "id": "ode_l1_01",
+    "topicId": "ode_lineari_1",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "Un'ODE lineare del primo ordine ha la forma:",
+    "options": [
+      "y' + p(x)·y = q(x)",
+      "y' = f(x)·g(y)",
+      "y'' + ay' + by = f(x)",
+      "y·y' = p(x)"
+    ],
+    "explanation": "L'ODE lineare del primo ordine è y' + p(x)y = q(x). Se q(x)=0 è omogenea; altrimenti è completa."
+  },
+  {
+    "id": "ode_l1_02",
+    "topicId": "ode_lineari_1",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "Il fattore integrante μ(x) per y' + p(x)y = q(x) è:",
+    "options": [
+      "e^(∫p(x)dx)",
+      "e^(−∫p(x)dx)",
+      "∫p(x)dx",
+      "1/p(x)"
+    ],
+    "explanation": "μ(x) = e^(∫p(x)dx). Moltiplicando per μ: (μy)' = μ·q(x). Integrando: y = (1/μ)·[∫μq dx + C]."
+  },
+  {
+    "id": "ode_l1_03",
+    "topicId": "ode_lineari_1",
+    "type": "mcq",
+    "difficulty": 3,
+    "question": "Risolvere y' − y = eˣ. Il fattore integrante è e^(−x). Moltiplicando: (e^(−x)·y)' = 1. Integrando e dividendo:",
+    "options": [
+      "(x+C)eˣ",
+      "y = x + Ceˣ",
+      "y = eˣ + C",
+      "y = xeˣ"
+    ],
+    "explanation": "e^(−x)y = x + C → y = (x+C)eˣ."
+  },
+  {
+    "id": "ode_l1_04",
+    "topicId": "ode_lineari_1",
+    "type": "mcq",
+    "difficulty": 4,
+    "question": "La soluzione generale di y' + p(x)y = q(x) si può scrivere come:",
+    "options": [
+      "y = soluzione dell'omogenea + soluzione particolare",
+      "y = soluzione particolare",
+      "y = soluzione dell'omogenea",
+      "y = integrale di q(x)"
+    ],
+    "explanation": "Principio di sovrapposizione: y = y_H + y_P, dove y_H = Ce^(−∫p dx) e y_P è una soluzione particolare."
+  },
+  {
+    "id": "ode_l1_05",
+    "topicId": "ode_lineari_1",
+    "type": "mcq",
+    "difficulty": 5,
+    "question": "Risolvere y' + (2/x)y = x² con y(1) = 0 (x > 0).",
+    "options": [
+      "y = (x⁵−1)/(5x²)",
+      "y = x³/5",
+      "y = x³",
+      "y = (x²−1)/x²"
+    ],
+    "explanation": "μ = x². (x²y)' = x⁴. Integrando: x²y = x⁵/5 + C → y = x³/5 + C/x². Con y(1)=0: C=−1/5. Soluzione: y = (x⁵−1)/(5x²)."
+  },
+  {
+    "id": "ode_l2_01",
+    "topicId": "ode_lineari_2",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "L'equazione caratteristica dell'ODE y'' + ay' + by = 0 è:",
+    "options": [
+      "λ² + aλ + b = 0",
+      "y² + ay + b = 0",
+      "λ + a + b = 0",
+      "aλ² + bλ + 1 = 0"
+    ],
+    "explanation": "Si cerca y=e^(λx): λ² + aλ + b = 0. Le radici λ determinano il tipo di soluzione."
+  },
+  {
+    "id": "ode_l2_02",
+    "topicId": "ode_lineari_2",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "Se l'equazione caratteristica ha due radici reali distinte λ₁ ≠ λ₂, la soluzione generale è:",
+    "options": [
+      "y = C₁·e^(λ₁x) + C₂·e^(λ₂x)",
+      "y = e^(λ₁x)·(C₁ + C₂x)",
+      "y = C₁·cos(λ₁x) + C₂·sin(λ₁x)",
+      "y = e^((λ₁+λ₂)x/2)"
+    ],
+    "explanation": "Due radici reali distinte: y = C₁e^(λ₁x) + C₂e^(λ₂x)."
+  },
+  {
+    "id": "ode_l2_03",
+    "topicId": "ode_lineari_2",
+    "type": "mcq",
+    "difficulty": 3,
+    "question": "Se l'equazione caratteristica ha una radice reale doppia λ, la soluzione generale è:",
+    "options": [
+      "y = (C₁ + C₂x)·e^(λx)",
+      "y = C₁·e^(λx) + C₂·e^(λx) = Ce^(λx)",
+      "y = C₁e^(λx) + C₂xe^(−λx)",
+      "y = e^(λx)·cos(λx)"
+    ],
+    "explanation": "Radice doppia: y = (C₁ + C₂x)e^(λx). Le due soluzioni e^(λx) e xe^(λx) sono linearmente indipendenti."
+  },
+  {
+    "id": "ode_l2_04",
+    "topicId": "ode_lineari_2",
+    "type": "mcq",
+    "difficulty": 4,
+    "question": "Se l'equazione caratteristica ha radici complesse coniugate λ = α ± iβ, la soluzione reale generale è:",
+    "options": [
+      "y = e^(αx)·(C₁cos βx + C₂ sin βx)",
+      "y = C₁e^(αx) + C₂e^(iβx)",
+      "y = cos(αx)·sin(βx)",
+      "y = e^(βx)·(C₁cos αx + C₂sin αx)"
+    ],
+    "explanation": "Radici α±iβ: si prende parte reale e immaginaria di e^((α+iβ)x) = e^(αx)(cos βx + i sin βx). Soluzione: e^(αx)(C₁cos βx + C₂sin βx)."
+  },
+  {
+    "id": "ode_l2_05",
+    "topicId": "ode_lineari_2",
+    "type": "mcq",
+    "difficulty": 5,
+    "question": "Trovare la soluzione generale di y'' − 3y' + 2y = eˣ.",
+    "options": [
+      "y = C₁eˣ + C₂e^(2x) − xeˣ",
+      "y = (C₁+C₂x)eˣ",
+      "y = C₁eˣ + C₂e^(2x) + eˣ/3",
+      "y = C₁e^(−x) + C₂e^(−2x) − xeˣ"
+    ],
+    "explanation": "Eq. caratteristica: (λ−1)(λ−2)=0 → λ=1,2. y_H = C₁eˣ+C₂e^(2x). Poiché eˣ risuona con λ=1, si cerca y_P = Axeˣ. Sostituendo: A(−1)eˣ = eˣ → A=−1. y_P = −xeˣ."
+  },
+  {
+    "id": "cau_p_01",
+    "topicId": "cauchy_problema",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "Il problema di Cauchy (o problema ai valori iniziali) per y'=f(x,y) consiste in:",
+    "options": [
+      "Trovare la soluzione di y'=f(x,y) con y(x₀)=y₀ (condizione iniziale)",
+      "Trovare tutte le soluzioni di y'=f(x,y)",
+      "Trovare i punti critici di f(x,y)",
+      "Verificare se l'ODE è lineare"
+    ],
+    "explanation": "Il problema di Cauchy: trovare y(x) tale che y'=f(x,y) e y(x₀)=y₀. La condizione iniziale seleziona un'unica soluzione."
+  },
+  {
+    "id": "cau_p_02",
+    "topicId": "cauchy_problema",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "Il teorema di Cauchy-Lipschitz (Picard) garantisce esistenza e unicità locale della soluzione se:",
+    "options": [
+      "f è continua e ∂f/∂y è continua in un intorno di (x₀,y₀)",
+      "f è un polinomio",
+      "L'ODE è lineare",
+      "f è definita su tutto ℝ²"
+    ],
+    "explanation": "Teorema di Picard: se f(x,y) è continua e soddisfa la condizione di Lipschitz in y (es. ∂f/∂y continua), il problema di Cauchy ha un'unica soluzione locale."
+  },
+  {
+    "id": "cau_p_03",
+    "topicId": "cauchy_problema",
+    "type": "mcq",
+    "difficulty": 3,
+    "question": "Il problema y' = √y, y(0) = 0 ha:",
+    "options": [
+      "Più soluzioni (unicità non garantita perché ∂f/∂y non è continua in y=0)",
+      "Un'unica soluzione y≡0",
+      "Nessuna soluzione",
+      "Un'unica soluzione y=x²/4"
+    ],
+    "explanation": "f(x,y)=√y non è Lipschitz in y=0 (∂f/∂y=1/(2√y)→∞). Esistono infinite soluzioni: y≡0 e y=(x/2)²."
+  },
+  {
+    "id": "cau_p_04",
+    "topicId": "cauchy_problema",
+    "type": "mcq",
+    "difficulty": 4,
+    "question": "Risolvere il problema di Cauchy: y'' − y = 0, y(0)=1, y'(0)=0.",
+    "options": [
+      "y = cosh(x) = (eˣ+e^(−x))/2",
+      "y = eˣ",
+      "y = cos(x)",
+      "y = sinh(x)"
+    ],
+    "explanation": "Eq. caratteristica: λ²−1=0 → λ=±1. y_H = C₁eˣ+C₂e^(−x). y(0)=1: C₁+C₂=1. y'(0)=0: C₁−C₂=0 → C₁=C₂=1/2. Soluzione: cosh x."
+  },
+  {
+    "id": "cau_p_05",
+    "topicId": "cauchy_problema",
+    "type": "mcq",
+    "difficulty": 5,
+    "question": "Il metodo di Picard per approssimare la soluzione del problema y'=f(x,y), y(x₀)=y₀ si basa su:",
+    "options": [
+      "La formula y(x) = y₀ + ∫_{x₀}^x f(t,y(t))dt, iterata partendo da y₀(x)=y₀",
+      "Lo sviluppo in serie di Taylor di y",
+      "La separazione delle variabili",
+      "Il metodo di Eulero numerico"
+    ],
+    "explanation": "Picard: si parte da y₀(x)=y₀ e si itera yₙ₊₁(x) = y₀ + ∫_{x₀}^x f(t,yₙ(t))dt. La successione converge alla soluzione."
+  },
+  {
+    "id": "tf_odes_01",
+    "topicId": "ode_separabili",
+    "type": "tf",
+    "difficulty": 1,
+    "question": "Un'ODE a variabili separabili ha la forma y' = f(x)·g(y).",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Forma standard delle ODE separabili."
+  },
+  {
+    "id": "tf_odes_02",
+    "topicId": "ode_separabili",
+    "type": "tf",
+    "difficulty": 2,
+    "question": "y' = y ha come soluzione y = eˣ + C.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 1,
+    "explanation": "Separando: dy/y = dx → ln|y| = x + C → y = Aeˣ. La costante è moltiplicativa, non additiva."
+  },
+  {
+    "id": "tf_odes_03",
+    "topicId": "ode_separabili",
+    "type": "tf",
+    "difficulty": 3,
+    "question": "Se g(y₀) = 0, allora y ≡ y₀ è una soluzione singolare dell'ODE y' = f(x)·g(y).",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Se g(y₀)=0, y costante uguale a y₀ soddisfa y'=0=f(x)·0."
+  },
+  {
+    "id": "tf_odes_04",
+    "topicId": "ode_separabili",
+    "type": "tf",
+    "difficulty": 4,
+    "question": "y' = y², y(0) = 1 ha soluzione globale su tutto ℝ.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 1,
+    "explanation": "La soluzione è y = 1/(1−x), che esplode in x = 1: esiste solo per x < 1."
+  },
+  {
+    "id": "tf_odes_05",
+    "topicId": "ode_separabili",
+    "type": "tf",
+    "difficulty": 5,
+    "question": "L'equazione di Bernoulli y' + p(x)y = q(x)yⁿ si riduce a una lineare con z = y^(1−n).",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Sostituzione standard per le equazioni di Bernoulli."
+  },
+  {
+    "id": "tf_odel1_01",
+    "topicId": "ode_lineari_1",
+    "type": "tf",
+    "difficulty": 1,
+    "question": "Un'ODE lineare del primo ordine ha la forma y' + p(x)y = q(x).",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Forma standard delle ODE lineari del primo ordine."
+  },
+  {
+    "id": "tf_odel1_02",
+    "topicId": "ode_lineari_1",
+    "type": "tf",
+    "difficulty": 2,
+    "question": "Il fattore integrante per y' + p(x)y = q(x) è μ(x) = e^(∫p(x)dx).",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Moltiplicando per μ si ottiene (μy)' = μq, facilmente integrabile."
+  },
+  {
+    "id": "tf_odel1_03",
+    "topicId": "ode_lineari_1",
+    "type": "tf",
+    "difficulty": 3,
+    "question": "La soluzione generale di y' + p(x)y = 0 è y = Ce^(−∫p dx).",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Soluzione dell'omogenea associata."
+  },
+  {
+    "id": "tf_odel1_04",
+    "topicId": "ode_lineari_1",
+    "type": "tf",
+    "difficulty": 4,
+    "question": "La soluzione generale è la somma della soluzione dell'omogenea e di una soluzione particolare.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Principio di sovrapposizione per ODE lineari."
+  },
+  {
+    "id": "tf_odel1_05",
+    "topicId": "ode_lineari_1",
+    "type": "tf",
+    "difficulty": 5,
+    "question": "y' + y = eˣ ha come soluzione particolare y_P = xeˣ/2.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 1,
+    "explanation": "y_P = eˣ/2: sostituendo, eˣ/2 + eˣ/2 = eˣ ✓. Non c'è risonanza poiché la soluzione dell'omogenea è e^(−x)."
+  },
+  {
+    "id": "tf_odel2_01",
+    "topicId": "ode_lineari_2",
+    "type": "tf",
+    "difficulty": 1,
+    "question": "Per risolvere y'' + ay' + by = 0 si cerca soluzione del tipo y = eˡˣ.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Sostituendo si ottiene l'equazione caratteristica λ²+aλ+b=0."
+  },
+  {
+    "id": "tf_odel2_02",
+    "topicId": "ode_lineari_2",
+    "type": "tf",
+    "difficulty": 2,
+    "question": "Se l'equazione caratteristica ha radici complesse α±iβ, la soluzione è y = e^(αx)(C₁cos βx + C₂sin βx).",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Forma della soluzione reale per radici complesse coniugate."
+  },
+  {
+    "id": "tf_odel2_03",
+    "topicId": "ode_lineari_2",
+    "type": "tf",
+    "difficulty": 3,
+    "question": "Se l'equazione caratteristica ha radice doppia λ, la soluzione è y = (C₁ + C₂x)eˡˣ.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Caso della radice reale doppia."
+  },
+  {
+    "id": "tf_odel2_04",
+    "topicId": "ode_lineari_2",
+    "type": "tf",
+    "difficulty": 4,
+    "question": "Nella risonanza, se il termine forzante appartiene alla soluzione omogenea, si moltiplica y_P per x.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Regola della risonanza per ODE lineari."
+  },
+  {
+    "id": "tf_odel2_05",
+    "topicId": "ode_lineari_2",
+    "type": "tf",
+    "difficulty": 5,
+    "question": "y'' + 4y = sin(2x) è un caso di risonanza.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "L'omogenea ha soluzione C₁cos(2x)+C₂sin(2x): sin(2x) è nella soluzione omogenea → risonanza."
+  },
+  {
+    "id": "tf_caup_01",
+    "topicId": "cauchy_problema",
+    "type": "tf",
+    "difficulty": 1,
+    "question": "Il problema di Cauchy specifica sia l'ODE che la condizione iniziale y(x₀) = y₀.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Il problema di Cauchy determina una soluzione unica (in condizioni di regolarità)."
+  },
+  {
+    "id": "tf_caup_02",
+    "topicId": "cauchy_problema",
+    "type": "tf",
+    "difficulty": 2,
+    "question": "Il teorema di Picard garantisce l'esistenza e unicità della soluzione se f è continua e Lipschitz in y.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Ipotesi del teorema di Cauchy-Lipschitz (Picard)."
+  },
+  {
+    "id": "tf_caup_03",
+    "topicId": "cauchy_problema",
+    "type": "tf",
+    "difficulty": 3,
+    "question": "y' = √y, y(0) = 0 ha un'unica soluzione.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 1,
+    "explanation": "∂f/∂y = 1/(2√y) non è Lipschitz in y=0: esistono infinite soluzioni."
+  },
+  {
+    "id": "tf_caup_04",
+    "topicId": "cauchy_problema",
+    "type": "tf",
+    "difficulty": 4,
+    "question": "La condizione iniziale y(x₀) = y₀ seleziona univocamente la costante C nella soluzione generale.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Sostituendo x=x₀ e y=y₀ nella soluzione generale si determina C."
+  },
+  {
+    "id": "tf_caup_05",
+    "topicId": "cauchy_problema",
+    "type": "tf",
+    "difficulty": 5,
+    "question": "Il metodo delle successive approssimazioni di Picard converge alla soluzione del problema di Cauchy.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Sotto le ipotesi del teorema di Picard, le iterate convergono uniformemente alla soluzione."
+  }
+]

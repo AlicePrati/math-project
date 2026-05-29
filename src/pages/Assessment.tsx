@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SECTIONS } from '../data/topics';
 import {
@@ -7,7 +7,7 @@ import {
 } from '../data/assessmentLevels';
 import { getQuestionsForTopic, computeRating } from '../data/questions';
 import { api } from '../lib/api';
-import type { Question } from '../data/questions';
+import type { Question, SelectionQuestion, TFQuestion, ArrangeQuestion } from '../data/questions';
 import { useTracker } from '../store/useTracker';
 
 // ── Mapping: app topic ID → question topic ID ────────────────────────────────
@@ -104,6 +104,22 @@ interface QuizGroup {
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
+function sampleStratified(pool: Question[], total: number): Question[] {
+  const byDiff: Record<number, Question[]> = { 1: [], 2: [], 3: [], 4: [], 5: [] };
+  for (const q of pool) byDiff[q.difficulty].push(q);
+  for (const tier of Object.values(byDiff)) tier.sort(() => Math.random() - 0.5);
+
+  const result: Question[] = [];
+  const tiers = ([1, 2, 3, 4, 5] as const).filter((d) => byDiff[d].length > 0);
+  let i = 0;
+  while (result.length < total && tiers.some((d) => byDiff[d].length > 0)) {
+    const tier = byDiff[tiers[i % tiers.length]];
+    if (tier.length > 0) result.push(tier.pop()!);
+    i++;
+  }
+  return result;
+}
+
 function buildQuizSchedule(): QuizGroup[] {
   return SECTIONS.flatMap((section) => {
     const seenQuizIds = new Set<string>();
@@ -118,10 +134,7 @@ function buildQuizSchedule(): QuizGroup[] {
 
     if (allQs.length === 0) return [];
 
-    // Ordina per difficoltà crescente, prende le prime 10
-    const questions = [...allQs]
-      .sort((a, b) => a.difficulty - b.difficulty)
-      .slice(0, 10);
+    const questions = sampleStratified(allQs, 10);
 
     return [{
       sectionId: section.id,
@@ -353,6 +366,14 @@ function TopicSelectScreen({
 
 // ── SingleTopicQuiz ───────────────────────────────────────────────────────────
 
+function initOptionOrder(q: Question): number[] {
+  if (q.type === 'mcq') {
+    return [...(q as SelectionQuestion).options.map((_, i) => i)].sort(() => Math.random() - 0.5);
+  }
+  if (q.type === 'tf') return [0, 1];
+  return [];
+}
+
 function SingleTopicQuiz({
   group,
   onComplete,
@@ -366,27 +387,55 @@ function SingleTopicQuiz({
   const [correct, setCorrect] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [showFeedback, setShowFeedback] = useState(false);
+  const [placed, setPlaced] = useState<number[]>([]);
+  const [shuffledBank, setShuffledBank] = useState<string[]>(() => {
+    const q = group.questions[0];
+    return q.type === 'arrange' ? [...q.bank].sort(() => Math.random() - 0.5) : [];
+  });
+  const [optionOrder, setOptionOrder] = useState<number[]>(() => initOptionOrder(group.questions[0]));
+
+  useEffect(() => {
+    if (questionIdx === 0) return;
+    const q = group.questions[questionIdx];
+    setShuffledBank(q.type === 'arrange' ? [...q.bank].sort(() => Math.random() - 0.5) : []);
+    setOptionOrder(initOptionOrder(q));
+    setPlaced([]);
+  }, [questionIdx]);
 
   const question: Question = group.questions[questionIdx];
   const isLastQuestion = questionIdx === group.questions.length - 1;
-  const isCorrectSelected = selected === question.correct;
+  const isArrange = question.type === 'arrange';
   const isTF = question.type === 'tf';
+  const correctOriginalIdx = isTF ? (question as TFQuestion).correct : 0;
+  const isCorrectSelected = !isArrange && selected !== null && optionOrder[selected] === correctOriginalIdx;
+  const isArrangeCorrect = isArrange &&
+    placed.length === (question as ArrangeQuestion).correct.length &&
+    placed.every((bankIdx, pos) => shuffledBank[bankIdx] === (question as ArrangeQuestion).correct[pos]);
+  const isCurrentCorrect = isArrange ? isArrangeCorrect : isCorrectSelected;
+  const canConfirm = showFeedback || (isArrange
+    ? placed.length === (question as ArrangeQuestion).correct.length
+    : selected !== null);
   const LABELS = isTF ? ['V', 'F'] : ['A', 'B', 'C', 'D'];
 
   function handleConfirm() {
-    if (selected === null) return;
-
     if (!showFeedback) {
-      if (isCorrectSelected) setCorrect((c) => c + 1);
+      if (isArrange) {
+        if (isArrangeCorrect) setCorrect((c) => c + 1);
+      } else {
+        if (selected === null) return;
+        if (isCorrectSelected) setCorrect((c) => c + 1);
+      }
       setShowFeedback(true);
       return;
     }
 
-    const finalCorrect = isCorrectSelected ? correct + 1 : correct;
+    const finalCorrect = isCurrentCorrect ? correct + 1 : correct;
 
     if (!isLastQuestion) {
       setQuestionIdx((i) => i + 1);
       setSelected(null);
+      setPlaced([]);
+      setOptionOrder([]);
       setShowFeedback(false);
       return;
     }
@@ -447,51 +496,107 @@ function SingleTopicQuiz({
           </p>
         </div>
 
-        {/* Options */}
-        <div className="space-y-3 mb-4">
-          {question.options.map((option, i) => {
-            let cls = 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200';
-            if (!showFeedback && selected === i)
-              cls = 'border-amber-400 bg-amber-50 dark:bg-amber-900/20 text-gray-900 dark:text-gray-100 ring-1 ring-amber-400';
-            if (showFeedback && i === question.correct)
-              cls = 'border-green-500 bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-200';
-            if (showFeedback && selected === i && i !== question.correct)
-              cls = 'border-red-400 bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-200';
+        {/* Options (mcq / tf) */}
+        {!isArrange && (
+          <div className="space-y-3 mb-4">
+            {optionOrder.map((originalIdx, displayPos) => {
+              const allOptions = (question as SelectionQuestion | TFQuestion).options;
+              const option = allOptions[originalIdx];
+              const isThisCorrect = originalIdx === correctOriginalIdx;
+              let cls = 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200';
+              if (!showFeedback && selected === displayPos)
+                cls = 'border-amber-400 bg-amber-50 dark:bg-amber-900/20 text-gray-900 dark:text-gray-100 ring-1 ring-amber-400';
+              if (showFeedback && isThisCorrect)
+                cls = 'border-green-500 bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-200';
+              if (showFeedback && selected === displayPos && !isThisCorrect)
+                cls = 'border-red-400 bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-200';
 
-            return (
-              <button
-                key={i}
-                onClick={() => !showFeedback && setSelected(i)}
-                disabled={showFeedback}
-                className={`w-full text-left flex items-start gap-3 px-4 py-3 rounded-xl border-2 transition-all ${cls} ${!showFeedback ? 'hover:border-amber-300 dark:hover:border-amber-600 hover:bg-amber-50 dark:hover:bg-amber-900/10' : ''}`}
-              >
-                <span className="flex-shrink-0 w-6 h-6 rounded-full border-2 border-current flex items-center justify-center text-xs font-bold mt-0.5">
-                  {LABELS[i]}
-                </span>
-                <span className="text-sm leading-relaxed flex-1">{option}</span>
-                {showFeedback && i === question.correct && (
-                  <svg className="w-5 h-5 flex-shrink-0 text-green-500 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
+              return (
+                <button
+                  key={displayPos}
+                  onClick={() => !showFeedback && setSelected(displayPos)}
+                  disabled={showFeedback}
+                  className={`w-full text-left flex items-start gap-3 px-4 py-3 rounded-xl border-2 transition-all ${cls} ${!showFeedback ? 'hover:border-amber-300 dark:hover:border-amber-600 hover:bg-amber-50 dark:hover:bg-amber-900/10' : ''}`}
+                >
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full border-2 border-current flex items-center justify-center text-xs font-bold mt-0.5">
+                    {LABELS[displayPos]}
+                  </span>
+                  <span className="text-sm leading-relaxed flex-1">{option}</span>
+                  {showFeedback && isThisCorrect && (
+                    <svg className="w-5 h-5 flex-shrink-0 text-green-500 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  )}
+                  {showFeedback && selected === displayPos && !isThisCorrect && (
+                    <svg className="w-5 h-5 flex-shrink-0 text-red-500 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Answer area + word bank (arrange) */}
+        {isArrange && (
+          <>
+            <div className="min-h-14 flex flex-wrap gap-2 p-3 rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 mb-3">
+              {placed.length === 0 ? (
+                <p className="text-sm text-gray-400 dark:text-gray-500 self-center">Tocca le parole qui sotto…</p>
+              ) : (
+                placed.map((bankIdx, pos) => {
+                  const word = shuffledBank[bankIdx];
+                  const isWordCorrect = word === (question as ArrangeQuestion).correct[pos];
+                  const cls = showFeedback
+                    ? isWordCorrect
+                      ? 'border-green-500 bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-200'
+                      : 'border-red-400 bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-200'
+                    : 'border-amber-400 bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300';
+                  return (
+                    <button
+                      key={pos}
+                      onClick={() => !showFeedback && setPlaced((prev) => prev.filter((_, i) => i !== pos))}
+                      disabled={showFeedback}
+                      className={`px-3 py-1 rounded-lg text-sm font-medium border-2 transition-all ${cls}`}
+                    >
+                      {word}
+                    </button>
+                  );
+                })
+              )}
+            </div>
+            {!showFeedback && (
+              <div className="flex flex-wrap gap-2 mb-4">
+                {shuffledBank.map((word, bankIdx) =>
+                  placed.includes(bankIdx) ? null : (
+                    <button
+                      key={bankIdx}
+                      onClick={() => setPlaced((prev) => [...prev, bankIdx])}
+                      className="px-3 py-1.5 rounded-lg text-sm font-medium border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:border-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/20 transition-colors"
+                    >
+                      {word}
+                    </button>
+                  )
                 )}
-                {showFeedback && selected === i && i !== question.correct && (
-                  <svg className="w-5 h-5 flex-shrink-0 text-red-500 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                )}
-              </button>
-            );
-          })}
-        </div>
+              </div>
+            )}
+          </>
+        )}
 
         {/* Explanation */}
         {showFeedback && (
           <div className={`rounded-xl border px-4 py-3 text-sm leading-relaxed ${
-            isCorrectSelected
+            isCurrentCorrect
               ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800 text-green-800 dark:text-green-200'
               : 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-200'
           }`}>
-            <p className="font-semibold mb-1">{isCorrectSelected ? '✓ Corretto!' : '✗ Sbagliato'}</p>
+            <p className="font-semibold mb-1">{isCurrentCorrect ? '✓ Corretto!' : '✗ Sbagliato'}</p>
+            {isArrange && !isCurrentCorrect && (
+              <p className="mb-1">
+                Risposta corretta: <strong>{(question as ArrangeQuestion).correct.join(' ')}</strong>
+              </p>
+            )}
             <p>{question.explanation}</p>
           </div>
         )}
@@ -502,10 +607,10 @@ function SingleTopicQuiz({
         <div className="max-w-2xl mx-auto">
           <button
             onClick={handleConfirm}
-            disabled={selected === null}
+            disabled={!canConfirm}
             className={[
               'w-full py-3 rounded-xl font-semibold text-base transition-colors',
-              selected === null
+              !canConfirm
                 ? 'bg-gray-100 dark:bg-gray-800 text-gray-400 cursor-not-allowed'
                 : 'bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-white',
             ].join(' ')}

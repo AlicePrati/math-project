@@ -1,0 +1,723 @@
+[
+  {
+    "id": "der_01",
+    "topicId": "derivata_def",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "La derivata f'(x₀) è definita come:",
+    "options": [
+      "lim_{h→0} [f(x₀+h) − f(x₀)] / h",
+      "f(x₀ + h) − f(x₀)",
+      "lim_{x→x₀} f(x)",
+      "La pendenza della tangente al grafico di f in x₀"
+    ],
+    "explanation": "f'(x₀) = lim_{h→0} [f(x₀+h)−f(x₀)]/h, se il limite esiste finito. È la pendenza della retta tangente al grafico in (x₀, f(x₀))."
+  },
+  {
+    "id": "der_02",
+    "topicId": "derivata_def",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "Quale è la derivata di f(x) = xⁿ (con n intero positivo)?",
+    "options": [
+      "nxⁿ⁻¹",
+      "xⁿ⁻¹",
+      "nxⁿ",
+      "(n−1)xⁿ⁻¹"
+    ],
+    "explanation": "Regola della potenza: d/dx[xⁿ] = nxⁿ⁻¹."
+  },
+  {
+    "id": "der_03",
+    "topicId": "derivata_def",
+    "type": "mcq",
+    "difficulty": 3,
+    "question": "Se f è derivabile in x₀, allora f è continua in x₀?",
+    "options": [
+      "Sì, la derivabilità implica la continuità",
+      "No, derivabilità non implica continuità",
+      "Solo se f' è continua in x₀",
+      "Solo se f'(x₀) ≠ 0"
+    ],
+    "explanation": "Sì: se f'(x₀) esiste, allora f(x₀+h)−f(x₀) = f'(x₀)·h + o(h) → 0 per h→0. Il viceversa è falso: |x| è continua ma non derivabile in 0."
+  },
+  {
+    "id": "der_04",
+    "topicId": "derivata_def",
+    "type": "mcq",
+    "difficulty": 4,
+    "question": "La derivata di f(x) = |x| in x = 0:",
+    "options": [
+      "Non esiste",
+      "Vale 0",
+      "Vale 1",
+      "Vale −1"
+    ],
+    "explanation": "lim_{h→0⁺} |h|/h = 1 e lim_{h→0⁻} |h|/h = −1. I limiti laterali del rapporto incrementale sono diversi, quindi f'(0) non esiste."
+  },
+  {
+    "id": "der_05",
+    "topicId": "derivata_def",
+    "type": "mcq",
+    "difficulty": 5,
+    "question": "La funzione f(x) = x²·sin(1/x) per x≠0, f(0)=0 è derivabile in 0?",
+    "options": [
+      "Sì, e f'(0) = 0",
+      "No, perché sin(1/x) non ha limite in 0",
+      "Sì, e f'(0) = 1",
+      "No, perché f non è continua in 0"
+    ],
+    "explanation": "f'(0) = lim_{h→0} f(h)/h = lim h·sin(1/h). Poiché |h·sin(1/h)| ≤ |h| → 0, il limite è 0. Quindi f'(0) = 0."
+  },
+  {
+    "id": "reg_01",
+    "topicId": "regole_derivazione",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "Qual è la derivata di f(x) = x³ + 2x − 5?",
+    "options": [
+      "3x² + 2",
+      "3x² + 2x",
+      "x³ + 2",
+      "3x² − 5"
+    ],
+    "explanation": "Si deriva termine per termine: (x³)'= 3x², (2x)'= 2, (−5)'= 0. Quindi f'(x) = 3x² + 2."
+  },
+  {
+    "id": "reg_02",
+    "topicId": "regole_derivazione",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "La regola del prodotto: d/dx[f(x)·g(x)] =",
+    "options": [
+      "f'(x)·g(x) + f(x)·g'(x)",
+      "f'(x)·g'(x)",
+      "f'(x)·g(x) − f(x)·g'(x)",
+      "[f'(x)+g'(x)]"
+    ],
+    "explanation": "(fg)' = f'g + fg'. Es: d/dx[x·sin x] = sin x + x·cos x."
+  },
+  {
+    "id": "reg_03",
+    "topicId": "regole_derivazione",
+    "type": "mcq",
+    "difficulty": 3,
+    "question": "Qual è la derivata di f(x) = sin(x)/x?",
+    "options": [
+      "(x·cos x − sin x)/x²",
+      "cos(x)/x",
+      "(cos x + sin x)/x²",
+      "cos(x)/x − sin(x)/x²"
+    ],
+    "explanation": "Regola del quoziente: (f/g)' = (f'g − fg')/g². Qui: (x·cos x − sin x)/x²."
+  },
+  {
+    "id": "reg_04",
+    "topicId": "regole_derivazione",
+    "type": "mcq",
+    "difficulty": 4,
+    "question": "Qual è la derivata di f(x) = eˣ·sin(x)·cos(x)?",
+    "options": [
+      "eˣ(sin x·cos x + cos²x − sin²x)",
+      "eˣ·cos(2x)",
+      "eˣ(sin x cos x + cos 2x)",
+      "eˣ(cos x − sin x)·cos x"
+    ],
+    "explanation": "Usando sin x·cos x = sin(2x)/2: f = eˣ·sin(2x)/2. f' = eˣ·sin(2x)/2 + eˣ·cos(2x) = eˣ(sin x cos x + cos²x − sin²x)."
+  },
+  {
+    "id": "reg_05",
+    "topicId": "regole_derivazione",
+    "type": "mcq",
+    "difficulty": 5,
+    "question": "Qual è la derivata n-esima di f(x) = eˣ·cos x?",
+    "options": [
+      "2^(n/2)·eˣ·cos(x + nπ/4)",
+      "eˣ·cos x",
+      "(−1)ⁿ·eˣ·cos x",
+      "n!·eˣ·cos x"
+    ],
+    "explanation": "eˣ·cos x = Re(e^((1+i)x)). La derivata n-esima di e^((1+i)x) è (1+i)ⁿ·e^((1+i)x). Poiché |1+i|=√2 e arg(1+i)=π/4, si ottiene 2^(n/2)·eˣ·cos(x+nπ/4)."
+  },
+  {
+    "id": "cha_01",
+    "topicId": "chain_rule",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "d/dx[f(g(x))] =",
+    "options": [
+      "f'(g(x))·g'(x)",
+      "f'(g(x))",
+      "f(g'(x))",
+      "f'(x)·g'(x)"
+    ],
+    "explanation": "La chain rule: d/dx[f(g(x))] = f'(g(x))·g'(x). Si deriva la funzione esterna valutata nell'interna, poi si moltiplica per la derivata dell'interna."
+  },
+  {
+    "id": "cha_02",
+    "topicId": "chain_rule",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "Qual è la derivata di f(x) = sin(x²)?",
+    "options": [
+      "2x·cos(x²)",
+      "cos(x²)",
+      "2x·cos(x)",
+      "sin(2x)"
+    ],
+    "explanation": "f = sin(g(x)) con g(x)=x². f'(x) = cos(x²)·2x."
+  },
+  {
+    "id": "cha_03",
+    "topicId": "chain_rule",
+    "type": "mcq",
+    "difficulty": 3,
+    "question": "Qual è la derivata di f(x) = e^(sin x)?",
+    "options": [
+      "cos x · e^(sin x)",
+      "e^(cos x)",
+      "sin x · e^(cos x)",
+      "e^(sin x)"
+    ],
+    "explanation": "f = eᵘ con u = sin x. f' = eᵘ · u' = e^(sin x) · cos x."
+  },
+  {
+    "id": "cha_04",
+    "topicId": "chain_rule",
+    "type": "mcq",
+    "difficulty": 4,
+    "question": "Qual è la derivata di f(x) = ln(cos(x²))?",
+    "options": [
+      "−2x·tan(x²)",
+      "−2x·sin(x²)/cos(x²)",
+      "1/cos(x²)",
+      "sin(x²)/cos(x²)"
+    ],
+    "explanation": "f = ln(u) con u=cos(x²). f' = u'/u = [−sin(x²)·2x]/cos(x²) = −2x·tan(x²)."
+  },
+  {
+    "id": "cha_05",
+    "topicId": "chain_rule",
+    "type": "mcq",
+    "difficulty": 5,
+    "question": "La derivata di f(x) = (sin x)^(cos x) si calcola come:",
+    "options": [
+      "Usando f = e^(cos x · ln(sin x)) e poi la chain rule",
+      "cos x · (sin x)^(cos x − 1) · cos x",
+      "(cos x)' · (sin x)' = −sin x · cos x",
+      "(sin x)^(cos x) · cos x"
+    ],
+    "explanation": "(sin x)^(cos x) = e^(cos x · ln(sin x)). Derivando: (sin x)^(cos x) · [cos x · cot x − sin x · ln(sin x)]."
+  },
+  {
+    "id": "rol_01",
+    "topicId": "teoremi_derivate",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "Il teorema di Rolle richiede tre condizioni su f su [a,b]. Quale non è tra queste?",
+    "options": [
+      "f'(a) = f'(b)",
+      "f continua su [a,b]",
+      "f derivabile su (a,b)",
+      "f(a) = f(b)"
+    ],
+    "explanation": "Rolle richiede: (1) f continua su [a,b], (2) f derivabile su (a,b), (3) f(a)=f(b). La tesi è: ∃c ∈ (a,b) con f'(c)=0."
+  },
+  {
+    "id": "rol_02",
+    "topicId": "teoremi_derivate",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "Il teorema di Lagrange (valor medio) afferma che ∃c ∈ (a,b) tale che:",
+    "options": [
+      "f'(c) = [f(b) − f(a)] / (b − a)",
+      "f'(c) = 0",
+      "f(c) = [f(a) + f(b)] / 2",
+      "f'(c) = f(b) − f(a)"
+    ],
+    "explanation": "Lagrange: ∃c ∈ (a,b) con f'(c) = [f(b)−f(a)]/(b−a). Geometricamente: esiste un punto con tangente parallela alla corda tra (a,f(a)) e (b,f(b))."
+  },
+  {
+    "id": "rol_03",
+    "topicId": "teoremi_derivate",
+    "type": "mcq",
+    "difficulty": 3,
+    "question": "Dal teorema di Lagrange segue che se f'(x) > 0 su (a,b) allora:",
+    "options": [
+      "f è crescente su [a,b]",
+      "f è decrescente su [a,b]",
+      "f ha un massimo su [a,b]",
+      "f'(x) = 0 su [a,b]"
+    ],
+    "explanation": "Per ogni x₁ < x₂ in [a,b], Lagrange dà f(x₂)−f(x₁) = f'(c)·(x₂−x₁). Se f'>0, allora f(x₂)>f(x₁), cioè f è strettamente crescente."
+  },
+  {
+    "id": "rol_04",
+    "topicId": "teoremi_derivate",
+    "type": "mcq",
+    "difficulty": 4,
+    "question": "Il teorema di Cauchy (generalizzazione di Lagrange) afferma che per f,g continue su [a,b] e derivabili su (a,b) con g'≠0:",
+    "options": [
+      "Esiste c ∈ (a,b) : f'(c)/g'(c) = [f(b)−f(a)]/[g(b)−g(a)]",
+      "[f(b)−f(a)]/[g(b)−g(a)] = f(a)/g(a)",
+      "f'(c) = g'(c) per qualche c",
+      "f(b)/g(b) = f(a)/g(a)"
+    ],
+    "explanation": "Cauchy generalizza Lagrange: ∃c ∈ (a,b) : f'(c)/g'(c) = [f(b)−f(a)]/[g(b)−g(a)]. È alla base della dimostrazione di De L'Hôpital."
+  },
+  {
+    "id": "rol_05",
+    "topicId": "teoremi_derivate",
+    "type": "mcq",
+    "difficulty": 5,
+    "question": "Se f è continua su [a,b] e f'(x) = 0 per ogni x ∈ (a,b), allora:",
+    "options": [
+      "f è costante su [a,b]",
+      "f è zero su [a,b]",
+      "f è un polinomio",
+      "f(a) = f(b) = 0"
+    ],
+    "explanation": "Da Lagrange: per ogni x₁,x₂ ∈ [a,b], f(x₂)−f(x₁) = f'(c)·(x₂−x₁) = 0. Quindi f è costante. Due primitive della stessa funzione differiscono per una costante."
+  },
+  {
+    "id": "hop_01",
+    "topicId": "de_lhopital",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "La regola di De L'Hôpital si applica a forme del tipo:",
+    "options": [
+      "0/0 e ∞/∞",
+      "0·∞",
+      "0⁰ e 1^∞",
+      "∞−∞"
+    ],
+    "explanation": "De L'Hôpital si applica direttamente a 0/0 e ∞/∞. Le altre forme si riconducono a queste con opportune manipolazioni."
+  },
+  {
+    "id": "hop_02",
+    "topicId": "de_lhopital",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "Calcolare lim_{x→0} (sin x)/x con De L'Hôpital.",
+    "options": [
+      "1",
+      "0",
+      "∞",
+      "Non si può applicare"
+    ],
+    "explanation": "Forma 0/0. De L'Hôpital: lim sin(x)/x = lim cos(x)/1 = 1."
+  },
+  {
+    "id": "hop_03",
+    "topicId": "de_lhopital",
+    "type": "mcq",
+    "difficulty": 3,
+    "question": "Calcolare lim_{x→+∞} x·e^(−x).",
+    "options": [
+      "0",
+      "1",
+      "+∞",
+      "e"
+    ],
+    "explanation": "Forma ∞·0. Si riscrive x/eˣ (forma ∞/∞). De L'Hôpital: lim x/eˣ = lim 1/eˣ = 0."
+  },
+  {
+    "id": "hop_04",
+    "topicId": "de_lhopital",
+    "type": "mcq",
+    "difficulty": 4,
+    "question": "Calcolare lim_{x→0} (x − sin x)/x³.",
+    "options": [
+      "1/6",
+      "0",
+      "1/2",
+      "1"
+    ],
+    "explanation": "Forma 0/0. De L'Hôpital 3 volte: (1−cos x)/(3x²) → sin x/(6x) → cos x/6 → 1/6. Oppure Taylor: x − sin x = x³/6 − …"
+  },
+  {
+    "id": "hop_05",
+    "topicId": "de_lhopital",
+    "type": "mcq",
+    "difficulty": 5,
+    "question": "La regola di De L'Hôpital richiede che:",
+    "options": [
+      "Il limite di f'/g' esista (o sia ±∞), e g'≠0 vicino a x₀",
+      "f e g siano continue in x₀",
+      "f e g siano derivabili infinite volte",
+      "Il limite di f/g sia del tipo 0/0"
+    ],
+    "explanation": "De L'Hôpital: se f,g derivabili, g'≠0 vicino a x₀, la forma è 0/0 o ∞/∞, E lim f'/g' esiste, allora lim f/g = lim f'/g'. Se lim f'/g' non esiste, De L'Hôpital non si applica."
+  },
+  {
+    "id": "tf_der_01",
+    "topicId": "derivata_def",
+    "type": "tf",
+    "difficulty": 1,
+    "question": "La derivata di f in x₀ è il limite del rapporto incrementale per h→0.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "f'(x₀) = lim_{h→0} [f(x₀+h)−f(x₀)]/h per definizione."
+  },
+  {
+    "id": "tf_der_02",
+    "topicId": "derivata_def",
+    "type": "tf",
+    "difficulty": 2,
+    "question": "Se f è continua in x₀ allora f è derivabile in x₀.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 1,
+    "explanation": "La continuità è necessaria ma non sufficiente: |x| è continua in 0 ma non derivabile."
+  },
+  {
+    "id": "tf_der_03",
+    "topicId": "derivata_def",
+    "type": "tf",
+    "difficulty": 3,
+    "question": "La derivata f'(x₀) rappresenta geometricamente la pendenza della retta tangente al grafico in x₀.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Interpretazione geometrica della derivata."
+  },
+  {
+    "id": "tf_der_04",
+    "topicId": "derivata_def",
+    "type": "tf",
+    "difficulty": 4,
+    "question": "f(x) = |x| è derivabile in x = 0.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 1,
+    "explanation": "Il limite destro del rapporto incrementale è 1, quello sinistro è -1: la derivata non esiste."
+  },
+  {
+    "id": "tf_der_05",
+    "topicId": "derivata_def",
+    "type": "tf",
+    "difficulty": 5,
+    "question": "f(x) = x²·sin(1/x) per x≠0 e f(0)=0 è derivabile in 0 con f'(0) = 0.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "f'(0) = lim_{h→0} h·sin(1/h) = 0 per il teorema del confronto: |h·sin(1/h)| ≤ |h| → 0."
+  },
+  {
+    "id": "tf_reg_01",
+    "topicId": "regole_derivazione",
+    "type": "tf",
+    "difficulty": 1,
+    "question": "La derivata di xⁿ è n·xⁿ⁻¹.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Regola della potenza."
+  },
+  {
+    "id": "tf_reg_02",
+    "topicId": "regole_derivazione",
+    "type": "tf",
+    "difficulty": 2,
+    "question": "(f·g)' = f'·g'.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 1,
+    "explanation": "La regola del prodotto è (f·g)' = f'·g + f·g', non f'·g'."
+  },
+  {
+    "id": "tf_reg_03",
+    "topicId": "regole_derivazione",
+    "type": "tf",
+    "difficulty": 3,
+    "question": "La derivata di ln|x| è 1/x per x ≠ 0.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Vale sia per x>0 che per x<0."
+  },
+  {
+    "id": "tf_reg_04",
+    "topicId": "regole_derivazione",
+    "type": "tf",
+    "difficulty": 4,
+    "question": "La derivata di eˣ è eˣ.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "La funzione esponenziale è uguale alla sua derivata."
+  },
+  {
+    "id": "tf_reg_05",
+    "topicId": "regole_derivazione",
+    "type": "tf",
+    "difficulty": 5,
+    "question": "La derivata di arctan(x) è 1/(1+x²).",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Si ricava dalla formula della derivata della funzione inversa."
+  },
+  {
+    "id": "tf_chain_01",
+    "topicId": "chain_rule",
+    "type": "tf",
+    "difficulty": 1,
+    "question": "La derivata di f(g(x)) è f'(g(x))·g'(x).",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Regola della catena."
+  },
+  {
+    "id": "tf_chain_02",
+    "topicId": "chain_rule",
+    "type": "tf",
+    "difficulty": 2,
+    "question": "La derivata di sin(x²) è cos(x²).",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 1,
+    "explanation": "Si applica la chain rule: d/dx[sin(x²)] = cos(x²)·2x = 2x·cos(x²)."
+  },
+  {
+    "id": "tf_chain_03",
+    "topicId": "chain_rule",
+    "type": "tf",
+    "difficulty": 3,
+    "question": "La derivata di e^(sin x) è e^(sin x)·cos x.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Chain rule: d/dx[e^u] = e^u·u' con u = sin x, u' = cos x."
+  },
+  {
+    "id": "tf_chain_04",
+    "topicId": "chain_rule",
+    "type": "tf",
+    "difficulty": 4,
+    "question": "La derivata di ln(cos x) è −tan x.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "d/dx[ln(cos x)] = (−sin x)/cos x = −tan x."
+  },
+  {
+    "id": "tf_chain_05",
+    "topicId": "chain_rule",
+    "type": "tf",
+    "difficulty": 5,
+    "question": "La chain rule si applica anche alla derivazione implicita.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Derivando implicitamente F(x,y)=0, si usa la chain rule sulla y vista come funzione di x."
+  },
+  {
+    "id": "tf_tder_01",
+    "topicId": "teoremi_derivate",
+    "type": "tf",
+    "difficulty": 1,
+    "question": "Il teorema di Fermat afferma che se f ha un estremo locale in x₀ e f è derivabile in x₀, allora f'(x₀) = 0.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Condizione necessaria per un estremo locale."
+  },
+  {
+    "id": "tf_tder_02",
+    "topicId": "teoremi_derivate",
+    "type": "tf",
+    "difficulty": 2,
+    "question": "Se f'(x₀) = 0 allora x₀ è un estremo locale.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 1,
+    "explanation": "f'(0)=0 per f(x)=x³, ma 0 non è un estremo bensì un flesso."
+  },
+  {
+    "id": "tf_tder_03",
+    "topicId": "teoremi_derivate",
+    "type": "tf",
+    "difficulty": 3,
+    "question": "Il teorema di Rolle richiede f(a) = f(b).",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Le tre ipotesi di Rolle sono: continuità su [a,b], derivabilità su (a,b), e f(a)=f(b)."
+  },
+  {
+    "id": "tf_tder_04",
+    "topicId": "teoremi_derivate",
+    "type": "tf",
+    "difficulty": 4,
+    "question": "Il teorema di Lagrange garantisce c ∈ (a,b) tale che f'(c) = (f(b)−f(a))/(b−a).",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Teorema del valor medio: esiste un punto dove la pendenza puntuale eguaglia quella media."
+  },
+  {
+    "id": "tf_tder_05",
+    "topicId": "teoremi_derivate",
+    "type": "tf",
+    "difficulty": 5,
+    "question": "Se f'(x) = 0 per ogni x ∈ (a,b), allora f è costante su [a,b].",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Corollario di Lagrange: pendenza nulla ovunque implica funzione costante."
+  },
+  {
+    "id": "tf_hop_01",
+    "topicId": "de_lhopital",
+    "type": "tf",
+    "difficulty": 1,
+    "question": "La regola di De L'Hôpital si applica alla forma 0/0.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "De L'Hôpital si applica a 0/0 e ∞/∞."
+  },
+  {
+    "id": "tf_hop_02",
+    "topicId": "de_lhopital",
+    "type": "tf",
+    "difficulty": 2,
+    "question": "De L'Hôpital si applica alla forma 0·∞ direttamente.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 1,
+    "explanation": "0·∞ deve essere riscritta come 0/(1/∞) o ∞/(1/0) per ricondurla a 0/0 o ∞/∞."
+  },
+  {
+    "id": "tf_hop_03",
+    "topicId": "de_lhopital",
+    "type": "tf",
+    "difficulty": 3,
+    "question": "Se lim f'/g' non esiste, allora lim f/g non esiste.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 1,
+    "explanation": "Se lim f'/g' non esiste, De L'Hôpital non si applica, ma lim f/g potrebbe comunque esistere."
+  },
+  {
+    "id": "tf_hop_04",
+    "topicId": "de_lhopital",
+    "type": "tf",
+    "difficulty": 4,
+    "question": "lim_{x→0} (sin x)/x = 1 si può dimostrare con De L'Hôpital.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Forma 0/0: lim sin'(x)/1' = lim cos x = 1."
+  },
+  {
+    "id": "tf_hop_05",
+    "topicId": "de_lhopital",
+    "type": "tf",
+    "difficulty": 5,
+    "question": "De L'Hôpital può essere applicato più volte di seguito.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Se dopo una applicazione la forma rimane indeterminata, si può ripetere."
+  },
+  {
+    "id": "arr_deriv_01",
+    "topicId": "derivata_def",
+    "type": "arrange",
+    "difficulty": 2,
+    "question": "La derivata f'(x₀) è definita come:",
+    "bank": [
+      "il",
+      "limite",
+      "del",
+      "rapporto",
+      "incrementale",
+      "integrale",
+      "la",
+      "somma"
+    ],
+    "correct": [
+      "il",
+      "limite",
+      "del",
+      "rapporto",
+      "incrementale"
+    ],
+    "explanation": "f'(x₀) = lim_{h→0} [f(x₀+h)−f(x₀)]/h. Il rapporto incrementale è quella frazione; la derivata è il suo limite."
+  },
+  {
+    "id": "arr_rolle_01",
+    "topicId": "teoremi_derivate",
+    "type": "arrange",
+    "difficulty": 3,
+    "question": "Il teorema di Rolle garantisce l'esistenza di c ∈ (a,b) tale che:",
+    "bank": [
+      "f'(c)",
+      "=",
+      "0",
+      ">",
+      "f(c)",
+      "diverge"
+    ],
+    "correct": [
+      "f'(c)",
+      "=",
+      "0"
+    ],
+    "explanation": "Rolle: se f è continua su [a,b], derivabile in (a,b) e f(a)=f(b), allora ∃c con f'(c)=0."
+  }
+]

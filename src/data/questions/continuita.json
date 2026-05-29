@@ -1,0 +1,563 @@
+[
+  {
+    "id": "cont_01",
+    "topicId": "continuita_def",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "Una funzione f è continua in x₀ se:",
+    "options": [
+      "lim_{x→x₀} f(x) = f(x₀)",
+      "f(x₀) è definita",
+      "lim_{x→x₀} f(x) esiste",
+      "f è derivabile in x₀"
+    ],
+    "explanation": "f è continua in x₀ se: (1) f è definita in x₀, (2) il limite esiste, (3) il limite coincide con f(x₀). Tutte e tre le condizioni sono necessarie."
+  },
+  {
+    "id": "cont_02",
+    "topicId": "continuita_def",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "La funzione f(x) = |x| è continua in x = 0?",
+    "options": [
+      "Sì",
+      "No, perché non è derivabile in 0",
+      "No, perché il limite non esiste",
+      "Dipende dalla definizione"
+    ],
+    "explanation": "Sì: lim_{x→0} |x| = 0 = f(0). La derivabilità è una condizione più forte della continuità."
+  },
+  {
+    "id": "cont_03",
+    "topicId": "continuita_def",
+    "type": "mcq",
+    "difficulty": 3,
+    "question": "Una funzione continua su un intervallo chiuso e limitato [a,b]:",
+    "options": [
+      "È uniformemente continua (teorema di Heine-Cantor)",
+      "È sempre derivabile",
+      "Ha sempre un unico punto di massimo",
+      "È necessariamente monotona"
+    ],
+    "explanation": "Teorema di Heine-Cantor: ogni funzione continua su un compatto [a,b] è uniformemente continua."
+  },
+  {
+    "id": "cont_04",
+    "topicId": "continuita_def",
+    "type": "mcq",
+    "difficulty": 4,
+    "question": "La continuità uniforme di f su [a,b] implica:",
+    "options": [
+      "Che lo stesso δ funziona per tutti i punti del dominio",
+      "Che δ può dipendere sia da ε che da x₀",
+      "Che f è derivabile con derivata limitata",
+      "Che f è monotona"
+    ],
+    "explanation": "Continuità uniforme: ∀ε>0, ∃δ>0 : ∀x,y ∈ D, |x−y|<δ ⟹ |f(x)−f(y)|<ε. Il δ dipende solo da ε, non dal punto."
+  },
+  {
+    "id": "cont_05",
+    "topicId": "continuita_def",
+    "type": "mcq",
+    "difficulty": 5,
+    "question": "La funzione f(x) = sin(1/x) per x ≠ 0 e f(0) = 0 è:",
+    "options": [
+      "Non continua in 0 perché il limite non esiste",
+      "Continua in 0",
+      "Continua in 0 solo da destra",
+      "Uniformemente continua su (0,1)"
+    ],
+    "explanation": "lim_{x→0} sin(1/x) non esiste: sin(1/x) oscilla tra −1 e 1 infinite volte vicino a 0. f non è continua in 0 indipendentemente da f(0)."
+  },
+  {
+    "id": "bol_01",
+    "topicId": "bolzano",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "Il teorema degli zeri di Bolzano afferma che se f è continua su [a,b] e f(a)·f(b) < 0, allora:",
+    "options": [
+      "Esiste c ∈ (a,b) tale che f(c) = 0",
+      "f è monotona su [a,b]",
+      "f ha un massimo e un minimo",
+      "f è derivabile su [a,b]"
+    ],
+    "explanation": "Se f è continua su [a,b] e assume valori di segno opposto agli estremi, allora deve attraversare lo zero: ∃c ∈ (a,b) con f(c) = 0."
+  },
+  {
+    "id": "bol_02",
+    "topicId": "bolzano",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "Il teorema degli zeri garantisce l'esistenza di c, ma:",
+    "options": [
+      "c potrebbe non essere unico",
+      "c è unico",
+      "c deve essere il punto medio di [a,b]",
+      "c è razionale se a e b sono razionali"
+    ],
+    "explanation": "Bolzano garantisce solo l'esistenza di almeno uno zero, non l'unicità. Possono esistere più zeri in (a,b)."
+  },
+  {
+    "id": "bol_03",
+    "topicId": "bolzano",
+    "type": "mcq",
+    "difficulty": 3,
+    "question": "Usando Bolzano, si vuole mostrare che x³ − x − 1 = 0 ha una radice in [1,2]. Si calcola:",
+    "options": [
+      "f(1) = −1 < 0 e f(2) = 5 > 0 ✓",
+      "f(1) = 1 > 0 e f(2) = 5 > 0 → Bolzano non si applica",
+      "f(0) = −1 e f(3) = 23 → segni opposti ✓",
+      "Serve calcolare la derivata"
+    ],
+    "explanation": "f(1) = 1−1−1 = −1 < 0, f(2) = 8−2−1 = 5 > 0. f continua e f(1)·f(2) < 0 → per Bolzano esiste c ∈ (1,2) con f(c)=0."
+  },
+  {
+    "id": "bol_04",
+    "topicId": "bolzano",
+    "type": "mcq",
+    "difficulty": 4,
+    "question": "Quale condizione è necessaria per applicare il teorema degli zeri?",
+    "options": [
+      "f deve essere continua su [a,b] (inclusi gli estremi)",
+      "f deve essere derivabile su [a,b]",
+      "f deve essere monotona",
+      "a e b devono essere interi"
+    ],
+    "explanation": "La continuità su [a,b] (intervallo chiuso) è la condizione essenziale. Senza continuità il teorema può fallire: es. 1/x su [−1,1] ha segni opposti agli estremi ma non ha zeri."
+  },
+  {
+    "id": "bol_05",
+    "topicId": "bolzano",
+    "type": "mcq",
+    "difficulty": 5,
+    "question": "Il teorema dei valori intermedi (generalizzazione di Bolzano) afferma che:",
+    "options": [
+      "f continua su [a,b] assume tutti i valori tra f(a) e f(b)",
+      "f continua su [a,b] assume solo i valori f(a) e f(b)",
+      "f continua assume il valore 0 tra ogni coppia di estremi",
+      "f assume tutti i valori reali se è continua su ℝ"
+    ],
+    "explanation": "TVI: se f è continua su [a,b] e y₀ è qualsiasi valore tra f(a) e f(b), allora ∃c ∈ (a,b) con f(c)=y₀. Bolzano è il caso speciale y₀=0."
+  },
+  {
+    "id": "wei_01",
+    "topicId": "weierstrass",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "Il teorema di Weierstrass afferma che una funzione continua su [a,b]:",
+    "options": [
+      "Ha un massimo assoluto e un minimo assoluto su [a,b]",
+      "È derivabile su [a,b]",
+      "È uniformemente continua",
+      "Ha esattamente un punto di massimo"
+    ],
+    "explanation": "Weierstrass: se f è continua su [a,b], allora f raggiunge il suo massimo assoluto e il suo minimo assoluto su [a,b]."
+  },
+  {
+    "id": "wei_02",
+    "topicId": "weierstrass",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "Perché il teorema di Weierstrass richiede che l'intervallo sia chiuso (non aperto)?",
+    "options": [
+      "Perché f(x) = x su (0,1) è continua ma non raggiunge sup=1 né inf=0",
+      "Per convenzione",
+      "Perché su intervalli aperti le funzioni non sono continue",
+      "Non serve che sia chiuso, basta che sia limitato"
+    ],
+    "explanation": "f(x)=x su (0,1) è continua, ha sup=1 e inf=0, ma non li raggiunge. Su [0,1] invece f(0)=0 e f(1)=1 sono il minimo e il massimo."
+  },
+  {
+    "id": "wei_03",
+    "topicId": "weierstrass",
+    "type": "mcq",
+    "difficulty": 3,
+    "question": "Il teorema di Weierstrass vale per f continua su (−∞, +∞)?",
+    "options": [
+      "No, ℝ non è limitato quindi f potrebbe non avere massimo o minimo",
+      "Sì, perché f è continua su tutto ℝ",
+      "Sì, se f tende a 0 per x → ±∞",
+      "Dipende dalla derivata di f"
+    ],
+    "explanation": "ℝ non è compatto (non è limitato), quindi Weierstrass non si applica. Es: f(x)=x è continua su ℝ ma non ha né massimo né minimo."
+  },
+  {
+    "id": "wei_04",
+    "topicId": "weierstrass",
+    "type": "mcq",
+    "difficulty": 4,
+    "question": "Una conseguenza del teorema di Weierstrass è che l'immagine f([a,b]) è:",
+    "options": [
+      "Un intervallo chiuso e limitato [m, M]",
+      "Un insieme aperto",
+      "Un insieme numerabile",
+      "Uguale a [a,b]"
+    ],
+    "explanation": "Per Weierstrass f raggiunge min m e max M. Per TVI f assume tutti i valori tra m e M. Quindi Im(f) = [m, M]."
+  },
+  {
+    "id": "wei_05",
+    "topicId": "weierstrass",
+    "type": "mcq",
+    "difficulty": 5,
+    "question": "Sia f: [0,1] → [0,1] continua. Allora:",
+    "options": [
+      "f ha necessariamente un punto fisso (∃x₀ : f(x₀) = x₀)",
+      "f è necessariamente monotona",
+      "f ha almeno uno zero",
+      "f è necessariamente biettiva"
+    ],
+    "explanation": "Si applica g(x) = f(x)−x. g(0) = f(0) ≥ 0 e g(1) = f(1)−1 ≤ 0. Per Bolzano ∃x₀ ∈ [0,1] con g(x₀) = 0, cioè f(x₀) = x₀."
+  },
+  {
+    "id": "disc_01",
+    "topicId": "discontinuita",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "Una discontinuità è 'eliminabile' se:",
+    "options": [
+      "Il limite esiste ma non coincide con f(x₀) (o f non è definita in x₀)",
+      "Il limite non esiste",
+      "I limiti destro e sinistro sono diversi",
+      "La funzione tende a infinito"
+    ],
+    "explanation": "Discontinuità eliminabile: esiste il limite finito L, ma f(x₀) ≠ L (o f non definita in x₀). Si 'elimina' ridefinendo f(x₀) = L."
+  },
+  {
+    "id": "disc_02",
+    "topicId": "discontinuita",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "Una discontinuità di 'prima specie' (salto) si ha quando:",
+    "options": [
+      "Esistono i limiti destro e sinistro finiti ma sono diversi",
+      "Il limite non esiste e f(x) → ∞",
+      "Il limite esiste ma è diverso da f(x₀)",
+      "f non è definita vicino a x₀"
+    ],
+    "explanation": "Discontinuità di prima specie (salto): esistono finiti i limiti laterali ma sono diversi. Es: sgn(x) ha un salto in 0."
+  },
+  {
+    "id": "disc_03",
+    "topicId": "discontinuita",
+    "type": "mcq",
+    "difficulty": 3,
+    "question": "Una discontinuità di 'seconda specie' si ha quando:",
+    "options": [
+      "Almeno uno dei limiti destro o sinistro è infinito o non esiste",
+      "Il salto è maggiore di 1",
+      "f non è continua da nessun lato",
+      "f ha un asintoto verticale"
+    ],
+    "explanation": "Discontinuità di seconda specie: almeno uno dei limiti laterali non esiste finito. Include: f(x)→∞ (asintoto verticale) e oscillazione senza limite (es. sin(1/x))."
+  },
+  {
+    "id": "disc_04",
+    "topicId": "discontinuita",
+    "type": "mcq",
+    "difficulty": 4,
+    "question": "La funzione f(x) = ⌊x⌋ (parte intera) ha in ogni intero n una discontinuità di:",
+    "options": [
+      "Prima specie (salto = 1)",
+      "Tipo eliminabile",
+      "Seconda specie",
+      "Non ha discontinuità"
+    ],
+    "explanation": "In ogni intero n: lim_{x→n⁻} ⌊x⌋ = n−1 e lim_{x→n⁺} ⌊x⌋ = n. Limiti laterali diversi → discontinuità di prima specie con salto = 1."
+  },
+  {
+    "id": "disc_05",
+    "topicId": "discontinuita",
+    "type": "mcq",
+    "difficulty": 5,
+    "question": "Quale tipo di discontinuità ha f(x) = sin(1/x) in x = 0?",
+    "options": [
+      "Seconda specie (il limite non esiste per oscillazione)",
+      "Eliminabile (basta ridefinire f(0))",
+      "Prima specie (salto finito)",
+      "Non ha discontinuità se si pone f(0) = 0"
+    ],
+    "explanation": "sin(1/x) oscilla tra −1 e 1 con frequenza crescente vicino a 0. Né il limite destro né il sinistro esistono. Discontinuità di seconda specie per oscillazione."
+  },
+  {
+    "id": "tf_cont_01",
+    "topicId": "continuita_def",
+    "type": "tf",
+    "difficulty": 1,
+    "question": "Se f è derivabile in x₀, allora f è continua in x₀.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "La derivabilità è una condizione più forte della continuità."
+  },
+  {
+    "id": "tf_cont_02",
+    "topicId": "continuita_def",
+    "type": "tf",
+    "difficulty": 2,
+    "question": "f(x) = |x| è continua in x = 0.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "lim_{x→0} |x| = 0 = f(0): tutte le condizioni di continuità sono soddisfatte."
+  },
+  {
+    "id": "tf_cont_03",
+    "topicId": "continuita_def",
+    "type": "tf",
+    "difficulty": 3,
+    "question": "Una funzione continua su [a,b] è uniformemente continua su [a,b].",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Teorema di Heine-Cantor: continuità su compatto implica continuità uniforme."
+  },
+  {
+    "id": "tf_cont_04",
+    "topicId": "continuita_def",
+    "type": "tf",
+    "difficulty": 4,
+    "question": "f(x) = 1/x è uniformemente continua su (0,1).",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 1,
+    "explanation": "1/x non è uniformemente continua su (0,1): per x vicino a 0 piccole variazioni di x producono grandi variazioni di f."
+  },
+  {
+    "id": "tf_cont_05",
+    "topicId": "continuita_def",
+    "type": "tf",
+    "difficulty": 5,
+    "question": "La continuità in ogni punto implica la continuità uniforme.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 1,
+    "explanation": "Falso in generale: serve che il dominio sia compatto (chiuso e limitato)."
+  },
+  {
+    "id": "tf_bol_01",
+    "topicId": "bolzano",
+    "type": "tf",
+    "difficulty": 1,
+    "question": "Il teorema degli zeri richiede che f sia continua su [a,b].",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "La continuità è l'ipotesi fondamentale del teorema."
+  },
+  {
+    "id": "tf_bol_02",
+    "topicId": "bolzano",
+    "type": "tf",
+    "difficulty": 2,
+    "question": "Se f(a)·f(b) < 0 e f è continua, lo zero in (a,b) è unico.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 1,
+    "explanation": "Bolzano garantisce almeno uno zero, ma potrebbero esserci più zeri."
+  },
+  {
+    "id": "tf_bol_03",
+    "topicId": "bolzano",
+    "type": "tf",
+    "difficulty": 3,
+    "question": "Ogni polinomio di grado dispari ha almeno una radice reale.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Un polinomio di grado dispari tende a +∞ e −∞ per x→±∞: per Bolzano ha almeno uno zero."
+  },
+  {
+    "id": "tf_bol_04",
+    "topicId": "bolzano",
+    "type": "tf",
+    "difficulty": 4,
+    "question": "f: [0,1] → [0,1] continua ha sempre un punto fisso.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "g(x) = f(x)−x: g(0) ≥ 0 e g(1) ≤ 0, per Bolzano ∃x₀: g(x₀) = 0, cioè f(x₀) = x₀."
+  },
+  {
+    "id": "tf_bol_05",
+    "topicId": "bolzano",
+    "type": "tf",
+    "difficulty": 5,
+    "question": "Il teorema dei valori intermedi generalizza il teorema degli zeri di Bolzano.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "TVI dice che f assume tutti i valori tra f(a) e f(b); Bolzano è il caso speciale in cui 0 è tra f(a) e f(b)."
+  },
+  {
+    "id": "tf_wei_01",
+    "topicId": "weierstrass",
+    "type": "tf",
+    "difficulty": 1,
+    "question": "Una funzione continua su [a,b] raggiunge il suo massimo e minimo assoluti.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Teorema di Weierstrass."
+  },
+  {
+    "id": "tf_wei_02",
+    "topicId": "weierstrass",
+    "type": "tf",
+    "difficulty": 2,
+    "question": "f(x) = 1/x su (0,1] ha massimo assoluto.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 1,
+    "explanation": "f(x) = 1/x → +∞ per x→0⁺: non è limitata superiormente su (0,1], quindi non ha massimo."
+  },
+  {
+    "id": "tf_wei_03",
+    "topicId": "weierstrass",
+    "type": "tf",
+    "difficulty": 3,
+    "question": "Weierstrass si applica anche a intervalli aperti come (a,b).",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 1,
+    "explanation": "Serve un intervallo chiuso e limitato: su (a,b) aperto il teorema può fallire."
+  },
+  {
+    "id": "tf_wei_04",
+    "topicId": "weierstrass",
+    "type": "tf",
+    "difficulty": 4,
+    "question": "L'immagine di una funzione continua su [a,b] è un intervallo chiuso [m,M].",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Combinando Weierstrass (raggiunge m e M) con TVI (assume tutti i valori intermedi)."
+  },
+  {
+    "id": "tf_wei_05",
+    "topicId": "weierstrass",
+    "type": "tf",
+    "difficulty": 5,
+    "question": "Weierstrass vale per f continua su ℝ.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 1,
+    "explanation": "ℝ non è compatto. f(x) = x è continua su ℝ ma non ha né massimo né minimo."
+  },
+  {
+    "id": "tf_disc_01",
+    "topicId": "discontinuita",
+    "type": "tf",
+    "difficulty": 1,
+    "question": "Una discontinuità eliminabile si chiama così perché si può riparare ridefinendo f nel punto.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Esiste il limite finito L: si ridefinisce f(x₀) = L e la funzione diventa continua."
+  },
+  {
+    "id": "tf_disc_02",
+    "topicId": "discontinuita",
+    "type": "tf",
+    "difficulty": 2,
+    "question": "Una discontinuità di prima specie (salto) ha entrambi i limiti laterali finiti ma diversi.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Definizione di discontinuità di prima specie."
+  },
+  {
+    "id": "tf_disc_03",
+    "topicId": "discontinuita",
+    "type": "tf",
+    "difficulty": 3,
+    "question": "f(x) = sin(1/x) ha una discontinuità eliminabile in x = 0.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 1,
+    "explanation": "Il limite per x→0 non esiste (oscillazione): è una discontinuità di seconda specie."
+  },
+  {
+    "id": "tf_disc_04",
+    "topicId": "discontinuita",
+    "type": "tf",
+    "difficulty": 4,
+    "question": "Una funzione con un asintoto verticale in x₀ ha una discontinuità di seconda specie.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Se f(x) → ±∞ per x→x₀, almeno uno dei limiti laterali non è finito: discontinuità di seconda specie."
+  },
+  {
+    "id": "tf_disc_05",
+    "topicId": "discontinuita",
+    "type": "tf",
+    "difficulty": 5,
+    "question": "La funzione parte intera ⌊x⌋ ha discontinuità di prima specie in ogni intero.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "In ogni intero n: lim da sinistra = n−1, lim da destra = n: salto di 1."
+  },
+  {
+    "id": "arr_cont_01",
+    "topicId": "continuita_def",
+    "type": "arrange",
+    "difficulty": 1,
+    "question": "Completa: \"f è continua in x₀ se il limite per x→x₀ è ...\"",
+    "bank": [
+      "uguale",
+      "a",
+      "f(x₀)",
+      "diverso",
+      "da",
+      "infinito"
+    ],
+    "correct": [
+      "uguale",
+      "a",
+      "f(x₀)"
+    ],
+    "explanation": "f è continua in x₀ se lim_{x→x₀} f(x) = f(x₀). \"Diverso da\" e \"infinito\" descrivono casi di discontinuità."
+  }
+]

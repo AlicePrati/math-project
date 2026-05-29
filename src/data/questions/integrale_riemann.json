@@ -1,0 +1,407 @@
+[
+  {
+    "id": "rie_01",
+    "topicId": "integrale_def",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "L'integrale definito ∫ₐᵇ f(x)dx rappresenta geometricamente:",
+    "options": [
+      "L'area con segno tra il grafico di f e l'asse x su [a,b]",
+      "La lunghezza della curva di f su [a,b]",
+      "Il valore massimo di f su [a,b]",
+      "La derivata di f su [a,b]"
+    ],
+    "explanation": "∫ₐᵇ f(x)dx è l'area con segno (positiva dove f>0, negativa dove f<0) tra il grafico di f e l'asse x."
+  },
+  {
+    "id": "rie_02",
+    "topicId": "integrale_def",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "Quale delle seguenti funzioni è integrabile (secondo Riemann) su [0,1]?",
+    "options": [
+      "Tutte le funzioni limitate con al più un numero finito di discontinuità",
+      "Solo le funzioni continue",
+      "Solo le funzioni derivabili",
+      "Solo le funzioni monotone"
+    ],
+    "explanation": "Ogni funzione limitata con un numero finito (o numerabile) di discontinuità è integrabile secondo Riemann."
+  },
+  {
+    "id": "rie_03",
+    "topicId": "integrale_def",
+    "type": "mcq",
+    "difficulty": 3,
+    "question": "La somma inferiore di Riemann s(f,P) rispetto alla partizione P è:",
+    "options": [
+      "∑ mᵢ·Δxᵢ dove mᵢ = inf f su [xᵢ₋₁, xᵢ]",
+      "∑ Mᵢ·Δxᵢ dove Mᵢ = sup f su [xᵢ₋₁, xᵢ]",
+      "∑ f(xᵢ)·Δxᵢ",
+      "∑ f((xᵢ₋₁+xᵢ)/2)·Δxᵢ"
+    ],
+    "explanation": "La somma inferiore usa i minimi locali mᵢ. La superiore usa i massimi Mᵢ. f è integrabile se sup_P s = inf_P S."
+  },
+  {
+    "id": "rie_04",
+    "topicId": "integrale_def",
+    "type": "mcq",
+    "difficulty": 4,
+    "question": "Calcolare ∫₀¹ x dx direttamente dalla definizione come limite di somme di Riemann.",
+    "options": [
+      "1/2",
+      "0",
+      "1",
+      "2"
+    ],
+    "explanation": "Con partizione uniforme xᵢ=i/n: ∑(i/n)·(1/n) = (1/n²)·∑i = (1/n²)·n(n+1)/2 = (n+1)/(2n) → 1/2."
+  },
+  {
+    "id": "rie_05",
+    "topicId": "integrale_def",
+    "type": "mcq",
+    "difficulty": 5,
+    "question": "La funzione di Dirichlet (f=1 sui razionali, f=0 sugli irrazionali) non è integrabile su [0,1] perché:",
+    "options": [
+      "s(f,P) = 0 e S(f,P) = 1 per ogni partizione P, quindi sup s ≠ inf S",
+      "Non è continua",
+      "Il suo integrale è infinito",
+      "Non è limitata"
+    ],
+    "explanation": "Per ogni sottointervallo: inf f = 0 (contiene irrazionali) e sup f = 1 (contiene razionali). Quindi s=0 e S=1 per ogni partizione → non integrabile."
+  },
+  {
+    "id": "tor_01",
+    "topicId": "torricelli",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "Il teorema fondamentale del calcolo (Torricelli-Barrow): se F è una primitiva di f continua su [a,b], allora:",
+    "options": [
+      "∫ₐᵇ f(x)dx = F(b) − F(a)",
+      "∫ₐᵇ f(x)dx = f(b) − f(a)",
+      "∫ₐᵇ f(x)dx = F(a+b)",
+      "∫ₐᵇ f(x)dx = F'(b)"
+    ],
+    "explanation": "∫ₐᵇ f(x)dx = F(b)−F(a) dove F è qualsiasi primitiva di f (F'=f)."
+  },
+  {
+    "id": "tor_02",
+    "topicId": "torricelli",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "Calcolare ∫₀² x² dx.",
+    "options": [
+      "8/3",
+      "4",
+      "4/3",
+      "2"
+    ],
+    "explanation": "La primitiva di x² è x³/3. ∫₀² x² dx = [x³/3]₀² = 8/3 − 0 = 8/3."
+  },
+  {
+    "id": "tor_03",
+    "topicId": "torricelli",
+    "type": "mcq",
+    "difficulty": 3,
+    "question": "La funzione F(x) = ∫₀ˣ sin(t²)dt è derivabile e F'(x) =",
+    "options": [
+      "sin(x²)",
+      "cos(x²)",
+      "2x·sin(x²)",
+      "sin(x²)·cos(x²)"
+    ],
+    "explanation": "Per il teorema fondamentale: se F(x) = ∫₀ˣ f(t)dt, allora F'(x) = f(x). Qui F'(x) = sin(x²)."
+  },
+  {
+    "id": "tor_04",
+    "topicId": "torricelli",
+    "type": "mcq",
+    "difficulty": 4,
+    "question": "Calcolare d/dx [∫₀^(x²) e^(t²) dt].",
+    "options": [
+      "2x·e^(x⁴)",
+      "e^(x⁴)",
+      "e^(x²)",
+      "2x·e^(x²)"
+    ],
+    "explanation": "Sia G(u) = ∫₀ᵘ e^(t²)dt. G'(u) = e^(u²). La funzione è G(x²). Per chain rule: G'(x²)·2x = e^((x²)²)·2x = 2x·e^(x⁴)."
+  },
+  {
+    "id": "tor_05",
+    "topicId": "torricelli",
+    "type": "mcq",
+    "difficulty": 5,
+    "question": "∫₋₁¹ |x| dx vale:",
+    "options": [
+      "1",
+      "0",
+      "2",
+      "−1"
+    ],
+    "explanation": "Per x∈[−1,0]: |x|=−x. Per x∈[0,1]: |x|=x. ∫₋₁¹|x|dx = ∫₋₁⁰(−x)dx + ∫₀¹x dx = 1/2+1/2 = 1."
+  },
+  {
+    "id": "pri_01",
+    "topicId": "proprieta_integrali",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "Quale delle seguenti è una proprietà dell'integrale definito?",
+    "options": [
+      "∫ₐᵇ [f+g]dx = ∫ₐᵇ f dx + ∫ₐᵇ g dx",
+      "∫ₐᵇ [f+g]dx = ∫ₐᵇ f dx · ∫ₐᵇ g dx",
+      "∫ₐᵇ f(x)dx = f(a)",
+      "∫ₐᵇ f(x)dx = ∫ₐᵇ f(t)dt solo se a=0"
+    ],
+    "explanation": "Linearità: ∫ₐᵇ[f+g]dx = ∫ₐᵇf dx + ∫ₐᵇg dx. La variabile di integrazione è muta: ∫ₐᵇ f(x)dx = ∫ₐᵇ f(t)dt sempre."
+  },
+  {
+    "id": "pri_02",
+    "topicId": "proprieta_integrali",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "Il teorema della media integrale afferma che se f è continua su [a,b], allora ∃c ∈ (a,b) tale che:",
+    "options": [
+      "f(c) = (1/(b−a)) ∫ₐᵇ f(x)dx",
+      "f(c) = 0",
+      "f(c) = (f(a)+f(b))/2",
+      "∫ₐᵇ f(x)dx = f(c)·(b−a)²"
+    ],
+    "explanation": "Teorema della media integrale: ∃c ∈ (a,b) : f(c) = (1/(b−a)) ∫ₐᵇ f(x)dx. Il valore medio di f su [a,b] è assunto da f."
+  },
+  {
+    "id": "pri_03",
+    "topicId": "proprieta_integrali",
+    "type": "mcq",
+    "difficulty": 3,
+    "question": "Se f è integrabile su [a,b] e f(x) ≥ 0 su [a,b], allora ∫ₐᵇ f(x)dx:",
+    "options": [
+      "È ≥ 0",
+      "Può essere negativo",
+      "È uguale a f(a)·(b−a)",
+      "È uguale al massimo di f per (b−a)"
+    ],
+    "explanation": "Monotonia dell'integrale: se f ≥ 0 su [a,b], allora ∫ₐᵇ f dx ≥ 0. In generale: f ≥ g ⟹ ∫f ≥ ∫g."
+  },
+  {
+    "id": "pri_04",
+    "topicId": "proprieta_integrali",
+    "type": "mcq",
+    "difficulty": 4,
+    "question": "Quale delle seguenti è la disuguaglianza di Cauchy-Schwarz per integrali?",
+    "options": [
+      "(∫ₐᵇ f·g dx)² ≤ (∫ₐᵇ f² dx)·(∫ₐᵇ g² dx)",
+      "∫ₐᵇ |f·g| dx ≤ ∫ₐᵇ |f| dx · ∫ₐᵇ |g| dx",
+      "|∫ₐᵇ f dx| ≤ ∫ₐᵇ |f| dx",
+      "∫ₐᵇ f² dx ≤ (∫ₐᵇ f dx)²"
+    ],
+    "explanation": "Cauchy-Schwarz: (∫ₐᵇ f·g dx)² ≤ (∫ₐᵇ f² dx)·(∫ₐᵇ g² dx). Analogia con il prodotto scalare."
+  },
+  {
+    "id": "pri_05",
+    "topicId": "proprieta_integrali",
+    "type": "mcq",
+    "difficulty": 5,
+    "question": "La formula di sostituzione ∫ₐᵇ f(g(x))g'(x)dx = ∫_{g(a)}^{g(b)} f(t)dt richiede che:",
+    "options": [
+      "g sia derivabile con derivata continua su [a,b] e f sia continua su g([a,b])",
+      "g sia biunivoca su [a,b]",
+      "g sia strettamente monotona su [a,b]",
+      "f e g siano entrambe polinomi"
+    ],
+    "explanation": "La formula di sostituzione vale se g è derivabile con g' continua e f è continua su g([a,b]). Non richiede la biettività di g."
+  },
+  {
+    "id": "tf_rie_01",
+    "topicId": "integrale_def",
+    "type": "tf",
+    "difficulty": 1,
+    "question": "L'integrale definito ∫ₐᵇ f(x)dx rappresenta sempre un'area positiva.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 1,
+    "explanation": "L'integrale è un'area con segno: è negativo dove f < 0."
+  },
+  {
+    "id": "tf_rie_02",
+    "topicId": "integrale_def",
+    "type": "tf",
+    "difficulty": 2,
+    "question": "Ogni funzione continua su [a,b] è integrabile secondo Riemann.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Le funzioni continue sono integrabili su intervalli chiusi e limitati."
+  },
+  {
+    "id": "tf_rie_03",
+    "topicId": "integrale_def",
+    "type": "tf",
+    "difficulty": 3,
+    "question": "∫ₐᵃ f(x)dx = 0 per qualsiasi funzione f.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Integrare su un intervallo di lunghezza zero dà sempre 0."
+  },
+  {
+    "id": "tf_rie_04",
+    "topicId": "integrale_def",
+    "type": "tf",
+    "difficulty": 4,
+    "question": "La funzione di Dirichlet (1 sui razionali, 0 sugli irrazionali) è integrabile secondo Riemann.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 1,
+    "explanation": "Le somme superiore e inferiore non coincidono: s=0 e S=1 per ogni partizione."
+  },
+  {
+    "id": "tf_rie_05",
+    "topicId": "integrale_def",
+    "type": "tf",
+    "difficulty": 5,
+    "question": "Ogni funzione monotona e limitata su [a,b] è integrabile secondo Riemann.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Le funzioni monotone hanno al più discontinuità di prima specie, che non impedisce l'integrabilità."
+  },
+  {
+    "id": "tf_tor_01",
+    "topicId": "torricelli",
+    "type": "tf",
+    "difficulty": 1,
+    "question": "Se F'(x) = f(x), allora ∫ₐᵇ f(x)dx = F(b) − F(a).",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Teorema fondamentale del calcolo (Torricelli-Barrow)."
+  },
+  {
+    "id": "tf_tor_02",
+    "topicId": "torricelli",
+    "type": "tf",
+    "difficulty": 2,
+    "question": "∫₀² x²dx = 8/3.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "[x³/3]₀² = 8/3 − 0 = 8/3."
+  },
+  {
+    "id": "tf_tor_03",
+    "topicId": "torricelli",
+    "type": "tf",
+    "difficulty": 3,
+    "question": "Se F(x) = ∫₀ˣ sin(t²)dt, allora F'(x) = sin(x²).",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Prima parte del TFC: la derivata della funzione integrale è l'integrando valutato in x."
+  },
+  {
+    "id": "tf_tor_04",
+    "topicId": "torricelli",
+    "type": "tf",
+    "difficulty": 4,
+    "question": "d/dx[∫₀^(x²) eᵗdt] = 2x·e^(x²).",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Chain rule: F'(x²)·2x = e^(x²)·2x."
+  },
+  {
+    "id": "tf_tor_05",
+    "topicId": "torricelli",
+    "type": "tf",
+    "difficulty": 5,
+    "question": "∫₋₁¹ |x|dx = 1.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "∫₋₁⁰(−x)dx + ∫₀¹ x dx = 1/2 + 1/2 = 1."
+  },
+  {
+    "id": "tf_pri_01",
+    "topicId": "proprieta_integrali",
+    "type": "tf",
+    "difficulty": 1,
+    "question": "∫ₐᵇ(f+g)dx = ∫ₐᵇf dx + ∫ₐᵇg dx (linearità).",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "L'integrale è un operatore lineare."
+  },
+  {
+    "id": "tf_pri_02",
+    "topicId": "proprieta_integrali",
+    "type": "tf",
+    "difficulty": 2,
+    "question": "Se f ≥ 0 su [a,b], allora ∫ₐᵇ f(x)dx ≥ 0.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Monotonia dell'integrale."
+  },
+  {
+    "id": "tf_pri_03",
+    "topicId": "proprieta_integrali",
+    "type": "tf",
+    "difficulty": 3,
+    "question": "|∫ₐᵇ f(x)dx| ≤ ∫ₐᵇ |f(x)|dx.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Disuguaglianza triangolare per gli integrali."
+  },
+  {
+    "id": "tf_pri_04",
+    "topicId": "proprieta_integrali",
+    "type": "tf",
+    "difficulty": 4,
+    "question": "∫ₐᵇ f(x)dx = ∫ₐᶜ f(x)dx + ∫ᶜᵇ f(x)dx per qualsiasi c.",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 0,
+    "explanation": "Additività dell'integrale rispetto all'intervallo, valida per qualsiasi c (anche fuori da [a,b])."
+  },
+  {
+    "id": "tf_pri_05",
+    "topicId": "proprieta_integrali",
+    "type": "tf",
+    "difficulty": 5,
+    "question": "∫ₐᵇ f(x)g(x)dx = (∫ₐᵇf dx)·(∫ₐᵇg dx).",
+    "options": [
+      "Vero",
+      "Falso"
+    ],
+    "correct": 1,
+    "explanation": "L'integrale del prodotto NON è uguale al prodotto degli integrali."
+  }
+]
