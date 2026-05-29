@@ -1,0 +1,296 @@
+[
+  {
+    "id": "ex_logica_00",
+    "topicId": "logica_quantificatori",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "Translate: 'For all M in the Real Numbers, there exists x in the Real Numbers such that the absolute value of f(x) is greater than or equal to M",
+    "options": [
+      "∀M ∈ ℝ ∃x ∈ ℝ : |f(x)| ≥ M",
+      "∃M ∈ ℝ ∀x ∈ ℝ : |f(x)| ≥ M",
+      "∀x ∈ ℝ ∃M ∈ ℝ : |f(x)| ≥ M",
+      "∀M ∈ ℝ ∀x ∈ ℝ : |f(x)| ≥ M"
+    ],
+    "explanation": "This formula describes an unbounded function. The order of quantifiers is crucial: ∀M (for any threshold) then ∃x (there exists a point exceeding it). Swapping ∀ and ∃ completely changes the meaning of the statement."
+  },
+  {
+    "id": "ex_logica_01",
+    "topicId": "logica_quantificatori",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "Translate: 'There exists a real number x such that x is greater than 5'",
+    "options": [
+      "∃x ∈ ℝ : x > 5",
+      "∀x ∈ ℝ : x > 5",
+      "∃x ∈ ℝ : x < 5",
+      "∀x ∈ ℝ : x ≥ 5"
+    ],
+    "explanation": "The phrase 'there exists' corresponds to the existential quantifier ∃. The condition 'greater than 5' translates directly to x > 5. Using ∀ would mean every real number is greater than 5, which is false and changes the meaning entirely."
+  },
+  {
+    "id": "ex_logica_02",
+    "topicId": "logica_quantificatori",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "Translate: 'For all integers n, n plus zero equals n'",
+    "options": [
+      "∀n ∈ ℤ : n + 0 = n",
+      "∃n ∈ ℤ : n + 0 = n",
+      "∀n ∈ ℝ : n + 0 = n",
+      "∀n ∈ ℕ : n + 0 ≠ n"
+    ],
+    "explanation": "'For all' maps to ∀, and 'integers' maps to ℤ. This is the identity property of addition. Using ∃ would only claim the property holds for some integer, not all — a much weaker (and less interesting) statement."
+  },
+  {
+    "id": "ex_logica_03",
+    "topicId": "logica_quantificatori",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "Translate: 'There exists a natural number n such that n squared equals 9'",
+    "options": [
+      "∃n ∈ ℕ : n² = 9",
+      "∀n ∈ ℕ : n² = 9",
+      "∃n ∈ ℕ : n² > 9",
+      "∃n ∈ ℝ : n² = 9"
+    ],
+    "explanation": "'There exists' maps to ∃ and 'natural number' maps to ℕ. The answer n = 3 witnesses this statement. Note that ∃n ∈ ℝ is also true but weaker — it does not capture the constraint that n must be a natural number."
+  },
+  {
+    "id": "ex_logica_04",
+    "topicId": "logica_quantificatori",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "Translate: 'For all real numbers x, x squared is greater than or equal to zero'",
+    "options": [
+      "∀x ∈ ℝ : x² ≥ 0",
+      "∃x ∈ ℝ : x² ≥ 0",
+      "∀x ∈ ℝ : x² > 0",
+      "∀x ∈ ℝ : x² ≤ 0"
+    ],
+    "explanation": "This is a fundamental property of real numbers. 'For all' maps to ∀, and the condition is ≥ 0 (not strictly > 0, since 0² = 0). Choosing > 0 would be false for x = 0, making it a different and incorrect statement."
+  },
+  {
+    "id": "ex_logica_05",
+    "topicId": "logica_quantificatori",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "Translate: 'For all real numbers x, there exists a real number y such that y is greater than x'",
+    "options": [
+      "∀x ∈ ℝ ∃y ∈ ℝ : y > x",
+      "∃y ∈ ℝ ∀x ∈ ℝ : y > x",
+      "∀x ∈ ℝ ∀y ∈ ℝ : y > x",
+      "∃x ∈ ℝ ∃y ∈ ℝ : y > x"
+    ],
+    "explanation": "The order of quantifiers is critical. ∀x then ∃y means: for each x we can find a larger y (ℝ has no maximum). The option ∃y ∀x would mean a single y exceeds every real number — which is false. Never swap quantifier order without changing meaning."
+  },
+  {
+    "id": "ex_logica_06",
+    "topicId": "logica_quantificatori",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "Translate: 'There exists a real number x such that for all real numbers y, x is less than or equal to y'",
+    "options": [
+      "∃x ∈ ℝ ∀y ∈ ℝ : x ≤ y",
+      "∀y ∈ ℝ ∃x ∈ ℝ : x ≤ y",
+      "∃x ∈ ℝ ∃y ∈ ℝ : x ≤ y",
+      "∀x ∈ ℝ ∀y ∈ ℝ : x ≤ y"
+    ],
+    "explanation": "This statement claims ℝ has a minimum element (which it does not, but the translation is still correct). ∃x ∀y : x ≤ y says one fixed x is smaller than everything. The alternative ∀y ∃x : x ≤ y is true but says something different — for each y we can always find a smaller x."
+  },
+  {
+    "id": "ex_logica_07",
+    "topicId": "logica_quantificatori",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "Translate: 'For all real numbers x and y, if x is less than y then there exists a real number z such that x is less than z and z is less than y'",
+    "options": [
+      "∀x,y ∈ ℝ : x < y ⟹ ∃z ∈ ℝ : x < z < y",
+      "∃z ∈ ℝ ∀x,y ∈ ℝ : x < y ⟹ x < z < y",
+      "∀x,y ∈ ℝ ∀z ∈ ℝ : x < y ⟹ x < z < y",
+      "∀x,y ∈ ℝ : x < y ⟺ ∃z ∈ ℝ : x < z < y"
+    ],
+    "explanation": "This is the density property of ℝ. The implication ⟹ (if…then) separates the hypothesis from the conclusion. The z depends on x and y, so ∃z must appear after ∀x,y. Using ⟺ would add an unwarranted converse direction."
+  },
+  {
+    "id": "ex_logica_08",
+    "topicId": "logica_quantificatori",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "Translate: 'For all integers n, n is even if and only if n squared is even'",
+    "options": [
+      "∀n ∈ ℤ : 2|n ⟺ 2|n²",
+      "∀n ∈ ℤ : 2|n ⟹ 2|n²",
+      "∃n ∈ ℤ : 2|n ⟺ 2|n²",
+      "∀n ∈ ℤ : 2|n² ⟹ 2|n"
+    ],
+    "explanation": "'If and only if' translates to the biconditional ⟺. Both directions must hold: n even ⟹ n² even (straightforward) and n² even ⟹ n even (requires a proof by contrapositive). Using ⟹ only captures one direction."
+  },
+  {
+    "id": "ex_logica_09",
+    "topicId": "logica_quantificatori",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "Translate: 'The function f is injective: for all x and y in ℝ, if f(x) equals f(y) then x equals y'",
+    "options": [
+      "∀x,y ∈ ℝ : f(x) = f(y) ⟹ x = y",
+      "∀x,y ∈ ℝ : x = y ⟹ f(x) = f(y)",
+      "∃x,y ∈ ℝ : f(x) = f(y) ⟹ x = y",
+      "∀x,y ∈ ℝ : f(x) = f(y) ⟺ x = y"
+    ],
+    "explanation": "Injectivity means distinct inputs give distinct outputs, written contrapositively as: equal outputs imply equal inputs. Option B is simply the definition of a function (well-defined), not injectivity. Option D would also require x = y ⟹ f(x) = f(y), which is automatic for any function."
+  },
+  {
+    "id": "ex_logica_10",
+    "topicId": "logica_quantificatori",
+    "type": "mcq",
+    "difficulty": 3,
+    "question": "Translate: 'The sequence (aₙ) converges to L: for all ε greater than zero, there exists N in the natural numbers such that for all n greater than N, the absolute value of aₙ minus L is less than ε'",
+    "options": [
+      "∀ε > 0 ∃N ∈ ℕ ∀n > N : |aₙ − L| < ε",
+      "∃ε > 0 ∀N ∈ ℕ ∃n > N : |aₙ − L| < ε",
+      "∀ε > 0 ∀N ∈ ℕ ∃n > N : |aₙ − L| < ε",
+      "∃N ∈ ℕ ∀ε > 0 ∀n > N : |aₙ − L| < ε"
+    ],
+    "explanation": "This is the formal epsilon-N definition of sequence convergence. The quantifier order ∀ε ∃N ∀n is mandatory: N may depend on ε, and the bound must hold for all n beyond N. Any permutation of the quantifiers defines a fundamentally different (and usually false or trivial) statement."
+  },
+  {
+    "id": "ex_logica_11",
+    "topicId": "logica_quantificatori",
+    "type": "mcq",
+    "difficulty": 3,
+    "question": "Translate: 'f is continuous at x₀: for all ε greater than zero, there exists δ greater than zero such that for all x, if the absolute value of x minus x₀ is less than δ then the absolute value of f(x) minus f(x₀) is less than ε'",
+    "options": [
+      "∀ε > 0 ∃δ > 0 ∀x : |x − x₀| < δ ⟹ |f(x) − f(x₀)| < ε",
+      "∃δ > 0 ∀ε > 0 ∀x : |x − x₀| < δ ⟹ |f(x) − f(x₀)| < ε",
+      "∀ε > 0 ∀δ > 0 ∃x : |x − x₀| < δ ⟹ |f(x) − f(x₀)| < ε",
+      "∀ε > 0 ∃δ > 0 ∀x : |f(x) − f(x₀)| < ε ⟹ |x − x₀| < δ"
+    ],
+    "explanation": "This is the epsilon-delta definition of continuity. δ depends on ε, so ∃δ must follow ∀ε. The implication goes from proximity of inputs to proximity of outputs — not the reverse. Reversing the implication (option D) would define something closer to an open-map condition."
+  },
+  {
+    "id": "ex_logica_12",
+    "topicId": "logica_quantificatori",
+    "type": "mcq",
+    "difficulty": 3,
+    "question": "Translate: 'The function f is surjective onto ℝ: for all y in ℝ, there exists x in ℝ such that f(x) equals y'",
+    "options": [
+      "∀y ∈ ℝ ∃x ∈ ℝ : f(x) = y",
+      "∃x ∈ ℝ ∀y ∈ ℝ : f(x) = y",
+      "∀x ∈ ℝ ∃y ∈ ℝ : f(x) = y",
+      "∃y ∈ ℝ ∀x ∈ ℝ : f(x) = y"
+    ],
+    "explanation": "Surjectivity means every element of the codomain is hit by some input. ∀y then ∃x correctly captures this — for each output y we find a preimage x. Option B would mean one x maps to every y simultaneously, which is impossible for a function. Option C is just the statement that f is a total function."
+  },
+  {
+    "id": "ex_logica_13",
+    "topicId": "logica_quantificatori",
+    "type": "mcq",
+    "difficulty": 3,
+    "question": "Translate: 'The set A is bounded above: there exists M in ℝ such that for all x in A, x is less than or equal to M'",
+    "options": [
+      "∃M ∈ ℝ ∀x ∈ A : x ≤ M",
+      "∀x ∈ A ∃M ∈ ℝ : x ≤ M",
+      "∀M ∈ ℝ ∃x ∈ A : x ≤ M",
+      "∃M ∈ ℝ ∃x ∈ A : x ≤ M"
+    ],
+    "explanation": "Bounded above means one single M serves as an upper bound for all elements. ∃M ∀x correctly fixes M first. Option B is always true (any x has some M larger), hence it carries no information about boundedness. The key is that M does not depend on x."
+  },
+  {
+    "id": "ex_logica_14",
+    "topicId": "logica_quantificatori",
+    "type": "mcq",
+    "difficulty": 3,
+    "question": "Translate: 'For all real numbers x, x is rational or x is irrational'",
+    "options": [
+      "∀x ∈ ℝ : x ∈ ℚ ∨ x ∉ ℚ",
+      "∀x ∈ ℝ : x ∈ ℚ ∧ x ∉ ℚ",
+      "∃x ∈ ℝ : x ∈ ℚ ∨ x ∉ ℚ",
+      "∀x ∈ ℝ : x ∈ ℚ ⟹ x ∉ ℚ"
+    ],
+    "explanation": "'Or' translates to the logical disjunction ∨. This statement is a tautology (the law of excluded middle): every real is either in ℚ or not in ℚ. Using ∧ (and) would be a contradiction, since no number can be both rational and irrational simultaneously."
+  },
+  {
+    "id": "ex_logica_15",
+    "topicId": "logica_quantificatori",
+    "type": "mcq",
+    "difficulty": 3,
+    "question": "Translate: 'There is no largest prime number: for all primes p, there exists a prime q such that q is strictly greater than p'",
+    "options": [
+      "∀p ∈ ℙ ∃q ∈ ℙ : q > p",
+      "∃p ∈ ℙ ∀q ∈ ℙ : q > p",
+      "∀p ∈ ℙ ∀q ∈ ℙ : q > p",
+      "∃q ∈ ℙ ∀p ∈ ℙ : q > p"
+    ],
+    "explanation": "Euclid's theorem on the infinitude of primes. For every prime p we can find a larger prime q — this is ∀p ∃q : q > p. Option D would say one prime exceeds all primes, which is impossible. Note that q depends on p, so ∃q must come after ∀p."
+  },
+  {
+    "id": "ex_logica_16",
+    "topicId": "logica_quantificatori",
+    "type": "mcq",
+    "difficulty": 4,
+    "question": "Translate: 'f is uniformly continuous on ℝ: for all ε greater than zero, there exists δ greater than zero such that for all x and y in ℝ, if the absolute value of x minus y is less than δ then the absolute value of f(x) minus f(y) is less than ε'",
+    "options": [
+      "∀ε > 0 ∃δ > 0 ∀x,y ∈ ℝ : |x − y| < δ ⟹ |f(x) − f(y)| < ε",
+      "∀ε > 0 ∀x,y ∈ ℝ ∃δ > 0 : |x − y| < δ ⟹ |f(x) − f(y)| < ε",
+      "∀x,y ∈ ℝ ∀ε > 0 ∃δ > 0 : |x − y| < δ ⟹ |f(x) − f(y)| < ε",
+      "∃δ > 0 ∀ε > 0 ∀x,y ∈ ℝ : |x − y| < δ ⟹ |f(x) − f(y)| < ε"
+    ],
+    "explanation": "The key difference from pointwise continuity: δ must be chosen before x and y, so it cannot depend on any particular point. In options B and C, δ comes after x and y, which defines ordinary (pointwise) continuity — a strictly weaker condition. Uniform continuity requires one δ that works globally."
+  },
+  {
+    "id": "ex_logica_17",
+    "topicId": "logica_quantificatori",
+    "type": "mcq",
+    "difficulty": 4,
+    "question": "Translate: 'The negation of: for all x in ℝ, there exists y in ℝ such that y is greater than x'",
+    "options": [
+      "∃x ∈ ℝ ∀y ∈ ℝ : y ≤ x",
+      "∀x ∈ ℝ ∃y ∈ ℝ : y ≤ x",
+      "∃x ∈ ℝ ∃y ∈ ℝ : y ≤ x",
+      "∀x ∈ ℝ ∀y ∈ ℝ : y ≤ x"
+    ],
+    "explanation": "To negate a quantified statement: flip every quantifier (∀↔∃) and negate the inner formula. ¬(∀x ∃y : y > x) becomes ∃x ∀y : ¬(y > x), i.e. ∃x ∀y : y ≤ x. This says ℝ has a maximum element — which is the negation of the original true statement."
+  },
+  {
+    "id": "ex_logica_18",
+    "topicId": "logica_quantificatori",
+    "type": "mcq",
+    "difficulty": 4,
+    "question": "Translate: 'f is not uniformly continuous on ℝ: there exists ε greater than zero such that for all δ greater than zero, there exist x and y in ℝ with the absolute value of x minus y less than δ but the absolute value of f(x) minus f(y) greater than or equal to ε'",
+    "options": [
+      "∃ε > 0 ∀δ > 0 ∃x,y ∈ ℝ : |x − y| < δ ∧ |f(x) − f(y)| ≥ ε",
+      "∀ε > 0 ∃δ > 0 ∀x,y ∈ ℝ : |x − y| < δ ∧ |f(x) − f(y)| ≥ ε",
+      "∃ε > 0 ∃δ > 0 ∃x,y ∈ ℝ : |x − y| < δ ∧ |f(x) − f(y)| ≥ ε",
+      "∃ε > 0 ∀δ > 0 ∃x,y ∈ ℝ : |x − y| < δ ⟹ |f(x) − f(y)| ≥ ε"
+    ],
+    "explanation": "This is the formal negation of uniform continuity, obtained by flipping all quantifiers and negating the implication. Negating P ⟹ Q gives P ∧ ¬Q, so the conclusion becomes a conjunction (∧), not an implication. Option D incorrectly keeps the implication symbol."
+  },
+  {
+    "id": "ex_logica_19",
+    "topicId": "logica_quantificatori",
+    "type": "mcq",
+    "difficulty": 4,
+    "question": "Translate: 'L is the supremum of the set A: L is an upper bound of A, and for all ε greater than zero there exists an element a in A such that a is greater than L minus ε'",
+    "options": [
+      "(∀x ∈ A : x ≤ L) ∧ (∀ε > 0 ∃a ∈ A : a > L − ε)",
+      "(∀x ∈ A : x ≤ L) ∧ (∃ε > 0 ∀a ∈ A : a > L − ε)",
+      "(∃x ∈ A : x ≤ L) ∧ (∀ε > 0 ∃a ∈ A : a > L − ε)",
+      "(∀x ∈ A : x ≤ L) ∨ (∀ε > 0 ∃a ∈ A : a > L − ε)"
+    ],
+    "explanation": "The supremum definition has two conjoint parts (∧): L is an upper bound (∀x ≤ L) AND L is the least upper bound, expressed by the approximation condition ∀ε ∃a : a > L − ε. Using ∨ would allow either condition to fail. The quantifier order ∀ε ∃a is essential — a may depend on ε."
+  },
+  {
+    "id": "ex_logica_20",
+    "topicId": "logica_quantificatori",
+    "type": "mcq",
+    "difficulty": 4,
+    "question": "Translate: 'The series Σaₙ converges: for all ε greater than zero, there exists N in ℕ such that for all m and n with m greater than n greater than N, the absolute value of the sum from k equals n+1 to m of aₖ is less than ε'",
+    "options": [
+      "∀ε > 0 ∃N ∈ ℕ ∀m > n > N : |∑ₖ₌ₙ₊₁ᵐ aₖ| < ε",
+      "∃N ∈ ℕ ∀ε > 0 ∀m > n > N : |∑ₖ₌ₙ₊₁ᵐ aₖ| < ε",
+      "∀ε > 0 ∀m > n ∃N ∈ ℕ : |∑ₖ₌ₙ₊₁ᵐ aₖ| < ε",
+      "∀ε > 0 ∃N ∈ ℕ ∃m > n > N : |∑ₖ₌ₙ₊₁ᵐ aₖ| < ε"
+    ],
+    "explanation": "This is the Cauchy criterion for series convergence. The order ∀ε ∃N ∀m,n is mandatory: N is chosen in response to ε, and then the tail bound must hold for all pairs m > n > N. Option C places N after m,n, allowing N to depend on the indices — which trivialises the condition. Option D weakens ∀m,n to ∃m,n, which is far too weak."
+  }
+]

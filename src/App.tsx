@@ -7,6 +7,7 @@ import Plan from './pages/Plan';
 import History from './pages/History';
 import Assessment from './pages/Assessment';
 import TopicStudyPlan from './pages/TopicStudyPlan';
+import Exercises from './pages/Exercises';
 import Login from './pages/Login';
 
 function AppShell() {
@@ -31,6 +32,7 @@ function AppShell() {
           <Route path="/plan" element={<Plan />} />
           <Route path="/history" element={<History />} />
           <Route path="/topic/:topicId" element={<TopicStudyPlan />} />
+          <Route path="/esercizi" element={<Exercises />} />
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
