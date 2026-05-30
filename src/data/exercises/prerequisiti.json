@@ -292,5 +292,593 @@
       "∀ε > 0 ∃N ∈ ℕ ∃m > n > N : |∑ₖ₌ₙ₊₁ᵐ aₖ| < ε"
     ],
     "explanation": "This is the Cauchy criterion for series convergence. The order ∀ε ∃N ∀m,n is mandatory: N is chosen in response to ε, and then the tail bound must hold for all pairs m > n > N. Option C places N after m,n, allowing N to depend on the indices — which trivialises the condition. Option D weakens ∀m,n to ∃m,n, which is far too weak."
+  },
+  {
+    "id": "ex_prop_00",
+    "topicId": "logica_proposizioni",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "P∧Q (conjunction) is true when...",
+    "options": [
+      "both P and Q are true",
+      "at least one of P or Q is true",
+      "P is true and Q is false",
+      "both P and Q are false"
+    ],
+    "explanation": "Conjunction P∧Q is true only when both operands are true. A single false operand makes the whole formula false."
+  },
+  {
+    "id": "ex_prop_01",
+    "topicId": "logica_proposizioni",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "P∨Q (disjunction) is false when...",
+    "options": [
+      "both P and Q are false",
+      "P is true and Q is false",
+      "P is false and Q is true",
+      "at least one is true"
+    ],
+    "explanation": "Disjunction P∨Q is false only when both operands are false. A single true operand is enough to make it true."
+  },
+  {
+    "id": "ex_prop_02",
+    "topicId": "logica_proposizioni",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "By De Morgan's law, the negation of P∧Q is...",
+    "options": [
+      "¬P ∨ ¬Q",
+      "¬P ∧ ¬Q",
+      "P ∨ Q",
+      "¬(P ∨ Q)"
+    ],
+    "explanation": "De Morgan's first law: ¬(P∧Q) = ¬P ∨ ¬Q. The negation distributes by flipping ∧ to ∨ and negating each operand."
+  },
+  {
+    "id": "ex_prop_03",
+    "topicId": "logica_proposizioni",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "By De Morgan's law, the negation of P∨Q is...",
+    "options": [
+      "¬P ∧ ¬Q",
+      "¬P ∨ ¬Q",
+      "P ∧ Q",
+      "¬P → Q"
+    ],
+    "explanation": "De Morgan's second law: ¬(P∨Q) = ¬P ∧ ¬Q. The negation distributes by flipping ∨ to ∧ and negating each operand."
+  },
+  {
+    "id": "ex_prop_04",
+    "topicId": "logica_proposizioni",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "Which of the following is always true (a tautology)?",
+    "options": [
+      "P ∨ ¬P",
+      "P ∧ ¬P",
+      "P → Q",
+      "P ↔ Q"
+    ],
+    "explanation": "P ∨ ¬P is always true (law of excluded middle). P∧¬P is always false (contradiction). P→Q and P↔Q depend on the truth values of P and Q."
+  },
+  {
+    "id": "ex_prop_05",
+    "topicId": "logica_proposizioni",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "P → Q is false exactly when...",
+    "options": [
+      "P is true and Q is false",
+      "P is false and Q is true",
+      "both P and Q are false",
+      "P is false"
+    ],
+    "explanation": "An implication is false only when the premise is true but the conclusion is false. In all other cases — including a false premise — the implication is vacuously true."
+  },
+  {
+    "id": "ex_prop_06",
+    "topicId": "logica_proposizioni",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "The negation of P → Q is logically equivalent to...",
+    "options": [
+      "P ∧ ¬Q",
+      "¬P ∨ Q",
+      "¬P → ¬Q",
+      "¬P ∧ ¬Q"
+    ],
+    "explanation": "P→Q is false only when P is true and Q is false, so its negation is P ∧ ¬Q. Note: ¬P ∨ Q is actually equivalent to P→Q itself."
+  },
+  {
+    "id": "ex_prop_07",
+    "topicId": "logica_proposizioni",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "The biconditional P ↔ Q is true when...",
+    "options": [
+      "P and Q have the same truth value",
+      "P is true and Q is false",
+      "at least one of P or Q is true",
+      "P is false"
+    ],
+    "explanation": "P↔Q ('P if and only if Q') is true when both are true or both are false. It is equivalent to (P→Q) ∧ (Q→P)."
+  },
+  {
+    "id": "ex_prop_08",
+    "topicId": "logica_proposizioni",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "Which of the following is a contradiction (always false)?",
+    "options": [
+      "P ∧ ¬P",
+      "P ∨ ¬P",
+      "P → P",
+      "¬(P ∧ ¬P)"
+    ],
+    "explanation": "P ∧ ¬P is always false (law of non-contradiction). The other three are tautologies: P∨¬P, P→P, and ¬(P∧¬P) are all always true."
+  },
+  {
+    "id": "ex_prop_09",
+    "topicId": "logica_proposizioni",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "Translate: 'It is not the case that both A and B hold'",
+    "options": [
+      "¬A ∨ ¬B",
+      "¬A ∧ ¬B",
+      "¬(A ∨ B)",
+      "A ∧ ¬B"
+    ],
+    "explanation": "¬(A∧B) = ¬A ∨ ¬B by De Morgan. The phrase means 'not(A and B)', i.e., at least one of them fails."
+  },
+  {
+    "id": "ex_impl_00",
+    "topicId": "implicazione",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "Which formula is logically equivalent to P → Q?",
+    "options": [
+      "¬Q → ¬P",
+      "Q → P",
+      "¬P → ¬Q",
+      "P ∧ ¬Q"
+    ],
+    "explanation": "The contrapositive ¬Q → ¬P is always equivalent to P → Q. Q→P is the converse (not equivalent). ¬P→¬Q is the inverse (also not equivalent)."
+  },
+  {
+    "id": "ex_impl_01",
+    "topicId": "implicazione",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "The contrapositive of 'If it rains, the ground is wet' is...",
+    "options": [
+      "If the ground is not wet, it did not rain",
+      "If the ground is wet, it rained",
+      "If it does not rain, the ground is not wet",
+      "It rained and the ground is not wet"
+    ],
+    "explanation": "The contrapositive of P→Q is ¬Q→¬P. With P='it rains', Q='ground is wet', the contrapositive is 'if not wet then no rain'."
+  },
+  {
+    "id": "ex_impl_02",
+    "topicId": "implicazione",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "The converse of P → Q is...",
+    "options": [
+      "Q → P",
+      "¬P → ¬Q",
+      "¬Q → ¬P",
+      "P ↔ Q"
+    ],
+    "explanation": "The converse swaps hypothesis and conclusion: the converse of P→Q is Q→P. The converse is NOT logically equivalent to the original implication in general."
+  },
+  {
+    "id": "ex_impl_03",
+    "topicId": "implicazione",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "'A is a sufficient condition for B' means...",
+    "options": [
+      "A → B",
+      "B → A",
+      "A ↔ B",
+      "¬A → ¬B"
+    ],
+    "explanation": "If A is sufficient for B, knowing A is enough to conclude B: A → B. Sufficiency goes forward: A guarantees B."
+  },
+  {
+    "id": "ex_impl_04",
+    "topicId": "implicazione",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "'A is a necessary condition for B' means...",
+    "options": [
+      "B → A",
+      "A → B",
+      "A ↔ B",
+      "¬A → B"
+    ],
+    "explanation": "If A is necessary for B, then B cannot hold without A: B → A. Necessity goes backward: B can only occur when A holds."
+  },
+  {
+    "id": "ex_impl_05",
+    "topicId": "implicazione",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "'B only if A' translates to...",
+    "options": [
+      "B → A",
+      "A → B",
+      "A ↔ B",
+      "¬A → B"
+    ],
+    "explanation": "'B only if A' means B can only hold when A holds: B → A. This is a common source of confusion — 'B only if A' is NOT 'A → B'."
+  },
+  {
+    "id": "ex_impl_06",
+    "topicId": "implicazione",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "We know P → Q is false. What can we conclude?",
+    "options": [
+      "P is true and Q is false",
+      "P is false",
+      "Q is true",
+      "P ↔ Q is also false"
+    ],
+    "explanation": "An implication is false only in one case: P true and Q false. So if P→Q is false, we know for certain that P is true and Q is false."
+  },
+  {
+    "id": "ex_impl_07",
+    "topicId": "implicazione",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "If P → Q and Q → R are both true, then...",
+    "options": [
+      "P → R is true",
+      "R → P is true",
+      "P ↔ R is true",
+      "Q → P is true"
+    ],
+    "explanation": "Implication is transitive (hypothetical syllogism): if P→Q and Q→R then P→R. This chain of implications is a fundamental reasoning pattern."
+  },
+  {
+    "id": "ex_impl_08",
+    "topicId": "implicazione",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "Which pair of statements is NOT logically equivalent?",
+    "options": [
+      "P → Q and Q → P",
+      "P → Q and ¬Q → ¬P",
+      "¬(P → Q) and P ∧ ¬Q",
+      "P ↔ Q and (P → Q) ∧ (Q → P)"
+    ],
+    "explanation": "P→Q and its converse Q→P are NOT equivalent in general. The other pairs are: P→Q ≡ ¬Q→¬P (contrapositive), ¬(P→Q) ≡ P∧¬Q, and P↔Q ≡ (P→Q)∧(Q→P)."
+  },
+  {
+    "id": "ex_impl_09",
+    "topicId": "implicazione",
+    "type": "mcq",
+    "difficulty": 3,
+    "question": "Translate: 'n² is even if and only if n is even'",
+    "options": [
+      "(2|n²) ↔ (2|n)",
+      "(2|n²) → (2|n)",
+      "(2|n) → (2|n²)",
+      "¬(2|n) → ¬(2|n²)"
+    ],
+    "explanation": "'If and only if' translates to ↔. Both directions must hold: n even ⟹ n² even (direct), and n² even ⟹ n even (by contrapositive). Using → only captures one direction."
+  },
+  {
+    "id": "ex_dim_00",
+    "topicId": "dimostrazione",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "To prove 'if n² is even then n is even', the most efficient technique is...",
+    "options": [
+      "proof by contrapositive",
+      "direct proof",
+      "proof by exhaustion",
+      "strong induction"
+    ],
+    "explanation": "Assume n is odd (¬Q), then n=2k+1, so n²=4k²+4k+1 which is odd (¬P). This proves ¬Q→¬P, equivalent to P→Q. A direct proof would be much harder."
+  },
+  {
+    "id": "ex_dim_01",
+    "topicId": "dimostrazione",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "In a proof by contradiction to show P, you begin by assuming...",
+    "options": [
+      "¬P is true, then derive a contradiction",
+      "P is true, then verify consequences",
+      "there exists a counterexample to P",
+      "P is false only for specific values"
+    ],
+    "explanation": "Proof by contradiction assumes ¬P, then derives a statement that contradicts a known truth, forcing ¬P to be false and thus P to be true."
+  },
+  {
+    "id": "ex_dim_02",
+    "topicId": "dimostrazione",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "The base case in a proof by induction for P(n), n ≥ 1, is...",
+    "options": [
+      "verifying P(1) directly",
+      "verifying P(0) is false",
+      "assuming P(k) holds for all k",
+      "showing P(n+1) follows from P(n)"
+    ],
+    "explanation": "Induction requires two steps: (1) base case — directly verify P(1); (2) inductive step — from P(k) derive P(k+1). The base case anchors the chain."
+  },
+  {
+    "id": "ex_dim_03",
+    "topicId": "dimostrazione",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "The inductive hypothesis in a proof by induction for P(n) states...",
+    "options": [
+      "assume P(k) is true for some arbitrary k ≥ 1",
+      "prove P(k+1) is true",
+      "verify P(1) holds",
+      "assume P(n) holds for every n simultaneously"
+    ],
+    "explanation": "The inductive hypothesis is the assumption P(k) (not a proof). The goal of the inductive step is to derive P(k+1) from this assumption. k is arbitrary but fixed."
+  },
+  {
+    "id": "ex_dim_04",
+    "topicId": "dimostrazione",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "A direct proof of P → Q proceeds by...",
+    "options": [
+      "assuming P is true and deducing Q using known facts",
+      "assuming Q is false and deducing ¬P",
+      "assuming both P and ¬Q and reaching a contradiction",
+      "checking all possible cases for P"
+    ],
+    "explanation": "A direct proof assumes the hypothesis P and uses definitions and previously proven results to derive the conclusion Q. No negations or contradictions are involved."
+  },
+  {
+    "id": "ex_dim_05",
+    "topicId": "dimostrazione",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "A proof by contrapositive of P → Q consists of proving...",
+    "options": [
+      "¬Q → ¬P directly",
+      "¬P → ¬Q directly",
+      "P ∧ ¬Q leads to a contradiction",
+      "Q → P by induction"
+    ],
+    "explanation": "The contrapositive ¬Q→¬P is logically equivalent to P→Q. It is different from proof by contradiction (which assumes both P and ¬Q and looks for any contradiction)."
+  },
+  {
+    "id": "ex_dim_06",
+    "topicId": "dimostrazione",
+    "type": "mcq",
+    "difficulty": 3,
+    "question": "In the proof that √2 ∉ ℚ, the key contradiction arises because...",
+    "options": [
+      "assuming √2 = p/q in lowest terms forces both p and q to be even",
+      "√2 cannot be expressed as a decimal",
+      "there is no rational between 1 and 2",
+      "assuming √2 ∈ ℚ implies 2 is not prime"
+    ],
+    "explanation": "Assume √2 = p/q with gcd(p,q)=1. Then p²=2q², so p² is even → p is even → p=2m → 4m²=2q² → q² even → q even. Both p and q are even, contradicting gcd(p,q)=1."
+  },
+  {
+    "id": "ex_dim_07",
+    "topicId": "dimostrazione",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "Which correctly describes the structure of mathematical induction?",
+    "options": [
+      "base case (verify P(1)) + inductive step (P(k) ⟹ P(k+1))",
+      "base case + contrapositive for each n",
+      "verify P for n=1,2,3 then conclude it holds for all n",
+      "assume P(n) for all n and derive a specific case"
+    ],
+    "explanation": "Induction: (1) prove P(1) directly; (2) for arbitrary k≥1, prove P(k)⟹P(k+1). Together they establish P(n) for all n≥1. Checking finitely many cases does NOT constitute a proof."
+  },
+  {
+    "id": "ex_ins_00",
+    "topicId": "insiemi_operazioni",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "Let A = {1, 2, 3} and B = {2, 3, 4}. What is A ∩ B?",
+    "options": [
+      "{2, 3}",
+      "{1, 2, 3, 4}",
+      "{1}",
+      "{1, 4}"
+    ],
+    "explanation": "A∩B contains elements belonging to both sets. Here 2 and 3 appear in both, so A∩B = {2, 3}."
+  },
+  {
+    "id": "ex_ins_01",
+    "topicId": "insiemi_operazioni",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "Let A = {1, 2, 3} and B = {2, 3, 4}. What is A ∪ B?",
+    "options": [
+      "{1, 2, 3, 4}",
+      "{2, 3}",
+      "{1, 4}",
+      "{1, 2, 3, 4, 5}"
+    ],
+    "explanation": "A∪B contains all elements appearing in A or B (removing duplicates): combining {1,2,3} and {2,3,4} gives {1,2,3,4}."
+  },
+  {
+    "id": "ex_ins_02",
+    "topicId": "insiemi_operazioni",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "Let A = {1, 2, 3} and B = {2, 3, 4}. What is A ∖ B?",
+    "options": [
+      "{1}",
+      "{4}",
+      "{2, 3}",
+      "{1, 4}"
+    ],
+    "explanation": "A∖B contains elements in A that are NOT in B. Removing 2 and 3 (which are in B) from {1,2,3} leaves {1}."
+  },
+  {
+    "id": "ex_ins_06",
+    "topicId": "insiemi_operazioni",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "If |A| = 3 and |B| = 2, what is |A × B|?",
+    "options": [
+      "6",
+      "5",
+      "8",
+      "3"
+    ],
+    "explanation": "The Cartesian product A×B consists of all ordered pairs (a,b) with a∈A, b∈B. Its cardinality is |A| × |B| = 3 × 2 = 6."
+  },
+  {
+    "id": "ex_ins_07",
+    "topicId": "insiemi_operazioni",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "For any set A, A ∩ ∅ equals...",
+    "options": [
+      "∅",
+      "A",
+      "A ∪ ∅",
+      "depends on A"
+    ],
+    "explanation": "∅ has no elements, so no element belongs to both A and ∅. Therefore A∩∅ = ∅ for any set A."
+  },
+  {
+    "id": "ex_ins_09",
+    "topicId": "insiemi_operazioni",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "A ∖ B (set difference) can equivalently be written as...",
+    "options": [
+      "A ∩ Bᶜ",
+      "Aᶜ ∩ B",
+      "A ∪ Bᶜ",
+      "(A ∩ B)ᶜ"
+    ],
+    "explanation": "A∖B = {x : x∈A and x∉B} = {x : x∈A and x∈Bᶜ} = A∩Bᶜ. This connects set difference to complement and intersection."
+  },
+  {
+    "id": "ex_num_00",
+    "topicId": "insiemi_numerici",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "√2 belongs to which number set?",
+    "options": [
+      "ℝ (but not ℚ — it is irrational)",
+      "ℚ",
+      "ℤ",
+      "ℕ"
+    ],
+    "explanation": "√2 is irrational: it cannot be written as p/q with p,q ∈ ℤ. It is a real number but not rational. The classic proof uses contradiction assuming √2=p/q in lowest terms."
+  },
+  {
+    "id": "ex_num_01",
+    "topicId": "insiemi_numerici",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "What is the smallest number set containing −3?",
+    "options": [
+      "ℤ",
+      "ℕ",
+      "ℚ",
+      "ℝ ∖ ℚ"
+    ],
+    "explanation": "−3 is a negative integer. ℕ = {0,1,2,…} contains only non-negative numbers, so the smallest standard set containing −3 is ℤ."
+  },
+  {
+    "id": "ex_num_02",
+    "topicId": "insiemi_numerici",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "Which number set is NOT closed under subtraction?",
+    "options": [
+      "ℕ",
+      "ℤ",
+      "ℚ",
+      "ℝ"
+    ],
+    "explanation": "ℕ is not closed under subtraction: 1 − 3 = −2 ∉ ℕ. The integers ℤ, rationals ℚ, and reals ℝ are all closed under subtraction."
+  },
+  {
+    "id": "ex_num_03",
+    "topicId": "insiemi_numerici",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "Between any two distinct rational numbers, there are...",
+    "options": [
+      "infinitely many rational numbers",
+      "exactly one rational number",
+      "no irrational numbers",
+      "finitely many rational numbers"
+    ],
+    "explanation": "ℚ is dense in ℝ: between any two rationals p < q there are infinitely many rationals (e.g., (p+q)/2 is one, and the process can be repeated indefinitely)."
+  },
+  {
+    "id": "ex_num_04",
+    "topicId": "insiemi_numerici",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "Which property holds for ℝ but NOT for ℚ?",
+    "options": [
+      "completeness (every Cauchy sequence converges)",
+      "density (between any two points there is another)",
+      "closure under addition",
+      "having no maximum element"
+    ],
+    "explanation": "ℝ is complete: every Cauchy sequence of reals converges to a real. ℚ fails this: 1, 1.4, 1.41, 1.414,… is Cauchy in ℚ but converges to √2 ∉ ℚ. All other listed properties hold for ℚ too."
+  },
+  {
+    "id": "ex_num_05",
+    "topicId": "insiemi_numerici",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "Which correctly describes the chain of inclusions between number sets?",
+    "options": [
+      "ℕ ⊂ ℤ ⊂ ℚ ⊂ ℝ",
+      "ℤ ⊂ ℕ ⊂ ℚ ⊂ ℝ",
+      "ℕ ⊂ ℚ ⊂ ℤ ⊂ ℝ",
+      "ℕ ⊂ ℤ ⊂ ℝ ⊂ ℚ"
+    ],
+    "explanation": "ℕ ⊂ ℤ ⊂ ℚ ⊂ ℝ. Each set strictly extends the previous: −1 ∈ ℤ ∖ ℕ, 1/2 ∈ ℚ ∖ ℤ, √2 ∈ ℝ ∖ ℚ."
+  },
+  {
+    "id": "ex_num_06",
+    "topicId": "insiemi_numerici",
+    "type": "mcq",
+    "difficulty": 1,
+    "question": "Which of the following is a rational number?",
+    "options": [
+      "0.333… (= 1/3)",
+      "√2",
+      "π",
+      "e"
+    ],
+    "explanation": "0.333… = 1/3 ∈ ℚ because it equals a ratio of two integers. √2, π, and e are all irrational — their decimal expansions are non-repeating and non-terminating."
+  },
+  {
+    "id": "ex_num_07",
+    "topicId": "insiemi_numerici",
+    "type": "mcq",
+    "difficulty": 2,
+    "question": "The Archimedean property of ℝ states that...",
+    "options": [
+      "for any x ∈ ℝ, there exists n ∈ ℕ such that n > x",
+      "every bounded sequence converges",
+      "between any two reals there is a rational",
+      "ℝ has no maximum element"
+    ],
+    "explanation": "The Archimedean property: ℕ is unbounded in ℝ — for any real x, some natural number exceeds it. Equivalently, for any ε > 0, there exists n ∈ ℕ with 1/n < ε, which is fundamental in ε-δ analysis."
   }
 ]
