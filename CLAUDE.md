@@ -34,7 +34,7 @@ There are no tests. Type checking is part of `npm run build` (`tsc -b`).
 ### Tech Stack
 - **React 19** + **TypeScript ~6** + **Vite 8**
 - **Tailwind CSS 3** (class-based dark mode via `html.dark` — `useTheme.ts` + `ThemeContext` exist as a stub but have no provider; the toggle is not yet wired up)
-- **react-router-dom 7** (BrowserRouter, 7 routes)
+- **react-router-dom 7** (BrowserRouter, 8 routes)
 - **FastAPI** + **SQLAlchemy 2** + **SQLite** (`backend/analisi1.db`, auto-created on first run)
 - No Redux/Zustand — all state in `localStorage` + custom hooks
 
@@ -48,6 +48,7 @@ There are no tests. Type checking is part of `npm run build` (`tsc -b`).
 | `/tracker` | Tracker |
 | `/plan` | Study plan phases |
 | `/history` | History |
+| `/esercizi` | Exercises (practice mode, no rating) |
 | `/topic/:topicId` | Section study plan (`:topicId` is actually a **sectionId**) |
 | `/login` | Login / register |
 
@@ -91,8 +92,8 @@ Two distinct label sets for the 1–5 star scale — `INITIAL_LEVELS` (first-eve
 The core interactive feature. Screen flow: `welcome → select → quiz → result → select`.
 
 **Structure:**
-- `APP_TO_QUIZ`: maps ~100 app topic IDs → ~54 question-set IDs (many-to-one; `null` = no quiz)
-- `buildQuizSchedule()`: produces **one `QuizGroup` per section** (12 total). For each section it collects all questions from all mapped topic IDs, sorts by difficulty ascending, and takes the first 10.
+- `APP_TO_QUIZ`: maps ~100 app topic IDs → ~54 quiz question-set IDs (many-to-one; `null` = no quiz). The quiz topicId is NOT always the same as the app topicId (e.g., app `rolle` → quiz `teoremi_derivate`).
+- `buildQuizSchedule()`: produces **one `QuizGroup` per section** (12 total). Collects all questions for the section, then calls `sampleStratified(pool, 10)` to randomly pick 10 questions balanced across difficulty tiers 1–5.
 - `QuizGroup`: `{ sectionId, appTopicIds[], label, sectionLabel, questions[] }`
 - Completing a section quiz applies the **same rating to every app topic in that section**
 
@@ -100,20 +101,45 @@ The core interactive feature. Screen flow: `welcome → select → quiz → resu
 `computeRating(correctCount)`: 0-2→1★ | 3-4→2★ | 5-6→3★ | 7-9→4★ | 10→5★
 
 **In `SingleTopicQuiz`:**
+- Options are **shuffled per-question** via `optionOrder: number[]` state (re-randomized on each question). TF options always stay in order [0,1] (Vero/Falso have semantic meaning).
 - TF questions (`type: 'tf'`) show `['V','F']` labels; MCQ shows `['A','B','C','D']`
-- Fill questions (`type: 'fill'`) show `['A','B','C','D']` labels; question text contains `___` for the blank
+- Arrange questions (`type: 'arrange'`) show a word bank (with distractors, shuffled via `shuffledBank`); user clicks tokens into an answer area
 - `handleFinish()` calls both `completeAssessment()` (local) and `api.ratings.completeAssessment()` (backend, silent fail)
 
 ### Question Data ([src/data/questions/](src/data/questions/))
 Question types (discriminated union in [src/data/questions/types.ts](src/data/questions/types.ts)):
 
-| type | Struttura | Note |
-|------|-----------|------|
-| `mcq` | `options: string[]`, nessun `correct` | Risposta corretta sempre a `options[0]`; usa `___` nel testo per fill-in-the-blank |
-| `tf` | `options: string[]`, `correct: 0\|1` | `['Vero','Falso']` ordine fisso; V/F ha significato semantico |
-| `arrange` | `bank: string[]`, `correct: string[]` | Word bank con distrattori; risposta = sequenza corretta |
+| type | Fields | Notes |
+|------|--------|-------|
+| `mcq` | `options: string[]` | Correct answer **always at `options[0]`**; no `correct` field. Use `___` in question text for fill-in-the-blank. Options shuffled by UI. |
+| `tf` | `options: string[]`, `correct: 0\|1` | Always `['Vero','Falso']`. `correct` is required. Not shuffled. |
+| `arrange` | `bank: string[]`, `correct: string[]` | Word bank includes distractors; `correct` is the ordered correct sequence. |
 
-I dati stanno in file **JSON** (`src/data/questions/*.json`), importati da `index.ts`. Per aggiungere domande: appendi oggetti al JSON corrispondente — nessun TypeScript richiesto. `index.ts` esporta `getQuestionsForTopic(topicId)` e `computeRating(n)`.
+**File organization**: One JSON file per course section (12 files). Add questions by appending to the relevant section file — no TypeScript required.
+
+```
+src/data/questions/
+  prerequisiti.json   numeri_reali.json   successioni.json   limiti.json
+  continuita.json     derivate.json       studio_funzione.json  taylor.json
+  integrale_riemann.json  tecniche_int.json  integrali_impropri.json  edo.json
+```
+
+`index.ts` exports `getQuestionsForTopic(quizTopicId)` and `computeRating(n)`. Note: the quiz topicId passed to `getQuestionsForTopic` comes from `APP_TO_QUIZ` in `Assessment.tsx`, not directly from the app topic ID.
+
+### Exercises ([src/pages/Exercises.tsx](src/pages/Exercises.tsx))
+Practice mode — same question format as the quiz but **no rating computed**. Screen flow: `section select → topic select → session`.
+
+- Section select shows all 12 sections with "X/Y completati" badge
+- Topic select shows the distinct `topicId` values present in a section's exercises
+- Session shows exercises for a single topicId; calls `markComplete(exercise.id)` when the user confirms any answer (correct or not)
+
+**Data**: `src/data/exercises/` — same 12 section-named JSON files, same `Question` type. Use `getExercisesForSection(sectionId)` from `src/data/exercises/index.ts`.
+
+**Store**: `src/store/useExercises.ts` — `localStorage('analisi1_exercises_v1')`:
+```typescript
+{ completed: Record<string, boolean> }  // exerciseId → true
+```
+Exports: `markComplete(id)`, `isCompleted(id)`, `completedCountForSection(ids[])`.
 
 ### Study Plans ([src/data/studyPlans/](src/data/studyPlans/))
 Study plans are **section-level** (not per individual topic). There is one plan per section per star rating (12 sections × 5 ratings = 60 plans), stored in `sections.ts`.
@@ -140,7 +166,7 @@ The section rating is read as the first non-zero rating among the section's topi
 All stats (progress ring, star distribution, average rating, "N/12 argomenti valutati") are **section-based**, not individual-topic-based. `SectionCard` is a `div` (not a `button`) with two separate clickable areas: the card body navigates to the tracker, and a "Piano di studio" button navigates to the section study plan.
 
 ### Data Topics ([src/data/topics.ts](src/data/topics.ts))
-~100 topics in 12 `Section` objects (Prerequisiti → EDO). Each section carries Tailwind color token strings (`border`, `dot`, `badge`, `bar`, `chip`) used throughout the UI.
+~100 topics in 12 `Section` objects (Prerequisiti → EDO). Each section carries Tailwind color token strings (`border`, `dot`, `badge`, `bar`, `chip`) used throughout the UI. `TOPIC_MAP`, `SECTION_MAP`, and `TOPIC_SECTION_MAP` are exported for lookups.
 
 **Never construct Tailwind class names dynamically** — JIT will miss classes not written out in full. All color strings are inlined in `topics.ts`.
 

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { SECTIONS, TOPIC_MAP } from '../data/topics';
-import { getExercisesForSection } from '../data/exercises';
+import { getExercisesForSection, getExercisesForTopic } from '../data/exercises';
 import { useExercises } from '../store/useExercises';
 import type { Question, SelectionQuestion, TFQuestion, ArrangeQuestion } from '../data/questions';
 
@@ -355,9 +355,7 @@ export default function Exercises() {
 
   // ── Session screen ─────────────────────────────────────────────────────────
   if (screen === 'session' && activeSection && activeTopic) {
-    const exercises = getExercisesForSection(activeSection).filter(
-      (e) => e.topicId === activeTopic,
-    );
+    const exercises = getExercisesForTopic(activeTopic);
     return (
       <ExerciseSession
         sectionId={activeSection}

@@ -35,3 +35,7 @@ export const exercisesBySection: Record<string, Question[]> = {
 export function getExercisesForSection(sectionId: string): Question[] {
   return exercisesBySection[sectionId] ?? [];
 }
+
+export function getExercisesForTopic(topicId: string): Question[] {
+  return Object.values(exercisesBySection).flat().filter((e) => e.topicId === topicId);
+}
