@@ -4,166 +4,166 @@
     "topicId": "int_immediate",
     "type": "mcq",
     "difficulty": 1,
-    "question": "Qual è ∫ x³ dx?",
+    "question": "What is ∫ x³ dx?",
     "options": [
       "x⁴/4 + C",
       "3x²",
       "x⁴ + C",
       "4x³ + C"
     ],
-    "explanation": "∫ xⁿ dx = xⁿ⁺¹/(n+1) + C per n ≠ −1. Qui n=3: x⁴/4 + C."
+    "explanation": "∫ xⁿ dx = xⁿ⁺¹/(n+1) + C for n ≠ −1. Here n=3: x⁴/4 + C."
   },
   {
     "id": "imm_02",
     "topicId": "int_immediate",
     "type": "mcq",
     "difficulty": 2,
-    "question": "Qual è ∫ 1/x dx?",
+    "question": "What is ∫ 1/x dx?",
     "options": [
       "ln|x| + C",
       "x⁻² + C",
       "ln(x) + C",
       "−1/x² + C"
     ],
-    "explanation": "∫ 1/x dx = ln|x| + C. Il valore assoluto è necessario perché il logaritmo è definito per argomenti positivi."
+    "explanation": "∫ 1/x dx = ln|x| + C. The absolute value is necessary because the logarithm is defined only for positive arguments."
   },
   {
     "id": "imm_03",
     "topicId": "int_immediate",
     "type": "mcq",
     "difficulty": 3,
-    "question": "Calcolare ∫ sin(3x) dx.",
+    "question": "Compute ∫ sin(3x) dx.",
     "options": [
       "−cos(3x)/3 + C",
       "cos(3x) + C",
       "3cos(3x) + C",
       "−3cos(3x) + C"
     ],
-    "explanation": "∫ sin(ax) dx = −cos(ax)/a + C. Qui a=3: −cos(3x)/3 + C."
+    "explanation": "∫ sin(ax) dx = −cos(ax)/a + C. Here a=3: −cos(3x)/3 + C."
   },
   {
     "id": "imm_04",
     "topicId": "int_immediate",
     "type": "mcq",
     "difficulty": 4,
-    "question": "Calcolare ∫ e^(2x) / (1 + e^(2x)) dx.",
+    "question": "Compute ∫ e^(2x) / (1 + e^(2x)) dx.",
     "options": [
       "ln(1+e^(2x))/2 + C",
       "ln(1+e^(2x)) + C",
       "e^(2x)/(1+e^(2x)) + C",
       "arctan(eˣ) + C"
     ],
-    "explanation": "Si riconosce la forma f'/f: la derivata di (1+e^(2x)) è 2e^(2x). Quindi ∫ e^(2x)/(1+e^(2x)) dx = (1/2)·ln(1+e^(2x)) + C."
+    "explanation": "Recognise the f'/f form: the derivative of (1+e^(2x)) is 2e^(2x). So ∫ e^(2x)/(1+e^(2x)) dx = (1/2)·ln(1+e^(2x)) + C."
   },
   {
     "id": "imm_05",
     "topicId": "int_immediate",
     "type": "mcq",
     "difficulty": 5,
-    "question": "Calcolare ∫ 1/(1+x²) dx.",
+    "question": "Compute ∫ 1/(1+x²) dx.",
     "options": [
       "arctan(x) + C",
       "ln(1+x²) + C",
       "arcsin(x) + C",
       "2x/(1+x²)² + C"
     ],
-    "explanation": "∫ 1/(1+x²) dx = arctan(x) + C. Integrale fondamentale. Analogamente: ∫ 1/√(1−x²) dx = arcsin(x) + C."
+    "explanation": "∫ 1/(1+x²) dx = arctan(x) + C. Fundamental integral. Similarly: ∫ 1/√(1−x²) dx = arcsin(x) + C."
   },
   {
     "id": "sub_01",
     "topicId": "int_sostituzione",
     "type": "mcq",
     "difficulty": 1,
-    "question": "Per calcolare ∫ 2x·cos(x²) dx si usa la sostituzione:",
+    "question": "To compute ∫ 2x·cos(x²) dx, use the substitution:",
     "options": [
       "u = x²",
       "u = cos(x²)",
       "u = 2x",
       "u = x² + 1"
     ],
-    "explanation": "u = x² → du = 2x dx. L'integrale diventa ∫ cos(u) du = sin(u) + C = sin(x²) + C."
+    "explanation": "u = x² → du = 2x dx. The integral becomes ∫ cos(u) du = sin(u) + C = sin(x²) + C."
   },
   {
     "id": "sub_02",
     "topicId": "int_sostituzione",
     "type": "mcq",
     "difficulty": 2,
-    "question": "Calcolare ∫₀¹ x·e^(x²) dx.",
+    "question": "Compute ∫₀¹ x·e^(x²) dx.",
     "options": [
       "(e−1)/2",
       "e−1",
       "e/2",
       "1"
     ],
-    "explanation": "u=x²: du=2x dx, x dx=du/2. Estremi: x=0→u=0, x=1→u=1. ∫₀¹ xe^(x²)dx = (1/2)∫₀¹ eᵘ du = (e−1)/2."
+    "explanation": "u=x²: du=2x dx, x dx=du/2. Bounds: x=0→u=0, x=1→u=1. ∫₀¹ xe^(x²)dx = (1/2)∫₀¹ eᵘ du = (e−1)/2."
   },
   {
     "id": "sub_03",
     "topicId": "int_sostituzione",
     "type": "mcq",
     "difficulty": 3,
-    "question": "Per calcolare ∫ √(1−x²) dx si usa la sostituzione trigonometrica:",
+    "question": "To compute ∫ √(1−x²) dx, use the trigonometric substitution:",
     "options": [
       "x = sin θ, dx = cos θ dθ",
       "x = cos θ",
       "x = tan θ",
       "x = sec θ"
     ],
-    "explanation": "Con x = sin θ: √(1−x²) = cos θ, dx = cos θ dθ. Si ottiene ∫ cos²θ dθ = θ/2 + sin(2θ)/4 + C = arcsin(x)/2 + x√(1−x²)/2 + C."
+    "explanation": "With x = sin θ: √(1−x²) = cos θ, dx = cos θ dθ. This gives ∫ cos²θ dθ = θ/2 + sin(2θ)/4 + C = arcsin(x)/2 + x√(1−x²)/2 + C."
   },
   {
     "id": "sub_04",
     "topicId": "int_sostituzione",
     "type": "mcq",
     "difficulty": 4,
-    "question": "Calcolare ∫ 1/√(x² + 1) dx.",
+    "question": "Compute ∫ 1/√(x² + 1) dx.",
     "options": [
       "ln(x + √(x²+1)) + C",
       "arctan(x) + C",
       "√(x²+1) + C",
-      "arcsinh(x) + C (stessa della A)"
+      "arcsinh(x) + C (same as A)"
     ],
-    "explanation": "Con x = sinh t o x = tan θ: risulta ln(x + √(x²+1)) + C = arcsinh(x) + C."
+    "explanation": "With x = sinh t or x = tan θ: the result is ln(x + √(x²+1)) + C = arcsinh(x) + C."
   },
   {
     "id": "sub_05",
     "topicId": "int_sostituzione",
     "type": "mcq",
     "difficulty": 5,
-    "question": "Le sostituzioni di Euler si usano per integrali con:",
+    "question": "Euler's substitutions are used for integrals with:",
     "options": [
       "√(x²−a²)",
       "√(ax+b)",
-      "Funzioni razionali",
+      "Rational functions",
       "eˣ"
     ],
-    "explanation": "Le sostituzioni di Euler si usano per risolvere integrali con radicali quadratici √(ax²+bx+c). Per √(x²−a²): x=a·cosh(t)."
+    "explanation": "Euler's substitutions are used for integrals involving quadratic radicals √(ax²+bx+c). For √(x²−a²): x=a·cosh(t)."
   },
   {
     "id": "par_01",
     "topicId": "int_parti",
     "type": "mcq",
     "difficulty": 1,
-    "question": "La formula di integrazione per parti è:",
+    "question": "The integration by parts formula is:",
     "options": [
       "∫ f·g' dx = f·g − ∫ f'·g dx",
       "∫ f·g' dx = f·g + ∫ f'·g dx",
       "∫ f·g dx = f'·g − f·g'",
       "∫ f·g' dx = f'·g' + C"
     ],
-    "explanation": "∫ f·g' dx = f·g − ∫ f'·g dx. Si deriva dalla regola del prodotto: (fg)' = f'g + fg'."
+    "explanation": "∫ f·g' dx = f·g − ∫ f'·g dx. Derived from the product rule: (fg)' = f'g + fg'."
   },
   {
     "id": "par_02",
     "topicId": "int_parti",
     "type": "mcq",
     "difficulty": 2,
-    "question": "Calcolare ∫ x·eˣ dx. Con f=x, g'=eˣ: f'=1, g=eˣ. Il risultato è:",
+    "question": "Compute ∫ x·eˣ dx. With f=x, g'=eˣ: f'=1, g=eˣ. The result is:",
     "options": [
       "x·eˣ − eˣ + C",
       "x·eˣ + C",
-      "(x−1)eˣ + C (stessa della B)",
-      "eˣ(x+1) + C (stessa della B)"
+      "(x−1)eˣ + C (same as A)",
+      "eˣ(x+1) + C"
     ],
     "explanation": "∫ x·eˣ dx = x·eˣ − ∫ eˣ dx = x·eˣ − eˣ + C = eˣ(x−1) + C."
   },
@@ -172,7 +172,7 @@
     "topicId": "int_parti",
     "type": "mcq",
     "difficulty": 3,
-    "question": "Calcolare ∫ ln(x) dx. Con f=ln x, g'=1: f'=1/x, g=x. Il risultato è:",
+    "question": "Compute ∫ ln(x) dx. With f=ln x, g'=1: f'=1/x, g=x. The result is:",
     "options": [
       "x·ln(x) − x + C",
       "x·ln(x) + C",
@@ -186,98 +186,98 @@
     "topicId": "int_parti",
     "type": "mcq",
     "difficulty": 4,
-    "question": "Per calcolare I = ∫ eˣ·sin x dx si applica due volte per parti e si ottiene:",
+    "question": "To compute I = ∫ eˣ·sin x dx, apply integration by parts twice and obtain:",
     "options": [
       "eˣ(sin x − cos x)/2 + C",
       "eˣ·sin x − eˣ·cos x + C",
       "eˣ·cos x + C",
-      "Non calcolabile per parti"
+      "Cannot be computed by parts"
     ],
-    "explanation": "Prima parte: I = eˣ·sin x − ∫eˣ·cos x dx. Seconda: ∫eˣ·cos x dx = eˣ·cos x + I. Quindi 2I = eˣ(sin x − cos x) → I = eˣ(sin x − cos x)/2 + C."
+    "explanation": "First: I = eˣ·sin x − ∫eˣ·cos x dx. Second: ∫eˣ·cos x dx = eˣ·cos x + I. So 2I = eˣ(sin x − cos x) → I = eˣ(sin x − cos x)/2 + C."
   },
   {
     "id": "par_05",
     "topicId": "int_parti",
     "type": "mcq",
     "difficulty": 5,
-    "question": "La formula ricorsiva per Iₙ = ∫ sinⁿ(x) dx è:",
+    "question": "The reduction formula for Iₙ = ∫ sinⁿ(x) dx is:",
     "options": [
       "Iₙ = −sinⁿ⁻¹(x)cos(x)/n + (n−1)/n · Iₙ₋₂",
       "Iₙ = sinⁿ⁻¹(x)cos(x) − (n−1)Iₙ₋₂",
       "Iₙ = −n·sinⁿ⁻¹(x)cos(x)",
       "Iₙ = Iₙ₋₂ − sinⁿ(x)"
     ],
-    "explanation": "Formula di riduzione: Iₙ = −sinⁿ⁻¹(x)cos(x)/n + (n−1)/n·Iₙ₋₂. Riduce il grado di 2 ad ogni applicazione."
+    "explanation": "Reduction formula: Iₙ = −sinⁿ⁻¹(x)cos(x)/n + (n−1)/n·Iₙ₋₂. Reduces the degree by 2 at each application."
   },
   {
     "id": "raz_01",
     "topicId": "razionali_fratte",
     "type": "mcq",
     "difficulty": 1,
-    "question": "Il metodo delle frazioni parziali si usa per integrare:",
+    "question": "Partial fraction decomposition is used to integrate:",
     "options": [
-      "Funzioni razionali fratte P(x)/Q(x)",
-      "Funzioni trigonometriche",
-      "Polinomi",
-      "Funzioni esponenziali"
+      "Rational functions P(x)/Q(x)",
+      "Trigonometric functions",
+      "Polynomials",
+      "Exponential functions"
     ],
-    "explanation": "Le frazioni parziali decompongono P/Q (con deg P < deg Q) come somma di termini semplici integrabili."
+    "explanation": "Partial fractions decompose P/Q (with deg P < deg Q) as a sum of simple integrable terms."
   },
   {
     "id": "raz_02",
     "topicId": "razionali_fratte",
     "type": "mcq",
     "difficulty": 2,
-    "question": "La decomposizione in frazioni parziali di 1/((x−1)(x+1)) è:",
+    "question": "The partial fraction decomposition of 1/((x−1)(x+1)) is:",
     "options": [
       "(1/2)·[1/(x−1) − 1/(x+1)]",
       "(1/2)·[1/(x−1) + 1/(x+1)]",
       "1/(x−1) − 1/(x+1)",
       "1/(x²−1)"
     ],
-    "explanation": "1/((x−1)(x+1)) = A/(x−1) + B/(x+1). x=1: A=1/2; x=−1: B=−1/2. Integrando: (1/2)ln|(x−1)/(x+1)| + C."
+    "explanation": "1/((x−1)(x+1)) = A/(x−1) + B/(x+1). x=1: A=1/2; x=−1: B=−1/2. Integrating: (1/2)ln|(x−1)/(x+1)| + C."
   },
   {
     "id": "raz_03",
     "topicId": "razionali_fratte",
     "type": "mcq",
     "difficulty": 3,
-    "question": "Quando il denominatore Q(x) ha una radice reale doppia (x−a)², la decomposizione include:",
+    "question": "When Q(x) has a repeated real root (x−a)², the decomposition includes:",
     "options": [
-      "A/(x−a) + B/(x−a)² + altri termini",
-      "Solo A/(x−a)",
+      "A/(x−a) + B/(x−a)² + other terms",
+      "Only A/(x−a)",
       "A/(x−a)²",
       "A/(x−a) + Bx/(x−a)²"
     ],
-    "explanation": "Per ogni radice (x−a)^k nel denominatore, la decomposizione include k termini: A₁/(x−a) + A₂/(x−a)² + … + Aₖ/(x−a)^k."
+    "explanation": "For each root (x−a)^k in the denominator, the decomposition includes k terms: A₁/(x−a) + A₂/(x−a)² + … + Aₖ/(x−a)^k."
   },
   {
     "id": "raz_04",
     "topicId": "razionali_fratte",
     "type": "mcq",
     "difficulty": 4,
-    "question": "Per integrare ∫ 1/(x²+1) dx con frazioni parziali si osserva che:",
+    "question": "To integrate ∫ 1/(x²+1) dx by partial fractions, observe that:",
     "options": [
-      "x²+1 è irriducibile sui reali, il termine è (Ax+B)/(x²+1), e l'integrale dà arctan(x)+C",
-      "x²+1 si fattorizza in (x+i)(x−i) sui reali",
-      "Si deve usare x=tan θ (non frazioni parziali)",
-      "Non è possibile integrare 1/(x²+1)"
+      "x²+1 is irreducible over ℝ, the term is (Ax+B)/(x²+1), and the integral gives arctan(x)+C",
+      "x²+1 factors as (x+i)(x−i) over ℝ",
+      "One must use x=tan θ (not partial fractions)",
+      "It is impossible to integrate 1/(x²+1)"
     ],
-    "explanation": "x²+1 è irriducibile su ℝ. Per fattori quadratici irriducibili si usa (Ax+B)/(x²+1). ∫ 1/(x²+1) dx = arctan(x)+C."
+    "explanation": "x²+1 is irreducible over ℝ. For irreducible quadratic factors, use (Ax+B)/(x²+1). ∫ 1/(x²+1) dx = arctan(x)+C."
   },
   {
     "id": "raz_05",
     "topicId": "razionali_fratte",
     "type": "mcq",
     "difficulty": 5,
-    "question": "Calcolare ∫ (x²+1)/(x³−x) dx. Con x³−x = x(x−1)(x+1), la decomposizione è:",
+    "question": "Compute ∫ (x²+1)/(x³−x) dx. With x³−x = x(x−1)(x+1), the decomposition is:",
     "options": [
-      "A/x + B/(x−1) + C/(x+1) con A=−1, B=1, C=1",
-      "A/x + B/(x−1) + C/(x+1) con A=1, B=−1, C=1",
+      "A/x + B/(x−1) + C/(x+1) with A=−1, B=1, C=1",
+      "A/x + B/(x−1) + C/(x+1) with A=1, B=−1, C=1",
       "A/x + B/x² + C/(x−1)",
-      "(x²+1)/(x³−x) non si decompone"
+      "(x²+1)/(x³−x) cannot be decomposed"
     ],
-    "explanation": "x=0: A=−1; x=1: B=1; x=−1: C=1. Integrando: −ln|x|+ln|x−1|+ln|x+1|+C."
+    "explanation": "x=0: A=−1; x=1: B=1; x=−1: C=1. Integrating: −ln|x|+ln|x−1|+ln|x+1|+C."
   },
   {
     "id": "tf_imm_01",
@@ -285,12 +285,9 @@
     "type": "tf",
     "difficulty": 1,
     "question": "∫ eˣ dx = eˣ + C.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "La funzione esponenziale è uguale alla sua primitiva."
+    "explanation": "The exponential function equals its own antiderivative."
   },
   {
     "id": "tf_imm_02",
@@ -298,12 +295,9 @@
     "type": "tf",
     "difficulty": 2,
     "question": "∫ cos(x) dx = −sin(x) + C.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "options": ["True", "False"],
     "correct": 1,
-    "explanation": "∫ cos(x)dx = sin(x) + C. È ∫ sin(x)dx = −cos(x) + C."
+    "explanation": "∫ cos(x)dx = sin(x) + C. It is ∫ sin(x)dx = −cos(x) + C."
   },
   {
     "id": "tf_imm_03",
@@ -311,12 +305,9 @@
     "type": "tf",
     "difficulty": 3,
     "question": "∫ 1/x dx = ln|x| + C.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Il valore assoluto è necessario per coprire anche x < 0."
+    "explanation": "The absolute value is necessary to cover x < 0 as well."
   },
   {
     "id": "tf_imm_04",
@@ -324,12 +315,9 @@
     "type": "tf",
     "difficulty": 4,
     "question": "∫ 1/(1+x²) dx = arctan(x) + C.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Primitiva fondamentale."
+    "explanation": "Fundamental antiderivative."
   },
   {
     "id": "tf_imm_05",
@@ -337,51 +325,39 @@
     "type": "tf",
     "difficulty": 5,
     "question": "∫ x/(x²+1) dx = (1/2)ln(x²+1) + C.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Forma f'/f: la derivata di x²+1 è 2x, quindi ∫x/(x²+1)dx = (1/2)∫2x/(x²+1)dx = (1/2)ln(x²+1)+C."
+    "explanation": "f'/f form: the derivative of x²+1 is 2x, so ∫x/(x²+1)dx = (1/2)∫2x/(x²+1)dx = (1/2)ln(x²+1)+C."
   },
   {
     "id": "tf_sub_01",
     "topicId": "int_sostituzione",
     "type": "tf",
     "difficulty": 1,
-    "question": "Per calcolare ∫ 2x·cos(x²)dx si usa la sostituzione u = x².",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "To compute ∫ 2x·cos(x²)dx, use the substitution u = x².",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "u=x², du=2x dx: l'integrale diventa ∫cos(u)du = sin(u)+C = sin(x²)+C."
+    "explanation": "u=x², du=2x dx: the integral becomes ∫cos(u)du = sin(u)+C = sin(x²)+C."
   },
   {
     "id": "tf_sub_02",
     "topicId": "int_sostituzione",
     "type": "tf",
     "difficulty": 2,
-    "question": "Negli integrali definiti con sostituzione, gli estremi di integrazione NON devono essere cambiati.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "In definite integrals with substitution, the limits of integration do NOT need to be changed.",
+    "options": ["True", "False"],
     "correct": 1,
-    "explanation": "Gli estremi si devono trasformare secondo la sostituzione: se u=g(x), i nuovi estremi sono g(a) e g(b)."
+    "explanation": "The limits must be transformed according to the substitution: if u=g(x), the new limits are g(a) and g(b)."
   },
   {
     "id": "tf_sub_03",
     "topicId": "int_sostituzione",
     "type": "tf",
     "difficulty": 3,
-    "question": "Per ∫ √(1−x²) dx si usa x = sin θ.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "For ∫ √(1−x²) dx, use x = sin θ.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Sostituzione trigonometrica standard per √(1−x²)."
+    "explanation": "Standard trigonometric substitution for √(1−x²)."
   },
   {
     "id": "tf_sub_04",
@@ -389,10 +365,7 @@
     "type": "tf",
     "difficulty": 4,
     "question": "∫₀¹ x·e^(x²) dx = (e−1)/2.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "options": ["True", "False"],
     "correct": 0,
     "explanation": "u=x², du=2x dx: ∫₀¹ x·e^(x²)dx = (1/2)∫₀¹ eᵘ du = (1/2)(e−1)."
   },
@@ -401,26 +374,20 @@
     "topicId": "int_sostituzione",
     "type": "tf",
     "difficulty": 5,
-    "question": "La sostituzione di Weierstrass t = tan(x/2) trasforma le funzioni razionali in sin e cos in funzioni razionali in t.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "The Weierstrass substitution t = tan(x/2) transforms rational functions of sin and cos into rational functions of t.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Con t=tan(x/2): sin x=2t/(1+t²), cos x=(1−t²)/(1+t²), dx=2/(1+t²)dt."
+    "explanation": "With t=tan(x/2): sin x=2t/(1+t²), cos x=(1−t²)/(1+t²), dx=2/(1+t²)dt."
   },
   {
     "id": "tf_par_01",
     "topicId": "int_parti",
     "type": "tf",
     "difficulty": 1,
-    "question": "La formula di integrazione per parti è ∫f·g' dx = f·g − ∫f'·g dx.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "The integration by parts formula is ∫f·g' dx = f·g − ∫f'·g dx.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Formula di integrazione per parti."
+    "explanation": "Integration by parts formula."
   },
   {
     "id": "tf_par_02",
@@ -428,12 +395,9 @@
     "type": "tf",
     "difficulty": 2,
     "question": "∫ x·eˣ dx = x·eˣ − eˣ + C.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Per parti con f=x, g'=eˣ: x·eˣ − ∫eˣdx = x·eˣ − eˣ + C."
+    "explanation": "By parts with f=x, g'=eˣ: x·eˣ − ∫eˣdx = x·eˣ − eˣ + C."
   },
   {
     "id": "tf_par_03",
@@ -441,10 +405,7 @@
     "type": "tf",
     "difficulty": 3,
     "question": "∫ ln(x) dx = x·ln(x) + C.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "options": ["True", "False"],
     "correct": 1,
     "explanation": "∫ ln(x)dx = x·ln(x) − x + C."
   },
@@ -453,39 +414,30 @@
     "topicId": "int_parti",
     "type": "tf",
     "difficulty": 4,
-    "question": "Per ∫ eˣ·sin(x) dx occorre applicare la formula per parti due volte.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "To compute ∫ eˣ·sin(x) dx, integration by parts must be applied twice.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Si ottiene un'equazione in I che si risolve, dando I = eˣ(sin x − cos x)/2 + C."
+    "explanation": "This gives an equation in I that is solved, yielding I = eˣ(sin x − cos x)/2 + C."
   },
   {
     "id": "tf_par_05",
     "topicId": "int_parti",
     "type": "tf",
     "difficulty": 5,
-    "question": "La regola LIATE suggerisce di scegliere come f il logaritmo prima dell'esponenziale.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "The LIATE rule suggests choosing the logarithm as f before the exponential.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "LIATE: Logaritmo > Inversa trigo > Algebrica > Trigonometrica > Esponenziale."
+    "explanation": "LIATE: Logarithm > Inverse trig > Algebraic > Trigonometric > Exponential."
   },
   {
     "id": "tf_raz_01",
     "topicId": "razionali_fratte",
     "type": "tf",
     "difficulty": 1,
-    "question": "Per integrare P(x)/Q(x) con grado P ≥ grado Q, si deve prima dividere.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "To integrate P(x)/Q(x) with deg P ≥ deg Q, one must first perform polynomial division.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "La divisione riduce il grado del numeratore prima di applicare le frazioni parziali."
+    "explanation": "Division reduces the degree of the numerator before applying partial fractions."
   },
   {
     "id": "tf_raz_02",
@@ -493,10 +445,7 @@
     "type": "tf",
     "difficulty": 2,
     "question": "1/(x²−1) = 1/(2(x−1)) − 1/(2(x+1)).",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "options": ["True", "False"],
     "correct": 0,
     "explanation": "1/((x−1)(x+1)) = A/(x−1)+B/(x+1): A=1/2, B=−1/2."
   },
@@ -505,13 +454,10 @@
     "topicId": "razionali_fratte",
     "type": "tf",
     "difficulty": 3,
-    "question": "A una radice reale doppia (x−a)² corrisponde nella decomposizione un solo termine A/(x−a)².",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "A repeated real root (x−a)² corresponds to a single term A/(x−a)² in the decomposition.",
+    "options": ["True", "False"],
     "correct": 1,
-    "explanation": "Servono due termini: A/(x−a) + B/(x−a)²."
+    "explanation": "Two terms are needed: A/(x−a) + B/(x−a)²."
   },
   {
     "id": "tf_raz_04",
@@ -519,24 +465,18 @@
     "type": "tf",
     "difficulty": 4,
     "question": "∫ 1/(x²+1) dx = arctan(x) + C.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "x²+1 è irriducibile su ℝ e il suo integrale è arctan."
+    "explanation": "x²+1 is irreducible over ℝ and its integral is arctan."
   },
   {
     "id": "tf_raz_05",
     "topicId": "razionali_fratte",
     "type": "tf",
     "difficulty": 5,
-    "question": "A un fattore quadratico irriducibile (x²+bx+c) corrisponde un termine (Ax+B)/(x²+bx+c).",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "An irreducible quadratic factor (x²+bx+c) corresponds to a term (Ax+B)/(x²+bx+c).",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Per fattori quadratici irriducibili la forma della frazione parziale ha numeratore lineare."
+    "explanation": "For irreducible quadratic factors, the partial fraction has a linear numerator."
   }
 ]

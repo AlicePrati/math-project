@@ -4,404 +4,359 @@
     "topicId": "estremo_sup",
     "type": "mcq",
     "difficulty": 1,
-    "question": "Il supremo (estremo superiore) di un insieme A è:",
+    "question": "The supremum (least upper bound) of a set A is:",
     "options": [
-      "Il più piccolo dei maggioranti di A",
-      "Il massimo elemento di A",
-      "Il più grande dei minoranti di A",
-      "La media degli elementi di A"
+      "The smallest upper bound of A",
+      "The maximum element of A",
+      "The greatest lower bound of A",
+      "The average of the elements of A"
     ],
-    "explanation": "Il supremo di A è il più piccolo dei maggioranti: sup A = min{M ∈ ℝ : a ≤ M ∀a ∈ A}. Se sup A ∈ A coincide con il massimo, ma può esistere anche senza massimo (es. sup(0,1) = 1, ma 1 ∉ (0,1))."
+    "explanation": "The supremum of A is the smallest upper bound: sup A = min{M ∈ ℝ : a ≤ M ∀a ∈ A}. If sup A ∈ A it coincides with the maximum, but it may exist even without a maximum (e.g. sup(0,1) = 1, but 1 ∉ (0,1))."
   },
   {
     "id": "esup_02",
     "topicId": "estremo_sup",
     "type": "mcq",
     "difficulty": 2,
-    "question": "Quale è il sup dell'insieme A = {1 − 1/n : n ∈ ℕ, n ≥ 1}?",
+    "question": "What is sup A for A = {1 − 1/n : n ∈ ℕ, n ≥ 1}?",
     "options": [
       "1",
       "0",
       "1/2",
-      "Non esiste"
+      "Does not exist"
     ],
-    "explanation": "Gli elementi di A sono 0, 1/2, 2/3, 3/4, … che si avvicinano a 1 senza raggiungerlo. sup A = 1, ma 1 ∉ A (A non ha massimo). inf A = 0 = min A."
+    "explanation": "The elements of A are 0, 1/2, 2/3, 3/4, … approaching 1 without reaching it. sup A = 1, but 1 ∉ A (A has no maximum). inf A = 0 = min A."
   },
   {
     "id": "esup_03",
     "topicId": "estremo_sup",
     "type": "mcq",
     "difficulty": 3,
-    "question": "L'assioma di completezza di ℝ garantisce che:",
+    "question": "The completeness axiom of ℝ guarantees that:",
     "options": [
-      "Ogni sottoinsieme non vuoto e limitato superiormente ha il supremo in ℝ",
-      "Ogni insieme ha un massimo",
-      "Ogni successione ha un limite",
-      "Ogni numero reale è razionale"
+      "Every non-empty subset bounded above has a supremum in ℝ",
+      "Every set has a maximum",
+      "Every sequence has a limit",
+      "Every real number is rational"
     ],
-    "explanation": "L'assioma di completezza: ogni sottoinsieme non vuoto S ⊆ ℝ limitato superiormente ha sup S ∈ ℝ. In ℚ invece l'insieme {x ∈ ℚ : x² < 2} è limitato ma non ha sup in ℚ."
+    "explanation": "The completeness axiom: every non-empty subset S ⊆ ℝ bounded above has sup S ∈ ℝ. In ℚ, the set {x ∈ ℚ : x² < 2} is bounded but has no supremum in ℚ."
   },
   {
     "id": "esup_04",
     "topicId": "estremo_sup",
     "type": "mcq",
     "difficulty": 4,
-    "question": "Sia A = {x ∈ ℝ : x² < 3}. Qual è sup A?",
+    "question": "Let A = {x ∈ ℝ : x² < 3}. What is sup A?",
     "options": [
       "√3",
       "3",
       "9",
-      "Non esiste perché A è aperto"
+      "Does not exist because A is open"
     ],
-    "explanation": "A = (−√3, √3). Il supremo è √3 (il più piccolo maggiorante). √3 ∉ A poiché (√3)² = 3 non è < 3."
+    "explanation": "A = (−√3, √3). The supremum is √3 (the smallest upper bound). √3 ∉ A since (√3)² = 3 is not < 3."
   },
   {
     "id": "esup_05",
     "topicId": "estremo_sup",
     "type": "mcq",
     "difficulty": 5,
-    "question": "Il lemma dell'approssimazione del sup afferma: se s = sup A e ε > 0, allora:",
+    "question": "The approximation lemma for the supremum states: if s = sup A and ε > 0, then:",
     "options": [
-      "Esiste a ∈ A tale che s − ε < a ≤ s",
-      "Esiste a ∈ A tale che a = s",
-      "Tutti gli elementi di A sono > s − ε",
-      "s − ε è un maggiorante di A"
+      "There exists a ∈ A such that s − ε < a ≤ s",
+      "There exists a ∈ A such that a = s",
+      "All elements of A are > s − ε",
+      "s − ε is an upper bound of A"
     ],
-    "explanation": "Per ogni ε > 0, s − ε non è un maggiorante di A (altrimenti s non sarebbe il più piccolo), quindi esiste a ∈ A con s − ε < a ≤ s."
+    "explanation": "For every ε > 0, s − ε is not an upper bound of A (otherwise s would not be the smallest), so there exists a ∈ A with s − ε < a ≤ s."
   },
   {
     "id": "ind_01",
     "topicId": "principio_induzione",
     "type": "mcq",
     "difficulty": 1,
-    "question": "La somma dei primi n numeri naturali è:",
+    "question": "The sum of the first n natural numbers is:",
     "options": [
       "n(n+1)/2",
       "n²",
       "n(n−1)/2",
       "2n"
     ],
-    "explanation": "1 + 2 + … + n = n(n+1)/2. Caso base n=1: 1 = 1·2/2 ✓. Passo: 1+…+n+(n+1) = n(n+1)/2 + (n+1) = (n+1)(n+2)/2 ✓."
+    "explanation": "1 + 2 + … + n = n(n+1)/2. Base case n=1: 1 = 1·2/2 ✓. Step: 1+…+n+(n+1) = n(n+1)/2 + (n+1) = (n+1)(n+2)/2 ✓."
   },
   {
     "id": "ind_02",
     "topicId": "principio_induzione",
     "type": "mcq",
     "difficulty": 2,
-    "question": "Si vuole dimostrare per induzione che 2ⁿ > n per ogni n ≥ 1. Nel passo induttivo si assume:",
+    "question": "To prove by induction that 2ⁿ > n for all n ≥ 1, in the inductive step we assume:",
     "options": [
-      "2ⁿ > n per un fissato n ≥ 1 (ipotesi induttiva)",
-      "2ⁿ > n per ogni n",
+      "2ⁿ > n for a fixed n ≥ 1 (inductive hypothesis)",
+      "2ⁿ > n for every n",
       "2^(n+1) > n+1",
-      "2ⁿ ≤ n per qualche n"
+      "2ⁿ ≤ n for some n"
     ],
-    "explanation": "Si assume HP: 2ⁿ > n per un fissato n. Poi si dimostra 2^(n+1) > n+1. Usando HP: 2^(n+1) = 2·2ⁿ > 2n ≥ n+1 (per n ≥ 1). ✓"
+    "explanation": "Assume IH: 2ⁿ > n for a fixed n. Then prove 2^(n+1) > n+1. Using IH: 2^(n+1) = 2·2ⁿ > 2n ≥ n+1 (for n ≥ 1). ✓"
   },
   {
     "id": "ind_03",
     "topicId": "principio_induzione",
     "type": "mcq",
     "difficulty": 3,
-    "question": "Quale delle seguenti formule è corretta per la somma dei quadrati?",
+    "question": "Which formula is correct for the sum of squares?",
     "options": [
       "1² + 2² + … + n² = n(n+1)(2n+1)/6",
       "1² + 2² + … + n² = n(n+1)/2",
       "1² + 2² + … + n² = n²(n+1)²/4",
       "1² + 2² + … + n² = n(n+1)(n+2)/6"
     ],
-    "explanation": "∑ k² = n(n+1)(2n+1)/6. Verifica per n=3: 1+4+9=14 e 3·4·7/6=14 ✓."
+    "explanation": "∑ k² = n(n+1)(2n+1)/6. Check for n=3: 1+4+9=14 and 3·4·7/6=14 ✓."
   },
   {
     "id": "ind_04",
     "topicId": "principio_induzione",
     "type": "mcq",
     "difficulty": 4,
-    "question": "Il principio di induzione forte afferma che se P(k) è vera per tutti i k < n implica P(n), allora:",
+    "question": "The strong induction principle states that if P(k) is true for all k < n implies P(n), then:",
     "options": [
-      "P(n) è vera per tutti gli n ∈ ℕ (con caso base P(0) o P(1))",
-      "P(n) è vera solo per n pari",
-      "P(n) è vera per tutti gli n ∈ ℕ, senza bisogno di caso base",
-      "P(n) è vera solo se P(n−1) è vera"
+      "P(n) is true for all n ∈ ℕ (with base case P(0) or P(1))",
+      "P(n) is true only for even n",
+      "P(n) is true for all n ∈ ℕ, with no need for a base case",
+      "P(n) is true only if P(n−1) is true"
     ],
-    "explanation": "Nell'induzione forte: si assume P(k) vera per tutti i k < n e si dimostra P(n). Serve comunque il caso base. È equivalente all'induzione ordinaria ma più comodo quando P(n) dipende da più valori precedenti (es. Fibonacci)."
+    "explanation": "In strong induction: assume P(k) true for all k < n and prove P(n). A base case is still needed. It is equivalent to ordinary induction but more convenient when P(n) depends on multiple previous values (e.g. Fibonacci)."
   },
   {
     "id": "ind_05",
     "topicId": "principio_induzione",
     "type": "mcq",
     "difficulty": 5,
-    "question": "Dimostrare per induzione che n! > 2ⁿ per n ≥ 4. Il caso base è n=4, che dà:",
+    "question": "To prove by induction that n! > 2ⁿ for n ≥ 4, the base case n=4 gives:",
     "options": [
       "24 > 16 ✓",
-      "4! = 16 = 2⁴, quindi il caso base fallisce",
-      "4! = 24 < 16, il caso base fallisce",
-      "Bisogna iniziare il caso base da n=5"
+      "4! = 16 = 2⁴, so the base case fails",
+      "4! = 24 < 16, so the base case fails",
+      "The base case must start at n=5"
     ],
-    "explanation": "n=4: 4! = 24, 2⁴ = 16, e 24 > 16 ✓. Passo: (n+1)! = (n+1)·n! > (n+1)·2ⁿ > 2·2ⁿ = 2^(n+1) poiché n+1 ≥ 5 > 2. ✓"
+    "explanation": "n=4: 4! = 24, 2⁴ = 16, and 24 > 16 ✓. Step: (n+1)! = (n+1)·n! > (n+1)·2ⁿ > 2·2ⁿ = 2^(n+1) since n+1 ≥ 5 > 2. ✓"
   },
   {
     "id": "comp_r_01",
     "topicId": "completezza_r",
     "type": "mcq",
     "difficulty": 1,
-    "question": "La proprietà di Archimede afferma che:",
+    "question": "The Archimedean property states that:",
     "options": [
-      "Per ogni x ∈ ℝ esiste n ∈ ℕ tale che n > x",
-      "Ogni numero reale è intero",
-      "Per ogni x > 0 esiste un razionale tra 0 e x",
-      "ℝ è numerabile"
+      "For every x ∈ ℝ there exists n ∈ ℕ such that n > x",
+      "Every real number is an integer",
+      "For every x > 0 there exists a rational between 0 and x",
+      "ℝ is countable"
     ],
-    "explanation": "La proprietà di Archimede: per ogni x ∈ ℝ esiste un intero n > x. Implica che per ogni ε > 0 esiste n ∈ ℕ con 1/n < ε."
+    "explanation": "The Archimedean property: for every x ∈ ℝ there exists an integer n > x. It implies that for every ε > 0 there exists n ∈ ℕ with 1/n < ε."
   },
   {
     "id": "comp_r_02",
     "topicId": "completezza_r",
     "type": "mcq",
     "difficulty": 2,
-    "question": "In ℚ, l'insieme {x ∈ ℚ : x² < 2} non ha supremo in ℚ perché:",
+    "question": "In ℚ, the set {x ∈ ℚ : x² < 2} has no supremum in ℚ because:",
     "options": [
-      "√2 ∉ ℚ e non esiste in ℚ il più piccolo razionale maggiore di tutti gli elementi",
-      "L'insieme è vuoto",
-      "L'insieme non è limitato superiormente",
-      "ℚ non ha la proprietà dell'ordine"
+      "√2 ∉ ℚ and there is no smallest rational greater than all elements",
+      "The set is empty",
+      "The set is not bounded above",
+      "ℚ has no order property"
     ],
-    "explanation": "L'insieme è limitato superiormente in ℚ (es. 2 è un maggiorante), ma il suo sup in ℝ è √2 ∉ ℚ. Questo 'buco' non esiste in ℝ."
+    "explanation": "The set is bounded above in ℚ (e.g. 2 is an upper bound), but its supremum in ℝ is √2 ∉ ℚ. This 'gap' does not exist in ℝ."
   },
   {
     "id": "comp_r_03",
     "topicId": "completezza_r",
     "type": "mcq",
     "difficulty": 3,
-    "question": "Una successione di Cauchy in ℝ:",
+    "question": "A Cauchy sequence in ℝ:",
     "options": [
-      "È convergente in ℝ (per la completezza di ℝ)",
-      "È sempre crescente",
-      "Converge in ℚ ma non sempre in ℝ",
-      "Ha sempre limite uguale a 0"
+      "Converges in ℝ (by completeness of ℝ)",
+      "Is always increasing",
+      "Converges in ℚ but not always in ℝ",
+      "Always has limit equal to 0"
     ],
-    "explanation": "Teorema: ℝ è completo, cioè ogni successione di Cauchy in ℝ converge in ℝ. In ℚ esistono successioni di Cauchy che non convergono in ℚ (es. 1, 1.4, 1.41, … → √2 ∉ ℚ)."
+    "explanation": "Theorem: ℝ is complete, i.e. every Cauchy sequence in ℝ converges in ℝ. In ℚ there exist Cauchy sequences that do not converge in ℚ (e.g. 1, 1.4, 1.41, … → √2 ∉ ℚ)."
   },
   {
     "id": "comp_r_04",
     "topicId": "completezza_r",
     "type": "mcq",
     "difficulty": 4,
-    "question": "Il teorema di Bolzano-Weierstrass afferma che:",
+    "question": "The Bolzano-Weierstrass theorem states that:",
     "options": [
-      "Ogni successione limitata in ℝ ammette una sottosuccessione convergente",
-      "Ogni successione convergente è di Cauchy",
-      "Ogni funzione continua su [a,b] è limitata",
-      "Ogni successione monotona e limitata converge"
+      "Every bounded sequence in ℝ has a convergent subsequence",
+      "Every convergent sequence is Cauchy",
+      "Every continuous function on [a,b] is bounded",
+      "Every monotone bounded sequence converges"
     ],
-    "explanation": "Bolzano-Weierstrass: ogni successione limitata in ℝ ha una sottosuccessione convergente. È una conseguenza della completezza di ℝ."
+    "explanation": "Bolzano-Weierstrass: every bounded sequence in ℝ has a convergent subsequence. It is a consequence of the completeness of ℝ."
   },
   {
     "id": "comp_r_05",
     "topicId": "completezza_r",
     "type": "mcq",
     "difficulty": 5,
-    "question": "Quale delle seguenti proprietà NON è equivalente alla completezza di ℝ?",
+    "question": "Which of the following properties is NOT equivalent to the completeness of ℝ?",
     "options": [
-      "ℝ è un campo ordinato",
-      "Ogni successione di Cauchy converge",
-      "Ogni sottoinsieme non vuoto e limitato superiormente ha sup in ℝ",
-      "Ogni successione monotona e limitata converge"
+      "ℝ is an ordered field",
+      "Every Cauchy sequence converges",
+      "Every non-empty subset bounded above has a supremum in ℝ",
+      "Every monotone bounded sequence converges"
     ],
-    "explanation": "Essere un campo ordinato non implica la completezza: anche ℚ è un campo ordinato. Le altre tre proprietà sono tutte equivalenti alla completezza di ℝ."
+    "explanation": "Being an ordered field does not imply completeness: ℚ is also an ordered field. The other three properties are all equivalent to the completeness of ℝ."
   },
   {
     "id": "tf_esup_01",
     "topicId": "estremo_sup",
     "type": "tf",
     "difficulty": 1,
-    "question": "Il supremo di un insieme A appartiene sempre ad A.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "The supremum of a set A always belongs to A.",
+    "options": ["True", "False"],
     "correct": 1,
-    "explanation": "Il sup può non appartenere ad A: sup(0,1) = 1 ma 1 ∉ (0,1)."
+    "explanation": "The supremum need not belong to A: sup(0,1) = 1 but 1 ∉ (0,1)."
   },
   {
     "id": "tf_esup_02",
     "topicId": "estremo_sup",
     "type": "tf",
     "difficulty": 2,
-    "question": "Se A ha massimo, allora max A = sup A.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "If A has a maximum, then max A = sup A.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Il massimo è il più grande elemento di A, che è anche il più piccolo dei maggioranti."
+    "explanation": "The maximum is the largest element of A, which is also the smallest upper bound."
   },
   {
     "id": "tf_esup_03",
     "topicId": "estremo_sup",
     "type": "tf",
     "difficulty": 3,
-    "question": "Ogni sottoinsieme non vuoto di ℝ limitato superiormente ha supremo in ℝ.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "Every non-empty subset of ℝ bounded above has a supremum in ℝ.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Questo è l'assioma di completezza di ℝ (proprietà dell'estremo superiore)."
+    "explanation": "This is the completeness axiom of ℝ (least upper bound property)."
   },
   {
     "id": "tf_esup_04",
     "topicId": "estremo_sup",
     "type": "tf",
     "difficulty": 4,
-    "question": "sup A è sempre un maggiorante di A.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "sup A is always an upper bound of A.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Per definizione il sup è il più piccolo dei maggioranti, quindi in particolare è un maggiorante."
+    "explanation": "By definition the supremum is the smallest upper bound, so in particular it is an upper bound."
   },
   {
     "id": "tf_esup_05",
     "topicId": "estremo_sup",
     "type": "tf",
     "difficulty": 5,
-    "question": "In ℚ, l'insieme {x ∈ ℚ : x² < 2} ha supremo in ℚ.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "In ℚ, the set {x ∈ ℚ : x² < 2} has a supremum in ℚ.",
+    "options": ["True", "False"],
     "correct": 1,
-    "explanation": "Il sup sarebbe √2, ma √2 ∉ ℚ. Questo dimostra che ℚ non è completo."
+    "explanation": "The supremum would be √2, but √2 ∉ ℚ. This shows that ℚ is not complete."
   },
   {
     "id": "tf_ind_01",
     "topicId": "principio_induzione",
     "type": "tf",
     "difficulty": 1,
-    "question": "Nel principio di induzione, il caso base verifica P(1) (o P(0)).",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "In the principle of induction, the base case verifies P(1) (or P(0)).",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Il caso base è il primo passo: dimostrare che P vale per il valore iniziale."
+    "explanation": "The base case is the first step: proving that P holds for the initial value."
   },
   {
     "id": "tf_ind_02",
     "topicId": "principio_induzione",
     "type": "tf",
     "difficulty": 2,
-    "question": "1 + 2 + … + n = n(n+1)/2 per ogni n ∈ ℕ.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "1 + 2 + … + n = n(n+1)/2 for every n ∈ ℕ.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Formula di Gauss, dimostrabile per induzione."
+    "explanation": "Gauss's formula, provable by induction."
   },
   {
     "id": "tf_ind_03",
     "topicId": "principio_induzione",
     "type": "tf",
     "difficulty": 3,
-    "question": "Il passo induttivo assume P(n) vera per tutti gli n e dimostra P(n+1).",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "The inductive step assumes P(n) is true for all n and proves P(n+1).",
+    "options": ["True", "False"],
     "correct": 1,
-    "explanation": "Si assume P(n) vera per un fissato n (ipotesi induttiva), non per tutti."
+    "explanation": "P(n) is assumed true for a fixed n (inductive hypothesis), not for all n."
   },
   {
     "id": "tf_ind_04",
     "topicId": "principio_induzione",
     "type": "tf",
     "difficulty": 4,
-    "question": "n! > 2ⁿ per ogni n ≥ 4.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "n! > 2ⁿ for every n ≥ 4.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Caso base n=4: 24 > 16 ✓. Il passo usa (n+1)! = (n+1)·n! > (n+1)·2ⁿ > 2·2ⁿ = 2^(n+1)."
+    "explanation": "Base case n=4: 24 > 16 ✓. The step uses (n+1)! = (n+1)·n! > (n+1)·2ⁿ > 2·2ⁿ = 2^(n+1)."
   },
   {
     "id": "tf_ind_05",
     "topicId": "principio_induzione",
     "type": "tf",
     "difficulty": 5,
-    "question": "L'induzione forte è più potente dell'induzione ordinaria.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "Strong induction is more powerful than ordinary induction.",
+    "options": ["True", "False"],
     "correct": 1,
-    "explanation": "Sono equivalenti: qualsiasi risultato dimostrabile con una si può dimostrare con l'altra."
+    "explanation": "They are equivalent: any result provable with one can be proved with the other."
   },
   {
     "id": "tf_cr_01",
     "topicId": "completezza_r",
     "type": "tf",
     "difficulty": 1,
-    "question": "ℝ è completo: ogni successione di Cauchy in ℝ converge in ℝ.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "ℝ is complete: every Cauchy sequence in ℝ converges in ℝ.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Questa è la proprietà di completezza di ℝ."
+    "explanation": "This is the completeness property of ℝ."
   },
   {
     "id": "tf_cr_02",
     "topicId": "completezza_r",
     "type": "tf",
     "difficulty": 2,
-    "question": "ℚ è completo.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "ℚ is complete.",
+    "options": ["True", "False"],
     "correct": 1,
-    "explanation": "ℚ non è completo: la successione 1, 1.4, 1.41, 1.414,… è di Cauchy in ℚ ma converge a √2 ∉ ℚ."
+    "explanation": "ℚ is not complete: the sequence 1, 1.4, 1.41, 1.414,… is Cauchy in ℚ but converges to √2 ∉ ℚ."
   },
   {
     "id": "tf_cr_03",
     "topicId": "completezza_r",
     "type": "tf",
     "difficulty": 3,
-    "question": "Ogni successione monotona e limitata in ℝ converge.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "Every monotone bounded sequence in ℝ converges.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Conseguenza della completezza di ℝ."
+    "explanation": "A consequence of the completeness of ℝ."
   },
   {
     "id": "tf_cr_04",
     "topicId": "completezza_r",
     "type": "tf",
     "difficulty": 4,
-    "question": "Ogni successione di Cauchy in ℝ è limitata.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "Every Cauchy sequence in ℝ is bounded.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Ogni successione di Cauchy è limitata (proprietà generale)."
+    "explanation": "Every Cauchy sequence is bounded (a general property)."
   },
   {
     "id": "tf_cr_05",
     "topicId": "completezza_r",
     "type": "tf",
     "difficulty": 5,
-    "question": "Essere un campo ordinato è sufficiente per essere completo.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "Being an ordered field is sufficient to be complete.",
+    "options": ["True", "False"],
     "correct": 1,
-    "explanation": "Anche ℚ è un campo ordinato ma non è completo. La completezza è una proprietà aggiuntiva."
+    "explanation": "ℚ is also an ordered field but is not complete. Completeness is an additional property."
   }
 ]

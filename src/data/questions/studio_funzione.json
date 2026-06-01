@@ -4,539 +4,479 @@
     "topicId": "monotonia",
     "type": "mcq",
     "difficulty": 1,
-    "question": "Se f'(x) > 0 su un intervallo I, allora f è:",
+    "question": "If f'(x) > 0 on an interval I, then f is:",
     "options": [
-      "Crescente",
-      "Concava",
-      "Decrescente",
-      "Costante"
+      "Increasing",
+      "Concave",
+      "Decreasing",
+      "Constant"
     ],
-    "explanation": "Criterio della derivata prima: f' > 0 su I ⟹ f strettamente crescente su I."
+    "explanation": "First derivative criterion: f' > 0 on I ⟹ f strictly increasing on I."
   },
   {
     "id": "mon_02",
     "topicId": "monotonia",
     "type": "mcq",
     "difficulty": 2,
-    "question": "La funzione f(x) = x³ − 3x è crescente per:",
+    "question": "The function f(x) = x³ − 3x is increasing for:",
     "options": [
       "x ∈ (−∞,−1) ∪ (1,+∞)",
       "x ∈ (−1,1)",
       "x > 0",
-      "Tutto ℝ"
+      "All of ℝ"
     ],
-    "explanation": "f'(x) = 3x²−3 = 3(x−1)(x+1). f'>0 quando x<−1 o x>1."
+    "explanation": "f'(x) = 3x²−3 = 3(x−1)(x+1). f'>0 when x<−1 or x>1."
   },
   {
     "id": "mon_03",
     "topicId": "monotonia",
     "type": "mcq",
     "difficulty": 3,
-    "question": "La funzione f(x) = xe^(−x) ha un massimo in:",
+    "question": "The function f(x) = xe^(−x) has a maximum at:",
     "options": [
       "x = 1",
       "x = −1",
       "x = 0",
       "x = e"
     ],
-    "explanation": "f'(x) = e^(−x)(1−x). f'=0 per x=1. Per x<1, f'>0; per x>1, f'<0. Quindi x=1 è un massimo. f(1) = 1/e."
+    "explanation": "f'(x) = e^(−x)(1−x). f'=0 at x=1. For x<1, f'>0; for x>1, f'<0. So x=1 is a maximum. f(1) = 1/e."
   },
   {
     "id": "mon_04",
     "topicId": "monotonia",
     "type": "mcq",
     "difficulty": 4,
-    "question": "Una funzione con f' > 0 su (a,b) e f' = 0 in x₀ ∈ (a,b) è:",
+    "question": "A function with f' > 0 on (a,b) and f' = 0 at x₀ ∈ (a,b) is:",
     "options": [
-      "Ancora crescente su (a,b)",
-      "Non monotona",
-      "Ha un flesso orizzontale in x₀",
-      "Ha un massimo in x₀"
+      "Still increasing on (a,b)",
+      "Non-monotone",
+      "Has a horizontal inflection point at x₀",
+      "Has a maximum at x₀"
     ],
-    "explanation": "Un punto con f'=0 non implica necessariamente un estremo. Se f'>0 su (a,x₀) e su (x₀,b), la funzione è ancora crescente su tutto (a,b). Es: f(x)=x³ ha f'(0)=0 ma è crescente su ℝ."
+    "explanation": "A point where f'=0 does not necessarily imply an extremum. If f'>0 on (a,x₀) and on (x₀,b), the function is still increasing on all of (a,b). E.g. f(x)=x³ has f'(0)=0 but is increasing on ℝ."
   },
   {
     "id": "mon_05",
     "topicId": "monotonia",
     "type": "mcq",
     "difficulty": 5,
-    "question": "La funzione f(x) = x + sin x è strettamente crescente su ℝ nonostante f'(x) = 1 + cos x si annulli. Perché?",
+    "question": "f(x) = x + sin x is strictly increasing on ℝ despite f'(x) = 1 + cos x vanishing. Why?",
     "options": [
-      "Perché f' ≥ 0 e f' = 0 solo in punti isolati (non su intervalli)",
-      "Perché f'' > 0 ovunque",
-      "Perché f è un polinomio",
-      "Non è vero, f non è crescente ovunque"
+      "Because f' ≥ 0 and f' = 0 only at isolated points (not on intervals)",
+      "Because f'' > 0 everywhere",
+      "Because f is a polynomial",
+      "It is false: f is not increasing everywhere"
     ],
-    "explanation": "f'(x) = 1+cos x ≥ 0. f'(x)=0 solo in x=(2k+1)π (punti isolati). Una funzione con f' ≥ 0 e f'=0 solo in punti isolati è comunque strettamente crescente."
+    "explanation": "f'(x) = 1+cos x ≥ 0. f'(x)=0 only at x=(2k+1)π (isolated points). A function with f' ≥ 0 and f'=0 only at isolated points is still strictly increasing."
   },
   {
     "id": "max_01",
     "topicId": "massimi_minimi",
     "type": "mcq",
     "difficulty": 1,
-    "question": "Per il teorema di Fermat, se f ha un massimo locale in x₀ e f è derivabile in x₀, allora:",
+    "question": "By Fermat's theorem, if f has a local maximum at x₀ and f is differentiable at x₀, then:",
     "options": [
       "f'(x₀) = 0",
       "f'(x₀) > 0",
       "f'(x₀) < 0",
-      "f'(x₀) non esiste"
+      "f'(x₀) does not exist"
     ],
-    "explanation": "Fermat: se f ha un estremo locale in x₀ e f è derivabile in x₀, allora f'(x₀) = 0. f'(x₀)=0 è necessario ma non sufficiente."
+    "explanation": "Fermat: if f has a local extremum at x₀ and f is differentiable at x₀, then f'(x₀) = 0. f'(x₀)=0 is necessary but not sufficient."
   },
   {
     "id": "max_02",
     "topicId": "massimi_minimi",
     "type": "mcq",
     "difficulty": 2,
-    "question": "Il criterio della derivata seconda: se f'(x₀)=0 e f''(x₀) > 0, allora x₀ è:",
+    "question": "Second derivative criterion: if f'(x₀)=0 and f''(x₀) > 0, then x₀ is:",
     "options": [
-      "Un minimo locale",
-      "Un massimo locale",
-      "Un flesso",
-      "Non determinabile"
+      "A local minimum",
+      "A local maximum",
+      "An inflection point",
+      "Cannot be determined"
     ],
-    "explanation": "f'(x₀)=0 e f''(x₀)>0 ⟹ minimo locale. f'(x₀)=0 e f''(x₀)<0 ⟹ massimo locale."
+    "explanation": "f'(x₀)=0 and f''(x₀)>0 ⟹ local minimum. f'(x₀)=0 and f''(x₀)<0 ⟹ local maximum."
   },
   {
     "id": "max_03",
     "topicId": "massimi_minimi",
     "type": "mcq",
     "difficulty": 3,
-    "question": "La funzione f(x) = x⁴ ha f'(0)=0 e f''(0)=0. Il punto x=0 è:",
+    "question": "The function f(x) = x⁴ has f'(0)=0 and f''(0)=0. The point x=0 is:",
     "options": [
-      "Un minimo assoluto",
-      "Un massimo",
-      "Un flesso",
-      "Non determinabile con il criterio della derivata seconda"
+      "An absolute minimum",
+      "A maximum",
+      "An inflection point",
+      "Cannot be determined by the second derivative criterion"
     ],
-    "explanation": "Il criterio della derivata seconda è inconcludente (f''(0)=0). Ma f(x)=x⁴ ≥ 0 per ogni x, con f(0)=0. Quindi x=0 è un minimo assoluto."
+    "explanation": "The second derivative criterion is inconclusive (f''(0)=0). But f(x)=x⁴ ≥ 0 for all x, with f(0)=0. So x=0 is an absolute minimum."
   },
   {
     "id": "max_04",
     "topicId": "massimi_minimi",
     "type": "mcq",
     "difficulty": 4,
-    "question": "Trovare i punti critici di f(x) = x³ − 6x² + 9x + 1.",
+    "question": "Find the critical points of f(x) = x³ − 6x² + 9x + 1.",
     "options": [
-      "x=1 e x=3",
-      "x=0 e x=1",
-      "x=2 e x=3",
-      "x=−1 e x=3"
+      "x=1 and x=3",
+      "x=0 and x=1",
+      "x=2 and x=3",
+      "x=−1 and x=3"
     ],
-    "explanation": "f'(x) = 3x²−12x+9 = 3(x−1)(x−3). f'=0 per x=1 e x=3. f''(1)=−6<0 → massimo; f''(3)=6>0 → minimo."
+    "explanation": "f'(x) = 3x²−12x+9 = 3(x−1)(x−3). f'=0 at x=1 and x=3. f''(1)=−6<0 → maximum; f''(3)=6>0 → minimum."
   },
   {
     "id": "max_05",
     "topicId": "massimi_minimi",
     "type": "mcq",
     "difficulty": 5,
-    "question": "Per trovare il massimo assoluto di f su [a,b], si deve:",
+    "question": "To find the absolute maximum of f on [a,b], one must:",
     "options": [
-      "Confrontare i valori di f nei punti critici interni E agli estremi a e b",
-      "Trovare solo i punti con f'=0",
-      "Trovare dove f''=0",
-      "Usare il teorema di Weierstrass senza calcoli"
+      "Compare the values of f at interior critical points AND at the endpoints a and b",
+      "Find only the points where f'=0",
+      "Find where f''=0",
+      "Use the extreme value theorem without computation"
     ],
-    "explanation": "Il massimo assoluto su [a,b] è il più grande tra: f valutata nei punti critici interni (f'=0 o f' non esiste) e f(a), f(b)."
+    "explanation": "The absolute maximum on [a,b] is the largest among: f evaluated at interior critical points (f'=0 or f' undefined) and f(a), f(b)."
   },
   {
     "id": "con_01",
     "topicId": "concavita",
     "type": "mcq",
     "difficulty": 1,
-    "question": "Una funzione è convessa (concava verso l'alto) su un intervallo I se:",
+    "question": "A function is convex (concave up) on an interval I if:",
     "options": [
-      "f'' ≥ 0 su I",
-      "f'' ≤ 0 su I",
-      "f' ≥ 0 su I",
-      "f è crescente su I"
+      "f'' ≥ 0 on I",
+      "f'' ≤ 0 on I",
+      "f' ≥ 0 on I",
+      "f is increasing on I"
     ],
-    "explanation": "f è convessa su I se f'' ≥ 0 su I. Il grafico sta sopra le sue rette tangenti."
+    "explanation": "f is convex on I if f'' ≥ 0 on I. The graph lies above its tangent lines."
   },
   {
     "id": "con_02",
     "topicId": "concavita",
     "type": "mcq",
     "difficulty": 2,
-    "question": "Un punto di flesso è un punto dove:",
+    "question": "An inflection point is a point where:",
     "options": [
-      "f cambia concavità (f'' cambia segno)",
+      "f changes concavity (f'' changes sign)",
       "f'(x₀) = 0",
       "f''(x₀) = 0",
-      "f ha un massimo o un minimo"
+      "f has a maximum or minimum"
     ],
-    "explanation": "Un flesso è un punto in cui la concavità cambia (f'' cambia segno). f''(x₀)=0 è necessario ma non sufficiente."
+    "explanation": "An inflection point is where concavity changes (f'' changes sign). f''(x₀)=0 is necessary but not sufficient."
   },
   {
     "id": "con_03",
     "topicId": "concavita",
     "type": "mcq",
     "difficulty": 3,
-    "question": "La funzione f(x) = x³ ha un flesso in:",
+    "question": "The function f(x) = x³ has an inflection point at:",
     "options": [
       "x = 0",
       "x = −1",
       "x = 1",
-      "Non ha flessi"
+      "No inflection points"
     ],
-    "explanation": "f''(x) = 6x. f''=0 per x=0. Per x<0: f''<0 (concava verso il basso); per x>0: f''>0. La concavità cambia in x=0 → flesso."
+    "explanation": "f''(x) = 6x. f''=0 at x=0. For x<0: f''<0 (concave down); for x>0: f''>0. Concavity changes at x=0 → inflection point."
   },
   {
     "id": "con_04",
     "topicId": "concavita",
     "type": "mcq",
     "difficulty": 4,
-    "question": "Trovare i flessi di f(x) = x⁴ − 4x³.",
+    "question": "Find the inflection points of f(x) = x⁴ − 4x³.",
     "options": [
-      "x = 0 e x = 2",
-      "x = 0 e x = 3",
-      "x = 2 soltanto",
-      "Non ha flessi"
+      "x = 0 and x = 2",
+      "x = 0 and x = 3",
+      "x = 2 only",
+      "No inflection points"
     ],
-    "explanation": "f''(x)=12x²−24x=12x(x−2). f''=0 per x=0 e x=2. Cambia segno in entrambi → entrambi sono flessi."
+    "explanation": "f''(x)=12x²−24x=12x(x−2). f''=0 at x=0 and x=2. Sign changes at both → both are inflection points."
   },
   {
     "id": "con_05",
     "topicId": "concavita",
     "type": "mcq",
     "difficulty": 5,
-    "question": "Una funzione convessa (f'' ≥ 0) soddisfa la disuguaglianza di Jensen:",
+    "question": "A convex function (f'' ≥ 0) satisfies Jensen's inequality:",
     "options": [
       "f((a+b)/2) ≤ (f(a)+f(b))/2",
       "f((a+b)/2) ≥ (f(a)+f(b))/2",
       "f(a+b) = f(a)+f(b)",
       "f((a+b)/2) = 0"
     ],
-    "explanation": "Per una funzione convessa: f((a+b)/2) ≤ (f(a)+f(b))/2. Il punto medio sul grafico sta sotto la corda."
+    "explanation": "For a convex function: f((a+b)/2) ≤ (f(a)+f(b))/2. The midpoint on the graph lies below the chord."
   },
   {
     "id": "asi_01",
     "topicId": "asintoti",
     "type": "mcq",
     "difficulty": 1,
-    "question": "Un asintoto verticale in x = a si ha quando:",
+    "question": "A vertical asymptote at x = a occurs when:",
     "options": [
       "lim_{x→a} f(x) = ±∞",
       "f(a) = 0",
-      "f non è definita in a",
+      "f is not defined at a",
       "f'(a) = ∞"
     ],
-    "explanation": "Asintoto verticale in x=a: lim_{x→a⁺} f(x) = ±∞ o lim_{x→a⁻} f(x) = ±∞."
+    "explanation": "Vertical asymptote at x=a: lim_{x→a⁺} f(x) = ±∞ or lim_{x→a⁻} f(x) = ±∞."
   },
   {
     "id": "asi_02",
     "topicId": "asintoti",
     "type": "mcq",
     "difficulty": 2,
-    "question": "Un asintoto orizzontale y = L si ha quando:",
+    "question": "A horizontal asymptote y = L occurs when:",
     "options": [
       "lim_{x→±∞} f(x) = L",
       "f(L) = 0",
-      "f'(x) = 0 per grandi x",
-      "f è limitata"
+      "f'(x) = 0 for large x",
+      "f is bounded"
     ],
-    "explanation": "Asintoto orizzontale y=L: lim_{x→+∞} f(x) = L o lim_{x→−∞} f(x) = L."
+    "explanation": "Horizontal asymptote y=L: lim_{x→+∞} f(x) = L or lim_{x→−∞} f(x) = L."
   },
   {
     "id": "asi_03",
     "topicId": "asintoti",
     "type": "mcq",
     "difficulty": 3,
-    "question": "Per trovare un asintoto obliquo y = mx + q, si calcolano:",
+    "question": "To find an oblique asymptote y = mx + q, compute:",
     "options": [
-      "m = lim f(x)/x e poi q = lim [f(x) − mx]",
-      "m = lim f'(x) e q = f(0)",
-      "m = lim f(x) e q = lim f'(x)",
-      "Si usa solo la derivata prima"
+      "m = lim f(x)/x then q = lim [f(x) − mx]",
+      "m = lim f'(x) and q = f(0)",
+      "m = lim f(x) and q = lim f'(x)",
+      "Use only the first derivative"
     ],
-    "explanation": "Asintoto obliquo: m = lim_{x→+∞} f(x)/x (deve esistere finito e ≠ 0), poi q = lim_{x→+∞} [f(x)−mx]."
+    "explanation": "Oblique asymptote: m = lim_{x→+∞} f(x)/x (must be finite and ≠ 0), then q = lim_{x→+∞} [f(x)−mx]."
   },
   {
     "id": "asi_04",
     "topicId": "asintoti",
     "type": "mcq",
     "difficulty": 4,
-    "question": "Trovare l'asintoto obliquo di f(x) = (x² + 1)/x per x → +∞.",
+    "question": "Find the oblique asymptote of f(x) = (x² + 1)/x as x → +∞.",
     "options": [
       "y = x",
       "y = x + 1",
       "y = x − 1",
-      "Non ha asintoto obliquo"
+      "No oblique asymptote"
     ],
-    "explanation": "f(x) = x + 1/x. m = lim f(x)/x = 1. q = lim [f(x)−x] = lim 1/x = 0. Asintoto: y = x."
+    "explanation": "f(x) = x + 1/x. m = lim f(x)/x = 1. q = lim [f(x)−x] = lim 1/x = 0. Asymptote: y = x."
   },
   {
     "id": "asi_05",
     "topicId": "asintoti",
     "type": "mcq",
     "difficulty": 5,
-    "question": "La funzione f(x) = eˣ + x ha asintoti?",
+    "question": "Does f(x) = eˣ + x have any asymptotes?",
     "options": [
-      "Asintoto obliquo y=x per x→−∞",
-      "Asintoto verticale in x=0",
-      "Asintoto orizzontale y=0",
-      "Nessun asintoto"
+      "Oblique asymptote y=x for x→−∞",
+      "Vertical asymptote at x=0",
+      "Horizontal asymptote y=0",
+      "No asymptotes"
     ],
-    "explanation": "Per x→+∞: f(x)→+∞. Per x→−∞: eˣ→0, quindi f(x) ~ x. m=lim f(x)/x = 1, q=lim[f(x)−x]=lim eˣ=0. Asintoto y=x per x→−∞."
+    "explanation": "For x→+∞: f(x)→+∞. For x→−∞: eˣ→0, so f(x) ~ x. m=lim f(x)/x = 1, q=lim[f(x)−x]=lim eˣ=0. Oblique asymptote y=x for x→−∞."
   },
   {
     "id": "tf_mon_01",
     "topicId": "monotonia",
     "type": "tf",
     "difficulty": 1,
-    "question": "Se f'(x) > 0 su (a,b) allora f è crescente su [a,b].",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "If f'(x) > 0 on (a,b) then f is increasing on [a,b].",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Criterio della derivata prima per la monotonia."
+    "explanation": "First derivative criterion for monotonicity."
   },
   {
     "id": "tf_mon_02",
     "topicId": "monotonia",
     "type": "tf",
     "difficulty": 2,
-    "question": "Se f è crescente su [a,b] allora f'(x) > 0 per ogni x ∈ (a,b).",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "If f is increasing on [a,b] then f'(x) > 0 for every x ∈ (a,b).",
+    "options": ["True", "False"],
     "correct": 1,
-    "explanation": "f(x) = x³ è crescente su ℝ ma f'(0) = 0."
+    "explanation": "f(x) = x³ is increasing on ℝ but f'(0) = 0."
   },
   {
     "id": "tf_mon_03",
     "topicId": "monotonia",
     "type": "tf",
     "difficulty": 3,
-    "question": "f(x) = x³−3x è decrescente su (−1,1).",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "f(x) = x³−3x is decreasing on (−1,1).",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "f'(x) = 3x²−3 = 3(x²−1) < 0 per x ∈ (−1,1)."
+    "explanation": "f'(x) = 3x²−3 = 3(x²−1) < 0 for x ∈ (−1,1)."
   },
   {
     "id": "tf_mon_04",
     "topicId": "monotonia",
     "type": "tf",
     "difficulty": 4,
-    "question": "f'(x₀) = 0 è necessario ma non sufficiente per un estremo locale.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "f'(x₀) = 0 is necessary but not sufficient for a local extremum.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "f'(0)=0 per f(x)=x³, ma 0 è un flesso, non un estremo."
+    "explanation": "f'(0)=0 for f(x)=x³, but 0 is an inflection point, not an extremum."
   },
   {
     "id": "tf_mon_05",
     "topicId": "monotonia",
     "type": "tf",
     "difficulty": 5,
-    "question": "f(x) = x + sin x è strettamente crescente su ℝ nonostante f'(nπ) = 0.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "f(x) = x + sin x is strictly increasing on ℝ despite f'(nπ) = 0.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "f'(x) = 1 + cos x ≥ 0 e si annulla solo in punti isolati, quindi f è strettamente crescente."
+    "explanation": "f'(x) = 1 + cos x ≥ 0 and vanishes only at isolated points, so f is strictly increasing."
   },
   {
     "id": "tf_mm_01",
     "topicId": "massimi_minimi",
     "type": "tf",
     "difficulty": 1,
-    "question": "Se f''(x₀) > 0 e f'(x₀) = 0, allora x₀ è un minimo locale.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "If f''(x₀) > 0 and f'(x₀) = 0, then x₀ is a local minimum.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Criterio della derivata seconda."
+    "explanation": "Second derivative criterion."
   },
   {
     "id": "tf_mm_02",
     "topicId": "massimi_minimi",
     "type": "tf",
     "difficulty": 2,
-    "question": "Se f''(x₀) = 0 e f'(x₀) = 0, allora x₀ è un flesso.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "If f''(x₀) = 0 and f'(x₀) = 0, then x₀ is an inflection point.",
+    "options": ["True", "False"],
     "correct": 1,
-    "explanation": "f(x)=x⁴ ha f'(0)=0 e f''(0)=0, ma 0 è un minimo (non un flesso)."
+    "explanation": "f(x)=x⁴ has f'(0)=0 and f''(0)=0, but 0 is a minimum (not an inflection point)."
   },
   {
     "id": "tf_mm_03",
     "topicId": "massimi_minimi",
     "type": "tf",
     "difficulty": 3,
-    "question": "Per trovare il massimo assoluto di f su [a,b], bisogna confrontare i valori critici interni con f(a) e f(b).",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "To find the absolute maximum of f on [a,b], compare interior critical values with f(a) and f(b).",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Il massimo assoluto è il più grande tra i valori nei punti critici e agli estremi."
+    "explanation": "The absolute maximum is the largest among the values at critical points and at the endpoints."
   },
   {
     "id": "tf_mm_04",
     "topicId": "massimi_minimi",
     "type": "tf",
     "difficulty": 4,
-    "question": "Ogni massimo locale è anche un massimo globale.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "Every local maximum is also a global maximum.",
+    "options": ["True", "False"],
     "correct": 1,
-    "explanation": "Un massimo locale è solo il più grande in un intorno: potrebbero esserci valori maggiori altrove."
+    "explanation": "A local maximum is only the largest in a neighbourhood: there may be larger values elsewhere."
   },
   {
     "id": "tf_mm_05",
     "topicId": "massimi_minimi",
     "type": "tf",
     "difficulty": 5,
-    "question": "f(x) = x·e^(−x) ha un massimo in x = 1.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "f(x) = x·e^(−x) has a maximum at x = 1.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "f'(x) = e^(−x)(1−x): cambia segno da + a − in x=1, quindi x=1 è un massimo."
+    "explanation": "f'(x) = e^(−x)(1−x): changes sign from + to − at x=1, so x=1 is a maximum."
   },
   {
     "id": "tf_con_01",
     "topicId": "concavita",
     "type": "tf",
     "difficulty": 1,
-    "question": "f''(x) > 0 su (a,b) significa che f è convessa (concava verso l'alto) su (a,b).",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "f''(x) > 0 on (a,b) means f is convex (concave up) on (a,b).",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Criterio della derivata seconda per la convessità."
+    "explanation": "Second derivative criterion for convexity."
   },
   {
     "id": "tf_con_02",
     "topicId": "concavita",
     "type": "tf",
     "difficulty": 2,
-    "question": "Se f''(x₀) = 0 allora x₀ è un punto di flesso.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "If f''(x₀) = 0 then x₀ is an inflection point.",
+    "options": ["True", "False"],
     "correct": 1,
-    "explanation": "f''(x₀)=0 è necessario ma non sufficiente: per f(x)=x⁴, f''(0)=0 ma 0 non è un flesso."
+    "explanation": "f''(x₀)=0 is necessary but not sufficient: for f(x)=x⁴, f''(0)=0 but 0 is not an inflection point."
   },
   {
     "id": "tf_con_03",
     "topicId": "concavita",
     "type": "tf",
     "difficulty": 3,
-    "question": "f(x) = x³ ha un flesso in x = 0.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "f(x) = x³ has an inflection point at x = 0.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "f''(x) = 6x cambia segno in 0: concava per x<0, convessa per x>0."
+    "explanation": "f''(x) = 6x changes sign at 0: concave down for x<0, concave up for x>0."
   },
   {
     "id": "tf_con_04",
     "topicId": "concavita",
     "type": "tf",
     "difficulty": 4,
-    "question": "Per una funzione convessa vale f((a+b)/2) ≤ (f(a)+f(b))/2.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "For a convex function, f((a+b)/2) ≤ (f(a)+f(b))/2.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Disuguaglianza di Jensen per funzioni convesse."
+    "explanation": "Jensen's inequality for convex functions."
   },
   {
     "id": "tf_con_05",
     "topicId": "concavita",
     "type": "tf",
     "difficulty": 5,
-    "question": "eˣ è una funzione convessa su ℝ.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "eˣ is a convex function on ℝ.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "(eˣ)'' = eˣ > 0 ovunque."
+    "explanation": "(eˣ)'' = eˣ > 0 everywhere."
   },
   {
     "id": "tf_asi_01",
     "topicId": "asintoti",
     "type": "tf",
     "difficulty": 1,
-    "question": "Se lim_{x→a} f(x) = ±∞, allora x = a è un asintoto verticale.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "If lim_{x→a} f(x) = ±∞, then x = a is a vertical asymptote.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Definizione di asintoto verticale."
+    "explanation": "Definition of a vertical asymptote."
   },
   {
     "id": "tf_asi_02",
     "topicId": "asintoti",
     "type": "tf",
     "difficulty": 2,
-    "question": "Se lim_{x→+∞} f(x) = L finito, allora y = L è un asintoto orizzontale.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "If lim_{x→+∞} f(x) = L (finite), then y = L is a horizontal asymptote.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Definizione di asintoto orizzontale."
+    "explanation": "Definition of a horizontal asymptote."
   },
   {
     "id": "tf_asi_03",
     "topicId": "asintoti",
     "type": "tf",
     "difficulty": 3,
-    "question": "f(x) = 1/x ha asintoto verticale in x = 0 e asintoto orizzontale y = 0.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "f(x) = 1/x has a vertical asymptote at x = 0 and a horizontal asymptote y = 0.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Entrambi i limiti caratteristici esistono."
+    "explanation": "Both characteristic limits exist."
   },
   {
     "id": "tf_asi_04",
     "topicId": "asintoti",
     "type": "tf",
     "difficulty": 4,
-    "question": "Per trovare l'asintoto obliquo y = mx+q, si calcola m = lim f(x)/x e poi q = lim(f(x)−mx).",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "To find the oblique asymptote y = mx+q, compute m = lim f(x)/x then q = lim(f(x)−mx).",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Metodo standard per gli asintoti obliqui."
+    "explanation": "Standard method for oblique asymptotes."
   },
   {
     "id": "tf_asi_05",
     "topicId": "asintoti",
     "type": "tf",
     "difficulty": 5,
-    "question": "f(x) = eˣ + x ha asintoto obliquo y = x per x → −∞.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "f(x) = eˣ + x has an oblique asymptote y = x for x → −∞.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Per x→−∞: eˣ→0, quindi f(x) ~ x. m=1, q=0, asintoto y=x."
+    "explanation": "For x→−∞: eˣ→0, so f(x) ~ x. m=1, q=0, asymptote y=x."
   }
 ]

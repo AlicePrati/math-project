@@ -4,7 +4,7 @@
     "topicId": "taylor_peano",
     "type": "mcq",
     "difficulty": 1,
-    "question": "Lo sviluppo di MacLaurin di eˣ al terzo ordine è:",
+    "question": "The MacLaurin expansion of eˣ to third order is:",
     "options": [
       "1 + x + x²/2 + x³/6",
       "1 + x + x²/2",
@@ -18,207 +18,204 @@
     "topicId": "taylor_peano",
     "type": "mcq",
     "difficulty": 2,
-    "question": "La formula di Taylor con resto di Peano è f(x) = Tₙ(x) + o((x−x₀)ⁿ). Cosa significa o((x−x₀)ⁿ)?",
+    "question": "Taylor's formula with Peano remainder is f(x) = Tₙ(x) + o((x−x₀)ⁿ). What does o((x−x₀)ⁿ) mean?",
     "options": [
-      "Un termine che diviso per (x−x₀)ⁿ tende a 0 per x→x₀",
-      "Un termine esattamente uguale a (x−x₀)ⁿ",
-      "Un termine costante",
-      "L'errore massimo nel calcolo"
+      "A term that, divided by (x−x₀)ⁿ, tends to 0 as x→x₀",
+      "A term exactly equal to (x−x₀)ⁿ",
+      "A constant term",
+      "The maximum error in the computation"
     ],
-    "explanation": "o((x−x₀)ⁿ) è un 'o-piccolo': r(x) tale che r(x)/(x−x₀)ⁿ → 0 per x→x₀. L'errore è trascurabile rispetto a (x−x₀)ⁿ."
+    "explanation": "o((x−x₀)ⁿ) is 'little-o': a remainder r(x) such that r(x)/(x−x₀)ⁿ → 0 as x→x₀. The error is negligible compared to (x−x₀)ⁿ."
   },
   {
     "id": "tay_03",
     "topicId": "taylor_peano",
     "type": "mcq",
     "difficulty": 3,
-    "question": "I coefficienti dello sviluppo di Taylor di f centrato in x₀ sono:",
+    "question": "The coefficients of the Taylor expansion of f centred at x₀ are:",
     "options": [
-      "f^(k)(x₀)/k! per k=0,1,2,…",
+      "f^(k)(x₀)/k! for k=0,1,2,…",
       "f(x₀), f'(x₀), f''(x₀), …",
-      "f^(k)(x₀)·k! per k=0,1,2,…",
-      "f(x₀)/k per k=0,1,2,…"
+      "f^(k)(x₀)·k! for k=0,1,2,…",
+      "f(x₀)/k for k=0,1,2,…"
     ],
-    "explanation": "Tₙ(x) = ∑ₖ₌₀ⁿ f^(k)(x₀)/k! · (x−x₀)ᵏ. Il k-esimo coefficiente è f^(k)(x₀)/k!."
+    "explanation": "Tₙ(x) = ∑ₖ₌₀ⁿ f^(k)(x₀)/k! · (x−x₀)ᵏ. The k-th coefficient is f^(k)(x₀)/k!."
   },
   {
     "id": "tay_04",
     "topicId": "taylor_peano",
     "type": "mcq",
     "difficulty": 4,
-    "question": "Lo sviluppo di MacLaurin di sin(x) all'ordine 5 è:",
+    "question": "The MacLaurin expansion of sin(x) to order 5 is:",
     "options": [
       "x − x³/6 + x⁵/120 + o(x⁵)",
       "x − x²/2 + x⁴/24",
       "1 − x²/2 + x⁴/24",
       "x + x³/6 + x⁵/120"
     ],
-    "explanation": "sin(x) = x − x³/3! + x⁵/5! + o(x⁵) = x − x³/6 + x⁵/120 + o(x⁵). Solo potenze dispari."
+    "explanation": "sin(x) = x − x³/3! + x⁵/5! + o(x⁵) = x − x³/6 + x⁵/120 + o(x⁵). Only odd powers."
   },
   {
     "id": "tay_05",
     "topicId": "taylor_peano",
     "type": "mcq",
     "difficulty": 5,
-    "question": "Trovare lo sviluppo di f(x) = ln(1+x²) all'ordine 4.",
+    "question": "Find the expansion of f(x) = ln(1+x²) to order 4.",
     "options": [
       "x² − x⁴/2 + o(x⁴)",
       "x² + x⁴/2 + o(x⁴)",
       "1 + x² − x⁴/2 + o(x⁴)",
       "2x − x³ + o(x⁴)"
     ],
-    "explanation": "Si usa ln(1+t) = t − t²/2 + … con t=x². ln(1+x²) = x² − x⁴/2 + o(x⁴)."
+    "explanation": "Use ln(1+t) = t − t²/2 + … with t=x². ln(1+x²) = x² − x⁴/2 + o(x⁴)."
   },
   {
     "id": "mac_01",
     "topicId": "taylor_notevoli",
     "type": "mcq",
     "difficulty": 1,
-    "question": "Lo sviluppo di MacLaurin di cos(x) all'ordine 4 è:",
+    "question": "The MacLaurin expansion of cos(x) to order 4 is:",
     "options": [
       "1 − x²/2 + x⁴/24 + o(x⁴)",
       "1 − x + x²/2 − x³/6",
       "x − x³/6 + x⁵/120",
       "1 + x²/2 + x⁴/24"
     ],
-    "explanation": "cos(x) = 1 − x²/2! + x⁴/4! + o(x⁴) = 1 − x²/2 + x⁴/24 + o(x⁴). Solo potenze pari."
+    "explanation": "cos(x) = 1 − x²/2! + x⁴/4! + o(x⁴) = 1 − x²/2 + x⁴/24 + o(x⁴). Only even powers."
   },
   {
     "id": "mac_02",
     "topicId": "taylor_notevoli",
     "type": "mcq",
     "difficulty": 2,
-    "question": "Lo sviluppo di ln(1+x) all'ordine 3 è:",
+    "question": "The expansion of ln(1+x) to order 3 is:",
     "options": [
       "x − x²/2 + x³/3 + o(x³)",
       "x + x²/2 + x³/3",
       "1 + x − x²/2",
       "x − x²/2 − x³/3"
     ],
-    "explanation": "ln(1+x) = x − x²/2 + x³/3 − x⁴/4 + … (converge per |x|≤1, x≠−1). I segni alternano."
+    "explanation": "ln(1+x) = x − x²/2 + x³/3 − x⁴/4 + … (converges for |x|≤1, x≠−1). Signs alternate."
   },
   {
     "id": "mac_03",
     "topicId": "taylor_notevoli",
     "type": "mcq",
     "difficulty": 3,
-    "question": "Lo sviluppo di (1+x)^α (formula del binomio generalizzata) per |x|<1 è:",
+    "question": "The expansion of (1+x)^α (generalised binomial) for |x|<1 is:",
     "options": [
       "1 + αx + α(α−1)x²/2! + α(α−1)(α−2)x³/3! + …",
       "1 + αx + α²x²/2",
       "e^(αx)",
       "1 + αx + α(α+1)x²/2"
     ],
-    "explanation": "(1+x)^α = ∑ C(α,n)xⁿ dove C(α,n)=α(α−1)···(α−n+1)/n!. Per α=1/2: √(1+x) = 1+x/2−x²/8+…"
+    "explanation": "(1+x)^α = ∑ C(α,n)xⁿ where C(α,n)=α(α−1)···(α−n+1)/n!. For α=1/2: √(1+x) = 1+x/2−x²/8+…"
   },
   {
     "id": "mac_04",
     "topicId": "taylor_notevoli",
     "type": "mcq",
     "difficulty": 4,
-    "question": "Qual è lo sviluppo di arctan(x) all'ordine 5?",
+    "question": "What is the expansion of arctan(x) to order 5?",
     "options": [
       "x − x³/3 + x⁵/5 + o(x⁵)",
       "x + x³/3 + x⁵/5",
-      "1/(1+x²) all'ordine 4",
+      "1/(1+x²) to order 4",
       "x − x²/2 + x³/3"
     ],
-    "explanation": "arctan'(x) = 1/(1+x²) = 1 − x² + x⁴ − … (serie geometrica). Integrando: arctan(x) = x − x³/3 + x⁵/5 − … Per x=1: π/4 = 1−1/3+1/5−…"
+    "explanation": "arctan'(x) = 1/(1+x²) = 1 − x² + x⁴ − … (geometric series). Integrating: arctan(x) = x − x³/3 + x⁵/5 − … For x=1: π/4 = 1−1/3+1/5−…"
   },
   {
     "id": "mac_05",
     "topicId": "taylor_notevoli",
     "type": "mcq",
     "difficulty": 5,
-    "question": "La serie di Taylor di f(x) = 1/(1−x) centrata in 0 vale:",
+    "question": "The Taylor series of f(x) = 1/(1−x) centred at 0 equals:",
     "options": [
-      "∑ xⁿ per n=0 a ∞, valida per |x|<1",
-      "∑ n·xⁿ per n=0 a ∞",
+      "∑ xⁿ for n=0 to ∞, valid for |x|<1",
+      "∑ n·xⁿ for n=0 to ∞",
       "∑ (−1)ⁿ xⁿ",
       "∑ xⁿ/n!"
     ],
-    "explanation": "1/(1−x) = ∑_{n=0}^∞ xⁿ = 1+x+x²+x³+… per |x|<1. È la serie geometrica."
+    "explanation": "1/(1−x) = ∑_{n=0}^∞ xⁿ = 1+x+x²+x³+… for |x|<1. This is the geometric series."
   },
   {
     "id": "tli_01",
     "topicId": "taylor_limiti",
     "type": "mcq",
     "difficulty": 1,
-    "question": "Calcolare lim_{x→0} (eˣ − 1)/x usando Taylor.",
+    "question": "Compute lim_{x→0} (eˣ − 1)/x using Taylor.",
     "options": [
       "1",
       "0",
       "e",
       "∞"
     ],
-    "explanation": "eˣ = 1 + x + o(x). Quindi (eˣ−1)/x = (x+o(x))/x = 1+o(1) → 1."
+    "explanation": "eˣ = 1 + x + o(x). So (eˣ−1)/x = (x+o(x))/x = 1+o(1) → 1."
   },
   {
     "id": "tli_02",
     "topicId": "taylor_limiti",
     "type": "mcq",
     "difficulty": 2,
-    "question": "Calcolare lim_{x→0} (1 − cos x)/x² usando Taylor.",
+    "question": "Compute lim_{x→0} (1 − cos x)/x² using Taylor.",
     "options": [
       "1/2",
       "0",
       "1",
       "2"
     ],
-    "explanation": "cos x = 1 − x²/2 + o(x²). Quindi (1−cos x)/x² = x²/2 / x² = 1/2."
+    "explanation": "cos x = 1 − x²/2 + o(x²). So (1−cos x)/x² = x²/2 / x² = 1/2."
   },
   {
     "id": "tli_03",
     "topicId": "taylor_limiti",
     "type": "mcq",
     "difficulty": 3,
-    "question": "Calcolare lim_{x→0} [sin x − x + x³/6] / x⁵.",
+    "question": "Compute lim_{x→0} [sin x − x + x³/6] / x⁵.",
     "options": [
       "1/120",
       "0",
       "−1/120",
       "1/6"
     ],
-    "explanation": "sin x = x − x³/6 + x⁵/120 + o(x⁵). Quindi sin x − x + x³/6 = x⁵/120 + o(x⁵). Il limite è 1/120."
+    "explanation": "sin x = x − x³/6 + x⁵/120 + o(x⁵). So sin x − x + x³/6 = x⁵/120 + o(x⁵). The limit is 1/120."
   },
   {
     "id": "tli_04",
     "topicId": "taylor_limiti",
     "type": "mcq",
     "difficulty": 4,
-    "question": "Calcolare lim_{x→0} (eˣ − 1 − x − x²/2) / x³.",
+    "question": "Compute lim_{x→0} (eˣ − 1 − x − x²/2) / x³.",
     "options": [
       "1/6",
       "0",
       "1/2",
       "1"
     ],
-    "explanation": "eˣ = 1 + x + x²/2 + x³/6 + o(x³). Quindi eˣ−1−x−x²/2 = x³/6 + o(x³). Il limite è 1/6."
+    "explanation": "eˣ = 1 + x + x²/2 + x³/6 + o(x³). So eˣ−1−x−x²/2 = x³/6 + o(x³). The limit is 1/6."
   },
   {
     "id": "tli_05",
     "topicId": "taylor_limiti",
     "type": "mcq",
     "difficulty": 5,
-    "question": "Calcolare lim_{x→0} [ln(1+x) − x + x²/2 − x³/3] / x⁴.",
+    "question": "Compute lim_{x→0} [ln(1+x) − x + x²/2 − x³/3] / x⁴.",
     "options": [
       "−1/4",
       "0",
       "1/4",
       "1"
     ],
-    "explanation": "ln(1+x) = x − x²/2 + x³/3 − x⁴/4 + o(x⁴). Quindi ln(1+x)−x+x²/2−x³/3 = −x⁴/4+o(x⁴). Il limite è −1/4."
+    "explanation": "ln(1+x) = x − x²/2 + x³/3 − x⁴/4 + o(x⁴). So ln(1+x)−x+x²/2−x³/3 = −x⁴/4+o(x⁴). The limit is −1/4."
   },
   {
     "id": "tf_tay_01",
     "topicId": "taylor_peano",
     "type": "tf",
     "difficulty": 1,
-    "question": "Lo sviluppo di MacLaurin di eˣ all'ordine 2 è 1 + x + x²/2.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "The MacLaurin expansion of eˣ to order 2 is 1 + x + x²/2.",
+    "options": ["True", "False"],
     "correct": 0,
     "explanation": "eˣ = 1 + x + x²/2! + … = 1 + x + x²/2 + o(x²)."
   },
@@ -227,52 +224,40 @@
     "topicId": "taylor_peano",
     "type": "tf",
     "difficulty": 2,
-    "question": "Lo sviluppo di MacLaurin di sin(x) contiene solo potenze dispari.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "The MacLaurin expansion of sin(x) contains only odd powers.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "sin(x) = x − x³/6 + x⁵/120 − …: solo potenze dispari perché sin è dispari."
+    "explanation": "sin(x) = x − x³/6 + x⁵/120 − …: only odd powers because sin is an odd function."
   },
   {
     "id": "tf_tay_03",
     "topicId": "taylor_peano",
     "type": "tf",
     "difficulty": 3,
-    "question": "Il coefficiente di xᵏ nello sviluppo di Taylor è f⁽ᵏ⁾(x₀)/k!.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "The coefficient of xᵏ in the Taylor expansion is f⁽ᵏ⁾(x₀)/k!.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Formula dei coefficienti di Taylor."
+    "explanation": "Taylor coefficient formula."
   },
   {
     "id": "tf_tay_04",
     "topicId": "taylor_peano",
     "type": "tf",
     "difficulty": 4,
-    "question": "o(xⁿ) significa che il termine è esattamente zero.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "o(xⁿ) means the term is exactly zero.",
+    "options": ["True", "False"],
     "correct": 1,
-    "explanation": "o(xⁿ) significa che il termine diviso per xⁿ tende a 0: è trascurabile rispetto a xⁿ, non necessariamente zero."
+    "explanation": "o(xⁿ) means the term divided by xⁿ tends to 0: it is negligible compared to xⁿ, not necessarily zero."
   },
   {
     "id": "tf_tay_05",
     "topicId": "taylor_peano",
     "type": "tf",
     "difficulty": 5,
-    "question": "Lo sviluppo di ln(1+x) all'ordine 4 è x − x²/2 + x³/3 − x⁴/4.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "The expansion of ln(1+x) to order 4 is x − x²/2 + x³/3 − x⁴/4.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Sviluppo di MacLaurin del logaritmo naturale."
+    "explanation": "MacLaurin expansion of the natural logarithm."
   },
   {
     "id": "tf_mac_01",
@@ -280,88 +265,67 @@
     "type": "tf",
     "difficulty": 1,
     "question": "cos(x) = 1 − x²/2 + x⁴/24 + o(x⁴).",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "MacLaurin di cos(x) all'ordine 4."
+    "explanation": "MacLaurin expansion of cos(x) to order 4."
   },
   {
     "id": "tf_mac_02",
     "topicId": "taylor_notevoli",
     "type": "tf",
     "difficulty": 2,
-    "question": "Lo sviluppo di cos(x) contiene solo potenze pari.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "The expansion of cos(x) contains only even powers.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "cos è una funzione pari: f(−x)=f(x), quindi solo potenze pari."
+    "explanation": "cos is an even function: f(−x)=f(x), so only even powers appear."
   },
   {
     "id": "tf_mac_03",
     "topicId": "taylor_notevoli",
     "type": "tf",
     "difficulty": 3,
-    "question": "arctan(x) = x − x³/3 + x⁵/5 − … per |x| ≤ 1.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "arctan(x) = x − x³/3 + x⁵/5 − … for |x| ≤ 1.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Serie di Leibniz per arctan, convergente per |x|≤1."
+    "explanation": "Leibniz series for arctan, convergent for |x|≤1."
   },
   {
     "id": "tf_mac_04",
     "topicId": "taylor_notevoli",
     "type": "tf",
     "difficulty": 4,
-    "question": "ln(1+x) converge per tutti i valori reali di x.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "The series ln(1+x) converges for all real x.",
+    "options": ["True", "False"],
     "correct": 1,
-    "explanation": "Converge solo per −1 < x ≤ 1."
+    "explanation": "It converges only for −1 < x ≤ 1."
   },
   {
     "id": "tf_mac_05",
     "topicId": "taylor_notevoli",
     "type": "tf",
     "difficulty": 5,
-    "question": "(1+x)^α = 1 + αx + α(α−1)x²/2 + … per |x| < 1.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "(1+x)^α = 1 + αx + α(α−1)x²/2 + … for |x| < 1.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Binomio generalizzato di Newton, valido per qualsiasi α reale e |x|<1."
+    "explanation": "Generalised Newton binomial, valid for any real α and |x|<1."
   },
   {
     "id": "tf_tli_01",
     "topicId": "taylor_limiti",
     "type": "tf",
     "difficulty": 1,
-    "question": "Taylor è utile per calcolare limiti in forma 0/0.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "Taylor expansions are useful for computing 0/0 limits.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Si sviluppano numeratore e denominatore e si semplifica."
+    "explanation": "Expand numerator and denominator then simplify."
   },
   {
     "id": "tf_tli_02",
     "topicId": "taylor_limiti",
     "type": "tf",
     "difficulty": 2,
-    "question": "lim_{x→0} (eˣ−1)/x = 1 si ricava da Taylor: eˣ = 1+x+o(x).",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "lim_{x→0} (eˣ−1)/x = 1 follows from Taylor: eˣ = 1+x+o(x).",
+    "options": ["True", "False"],
     "correct": 0,
     "explanation": "(eˣ−1)/x = (x+o(x))/x = 1+o(1) → 1."
   },
@@ -370,13 +334,10 @@
     "topicId": "taylor_limiti",
     "type": "tf",
     "difficulty": 3,
-    "question": "Per calcolare lim (sin x − x)/x³, basta sviluppare sin x all'ordine 1.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "To compute lim (sin x − x)/x³, it suffices to expand sin x to order 1.",
+    "options": ["True", "False"],
     "correct": 1,
-    "explanation": "Serve l'ordine 3: sin x = x − x³/6 + o(x³), quindi (sin x − x)/x³ → −1/6."
+    "explanation": "Order 3 is needed: sin x = x − x³/6 + o(x³), so (sin x − x)/x³ → −1/6."
   },
   {
     "id": "tf_tli_04",
@@ -384,49 +345,43 @@
     "type": "tf",
     "difficulty": 4,
     "question": "lim_{x→0} (1−cos x)/x² = 1/2.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "cos x = 1 − x²/2 + o(x²), quindi (1−cos x)/x² → 1/2."
+    "explanation": "cos x = 1 − x²/2 + o(x²), so (1−cos x)/x² → 1/2."
   },
   {
     "id": "tf_tli_05",
     "topicId": "taylor_limiti",
     "type": "tf",
     "difficulty": 5,
-    "question": "Taylor è sempre più efficiente di De L'Hôpital.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "Taylor is always more efficient than L'Hôpital's rule.",
+    "options": ["True", "False"],
     "correct": 1,
-    "explanation": "Dipende dal caso. A volte De L'Hôpital è più semplice; per forme 0/0 con sviluppi noti, Taylor spesso è più rapido."
+    "explanation": "It depends on the case. Sometimes L'Hôpital is simpler; for 0/0 forms with known expansions, Taylor is often faster."
   },
   {
     "id": "arr_taylor_01",
     "topicId": "taylor_peano",
     "type": "arrange",
     "difficulty": 3,
-    "question": "La formula di Taylor-Peano approssima f(x) vicino a x₀ con:",
+    "question": "The Taylor-Peano formula approximates f(x) near x₀ with:",
     "bank": [
-      "un",
-      "polinomio",
-      "di",
-      "grado",
+      "a",
+      "polynomial",
+      "of",
+      "degree",
       "n",
-      "una",
-      "serie",
-      "infinita"
+      "an",
+      "infinite",
+      "series"
     ],
     "correct": [
-      "un",
-      "polinomio",
-      "di",
-      "grado",
+      "a",
+      "polynomial",
+      "of",
+      "degree",
       "n"
     ],
-    "explanation": "Taylor-Peano fornisce Pₙ(x) = Σ_{k=0}^n f⁽ᵏ⁾(x₀)/k! · (x−x₀)ᵏ con errore o((x−x₀)ⁿ)."
+    "explanation": "Taylor-Peano gives Pₙ(x) = Σ_{k=0}^n f⁽ᵏ⁾(x₀)/k! · (x−x₀)ᵏ with error o((x−x₀)ⁿ)."
   }
 ]

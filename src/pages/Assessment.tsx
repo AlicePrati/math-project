@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { SECTIONS } from '../data/topics';
 import {
   INITIAL_REASSESSMENT_DAYS,
@@ -100,37 +100,37 @@ function WelcomeScreen({
         {isReassessment ? (
           <>
             <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3">
-              Tempo di rivalutarti!
+              Time to reassess!
             </h1>
             <p className="text-gray-500 dark:text-gray-400 mb-8 leading-relaxed">
-              Scegli gli argomenti su cui vuoi testarti. Le domande vengono mescolate
-              ogni volta, così il test è sempre fresco. Puoi farne quanti vuoi e tornare
-              alla dashboard in qualsiasi momento.
+              Choose the sections you want to be tested on. Questions are randomised
+              every time, so each quiz is always fresh. Do as many as you like and return
+              to the dashboard whenever you want.
             </p>
           </>
         ) : (
           <>
             <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3">
-              Benvenuta in Analisi 1 Tracker
+              Welcome to Analysis 1 Tracker
             </h1>
             <p className="text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">
-              Scegli gli argomenti su cui vuoi testarti: per ognuno risponderai a
-              10 domande e riceverai le stelline automaticamente.
+              Choose the sections you want to be tested on: for each one you'll answer
+              10 questions and receive a star rating automatically.
             </p>
             <p className="text-sm text-gray-400 dark:text-gray-500 mb-8">
-              Puoi farne quanti vuoi e procedere alla dashboard quando vuoi.
-              Il test si ripete ogni {nextInterval} giorni.
+              Do as many as you like and go to the dashboard whenever you want.
+              The quiz repeats every {nextInterval} days.
             </p>
           </>
         )}
 
         <div className="grid grid-cols-5 gap-1.5 mb-8">
           {[
-            { label: '1★', sub: '0-2 giuste', color: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300' },
-            { label: '2★', sub: '3-4 giuste', color: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300' },
-            { label: '3★', sub: '5-6 giuste', color: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300' },
-            { label: '4★', sub: '7-9 giuste', color: 'bg-lime-100 dark:bg-lime-900/30 text-lime-700 dark:text-lime-300' },
-            { label: '5★', sub: '10 giuste', color: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300' },
+            { label: '1★', sub: '0-2 correct', color: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300' },
+            { label: '2★', sub: '3-4 correct', color: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300' },
+            { label: '3★', sub: '5-6 correct', color: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300' },
+            { label: '4★', sub: '7-9 correct', color: 'bg-lime-100 dark:bg-lime-900/30 text-lime-700 dark:text-lime-300' },
+            { label: '5★', sub: '10 correct', color: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300' },
           ].map((l) => (
             <div key={l.label} className={`rounded-lg py-2 px-1 text-center text-xs font-semibold ${l.color}`}>
               <div className="font-bold mb-0.5">{l.label}</div>
@@ -143,7 +143,7 @@ function WelcomeScreen({
           onClick={onStart}
           className="w-full py-3 px-6 bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-white font-semibold rounded-xl transition-colors text-base"
         >
-          {isReassessment ? 'Scegli gli argomenti' : 'Inizia'}
+          {isReassessment ? 'Choose sections' : 'Start'}
         </button>
       </div>
     </div>
@@ -196,7 +196,7 @@ function TopicSelectScreen({
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center justify-between mb-1">
             <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-sm">
-              {isReassessment ? 'Rivalutazione' : 'Valutazione iniziale'}
+              {isReassessment ? 'Reassessment' : 'Initial assessment'}
             </h2>
             <span className="text-xs text-gray-400 dark:text-gray-500">
               {doneCount}/{schedule.length} sezioni
@@ -236,11 +236,11 @@ function TopicSelectScreen({
                   {group.label}
                 </p>
                 <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
-                  {group.questions.length} domande · difficoltà crescente
+                  {group.questions.length} questions · increasing difficulty
                 </p>
                 {isReassessment && avgPrev !== undefined && !isDone && (
                   <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
-                    Media precedente: {avgPrev}★
+                    Previous average: {avgPrev}★
                   </p>
                 )}
               </div>
@@ -256,7 +256,7 @@ function TopicSelectScreen({
                     : 'bg-amber-500 hover:bg-amber-400 text-white',
                 ].join(' ')}
               >
-                {isDone ? 'Rifai' : 'Inizia'}
+                {isDone ? 'Redo' : 'Start'}
               </button>
             </div>
           );
@@ -270,14 +270,14 @@ function TopicSelectScreen({
             onClick={onFinish}
             className="w-full py-3 rounded-xl font-semibold text-base bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-white transition-colors flex items-center justify-center gap-2"
           >
-            {doneCount === 0 ? 'Salta per ora' : 'Vai alla Dashboard'}
+            {doneCount === 0 ? 'Skip for now' : 'Go to Dashboard'}
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
             </svg>
           </button>
           {doneCount > 0 && (
             <p className="text-center text-xs text-gray-400 dark:text-gray-500 mt-1.5">
-              {doneCount} sezione{doneCount !== 1 ? 'i' : ''} completata{doneCount !== 1 ? 'e' : ''} · puoi continuare in seguito
+              {doneCount} section{doneCount !== 1 ? 's' : ''} completed · you can continue later
             </p>
           )}
         </div>
@@ -378,10 +378,10 @@ function SingleTopicQuiz({
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
               </svg>
-              Sezioni
+              Sections
             </button>
             <div className="flex-1 text-center">
-              <p className="text-xs text-gray-400 dark:text-gray-500">Quiz sezione</p>
+              <p className="text-xs text-gray-400 dark:text-gray-500">Section quiz</p>
               <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 leading-tight">{group.label}</p>
             </div>
             <span className="text-xs text-gray-400 dark:text-gray-500 w-16 text-right tabular-nums">
@@ -411,7 +411,7 @@ function SingleTopicQuiz({
       <main className="flex-1 max-w-2xl mx-auto w-full px-4 py-6 pb-32">
         <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 mb-4">
           <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 inline-block mb-4">
-            Difficoltà {question.difficulty}
+            Difficulty {question.difficulty}
           </span>
           <p className="text-gray-900 dark:text-gray-100 text-base leading-relaxed font-medium">
             {question.question}
@@ -465,7 +465,7 @@ function SingleTopicQuiz({
           <>
             <div className="min-h-14 flex flex-wrap gap-2 p-3 rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 mb-3">
               {placed.length === 0 ? (
-                <p className="text-sm text-gray-400 dark:text-gray-500 self-center">Tocca le parole qui sotto…</p>
+                <p className="text-sm text-gray-400 dark:text-gray-500 self-center">Tap the words below…</p>
               ) : (
                 placed.map((bankIdx, pos) => {
                   const word = shuffledBank[bankIdx];
@@ -513,10 +513,10 @@ function SingleTopicQuiz({
               ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800 text-green-800 dark:text-green-200'
               : 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-200'
           }`}>
-            <p className="font-semibold mb-1">{isCurrentCorrect ? '✓ Corretto!' : '✗ Sbagliato'}</p>
+            <p className="font-semibold mb-1">{isCurrentCorrect ? '✓ Correct!' : '✗ Wrong'}</p>
             {isArrange && !isCurrentCorrect && (
               <p className="mb-1">
-                Risposta corretta: <strong>{(question as ArrangeQuestion).correct.join(' ')}</strong>
+                Correct answer: <strong>{(question as ArrangeQuestion).correct.join(' ')}</strong>
               </p>
             )}
             <p>{question.explanation}</p>
@@ -538,10 +538,10 @@ function SingleTopicQuiz({
             ].join(' ')}
           >
             {!showFeedback
-              ? 'Conferma risposta'
+              ? 'Check answer'
               : isLastQuestion
-              ? 'Vedi risultato →'
-              : 'Prossima domanda →'}
+              ? 'See result →'
+              : 'Next question →'}
           </button>
         </div>
       </div>
@@ -569,11 +569,11 @@ function TopicResultScreen({
   onFinish: () => void;
 }) {
   const RATING_MSG: Record<number, string> = {
-    1: 'Questa sezione ha bisogno di molto lavoro. Inizia dall\'inizio.',
-    2: 'Basi presenti ma fragili. Ripassa i concetti fondamentali.',
-    3: 'Discreta padronanza. Consolida i punti ancora incerti.',
-    4: 'Buona preparazione. Rifinisci i dettagli.',
-    5: 'Ottimo! Sezione padroneggiata.',
+    1: 'This section needs a lot of work. Start from the beginning.',
+    2: 'Foundations are there but fragile. Review the core concepts.',
+    3: 'Decent understanding. Consolidate the uncertain points.',
+    4: 'Good preparation. Polish the details.',
+    5: 'Excellent! Section mastered.',
   };
 
   return (
@@ -583,7 +583,7 @@ function TopicResultScreen({
         {/* Risultato */}
         <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 text-center">
           <p className="text-xs text-gray-400 dark:text-gray-500 uppercase tracking-wide mb-1">
-            Sezione completata
+            Section complete
           </p>
           <p className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">
             {group.label}
@@ -600,11 +600,11 @@ function TopicResultScreen({
         {/* Info argomenti */}
         <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-2xl p-4">
           <p className="text-xs font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-400 mb-1">
-            Stelline assegnate
+            Stars assigned
           </p>
           <p className="text-sm text-blue-700 dark:text-blue-300 leading-relaxed">
-            Il voto è stato applicato a tutti gli {group.appTopicIds.length} argomenti di questa sezione.
-            Puoi vedere i piani di studio dettagliati per argomento nel Tracker.
+            The rating has been applied to all {group.appTopicIds.length} topics in this section.
+            You can view detailed study plans for each topic in the Tracker.
           </p>
         </div>
       </div>
@@ -616,13 +616,13 @@ function TopicResultScreen({
             onClick={onFinish}
             className="flex-1 py-3 rounded-xl font-semibold text-sm border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
           >
-            Vai alla Dashboard
+            Go to Dashboard
           </button>
           <button
             onClick={onNext}
             className="flex-1 py-3 rounded-xl font-semibold text-sm bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-white transition-colors"
           >
-            Prossima sezione →
+            Next section →
           </button>
         </div>
       </div>
@@ -635,6 +635,7 @@ function TopicResultScreen({
 export default function Assessment() {
   const { data, completeAssessment } = useTracker();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const isReassessment = data.onboardingComplete;
 
@@ -643,9 +644,15 @@ export default function Assessment() {
     [isReassessment],
   );
 
-  const [screen, setScreen] = useState<Screen>('welcome');
+  // Se arriva con ?section=sectionId salta direttamente al quiz
+  const autoSectionId = searchParams.get('section');
+  const autoGroup = autoSectionId
+    ? schedule.find((g) => g.sectionId === autoSectionId) ?? null
+    : null;
+
+  const [screen, setScreen] = useState<Screen>(() => autoGroup ? 'quiz' : 'welcome');
   const [sessionRatings, setSessionRatings] = useState<Record<string, number>>({});
-  const [activeGroup, setActiveGroup] = useState<QuizGroup | null>(null);
+  const [activeGroup, setActiveGroup] = useState<QuizGroup | null>(() => autoGroup);
   const [lastResult, setLastResult] = useState<{ group: QuizGroup; rating: 1|2|3|4|5 } | null>(null);
 
   function handleSelectTopic(group: QuizGroup) {

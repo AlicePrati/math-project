@@ -1,62 +1,40 @@
 import type { Section } from '../data/topics';
 
+const STAR_COLOR: Record<number, string> = {
+  1: 'text-red-400',
+  2: 'text-orange-400',
+  3: 'text-yellow-400',
+  4: 'text-lime-400',
+  5: 'text-green-400',
+};
+
 interface SectionCardProps {
   section: Section;
-  ratings: Record<string, number>;
-  onClick: () => void;
-  onPianoClick: () => void;
+  rating: number;
+  onTest: () => void;
 }
 
-export function SectionCard({ section, ratings, onClick, onPianoClick }: SectionCardProps) {
-  const topicRatings = section.topics.map((t) => ratings[t.id] ?? 0);
-  const rated = topicRatings.filter((r) => r > 0);
-  const avg = rated.length > 0 ? rated.reduce((a, b) => a + b, 0) / rated.length : 0;
-  const critical = topicRatings.filter((r) => r > 0 && r <= 2).length;
-  const pct = (avg / 5) * 100;
-
+export function SectionCard({ section, rating, onTest }: SectionCardProps) {
   return (
     <div
-      className={[
-        'bg-white dark:bg-gray-800 rounded-xl text-left',
-        'border border-gray-200 dark:border-gray-700 border-l-4',
-        section.colors.border,
-        'hover:shadow-md transition-shadow w-full overflow-hidden',
-      ].join(' ')}
+      className={`bg-white rounded-xl border border-gray-200 border-l-4 ${section.colors.border} flex items-center gap-3 px-4 py-3`}
     >
-      <button onClick={onClick} className="w-full text-left p-4 pb-3">
-        <div className="flex items-start justify-between gap-2 mb-3">
-          <h3 className="font-semibold text-gray-900 dark:text-gray-100 text-sm leading-snug">
-            {section.label}
-          </h3>
-          {critical > 0 && (
-            <span className={`text-xs px-2 py-0.5 rounded-full font-medium flex-shrink-0 ${section.colors.badge}`}>
-              {critical} critici
-            </span>
-          )}
-        </div>
+      <span className="flex-1 text-sm font-semibold text-gray-800 leading-snug">
+        {section.label}
+      </span>
 
-        <div className="flex items-center gap-2">
-          <div className="flex-1 h-1.5 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
-            <div
-              className={`h-full rounded-full transition-all duration-500 ${section.colors.bar}`}
-              style={{ width: `${pct}%` }}
-            />
-          </div>
-          <span className="text-xs text-gray-500 dark:text-gray-400 w-8 text-right tabular-nums">
-            {avg > 0 ? avg.toFixed(1) : '—'}★
-          </span>
-        </div>
+      <span
+        className={`text-base tracking-wider flex-shrink-0 ${rating > 0 ? STAR_COLOR[rating] : 'text-gray-300'}`}
+      >
+        {'★'.repeat(rating)}{'☆'.repeat(5 - rating)}
+      </span>
 
+      <button
+        onClick={onTest}
+        className="flex-shrink-0 text-xs font-semibold px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-white transition-colors"
+      >
+        Take the quiz →
       </button>
-
-      <div className="px-4 pb-3">
-        <button
-          onClick={onPianoClick}
-          className="text-xs px-2.5 py-1 rounded-md bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 hover:bg-amber-200 dark:hover:bg-amber-900/50 font-medium transition-colors"
-        >
-          Piano di studio
-        </button>
-      </div>
     </div>
   );
 }

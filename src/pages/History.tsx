@@ -27,18 +27,18 @@ function formatWeekLabel(isoWeek: string): string {
   const jan4 = new Date(parseInt(year), 0, 4);
   const monday = new Date(jan4);
   monday.setDate(jan4.getDate() - ((jan4.getDay() + 6) % 7) + (w - 1) * 7);
-  return monday.toLocaleDateString('it-IT', { day: '2-digit', month: 'short' });
+  return monday.toLocaleDateString('en-US', { day: '2-digit', month: 'short' });
 }
 
 function relativeTime(isoTs: string): string {
   const diff = Date.now() - new Date(isoTs).getTime();
   const days = Math.floor(diff / 86_400_000);
-  if (days === 0) return 'oggi';
-  if (days === 1) return 'ieri';
-  if (days < 7) return `${days} giorni fa`;
+  if (days === 0) return 'today';
+  if (days === 1) return 'yesterday';
+  if (days < 7) return `${days} days ago`;
   const weeks = Math.floor(days / 7);
-  if (weeks < 5) return `${weeks} sett. fa`;
-  return `${Math.floor(days / 30)} mesi fa`;
+  if (weeks < 5) return `${weeks}w ago`;
+  return `${Math.floor(days / 30)}mo ago`;
 }
 
 function buildChartData(history: RatingChange[]) {
@@ -75,17 +75,17 @@ export default function History() {
 
   return (
     <div className="p-4 md:p-6 max-w-3xl mx-auto">
-      <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Storico</h1>
+      <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">History</h1>
 
       {/* Chart */}
       <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-4 mb-6">
         <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4">
-          Media valutazioni nel tempo
+          Average rating over time
         </h2>
 
         {chartData.length === 0 ? (
           <div className="flex items-center justify-center h-48 text-sm text-gray-400 dark:text-gray-500">
-            Nessuna modifica ancora — inizia a valutare gli argomenti nel Tracker.
+            No changes yet — start rating topics in the Tracker.
           </div>
         ) : (
           <ResponsiveContainer width="100%" height={240}>
@@ -105,7 +105,7 @@ export default function History() {
                 axisLine={false}
               />
               <Tooltip
-                formatter={(v) => [`${v}★`, 'Media']}
+                formatter={(v) => [`${v}★`, 'Average']}
                 contentStyle={{
                   backgroundColor: '#ffffff',
                   borderColor: '#E5E7EB',
@@ -131,14 +131,14 @@ export default function History() {
       <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
         <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700">
           <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-300">
-            Modifiche recenti{' '}
+            Recent changes{' '}
             <span className="font-normal text-gray-400">({data.history.length})</span>
           </h2>
         </div>
 
         {sortedHistory.length === 0 ? (
           <p className="px-4 py-6 text-sm text-gray-400 dark:text-gray-500 text-center">
-            Nessuna modifica ancora.
+            No changes yet.
           </p>
         ) : (
           <ul className="divide-y divide-gray-50 dark:divide-gray-700/50">

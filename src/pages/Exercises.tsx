@@ -104,7 +104,7 @@ function ExerciseSession({
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
               </svg>
-              Argomenti
+              Topics
             </button>
             <div className="flex-1 text-center">
               <p className="text-xs text-gray-400 dark:text-gray-500">{section?.label}</p>
@@ -140,11 +140,11 @@ function ExerciseSession({
         <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 mb-4">
           <div className="flex items-center gap-2 mb-4">
             <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300">
-              Difficoltà {exercise.difficulty}
+              Difficulty {exercise.difficulty}
             </span>
             {isCompleted(exercise.id) && !showFeedback && (
               <span className="text-xs px-2 py-0.5 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300">
-                ✓ già fatto
+                ✓ done
               </span>
             )}
           </div>
@@ -202,7 +202,7 @@ function ExerciseSession({
           <>
             <div className="min-h-14 flex flex-wrap gap-2 p-3 rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 mb-3">
               {placed.length === 0 ? (
-                <p className="text-sm text-gray-400 dark:text-gray-500 self-center">Tocca le parole qui sotto…</p>
+                <p className="text-sm text-gray-400 dark:text-gray-500 self-center">Tap the words below…</p>
               ) : (
                 placed.map((bankIdx, pos) => {
                   const word = shuffledBank[bankIdx];
@@ -249,9 +249,9 @@ function ExerciseSession({
               ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800 text-green-800 dark:text-green-200'
               : 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-200'
           }`}>
-            <p className="font-semibold mb-1">{isCurrentCorrect ? '✓ Corretto!' : '✗ Sbagliato'}</p>
+            <p className="font-semibold mb-1">{isCurrentCorrect ? '✓ Correct!' : '✗ Wrong'}</p>
             {isArrange && !isCurrentCorrect && (
-              <p className="mb-1">Risposta corretta: <strong>{(exercise as ArrangeQuestion).correct.join(' ')}</strong></p>
+              <p className="mb-1">Correct answer: <strong>{(exercise as ArrangeQuestion).correct.join(' ')}</strong></p>
             )}
             <p>{exercise.explanation}</p>
           </div>
@@ -270,7 +270,7 @@ function ExerciseSession({
                 : 'bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-white',
             ].join(' ')}
           >
-            {!showFeedback ? 'Conferma risposta' : isLast ? 'Torna agli argomenti' : 'Prossimo esercizio →'}
+            {!showFeedback ? 'Check answer' : isLast ? 'Back to topics' : 'Next exercise →'}
           </button>
         </div>
       </div>
@@ -304,11 +304,11 @@ export default function Exercises() {
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
           </svg>
-          Sezioni
+          Sections
         </button>
 
         <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">{section.label}</h2>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mb-5">Scegli l'argomento su cui esercitarti.</p>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mb-5">Choose a topic to practice.</p>
 
         <div className="space-y-3">
           {topicIds.map((topicId) => {
@@ -326,7 +326,7 @@ export default function Exercises() {
                     {getTopicLabel(topicId)}
                   </p>
                   <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
-                    {done}/{total} completati
+                    {done}/{total} completed
                   </p>
                 </div>
 
@@ -343,7 +343,7 @@ export default function Exercises() {
                       : 'bg-amber-500 hover:bg-amber-400 text-white',
                   ].join(' ')}
                 >
-                  {done > 0 ? 'Riprendi' : 'Inizia'}
+                  {done > 0 ? 'Continue' : 'Start'}
                 </button>
               </div>
             );
@@ -370,9 +370,9 @@ export default function Exercises() {
   // ── Section select screen ──────────────────────────────────────────────────
   return (
     <div className="p-4 md:p-6 max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">Esercizi</h1>
+      <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">Exercises</h1>
       <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
-        Pratica libera — le risposte non influiscono sulle tue stelline.
+        Free practice — answers don't affect your star ratings.
       </p>
 
       <div className="space-y-3">
@@ -392,7 +392,7 @@ export default function Exercises() {
                   {section.label}
                 </p>
                 <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
-                  {isEmpty ? 'Presto disponibile' : `${done}/${total} completati`}
+                  {isEmpty ? 'Coming soon' : `${done}/${total} completed`}
                 </p>
               </div>
 
@@ -412,7 +412,7 @@ export default function Exercises() {
                     : 'bg-amber-500 hover:bg-amber-400 text-white',
                 ].join(' ')}
               >
-                {isEmpty ? 'Presto' : done > 0 ? 'Riprendi' : 'Inizia'}
+                {isEmpty ? 'Soon' : done > 0 ? 'Continue' : 'Start'}
               </button>
             </div>
           );

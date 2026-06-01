@@ -4,221 +4,218 @@
     "topicId": "improprio_illimitato",
     "type": "mcq",
     "difficulty": 1,
-    "question": "L'integrale improprio ∫₁^∞ 1/x² dx vale:",
+    "question": "The improper integral ∫₁^∞ 1/x² dx equals:",
     "options": [
       "1",
       "∞",
       "2",
-      "Non converge"
+      "Does not converge"
     ],
-    "explanation": "∫₁^R 1/x² dx = [−1/x]₁^R = −1/R + 1 → 1 per R→+∞."
+    "explanation": "∫₁^R 1/x² dx = [−1/x]₁^R = −1/R + 1 → 1 as R→+∞."
   },
   {
     "id": "imp_02",
     "topicId": "improprio_illimitato",
     "type": "mcq",
     "difficulty": 2,
-    "question": "L'integrale ∫₁^∞ 1/x dx:",
+    "question": "The integral ∫₁^∞ 1/x dx:",
     "options": [
-      "Diverge a +∞",
-      "Converge a 1",
-      "Converge a ln(2)",
-      "Converge a 0"
+      "Diverges to +∞",
+      "Converges to 1",
+      "Converges to ln(2)",
+      "Converges to 0"
     ],
-    "explanation": "∫₁^R 1/x dx = [ln x]₁^R = ln R → +∞. L'integrale diverge."
+    "explanation": "∫₁^R 1/x dx = [ln x]₁^R = ln R → +∞. The integral diverges."
   },
   {
     "id": "imp_03",
     "topicId": "improprio_illimitato",
     "type": "mcq",
     "difficulty": 3,
-    "question": "Per quali valori di α ∈ ℝ l'integrale ∫₁^∞ 1/xᵅ dx converge?",
+    "question": "For which values of α ∈ ℝ does ∫₁^∞ 1/xᵅ dx converge?",
     "options": [
       "α > 1",
       "α > 0",
       "α ≥ 1",
       "α < 1"
     ],
-    "explanation": "Per α>1: x^(1−α) → 0 per x→∞, quindi converge a 1/(α−1). Per α≤1: diverge. Converge solo per α>1."
+    "explanation": "For α>1: x^(1−α) → 0 as x→∞, so it converges to 1/(α−1). For α≤1: diverges. Convergence only for α>1."
   },
   {
     "id": "imp_04",
     "topicId": "improprio_illimitato",
     "type": "mcq",
     "difficulty": 4,
-    "question": "L'integrale ∫₋∞^∞ e^(−x²) dx (integrale di Gauss) vale:",
+    "question": "The Gaussian integral ∫₋∞^∞ e^(−x²) dx equals:",
     "options": [
       "√π",
       "1",
       "π",
       "2"
     ],
-    "explanation": "∫₋∞^∞ e^(−x²) dx = √π. Si dimostra calcolando il quadrato e passando in coordinate polari: (∫ e^(−x²)dx)² = π."
+    "explanation": "∫₋∞^∞ e^(−x²) dx = √π. Proved by squaring and switching to polar coordinates: (∫ e^(−x²)dx)² = π."
   },
   {
     "id": "imp_05",
     "topicId": "improprio_illimitato",
     "type": "mcq",
     "difficulty": 5,
-    "question": "La funzione Γ (gamma) è definita da:",
+    "question": "The Gamma function is defined by:",
     "options": [
-      "Γ(s) = ∫₀^∞ t^(s−1)·e^(−t) dt per s > 0",
-      "Γ(n) = n! per n intero",
+      "Γ(s) = ∫₀^∞ t^(s−1)·e^(−t) dt for s > 0",
+      "Γ(n) = n! for integer n",
       "Γ(s) = ∑ 1/nˢ",
       "Γ(s) = ∫₀¹ tˢ dt"
     ],
-    "explanation": "La funzione Gamma di Eulero: Γ(s) = ∫₀^∞ t^(s−1)·e^(−t) dt per s>0. Soddisfa Γ(n+1) = n·Γ(n), quindi Γ(n) = (n−1)! per n intero positivo."
+    "explanation": "Euler's Gamma function: Γ(s) = ∫₀^∞ t^(s−1)·e^(−t) dt for s>0. It satisfies Γ(n+1) = n·Γ(n), so Γ(n) = (n−1)! for positive integers."
   },
   {
     "id": "imp_f_01",
     "topicId": "improprio_funzione",
     "type": "mcq",
     "difficulty": 1,
-    "question": "L'integrale improprio ∫₀¹ 1/√x dx vale:",
+    "question": "The improper integral ∫₀¹ 1/√x dx equals:",
     "options": [
       "2",
       "∞",
       "1",
-      "Non esiste"
+      "Does not exist"
     ],
-    "explanation": "∫_ε¹ x^(−1/2) dx = [2√x]_ε¹ = 2 − 2√ε → 2 per ε→0⁺."
+    "explanation": "∫_ε¹ x^(−1/2) dx = [2√x]_ε¹ = 2 − 2√ε → 2 as ε→0⁺."
   },
   {
     "id": "imp_f_02",
     "topicId": "improprio_funzione",
     "type": "mcq",
     "difficulty": 2,
-    "question": "Per quali α > 0 converge ∫₀¹ 1/xᵅ dx?",
+    "question": "For which α > 0 does ∫₀¹ 1/xᵅ dx converge?",
     "options": [
       "α < 1",
       "α > 1",
       "α ≥ 1",
       "α > 0"
     ],
-    "explanation": "Per α<1: x^(1−α) → 0 per x→0⁺, converge a 1/(1−α). Per α≥1: diverge. Converge solo per α<1."
+    "explanation": "For α<1: x^(1−α) → 0 as x→0⁺, converges to 1/(1−α). For α≥1: diverges. Convergence only for α<1."
   },
   {
     "id": "imp_f_03",
     "topicId": "improprio_funzione",
     "type": "mcq",
     "difficulty": 3,
-    "question": "L'integrale ∫₀¹ ln(x) dx:",
+    "question": "The integral ∫₀¹ ln(x) dx:",
     "options": [
-      "Vale −1",
-      "Diverge a −∞",
-      "Vale 0",
-      "Converge a 1"
+      "Equals −1",
+      "Diverges to −∞",
+      "Equals 0",
+      "Converges to 1"
     ],
-    "explanation": "∫_ε¹ ln x dx = [x·ln x − x]_ε¹ = (0−1) − (ε·ln ε − ε). Poiché lim_{ε→0⁺} ε·ln ε = 0, il risultato è −1."
+    "explanation": "∫_ε¹ ln x dx = [x·ln x − x]_ε¹ = (0−1) − (ε·ln ε − ε). Since lim_{ε→0⁺} ε·ln ε = 0, the result is −1."
   },
   {
     "id": "imp_f_04",
     "topicId": "improprio_funzione",
     "type": "mcq",
     "difficulty": 4,
-    "question": "L'integrale ∫₋₁¹ 1/x dx:",
+    "question": "The integral ∫₋₁¹ 1/x dx:",
     "options": [
-      "Non esiste (diverge)",
-      "Vale 0 per antisimmetria",
-      "Vale ln 2",
-      "Vale −ln 2"
+      "Does not exist (diverges)",
+      "Equals 0 by antisymmetry",
+      "Equals ln 2",
+      "Equals −ln 2"
     ],
-    "explanation": "L'integrale è improprio in x=0. ∫₀¹ 1/x dx = +∞, quindi l'integrale diverge. Il valore principale di Cauchy (VP=0) non è l'integrale improprio standard."
+    "explanation": "The integral is improper at x=0. Since ∫₀¹ 1/x dx = +∞, the integral diverges. The Cauchy principal value (PV=0) is not the standard improper integral."
   },
   {
     "id": "imp_f_05",
     "topicId": "improprio_funzione",
     "type": "mcq",
     "difficulty": 5,
-    "question": "La funzione Beta di Eulero B(p,q) = ∫₀¹ x^(p−1)·(1−x)^(q−1) dx converge per:",
+    "question": "The Euler Beta function B(p,q) = ∫₀¹ x^(p−1)·(1−x)^(q−1) dx converges for:",
     "options": [
       "p,q > 0",
       "p,q > 1",
       "p+q > 1",
-      "p,q qualsiasi"
+      "any p,q"
     ],
-    "explanation": "B(p,q) converge per p,q>0. Singolarità in 0 converge per p>0, quella in 1 per q>0. Vale B(p,q) = Γ(p)·Γ(q)/Γ(p+q)."
+    "explanation": "B(p,q) converges for p,q>0. The singularity at 0 converges for p>0, at 1 for q>0. B(p,q) = Γ(p)·Γ(q)/Γ(p+q)."
   },
   {
     "id": "cri_01",
     "topicId": "criteri_conv",
     "type": "mcq",
     "difficulty": 1,
-    "question": "Il criterio del confronto: se 0 ≤ f(x) ≤ g(x) e ∫ g converge, allora:",
+    "question": "Comparison test: if 0 ≤ f(x) ≤ g(x) and ∫ g converges, then:",
     "options": [
-      "∫ f converge",
-      "∫ g diverge",
-      "∫ f diverge",
-      "Non si può concludere nulla"
+      "∫ f converges",
+      "∫ g diverges",
+      "∫ f diverges",
+      "Nothing can be concluded"
     ],
-    "explanation": "Criterio del confronto: 0 ≤ f ≤ g. Se ∫ g converge → ∫ f converge. Se ∫ f diverge → ∫ g diverge."
+    "explanation": "Comparison test: 0 ≤ f ≤ g. If ∫ g converges → ∫ f converges. If ∫ f diverges → ∫ g diverges."
   },
   {
     "id": "cri_02",
     "topicId": "criteri_conv",
     "type": "mcq",
     "difficulty": 2,
-    "question": "Per stabilire se ∫₁^∞ sin²(x)/x² dx converge, si usa che sin²(x) ≤ 1, quindi:",
+    "question": "To determine whether ∫₁^∞ sin²(x)/x² dx converges, we use sin²(x) ≤ 1, therefore:",
     "options": [
-      "sin²(x)/x² ≤ 1/x² e ∫ 1/x² converge → converge",
-      "sin²(x)/x² ≥ 0 → converge",
-      "La funzione oscilla → diverge",
-      "Non si può determinare"
+      "sin²(x)/x² ≤ 1/x² and ∫ 1/x² converges → converges",
+      "sin²(x)/x² ≥ 0 → converges",
+      "The function oscillates → diverges",
+      "Cannot be determined"
     ],
-    "explanation": "0 ≤ sin²(x)/x² ≤ 1/x². Poiché ∫₁^∞ 1/x² dx = 1 converge, per confronto anche ∫₁^∞ sin²(x)/x² dx converge."
+    "explanation": "0 ≤ sin²(x)/x² ≤ 1/x². Since ∫₁^∞ 1/x² dx = 1 converges, by comparison ∫₁^∞ sin²(x)/x² dx also converges."
   },
   {
     "id": "cri_03",
     "topicId": "criteri_conv",
     "type": "mcq",
     "difficulty": 3,
-    "question": "Il criterio asintotico afferma: se f(x) ~ g(x) per x→+∞ (con g > 0), allora:",
+    "question": "The asymptotic comparison test: if f(x) ~ g(x) as x→+∞ (with g > 0), then:",
     "options": [
-      "∫ f e ∫ g hanno lo stesso comportamento (entrambe convergono o entrambe divergono)",
-      "∫ f converge sempre",
-      "∫ f converge se e solo se f è decrescente",
-      "∫ f ≤ ∫ g sempre"
+      "∫ f and ∫ g behave the same way (both converge or both diverge)",
+      "∫ f always converges",
+      "∫ f converges if and only if f is decreasing",
+      "∫ f ≤ ∫ g always"
     ],
-    "explanation": "Criterio asintotico: se f ~ g (lim f/g = 1) per x→+∞ con g>0, allora ∫ f e ∫ g si comportano allo stesso modo."
+    "explanation": "Asymptotic test: if f ~ g (lim f/g = 1) as x→+∞ with g>0, then ∫ f and ∫ g behave the same way."
   },
   {
     "id": "cri_04",
     "topicId": "criteri_conv",
     "type": "mcq",
     "difficulty": 4,
-    "question": "Determinare se ∫₂^∞ 1/(x·ln x) dx converge o diverge.",
+    "question": "Determine whether ∫₂^∞ 1/(x·ln x) dx converges or diverges.",
     "options": [
-      "Diverge, perché ∫₂^R 1/(x ln x) dx = [ln(ln x)]₂^R → +∞",
-      "Converge, perché 1/(x ln x) < 1/x²",
-      "Converge a 1/ln 2",
-      "Dipende dall'estremo inferiore"
+      "Diverges, because ∫₂^R 1/(x ln x) dx = [ln(ln x)]₂^R → +∞",
+      "Converges, because 1/(x ln x) < 1/x²",
+      "Converges to 1/ln 2",
+      "Depends on the lower bound"
     ],
-    "explanation": "∫₂^R dx/(x ln x) = [ln(ln x)]₂^R = ln(ln R) − ln(ln 2) → +∞. Diverge."
+    "explanation": "∫₂^R dx/(x ln x) = [ln(ln x)]₂^R = ln(ln R) − ln(ln 2) → +∞. Diverges."
   },
   {
     "id": "cri_05",
     "topicId": "criteri_conv",
     "type": "mcq",
     "difficulty": 5,
-    "question": "L'integrale ∫₀^∞ sin(x)/x dx (integrale di Dirichlet) è:",
+    "question": "The Dirichlet integral ∫₀^∞ sin(x)/x dx is:",
     "options": [
-      "Convergente e vale π/2",
-      "Convergente e vale π",
-      "Divergente perché sin(x)/x oscilla",
-      "Assolutamente convergente"
+      "Convergent and equals π/2",
+      "Convergent and equals π",
+      "Divergent because sin(x)/x oscillates",
+      "Absolutely convergent"
     ],
-    "explanation": "∫₀^∞ sin(x)/x dx = π/2. Converge (integrazione per parti), ma NON assolutamente (∫ |sin x|/x dx = ∞)."
+    "explanation": "∫₀^∞ sin(x)/x dx = π/2. It converges (integration by parts), but NOT absolutely (∫ |sin x|/x dx = ∞)."
   },
   {
     "id": "tf_imp_01",
     "topicId": "improprio_illimitato",
     "type": "tf",
     "difficulty": 1,
-    "question": "∫₁^∞ 1/x² dx converge.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "∫₁^∞ 1/x² dx converges.",
+    "options": ["True", "False"],
     "correct": 0,
     "explanation": "∫₁^R 1/x² dx = [−1/x]₁^R = 1 − 1/R → 1."
   },
@@ -227,26 +224,20 @@
     "topicId": "improprio_illimitato",
     "type": "tf",
     "difficulty": 2,
-    "question": "∫₁^∞ 1/x dx converge.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "∫₁^∞ 1/x dx converges.",
+    "options": ["True", "False"],
     "correct": 1,
-    "explanation": "∫₁^R 1/x dx = ln R → +∞. Diverge."
+    "explanation": "∫₁^R 1/x dx = ln R → +∞. Diverges."
   },
   {
     "id": "tf_imp_03",
     "topicId": "improprio_illimitato",
     "type": "tf",
     "difficulty": 3,
-    "question": "∫₁^∞ 1/xᵅ dx converge se e solo se α > 1.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "∫₁^∞ 1/xᵅ dx converges if and only if α > 1.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Criterio fondamentale: per α>1 converge a 1/(α−1), per α≤1 diverge."
+    "explanation": "Key criterion: converges for α>1 to 1/(α−1), diverges for α≤1."
   },
   {
     "id": "tf_imp_04",
@@ -254,10 +245,7 @@
     "type": "tf",
     "difficulty": 4,
     "question": "∫₀^∞ e^(−x) dx = 1.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "options": ["True", "False"],
     "correct": 0,
     "explanation": "[−e^(−x)]₀^∞ = 0 − (−1) = 1."
   },
@@ -267,23 +255,17 @@
     "type": "tf",
     "difficulty": 5,
     "question": "∫₋∞^∞ e^(−x²) dx = √π.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Integrale di Gauss: si dimostra passando in coordinate polari."
+    "explanation": "Gaussian integral: proved by switching to polar coordinates."
   },
   {
     "id": "tf_impf_01",
     "topicId": "improprio_funzione",
     "type": "tf",
     "difficulty": 1,
-    "question": "∫₀¹ 1/√x dx converge.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "∫₀¹ 1/√x dx converges.",
+    "options": ["True", "False"],
     "correct": 0,
     "explanation": "∫_ε¹ x^(−1/2)dx = [2√x]_ε¹ = 2 − 2√ε → 2."
   },
@@ -292,24 +274,18 @@
     "topicId": "improprio_funzione",
     "type": "tf",
     "difficulty": 2,
-    "question": "∫₀¹ 1/xᵅ dx converge se e solo se α < 1.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "∫₀¹ 1/xᵅ dx converges if and only if α < 1.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Duale del caso illimitato: converge per α<1, diverge per α≥1."
+    "explanation": "Dual of the unbounded case: converges for α<1, diverges for α≥1."
   },
   {
     "id": "tf_impf_03",
     "topicId": "improprio_funzione",
     "type": "tf",
     "difficulty": 3,
-    "question": "∫₀¹ ln(x) dx converge e vale −1.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "∫₀¹ ln(x) dx converges and equals −1.",
+    "options": ["True", "False"],
     "correct": 0,
     "explanation": "[x·ln x − x]₀¹ = (0−1) − (lim_{x→0⁺} x ln x − x) = −1 − 0 = −1."
   },
@@ -318,76 +294,58 @@
     "topicId": "improprio_funzione",
     "type": "tf",
     "difficulty": 4,
-    "question": "Se f ha una singolarità in c ∈ (a,b), ∫ₐᵇ f dx converge solo se convergono separatamente ∫ₐᶜ e ∫ᶜᵇ.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "If f has a singularity at c ∈ (a,b), ∫ₐᵇ f dx converges only if ∫ₐᶜ and ∫ᶜᵇ each converge separately.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Entrambi i troncamenti devono convergere indipendentemente."
+    "explanation": "Both truncations must converge independently."
   },
   {
     "id": "tf_impf_05",
     "topicId": "improprio_funzione",
     "type": "tf",
     "difficulty": 5,
-    "question": "∫₋₁¹ 1/x dx converge (valore principale di Cauchy).",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "∫₋₁¹ 1/x dx converges (Cauchy principal value).",
+    "options": ["True", "False"],
     "correct": 1,
-    "explanation": "L'integrale improprio standard diverge perché ∫₋₁⁰ 1/x dx = −∞. Il valore principale di Cauchy darebbe 0, ma non è l'integrale improprio."
+    "explanation": "The standard improper integral diverges because ∫₋₁⁰ 1/x dx = −∞. The Cauchy principal value gives 0, but that is not the standard improper integral."
   },
   {
     "id": "tf_cri_01",
     "topicId": "criteri_conv",
     "type": "tf",
     "difficulty": 1,
-    "question": "Se 0 ≤ f(x) ≤ g(x) e ∫g converge, allora ∫f converge.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "If 0 ≤ f(x) ≤ g(x) and ∫g converges, then ∫f converges.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Criterio del confronto per integrali impropri."
+    "explanation": "Comparison test for improper integrals."
   },
   {
     "id": "tf_cri_02",
     "topicId": "criteri_conv",
     "type": "tf",
     "difficulty": 2,
-    "question": "Se f(x) ~ g(x) per x → +∞ e g > 0, allora ∫f e ∫g hanno lo stesso comportamento.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "If f(x) ~ g(x) as x → +∞ and g > 0, then ∫f and ∫g behave the same way.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Criterio asintotico: se lim f/g = L ∈ (0,∞) le convergenze coincidono."
+    "explanation": "Asymptotic test: if lim f/g = L ∈ (0,∞) the convergences coincide."
   },
   {
     "id": "tf_cri_03",
     "topicId": "criteri_conv",
     "type": "tf",
     "difficulty": 3,
-    "question": "∫₁^∞ sin²(x)/x² dx converge.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "∫₁^∞ sin²(x)/x² dx converges.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "0 ≤ sin²x/x² ≤ 1/x² e ∫₁^∞1/x²dx=1 converge."
+    "explanation": "0 ≤ sin²x/x² ≤ 1/x² and ∫₁^∞1/x²dx=1 converges."
   },
   {
     "id": "tf_cri_04",
     "topicId": "criteri_conv",
     "type": "tf",
     "difficulty": 4,
-    "question": "∫₁^∞ 1/(x·ln x) dx diverge.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "∫₁^∞ 1/(x·ln x) dx diverges.",
+    "options": ["True", "False"],
     "correct": 0,
     "explanation": "∫₁^R dx/(x ln x) = [ln(ln x)]₁^R → +∞."
   },
@@ -396,12 +354,9 @@
     "topicId": "criteri_conv",
     "type": "tf",
     "difficulty": 5,
-    "question": "∫₀^∞ sin(x)/x dx converge assolutamente.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "∫₀^∞ sin(x)/x dx converges absolutely.",
+    "options": ["True", "False"],
     "correct": 1,
-    "explanation": "Converge condizionatamente (valore π/2) ma NON assolutamente: ∫|sin x|/x dx = +∞."
+    "explanation": "It converges conditionally (value π/2) but NOT absolutely: ∫|sin x|/x dx = +∞."
   }
 ]

@@ -57,11 +57,11 @@ function ExercisesIcon({ active }: { active: boolean }) {
 
 const NAV_ITEMS: NavItem[] = [
   { to: '/', label: 'Dashboard', icon: (a) => <HomeIcon active={a} /> },
-  { to: '/assessment', label: 'Test', icon: (a) => <TestIcon active={a} /> },
+  { to: '/assessment', label: 'Quiz', icon: (a) => <TestIcon active={a} /> },
   { to: '/tracker', label: 'Tracker', icon: (a) => <TrackerIcon active={a} /> },
-  { to: '/plan', label: 'Piano', icon: (a) => <PlanIcon active={a} /> },
-  { to: '/history', label: 'Storico', icon: (a) => <HistoryIcon active={a} /> },
-  { to: '/esercizi', label: 'Esercizi', icon: (a) => <ExercisesIcon active={a} /> },
+  { to: '/plan', label: 'Study Plan', icon: (a) => <PlanIcon active={a} /> },
+  { to: '/history', label: 'History', icon: (a) => <HistoryIcon active={a} /> },
+  { to: '/esercizi', label: 'Exercises', icon: (a) => <ExercisesIcon active={a} /> },
 ];
 
 function navLinkClass(active: boolean, sidebar: boolean) {
@@ -80,7 +80,7 @@ export function Nav() {
       {/* ── Desktop sidebar ── */}
       <aside className="hidden md:flex flex-col fixed left-0 top-0 bottom-0 w-56 bg-white border-r border-gray-200 z-40">
         <div className="px-4 pt-6 pb-4 border-b border-gray-100">
-          <h1 className="text-base font-bold text-gray-900">Analisi 1</h1>
+          <h1 className="text-base font-bold text-gray-900">Analysis 1</h1>
           <p className="text-xs text-gray-400">Competency Tracker</p>
         </div>
         <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
@@ -111,7 +111,7 @@ export function Nav() {
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
                 </svg>
-                <span>Esci</span>
+                <span>Log Out</span>
               </button>
             </>
           ) : (
@@ -122,7 +122,7 @@ export function Nav() {
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m-6-6l3-3m0 0l3 3m-3-3v12" />
               </svg>
-              <span>Accedi</span>
+              <span>Log In</span>
             </button>
           )}
         </div>

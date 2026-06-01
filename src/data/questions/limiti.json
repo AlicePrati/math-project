@@ -4,428 +4,410 @@
     "topicId": "limite_eps_delta",
     "type": "mcq",
     "difficulty": 1,
-    "question": "La definizione di lim_{x→a} f(x) = L richiede che:",
+    "question": "The definition of lim_{x→a} f(x) = L requires that:",
     "options": [
-      "Per ogni ε > 0 esiste δ > 0 tale che se 0 < |x−a| < δ allora |f(x)−L| < ε",
+      "For every ε > 0 there exists δ > 0 such that if 0 < |x−a| < δ then |f(x)−L| < ε",
       "f(a) = L",
-      "f sia continua in a",
-      "f sia definita in a"
+      "f is continuous at a",
+      "f is defined at a"
     ],
-    "explanation": "Definizione epsilon-delta: possiamo rendere f(x) vicino a L quanto vogliamo (< ε) prendendo x sufficientemente vicino ad a (0 < |x−a| < δ)."
+    "explanation": "Epsilon-delta definition: we can make f(x) as close to L as we want (< ε) by taking x sufficiently close to a (0 < |x−a| < δ)."
   },
   {
     "id": "eps_02",
     "topicId": "limite_eps_delta",
     "type": "mcq",
     "difficulty": 2,
-    "question": "Nella definizione di limite, la condizione 0 < |x−a| < δ serve a:",
+    "question": "In the definition of a limit, the condition 0 < |x−a| < δ serves to:",
     "options": [
-      "Escludere il punto a (il limite non richiede che f sia definita in a)",
-      "Includere il punto a nella verifica",
-      "Garantire che x sia positivo",
-      "Limitare il dominio di f"
+      "Exclude the point a (the limit does not require f to be defined at a)",
+      "Include the point a in the verification",
+      "Ensure that x is positive",
+      "Restrict the domain of f"
     ],
-    "explanation": "La condizione 0 < |x−a| (cioè x ≠ a) esclude il punto a. Il limite descrive il comportamento di f vicino ad a, indipendentemente da f(a)."
+    "explanation": "The condition 0 < |x−a| (i.e. x ≠ a) excludes the point a. The limit describes the behaviour of f near a, regardless of f(a)."
   },
   {
     "id": "eps_03",
     "topicId": "limite_eps_delta",
     "type": "mcq",
     "difficulty": 3,
-    "question": "Per dimostrare che lim_{x→2} (3x − 1) = 5, si sceglie δ =",
+    "question": "To prove that lim_{x→2} (3x − 1) = 5, one chooses δ =",
     "options": [
       "ε/3",
       "ε",
       "3ε",
       "ε²"
     ],
-    "explanation": "|f(x)−5| = |3x−6| = 3|x−2| < 3δ. Per avere 3δ ≤ ε basta δ = ε/3."
+    "explanation": "|f(x)−5| = |3x−6| = 3|x−2| < 3δ. To get 3δ ≤ ε it suffices to take δ = ε/3."
   },
   {
     "id": "eps_04",
     "topicId": "limite_eps_delta",
     "type": "mcq",
     "difficulty": 4,
-    "question": "Per dimostrare che lim_{x→1} x² = 1, con la restrizione |x−1| < 1 si ottiene che |x+1| < ___, e poi si sceglie δ = min(1, ε/3).",
+    "question": "To prove lim_{x→1} x² = 1, with the restriction |x−1| < 1 one obtains |x+1| < ___, then chooses δ = min(1, ε/3).",
     "options": [
       "3",
       "1",
       "2",
       "ε"
     ],
-    "explanation": "|x²−1| = |x−1||x+1|. Se |x−1| < 1, allora 0 < x < 2, quindi |x+1| < 3. Così |x²−1| < 3|x−1| < 3δ ≤ ε con δ = min(1, ε/3)."
+    "explanation": "|x²−1| = |x−1||x+1|. If |x−1| < 1, then 0 < x < 2, so |x+1| < 3. Thus |x²−1| < 3|x−1| < 3δ ≤ ε with δ = min(1, ε/3)."
   },
   {
     "id": "eps_05",
     "topicId": "limite_eps_delta",
     "type": "mcq",
     "difficulty": 5,
-    "question": "La definizione formale di lim_{x→+∞} f(x) = L è:",
+    "question": "The formal definition of lim_{x→+∞} f(x) = L is:",
     "options": [
       "∀ε > 0, ∃M > 0 : x > M ⟹ |f(x)−L| < ε",
       "∀ε > 0, ∃δ > 0 : |x| > δ ⟹ |f(x)−L| < ε",
       "∀M > 0, ∃ε > 0 : x > M ⟹ |f(x)−L| < ε",
-      "∀ε > 0, f(x) → L per x grande"
+      "∀ε > 0, f(x) → L for large x"
     ],
-    "explanation": "Per x → +∞: ∀ε > 0, ∃M > 0 : x > M ⟹ |f(x)−L| < ε. M gioca il ruolo di δ per la \"vicinanza all'infinito\"."
+    "explanation": "For x → +∞: ∀ε > 0, ∃M > 0 : x > M ⟹ |f(x)−L| < ε. M plays the role of δ for 'closeness to infinity'."
   },
   {
     "id": "alg_01",
     "topicId": "algebra_limiti",
     "type": "mcq",
     "difficulty": 1,
-    "question": "Se lim_{x→a} f(x) = 3 e lim_{x→a} g(x) = 2, quanto vale lim_{x→a} [f(x) + g(x)]?",
+    "question": "If lim_{x→a} f(x) = 3 and lim_{x→a} g(x) = 2, what is lim_{x→a} [f(x) + g(x)]?",
     "options": [
       "5",
       "6",
       "1",
-      "Non determinabile"
+      "Cannot be determined"
     ],
-    "explanation": "Per linearità del limite: lim[f(x)+g(x)] = 3+2 = 5."
+    "explanation": "By linearity of the limit: lim[f(x)+g(x)] = 3+2 = 5."
   },
   {
     "id": "alg_02",
     "topicId": "algebra_limiti",
     "type": "mcq",
     "difficulty": 2,
-    "question": "Se lim f(x) = 0 e lim g(x) = 0, il limite di f(x)/g(x) è:",
+    "question": "If lim f(x) = 0 and lim g(x) = 0, the limit of f(x)/g(x) is:",
     "options": [
-      "Una forma indeterminata 0/0",
+      "An indeterminate form 0/0",
       "0",
       "1",
       "+∞"
     ],
-    "explanation": "0/0 è una forma indeterminata: il limite può essere qualsiasi valore a seconda delle funzioni."
+    "explanation": "0/0 is an indeterminate form: the result depends on the specific functions."
   },
   {
     "id": "alg_03",
     "topicId": "algebra_limiti",
     "type": "mcq",
     "difficulty": 3,
-    "question": "Calcolare lim_{x→3} (x² − 9)/(x − 3).",
+    "question": "Compute lim_{x→3} (x² − 9)/(x − 3).",
     "options": [
       "6",
       "0",
       "3",
-      "Non esiste"
+      "Does not exist"
     ],
-    "explanation": "Forma 0/0. Si fattorizza: x²−9 = (x−3)(x+3). Quindi (x²−9)/(x−3) = x+3 per x≠3, e lim_{x→3}(x+3) = 6."
+    "explanation": "0/0 form. Factor: x²−9 = (x−3)(x+3). So (x²−9)/(x−3) = x+3 for x≠3, and lim_{x→3}(x+3) = 6."
   },
   {
     "id": "alg_04",
     "topicId": "algebra_limiti",
     "type": "mcq",
     "difficulty": 4,
-    "question": "Calcolare lim_{x→0} (√(1+x) − 1)/x.",
+    "question": "Compute lim_{x→0} (√(1+x) − 1)/x.",
     "options": [
       "1/2",
       "0",
       "1",
       "+∞"
     ],
-    "explanation": "Razionalizzando: ×(√(1+x)+1)/(√(1+x)+1) si ottiene 1/(√(1+x)+1) → 1/2. Oppure con Taylor: √(1+x) ≈ 1+x/2."
+    "explanation": "Rationalising: multiply by (√(1+x)+1)/(√(1+x)+1) to get 1/(√(1+x)+1) → 1/2. Or via Taylor: √(1+x) ≈ 1+x/2."
   },
   {
     "id": "alg_05",
     "topicId": "algebra_limiti",
     "type": "mcq",
     "difficulty": 5,
-    "question": "Il limite lim_{x→+∞} (√(x²+x) − x) è:",
+    "question": "The limit lim_{x→+∞} (√(x²+x) − x) is:",
     "options": [
       "1/2",
       "0",
       "1",
       "+∞"
     ],
-    "explanation": "Forma ∞−∞. Moltiplico per il coniugato: x/(√(x²+x)+x) = 1/(√(1+1/x)+1) → 1/2."
+    "explanation": "∞−∞ form. Multiply by the conjugate: x/(√(x²+x)+x) = 1/(√(1+1/x)+1) → 1/2."
   },
   {
     "id": "ind_f_01",
     "topicId": "forme_indeterminate",
     "type": "mcq",
     "difficulty": 1,
-    "question": "Quale delle seguenti è una forma indeterminata?",
+    "question": "Which of the following is an indeterminate form?",
     "options": [
       "0/0",
       "0 · 5",
       "∞ + ∞",
       "1/∞"
     ],
-    "explanation": "0/0 è indeterminata: il risultato dipende da come numeratore e denominatore tendono a 0. 0·5=0, ∞+∞=+∞, 1/∞=0 non sono indeterminate."
+    "explanation": "0/0 is indeterminate: the result depends on how numerator and denominator tend to 0. 0·5=0, ∞+∞=+∞, 1/∞=0 are not indeterminate."
   },
   {
     "id": "ind_f_02",
     "topicId": "forme_indeterminate",
     "type": "mcq",
     "difficulty": 2,
-    "question": "Quante sono le principali forme indeterminate?",
+    "question": "How many main indeterminate forms are there?",
     "options": [
       "7 (0/0, ∞/∞, 0·∞, ∞−∞, 0⁰, 1^∞, ∞⁰)",
       "3 (0/0, ∞/∞, 0·∞)",
       "5",
       "2"
     ],
-    "explanation": "Le 7 forme indeterminate classiche sono: 0/0, ∞/∞, 0·∞, ∞−∞, 0⁰, 1^∞, ∞⁰."
+    "explanation": "The 7 classical indeterminate forms are: 0/0, ∞/∞, 0·∞, ∞−∞, 0⁰, 1^∞, ∞⁰."
   },
   {
     "id": "ind_f_03",
     "topicId": "forme_indeterminate",
     "type": "mcq",
     "difficulty": 3,
-    "question": "Calcolare lim_{x→+∞} x · e^(−x).",
+    "question": "Compute lim_{x→+∞} x · e^(−x).",
     "options": [
       "0",
       "1",
       "+∞",
       "e"
     ],
-    "explanation": "Forma ∞·0. Si riscrive x/eˣ (forma ∞/∞) e si applica De L'Hôpital: lim x/eˣ = lim 1/eˣ = 0."
+    "explanation": "∞·0 form. Rewrite as x/eˣ (∞/∞) and apply L'Hôpital: lim x/eˣ = lim 1/eˣ = 0."
   },
   {
     "id": "ind_f_04",
     "topicId": "forme_indeterminate",
     "type": "mcq",
     "difficulty": 4,
-    "question": "Il limite lim_{x→0⁺} xˣ è una forma 0⁰. Il suo valore è:",
+    "question": "The limit lim_{x→0⁺} xˣ is a 0⁰ form. Its value is:",
     "options": [
       "1",
       "0",
       "e",
-      "Non esiste"
+      "Does not exist"
     ],
-    "explanation": "xˣ = e^(x ln x). lim_{x→0⁺} x ln x = lim (ln x)/(1/x) =[De L'Hôpital] lim (1/x)/(−1/x²) = lim(−x) = 0. Quindi lim xˣ = e⁰ = 1."
+    "explanation": "xˣ = e^(x ln x). lim_{x→0⁺} x ln x = lim (ln x)/(1/x) =[L'Hôpital] lim (1/x)/(−1/x²) = lim(−x) = 0. So lim xˣ = e⁰ = 1."
   },
   {
     "id": "ind_f_05",
     "topicId": "forme_indeterminate",
     "type": "mcq",
     "difficulty": 5,
-    "question": "La forma indeterminata 1^∞ si affronta come lim f(x)^g(x) con f→1 e g→∞. La tecnica è:",
+    "question": "The indeterminate form 1^∞ arises as lim f(x)^g(x) with f→1 and g→∞. The technique is:",
     "options": [
-      "Scrivere e^(g(x)·ln(f(x))) e calcolare lim g(x)·ln(f(x))",
-      "Applicare De L'Hôpital direttamente",
-      "Sostituire f(x) = 1 e semplificare",
-      "Il limite è sempre uguale a e"
+      "Write e^(g(x)·ln(f(x))) and compute lim g(x)·ln(f(x))",
+      "Apply L'Hôpital directly",
+      "Substitute f(x) = 1 and simplify",
+      "The limit is always equal to e"
     ],
-    "explanation": "f(x)^g(x) = e^(g(x)·ln f(x)). Poiché f→1, ln f→0 e g→∞, si ha 0·∞. Si riconduce a 0/0 per De L'Hôpital."
+    "explanation": "f(x)^g(x) = e^(g(x)·ln f(x)). Since f→1, ln f→0 and g→∞, giving 0·∞. This is reduced to 0/0 for L'Hôpital."
   },
   {
     "id": "not_01",
     "topicId": "limiti_notevoli",
     "type": "mcq",
     "difficulty": 1,
-    "question": "Quanto vale lim_{x→0} sin(x)/x?",
+    "question": "What is lim_{x→0} sin(x)/x?",
     "options": [
       "1",
       "0",
       "∞",
-      "Non esiste"
+      "Does not exist"
     ],
-    "explanation": "lim_{x→0} sin(x)/x = 1. Limite notevole fondamentale. Con Taylor: sin(x) = x − x³/6 + …, quindi sin(x)/x → 1."
+    "explanation": "lim_{x→0} sin(x)/x = 1. Fundamental notable limit. By Taylor: sin(x) = x − x³/6 + …, so sin(x)/x → 1."
   },
   {
     "id": "not_02",
     "topicId": "limiti_notevoli",
     "type": "mcq",
     "difficulty": 2,
-    "question": "Quanto vale lim_{x→0} (1 − cos x)/x²?",
+    "question": "What is lim_{x→0} (1 − cos x)/x²?",
     "options": [
       "1/2",
       "0",
       "1",
       "2"
     ],
-    "explanation": "Con Taylor: cos x = 1 − x²/2 + …, quindi (1−cos x)/x² = (x²/2)/x² = 1/2."
+    "explanation": "By Taylor: cos x = 1 − x²/2 + …, so (1−cos x)/x² = (x²/2)/x² = 1/2."
   },
   {
     "id": "not_03",
     "topicId": "limiti_notevoli",
     "type": "mcq",
     "difficulty": 3,
-    "question": "Calcolare lim_{x→0} (eˣ − 1 − x)/x².",
+    "question": "Compute lim_{x→0} (eˣ − 1 − x)/x².",
     "options": [
       "1/2",
       "0",
       "1",
       "2"
     ],
-    "explanation": "Taylor: eˣ = 1 + x + x²/2 + …, quindi eˣ−1−x = x²/2 + …, e (eˣ−1−x)/x² → 1/2."
+    "explanation": "Taylor: eˣ = 1 + x + x²/2 + …, so eˣ−1−x = x²/2 + …, and (eˣ−1−x)/x² → 1/2."
   },
   {
     "id": "not_04",
     "topicId": "limiti_notevoli",
     "type": "mcq",
     "difficulty": 4,
-    "question": "Calcolare lim_{x→0} (tan x − sin x)/x³.",
+    "question": "Compute lim_{x→0} (tan x − sin x)/x³.",
     "options": [
       "1/2",
       "0",
       "1",
       "1/6"
     ],
-    "explanation": "tan x − sin x = sin x(1/cos x − 1) = sin x·(1−cos x)/cos x. Per x→0: sin x ~ x, 1−cos x ~ x²/2, cos x → 1. Quindi il limite è x·(x²/2)/x³ = 1/2."
+    "explanation": "tan x − sin x = sin x(1/cos x − 1) = sin x·(1−cos x)/cos x. As x→0: sin x ~ x, 1−cos x ~ x²/2, cos x → 1. So the limit is x·(x²/2)/x³ = 1/2."
   },
   {
     "id": "not_05",
     "topicId": "limiti_notevoli",
     "type": "mcq",
     "difficulty": 5,
-    "question": "Calcolare lim_{x→0} [1/sin(x) − 1/x].",
+    "question": "Compute lim_{x→0} [1/sin(x) − 1/x].",
     "options": [
       "0",
       "1",
       "∞",
       "1/6"
     ],
-    "explanation": "1/sin x − 1/x = (x − sin x)/(x sin x). Taylor: x − sin x = x³/6 + …, x sin x ~ x². Quindi il limite è (x³/6)/x² = x/6 → 0."
+    "explanation": "1/sin x − 1/x = (x − sin x)/(x sin x). Taylor: x − sin x = x³/6 + …, x sin x ~ x². So the limit is (x³/6)/x² = x/6 → 0."
   },
   {
     "id": "cfr_01",
     "topicId": "confronto_infiniti",
     "type": "mcq",
     "difficulty": 1,
-    "question": "Per x → +∞, quale funzione cresce più lentamente?",
+    "question": "For x → +∞, which function grows slowest?",
     "options": [
       "x",
       "x²",
       "eˣ",
       "x¹⁰⁰"
     ],
-    "explanation": "Gerarchia degli infiniti per x → +∞: log x ≪ xᵅ ≪ eˣ. Tra le opzioni, x = x¹ cresce più lentamente di x², x¹⁰⁰ ed eˣ."
+    "explanation": "Hierarchy of infinities for x → +∞: log x ≪ xᵅ ≪ eˣ. Among the options, x = x¹ grows slowest."
   },
   {
     "id": "cfr_02",
     "topicId": "confronto_infiniti",
     "type": "mcq",
     "difficulty": 2,
-    "question": "Due infinitesimi α(x) e β(x) per x→0 si dicono equivalenti (α ~ β) se:",
+    "question": "Two infinitesimals α(x) and β(x) as x→0 are called equivalent (α ~ β) if:",
     "options": [
       "lim α(x)/β(x) = 1",
       "α − β = 0",
       "lim α(x)/β(x) = 0",
-      "α e β hanno lo stesso segno"
+      "α and β have the same sign"
     ],
-    "explanation": "α ~ β (per x→x₀) significa lim α/β = 1. Es: sin x ~ x per x→0."
+    "explanation": "α ~ β (as x→x₀) means lim α/β = 1. E.g. sin x ~ x as x→0."
   },
   {
     "id": "cfr_03",
     "topicId": "confronto_infiniti",
     "type": "mcq",
     "difficulty": 3,
-    "question": "La gerarchia degli infinitesimi per x → 0⁺ è:",
+    "question": "The hierarchy of infinitesimals for x → 0⁺ is:",
     "options": [
-      "x ≪ x² ≪ x³ (le potenze maggiori sono infinitesimi più piccoli)",
+      "x ≪ x² ≪ x³ (higher powers are smaller infinitesimals)",
       "x ≫ x² ≫ x³",
-      "Tutte le potenze tendono a 0 alla stessa velocità",
-      "Dipende dal segno di x"
+      "All powers tend to 0 at the same rate",
+      "Depends on the sign of x"
     ],
-    "explanation": "Per x → 0⁺: lim xⁿ/xᵐ = lim x^(n−m) = 0 se n > m. Quindi x³ ≪ x² ≪ x: le potenze più alte tendono a 0 più velocemente."
+    "explanation": "For x → 0⁺: lim xⁿ/xᵐ = lim x^(n−m) = 0 if n > m. So x³ ≪ x² ≪ x: higher powers tend to 0 faster."
   },
   {
     "id": "cfr_04",
     "topicId": "confronto_infiniti",
     "type": "mcq",
     "difficulty": 4,
-    "question": "Qual è l'ordine dell'infinitesimo (1 − cos x) rispetto a x per x → 0?",
+    "question": "What is the order of the infinitesimal (1 − cos x) with respect to x as x → 0?",
     "options": [
-      "Ordine 2",
-      "Ordine 1",
-      "Ordine 3",
-      "Non è un infinitesimo algebrico"
+      "Order 2",
+      "Order 1",
+      "Order 3",
+      "Not an algebraic infinitesimal"
     ],
-    "explanation": "1 − cos x ~ x²/2 per x→0 (da Taylor). Quindi lim (1−cos x)/x² = 1/2 ≠ 0,∞: infinitesimo di ordine 2."
+    "explanation": "1 − cos x ~ x²/2 as x→0 (from Taylor). So lim (1−cos x)/x² = 1/2 ≠ 0,∞: infinitesimal of order 2."
   },
   {
     "id": "cfr_05",
     "topicId": "confronto_infiniti",
     "type": "mcq",
     "difficulty": 5,
-    "question": "Per x → +∞, il limite lim x^(1/x) vale:",
+    "question": "For x → +∞, the limit lim x^(1/x) equals:",
     "options": [
       "1",
       "0",
       "e",
       "+∞"
     ],
-    "explanation": "x^(1/x) = e^(ln(x)/x). Ora lim_{x→+∞} ln(x)/x = 0 (l'esponenziale cresce più del logaritmo). Quindi x^(1/x) → e⁰ = 1."
+    "explanation": "x^(1/x) = e^(ln(x)/x). Now lim_{x→+∞} ln(x)/x = 0 (exponential grows faster than logarithm). So x^(1/x) → e⁰ = 1."
   },
   {
     "id": "tf_eps_01",
     "topicId": "limite_eps_delta",
     "type": "tf",
     "difficulty": 1,
-    "question": "Nella definizione ε-δ di limite, δ può dipendere da ε.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "In the ε-δ definition of a limit, δ may depend on ε.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "δ è scelto in funzione di ε: per ogni ε>0 si trova un δ>0 che funziona."
+    "explanation": "δ is chosen as a function of ε: for every ε>0, one finds a δ>0 that works."
   },
   {
     "id": "tf_eps_02",
     "topicId": "limite_eps_delta",
     "type": "tf",
     "difficulty": 2,
-    "question": "Nella definizione di lim_{x→a} f(x) = L, si richiede che f sia definita in a.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "In the definition of lim_{x→a} f(x) = L, f must be defined at a.",
+    "options": ["True", "False"],
     "correct": 1,
-    "explanation": "La condizione 0 < |x−a| < δ esclude x=a: il limite studia il comportamento vicino ad a, non in a."
+    "explanation": "The condition 0 < |x−a| < δ excludes x=a: the limit studies the behaviour near a, not at a."
   },
   {
     "id": "tf_eps_03",
     "topicId": "limite_eps_delta",
     "type": "tf",
     "difficulty": 3,
-    "question": "Per dimostrare lim_{x→2} 3x = 6, si può scegliere δ = ε/3.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "To prove lim_{x→2} 3x = 6, one can choose δ = ε/3.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "|3x − 6| = 3|x−2| < 3δ = ε se δ = ε/3."
+    "explanation": "|3x − 6| = 3|x−2| < 3δ = ε if δ = ε/3."
   },
   {
     "id": "tf_eps_04",
     "topicId": "limite_eps_delta",
     "type": "tf",
     "difficulty": 4,
-    "question": "Il limite di una funzione in un punto è unico (se esiste).",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "The limit of a function at a point is unique (if it exists).",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Il limite è unico per definizione: se esistessero L₁ ≠ L₂ si arriverebbe a una contraddizione."
+    "explanation": "The limit is unique by definition: if L₁ ≠ L₂ both existed, a contradiction would arise."
   },
   {
     "id": "tf_eps_05",
     "topicId": "limite_eps_delta",
     "type": "tf",
     "difficulty": 5,
-    "question": "Se lim_{x→a} f(x) = L e lim_{x→a} g(x) = M, allora lim_{x→a} f(x)·g(x) = L·M.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "If lim_{x→a} f(x) = L and lim_{x→a} g(x) = M, then lim_{x→a} f(x)·g(x) = L·M.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Algebra dei limiti: il limite del prodotto è il prodotto dei limiti (se entrambi esistono e sono finiti)."
+    "explanation": "Limit algebra: the limit of a product is the product of the limits (if both exist and are finite)."
   },
   {
     "id": "tf_alg_01",
     "topicId": "algebra_limiti",
     "type": "tf",
     "difficulty": 1,
-    "question": "0/0 è una forma indeterminata.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "0/0 is an indeterminate form.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "0/0 non ha un valore definito: il risultato dipende dalle funzioni specifiche."
+    "explanation": "0/0 has no defined value: the result depends on the specific functions."
   },
   {
     "id": "tf_alg_02",
@@ -433,25 +415,19 @@
     "type": "tf",
     "difficulty": 2,
     "question": "lim_{x→3} (x²−9)/(x−3) = 0.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "options": ["True", "False"],
     "correct": 1,
-    "explanation": "Si fattorizza: (x²−9)/(x−3) = (x+3) per x≠3. Il limite è 3+3 = 6."
+    "explanation": "Factoring: (x²−9)/(x−3) = (x+3) for x≠3. The limit is 3+3 = 6."
   },
   {
     "id": "tf_alg_03",
     "topicId": "algebra_limiti",
     "type": "tf",
     "difficulty": 3,
-    "question": "Se lim f(x) = +∞ e lim g(x) = +∞, allora lim (f−g) = 0.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "If lim f(x) = +∞ and lim g(x) = +∞, then lim (f−g) = 0.",
+    "options": ["True", "False"],
     "correct": 1,
-    "explanation": "∞−∞ è una forma indeterminata: il risultato dipende dalla velocità di crescita."
+    "explanation": "∞−∞ is an indeterminate form: the result depends on the rates of growth."
   },
   {
     "id": "tf_alg_04",
@@ -459,12 +435,9 @@
     "type": "tf",
     "difficulty": 4,
     "question": "lim_{x→+∞} (3x²+2x)/(x²−1) = 3.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Dividendo per x²: (3+2/x)/(1−1/x²) → 3/1 = 3."
+    "explanation": "Dividing by x²: (3+2/x)/(1−1/x²) → 3/1 = 3."
   },
   {
     "id": "tf_alg_05",
@@ -472,77 +445,59 @@
     "type": "tf",
     "difficulty": 5,
     "question": "lim_{x→0} x·sin(1/x) = 0.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "|x·sin(1/x)| ≤ |x| → 0: teorema del confronto con ±|x|."
+    "explanation": "|x·sin(1/x)| ≤ |x| → 0: squeeze theorem with ±|x|."
   },
   {
     "id": "tf_fi_01",
     "topicId": "forme_indeterminate",
     "type": "tf",
     "difficulty": 1,
-    "question": "∞ + ∞ è una forma indeterminata.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "∞ + ∞ is an indeterminate form.",
+    "options": ["True", "False"],
     "correct": 1,
-    "explanation": "∞ + ∞ = +∞, non è indeterminata. Le forme indeterminate includono ∞−∞, 0·∞, 0/0, ecc."
+    "explanation": "∞ + ∞ = +∞, it is not indeterminate. Indeterminate forms include ∞−∞, 0·∞, 0/0, etc."
   },
   {
     "id": "tf_fi_02",
     "topicId": "forme_indeterminate",
     "type": "tf",
     "difficulty": 2,
-    "question": "1^∞ è una forma indeterminata.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "1^∞ is an indeterminate form.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Il limite dipende dalla velocità con cui la base tende a 1 e l'esponente a ∞. Es: (1+1/n)ⁿ → e."
+    "explanation": "The limit depends on how fast the base approaches 1 and the exponent goes to ∞. E.g. (1+1/n)ⁿ → e."
   },
   {
     "id": "tf_fi_03",
     "topicId": "forme_indeterminate",
     "type": "tf",
     "difficulty": 3,
-    "question": "Per risolvere lim xˣ per x→0⁺ (forma 0⁰), si scrive xˣ = e^(x ln x).",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "To resolve lim xˣ as x→0⁺ (0⁰ form), write xˣ = e^(x ln x).",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "La forma 0⁰ si risolve esponenziando: xˣ = e^(x ln x) e poi si calcola lim x ln x = 0."
+    "explanation": "The 0⁰ form is resolved by exponentiating: xˣ = e^(x ln x), then compute lim x ln x = 0."
   },
   {
     "id": "tf_fi_04",
     "topicId": "forme_indeterminate",
     "type": "tf",
     "difficulty": 4,
-    "question": "De L'Hôpital si applica anche alla forma ∞−∞.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "L'Hôpital's rule applies to the ∞−∞ form.",
+    "options": ["True", "False"],
     "correct": 1,
-    "explanation": "De L'Hôpital si applica solo a 0/0 e ∞/∞. Per ∞−∞ si deve prima ricondurre a una di queste forme."
+    "explanation": "L'Hôpital's rule applies only to 0/0 and ∞/∞. For ∞−∞, one must first convert to one of these forms."
   },
   {
     "id": "tf_fi_05",
     "topicId": "forme_indeterminate",
     "type": "tf",
     "difficulty": 5,
-    "question": "Se lim f/g non esiste, allora lim (f+g) non esiste.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "If lim f/g does not exist, then lim (f+g) does not exist.",
+    "options": ["True", "False"],
     "correct": 1,
-    "explanation": "Falso in generale. Es: f(x)=sin x, g(x)=−sin x: lim f/g non esiste ma lim(f+g)=0."
+    "explanation": "False in general. E.g. f(x)=sin x, g(x)=−sin x: lim f/g does not exist but lim(f+g)=0."
   },
   {
     "id": "tf_ln_01",
@@ -550,12 +505,9 @@
     "type": "tf",
     "difficulty": 1,
     "question": "lim_{x→0} sin(x)/x = 1.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Limite notevole fondamentale."
+    "explanation": "Fundamental notable limit."
   },
   {
     "id": "tf_ln_02",
@@ -563,12 +515,9 @@
     "type": "tf",
     "difficulty": 2,
     "question": "lim_{x→0} (1−cos x)/x = 0.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "(1−cos x)/x ~ x/2 per x→0, quindi il limite è 0. (Non confondere con (1−cos x)/x²  = 1/2.)"
+    "explanation": "(1−cos x)/x ~ x/2 as x→0, so the limit is 0. (Do not confuse with (1−cos x)/x² = 1/2.)"
   },
   {
     "id": "tf_ln_03",
@@ -576,25 +525,19 @@
     "type": "tf",
     "difficulty": 3,
     "question": "lim_{x→0} (1−cos x)/x² = 1/2.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Limite notevole: 1−cos x ~ x²/2 per x→0."
+    "explanation": "Notable limit: 1−cos x ~ x²/2 as x→0."
   },
   {
     "id": "tf_ln_04",
     "topicId": "limiti_notevoli",
     "type": "tf",
     "difficulty": 4,
-    "question": "sin x ~ x e 1−cos x ~ x²/2 sono equivalenze asintotiche valide solo per x→0.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "sin x ~ x and 1−cos x ~ x²/2 are asymptotic equivalences valid only for x→0.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Le equivalenze asintotiche degli sviluppi di Taylor valgono in un intorno di 0."
+    "explanation": "The asymptotic equivalences from Taylor expansions hold in a neighbourhood of 0."
   },
   {
     "id": "tf_ln_05",
@@ -602,76 +545,58 @@
     "type": "tf",
     "difficulty": 5,
     "question": "lim_{x→0} (eˣ − 1 − x)/x² = 1/2.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Dal Taylor: eˣ = 1 + x + x²/2 + …, quindi (eˣ−1−x)/x² → 1/2."
+    "explanation": "From Taylor: eˣ = 1 + x + x²/2 + …, so (eˣ−1−x)/x² → 1/2."
   },
   {
     "id": "tf_ci_01",
     "topicId": "confronto_infiniti",
     "type": "tf",
     "difficulty": 1,
-    "question": "ln x cresce più lentamente di x per x → +∞.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "ln x grows slower than x for x → +∞.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "lim ln x / x = 0: la potenza x domina il logaritmo."
+    "explanation": "lim ln x / x = 0: the power x dominates the logarithm."
   },
   {
     "id": "tf_ci_02",
     "topicId": "confronto_infiniti",
     "type": "tf",
     "difficulty": 2,
-    "question": "sin x ~ x per x→0 significa lim_{x→0} sin(x)/x = 1.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "sin x ~ x as x→0 means lim_{x→0} sin(x)/x = 1.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Due funzioni sono asintoticamente equivalenti se il loro rapporto tende a 1."
+    "explanation": "Two functions are asymptotically equivalent if their ratio tends to 1."
   },
   {
     "id": "tf_ci_03",
     "topicId": "confronto_infiniti",
     "type": "tf",
     "difficulty": 3,
-    "question": "Se α ~ β si può sempre sostituire α con β in una somma.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "If α ~ β, one can always substitute α for β in a sum.",
+    "options": ["True", "False"],
     "correct": 1,
-    "explanation": "Gli equivalenti si usano solo nei prodotti/quozienti, mai nelle somme: (sin x − x)/x³ ≠ (x−x)/x³ = 0."
+    "explanation": "Asymptotic equivalences can only be used in products/quotients, never in sums: (sin x − x)/x³ ≠ (x−x)/x³ = 0."
   },
   {
     "id": "tf_ci_04",
     "topicId": "confronto_infiniti",
     "type": "tf",
     "difficulty": 4,
-    "question": "eˣ cresce più velocemente di xⁿ per qualsiasi n ∈ ℕ per x → +∞.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "eˣ grows faster than xⁿ for any n ∈ ℕ as x → +∞.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "lim xⁿ/eˣ = 0 per ogni n: l'esponenziale domina qualsiasi potenza."
+    "explanation": "lim xⁿ/eˣ = 0 for every n: the exponential dominates any power."
   },
   {
     "id": "tf_ci_05",
     "topicId": "confronto_infiniti",
     "type": "tf",
     "difficulty": 5,
-    "question": "1−cos x è un infinitesimo di ordine 2 rispetto a x per x→0.",
-    "options": [
-      "Vero",
-      "Falso"
-    ],
+    "question": "1−cos x is an infinitesimal of order 2 with respect to x as x→0.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "lim (1−cos x)/x² = 1/2 ≠ 0, quindi l'ordine rispetto a x è esattamente 2."
+    "explanation": "lim (1−cos x)/x² = 1/2 ≠ 0, so the order with respect to x is exactly 2."
   }
 ]

@@ -7,10 +7,10 @@ import { TopicRow } from '../components/TopicRow';
 type Filter = 'tutti' | 'critici' | 'medi' | 'solidi';
 
 const FILTERS: { id: Filter; label: string }[] = [
-  { id: 'tutti', label: 'Tutti' },
-  { id: 'critici', label: 'Critici ≤2★' },
-  { id: 'medi', label: 'Medi 3★' },
-  { id: 'solidi', label: 'Solidi ≥4★' },
+  { id: 'tutti', label: 'All' },
+  { id: 'critici', label: 'Weak ≤2★' },
+  { id: 'medi', label: 'Average 3★' },
+  { id: 'solidi', label: 'Strong ≥4★' },
 ];
 
 function matchesFilter(rating: number, filter: Filter): boolean {
@@ -64,10 +64,10 @@ export default function Tracker() {
   return (
     <div className="p-4 md:p-6 max-w-3xl mx-auto">
       <div className="flex items-center justify-between mb-4">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Argomenti</h1>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Topics</h1>
         <div className="flex items-center gap-1.5">
           <div className="w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-600" />
-          <span className="text-xs text-gray-400 dark:text-gray-500">Sola lettura</span>
+          <span className="text-xs text-gray-400 dark:text-gray-500">Read only</span>
         </div>
       </div>
 
@@ -75,13 +75,13 @@ export default function Tracker() {
       {reassessmentDue && (
         <div className="mb-4 p-3 rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 flex items-center justify-between gap-3">
           <p className="text-xs text-amber-700 dark:text-amber-300">
-            Hai una rivalutazione disponibile. Aggiorna le tue stelle!
+            A reassessment is available. Update your ratings!
           </p>
           <button
             onClick={() => navigate('/assessment')}
             className="flex-shrink-0 text-xs px-2.5 py-1 bg-amber-500 text-white rounded-md font-medium hover:bg-amber-400 transition-colors"
           >
-            Rivaluta
+            Reassess
           </button>
         </div>
       )}
@@ -89,13 +89,13 @@ export default function Tracker() {
       {/* Read-only notice */}
       <div className="mb-4 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
         <p className="text-xs text-gray-500 dark:text-gray-400">
-          Le stelle sono assegnate dall'app in base alla tua valutazione.
-          Per aggiornare le tue competenze, usa il{' '}
+          Stars are assigned by the app based on your quiz results.
+          To update your ratings, take the{' '}
           <button
             onClick={() => navigate('/assessment')}
             className="underline text-amber-600 dark:text-amber-400 hover:text-amber-500 transition-colors"
           >
-            questionario di rivalutazione
+            reassessment quiz
           </button>.
         </p>
       </div>
@@ -115,7 +115,7 @@ export default function Tracker() {
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder="Cerca argomento…"
+          placeholder="Search topic…"
           className="w-full pl-9 pr-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400"
         />
         {search && (
@@ -180,7 +180,7 @@ export default function Tracker() {
                   </span>
                   <span className="text-xs text-gray-400 dark:text-gray-500">
                     {section.topics.filter((t) => (data.ratings[t.id] ?? 0) >= 4).length}/
-                    {section.topics.length} solidi
+                    {section.topics.length} strong
                   </span>
                   <svg
                     className={`w-4 h-4 text-gray-400 transition-transform ${isCollapsed ? '' : 'rotate-180'}`}
@@ -194,10 +194,10 @@ export default function Tracker() {
                 </button>
                 <button
                   onClick={() => navigate(`/topic/${section.id}`)}
-                  title="Vedi piano di studio"
+                  title="View study plan"
                   className="flex-shrink-0 text-xs px-2.5 py-1 mr-3 rounded-md bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 hover:bg-amber-200 dark:hover:bg-amber-900/50 font-medium"
                 >
-                  Piano
+                  Plan
                 </button>
               </div>
 

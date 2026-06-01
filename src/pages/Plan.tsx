@@ -25,9 +25,9 @@ export default function Plan() {
 
   return (
     <div className="p-4 md:p-6 max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">Piano di studio</h1>
+      <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">Study Plan</h1>
       <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
-        Seleziona una sezione per vedere il piano dettagliato.
+        Select a section to view its study plan.
       </p>
 
       <div className="space-y-3">
@@ -61,7 +61,7 @@ export default function Plan() {
                     : 'bg-gray-100 dark:bg-gray-800 text-gray-400 cursor-not-allowed',
                 ].join(' ')}
               >
-                {hasPlans ? 'Vedi piano →' : 'Presto'}
+                {hasPlans ? 'View plan →' : 'Soon'}
               </button>
             </div>
           );

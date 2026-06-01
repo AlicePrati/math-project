@@ -43,20 +43,20 @@ function ReassessmentBanner({ daysLeft, onStart }: { daysLeft: number; onStart: 
       <div className="flex-1 min-w-0">
         <p className={`text-sm font-semibold ${overdue ? 'text-amber-800 dark:text-amber-200' : 'text-blue-800 dark:text-blue-200'}`}>
           {overdue
-            ? 'Rivalutazione disponibile!'
-            : `Prossima rivalutazione tra ${daysLeft} ${daysLeft === 1 ? 'giorno' : 'giorni'}`}
+            ? 'Reassessment available!'
+            : `Next reassessment in ${daysLeft} ${daysLeft === 1 ? 'day' : 'days'}`}
         </p>
         <p className={`text-xs mt-0.5 ${overdue ? 'text-amber-700 dark:text-amber-300' : 'text-blue-700 dark:text-blue-300'}`}>
           {overdue
-            ? "Scopri i tuoi miglioramenti con un questionario diverso da quello iniziale."
-            : "Continua a studiare! A breve potrai rivalutare le tue competenze per misurare i progressi."}
+            ? "See how much you've improved with a fresh set of questions."
+            : "Keep studying! Soon you'll be able to reassess your skills to measure your progress."}
         </p>
         {overdue && (
           <button
             onClick={onStart}
             className="mt-2 px-3 py-1.5 bg-amber-500 hover:bg-amber-400 text-white text-xs font-semibold rounded-lg transition-colors"
           >
-            Inizia la rivalutazione
+            Start reassessment
           </button>
         )}
       </div>
@@ -95,6 +95,7 @@ export default function Dashboard() {
     <div className="p-4 md:p-6 max-w-4xl mx-auto">
       <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Dashboard</h1>
 
+
       {showBanner && (
         <ReassessmentBanner
           daysLeft={daysLeft!}
@@ -108,10 +109,10 @@ export default function Dashboard() {
 
         <div className="flex-1 w-full">
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">
-            {ratedSections.length} / {SECTIONS.length} argomenti valutati
+            {ratedSections.length} / {SECTIONS.length} sections rated
           </p>
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-            Media generale:{' '}
+            Overall average:{' '}
             <span className="font-semibold text-gray-800 dark:text-gray-200">
               {avgRating > 0 ? avgRating.toFixed(2) : '—'}★
             </span>
@@ -136,31 +137,31 @@ export default function Dashboard() {
       {/* Last assessment info */}
       {data.lastAssessmentDate && (
         <p className="text-xs text-gray-400 dark:text-gray-500 mb-4">
-          Ultima valutazione:{' '}
-          {new Date(data.lastAssessmentDate).toLocaleDateString('it-IT', {
+          Last assessment:{' '}
+          {new Date(data.lastAssessmentDate).toLocaleDateString('en-US', {
             day: 'numeric',
             month: 'long',
             year: 'numeric',
           })}
-          {data.assessmentCount > 1 && ` · ${data.assessmentCount} valutazioni totali`}
+          {data.assessmentCount > 1 && ` · ${data.assessmentCount} assessments total`}
           {!reassessmentDue && daysLeft !== null && daysLeft > 7 && (
-            <> · prossima rivalutazione tra {daysLeft} giorni</>
+            <> · next reassessment in {daysLeft} days</>
           )}
         </p>
       )}
 
-      {/* Section grid */}
+      {/* Section list */}
       <h2 className="text-base font-semibold text-gray-700 dark:text-gray-300 mb-3">
-        Argomenti per sezione
+        Sections
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+      <div className="space-y-2">
         {SECTIONS.map((section) => (
           <SectionCard
             key={section.id}
             section={section}
-            ratings={data.ratings}
-            onClick={() => navigate(`/tracker?section=${section.id}`)}
-            onPianoClick={() => navigate(`/topic/${section.id}`)}
+            rating={sectionRating(section)}
+            onTest={() => navigate(`/assessment?section=${section.id}`)}
+
           />
         ))}
       </div>

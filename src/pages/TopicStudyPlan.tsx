@@ -11,10 +11,10 @@ const PRIORITY_BADGE: Record<string, string> = {
 };
 
 const PRIORITY_LABEL: Record<string, string> = {
-  critical: 'Priorità critica',
-  high: 'Priorità alta',
-  medium: 'Priorità media',
-  low: 'Bassa priorità',
+  critical: 'Critical priority',
+  high: 'High priority',
+  medium: 'Medium priority',
+  low: 'Low priority',
 };
 
 function Stars({ rating }: { rating: number }) {
@@ -68,9 +68,9 @@ export default function TopicStudyPlan() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950">
         <div className="text-center">
-          <p className="text-gray-500 dark:text-gray-400 mb-4">Argomento non trovato.</p>
+          <p className="text-gray-500 dark:text-gray-400 mb-4">Section not found.</p>
           <button onClick={() => navigate('/tracker')} className="text-amber-500 hover:text-amber-400 font-medium">
-            ← Torna al Tracker
+            ← Back to Tracker
           </button>
         </div>
       </div>
@@ -89,11 +89,11 @@ export default function TopicStudyPlan() {
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
             </svg>
-            Indietro
+            Back
           </button>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 truncate">{section.label}</p>
-            <p className="text-xs text-gray-400 dark:text-gray-500">Piano di studio</p>
+            <p className="text-xs text-gray-400 dark:text-gray-500">Study Plan</p>
           </div>
         </div>
       </header>
@@ -104,7 +104,7 @@ export default function TopicStudyPlan() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-xs text-gray-400 dark:text-gray-500 mb-1">
-                {sectionRating > 0 ? 'Livello attuale' : 'Non ancora valutato'}
+                {sectionRating > 0 ? 'Current level' : 'Not yet rated'}
               </p>
               <Stars rating={displayRating} />
               {plan && (
@@ -124,7 +124,7 @@ export default function TopicStudyPlan() {
 
         {!hasAnyPlan && (
           <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl p-4 text-sm text-amber-700 dark:text-amber-300">
-            Piano di studio non ancora disponibile per questo argomento.
+            No study plan available for this section yet.
           </div>
         )}
 
@@ -133,7 +133,7 @@ export default function TopicStudyPlan() {
             {/* Cosa devi capire */}
             <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
               <h3 className="text-xs font-semibold uppercase tracking-wide text-blue-500 dark:text-blue-400 mb-2">
-                Cosa devi capire
+                What you need to understand
               </h3>
               <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{plan.whatYouNeed}</p>
             </div>
@@ -142,7 +142,7 @@ export default function TopicStudyPlan() {
             {plan.approach.length > 0 && (
               <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
                 <h3 className="text-xs font-semibold uppercase tracking-wide text-amber-500 dark:text-amber-400 mb-3">
-                  Come procedere — passo dopo passo
+                  How to proceed — step by step
                 </h3>
                 <ol className="space-y-3">
                   {plan.approach.map((step, i) => (
@@ -162,7 +162,7 @@ export default function TopicStudyPlan() {
               {plan.keyPoints.length > 0 && (
                 <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
                   <Section
-                    title="Concetti chiave"
+                    title="Key concepts"
                     items={plan.keyPoints}
                     color="text-green-600 dark:text-green-400"
                   />
@@ -171,7 +171,7 @@ export default function TopicStudyPlan() {
               {plan.commonMistakes.length > 0 && (
                 <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
                   <Section
-                    title="Errori comuni"
+                    title="Common mistakes"
                     items={plan.commonMistakes}
                     color="text-red-500 dark:text-red-400"
                   />
@@ -183,7 +183,7 @@ export default function TopicStudyPlan() {
             {plan.exercises.length > 0 && (
               <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
                 <Section
-                  title="Esercizi suggeriti"
+                  title="Suggested exercises"
                   items={plan.exercises}
                   color="text-purple-600 dark:text-purple-400"
                 />
@@ -193,7 +193,7 @@ export default function TopicStudyPlan() {
             {/* Prossimo passo */}
             <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-2xl p-5">
               <h3 className="text-xs font-semibold uppercase tracking-wide text-green-600 dark:text-green-400 mb-2">
-                Prossimo passo
+                Next step
               </h3>
               <p className="text-sm text-green-700 dark:text-green-300 leading-relaxed">{plan.nextStep}</p>
             </div>
@@ -204,7 +204,7 @@ export default function TopicStudyPlan() {
         {hasAnyPlan && (
           <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-4">
             <p className="text-xs text-gray-400 dark:text-gray-500 mb-3">
-              Visualizza il piano per un altro livello:
+              View plan for another level:
             </p>
             <div className="flex gap-2">
               {([1, 2, 3, 4, 5] as const).map((r) => (
