@@ -111,7 +111,7 @@ function WelcomeScreen({
         ) : (
           <>
             <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3">
-              Welcome to Analysis 1 Tracker
+              Welcome to Maths Tracker
             </h1>
             <p className="text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">
               Choose the sections you want to be tested on: for each one you'll answer

@@ -80,7 +80,7 @@ export function Nav() {
       {/* ── Desktop sidebar ── */}
       <aside className="hidden md:flex flex-col fixed left-0 top-0 bottom-0 w-56 bg-white border-r border-gray-200 z-40">
         <div className="px-4 pt-6 pb-4 border-b border-gray-100">
-          <h1 className="text-base font-bold text-gray-900">Analysis 1</h1>
+          <h1 className="text-base font-bold text-gray-900">Maths</h1>
           <p className="text-xs text-gray-400">Competency Tracker</p>
         </div>
         <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
