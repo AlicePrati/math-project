@@ -15,6 +15,7 @@ def register(body: schemas.UserRegister, db: Session = Depends(get_db)):
 
     user = models.User(
         email=body.email,
+        username=body.username,
         hashed_password=auth.hash_password(body.password),
     )
     db.add(user)
@@ -40,4 +41,13 @@ def login(body: schemas.UserLogin, db: Session = Depends(get_db)):
 
 @router.get("/me", response_model=schemas.UserOut)
 def me(current_user: models.User = Depends(auth.get_current_user)):
+    return current_user
+
+
+@router.patch("/me", response_model=schemas.UserOut)
+def update_me(body: schemas.UserUpdate, current_user: models.User = Depends(auth.get_current_user), db: Session = Depends(get_db)):
+    if body.username is not None:
+        current_user.username = body.username or None
+    db.commit()
+    db.refresh(current_user)
     return current_user

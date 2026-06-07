@@ -9,6 +9,7 @@ class User(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True, nullable=False)
+    username = Column(String, nullable=True)
     hashed_password = Column(String, nullable=False)
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
 
@@ -20,12 +21,17 @@ class User(Base):
 class Question(Base):
     __tablename__ = "questions"
 
-    id = Column(String, primary_key=True)          # es. "prop_01"
-    topic_id = Column(String, index=True, nullable=False)
-    difficulty = Column(Integer, nullable=False)   # 1–5
-    question = Column(Text, nullable=False)
-    options = Column(Text, nullable=False)         # JSON array ["A","B","C","D"]
-    correct = Column(Integer, nullable=False)      # 0–3
+    id          = Column(String, primary_key=True)
+    topic_id    = Column(String, index=True, nullable=False)
+    type        = Column(String, nullable=False, default="mcq")  # 'mcq' | 'tf' | 'arrange'
+    difficulty  = Column(Integer, nullable=False)                 # 1–5
+    question    = Column(Text, nullable=False)
+    # mcq/tf: JSON array of strings; null for arrange
+    options     = Column(Text, nullable=True)
+    # arrange only: JSON array of strings (word bank incl. distractors)
+    bank        = Column(Text, nullable=True)
+    # null for mcq (correct = options[0]); "0"/"1" for tf; JSON list[str] for arrange
+    correct     = Column(Text, nullable=True)
     explanation = Column(Text, nullable=False)
 
 

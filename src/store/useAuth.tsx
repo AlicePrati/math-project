@@ -4,14 +4,14 @@ import { api } from '../lib/api';
 const TRACKER_KEY = 'analisi1_v1';
 const TOKEN_KEY = 'analisi1_token';
 
-interface AuthUser { id: number; email: string; }
+interface AuthUser { id: number; email: string; username?: string; }
 
 interface AuthContextValue {
   user: AuthUser | null;
   isLoading: boolean;
   error: string | null;
-  login: (email: string, password: string) => Promise<void>;
-  register: (email: string, password: string) => Promise<void>;
+  login: (email: string, password: string, username?: string) => Promise<void>;
+  register: (email: string, password: string, username?: string) => Promise<void>;
   logout: () => void;
 }
 
@@ -59,19 +59,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       .finally(() => setIsLoading(false));
   }, []);
 
-  const login = useCallback(async (email: string, password: string) => {
+  const login = useCallback(async (email: string, password: string, username?: string) => {
     setError(null);
     const { access_token } = await api.auth.login(email, password);
     localStorage.setItem(TOKEN_KEY, access_token);
-    const u = await api.auth.me();
+    let u = await api.auth.me();
+    if (username?.trim()) {
+      u = await api.auth.updateMe(username.trim());
+    }
     setUser(u);
     const progress = await api.ratings.progress();
     syncBackendToStorage(progress);
   }, []);
 
-  const register = useCallback(async (email: string, password: string) => {
+  const register = useCallback(async (email: string, password: string, username?: string) => {
     setError(null);
-    const { access_token } = await api.auth.register(email, password);
+    const { access_token } = await api.auth.register(email, password, username);
     localStorage.setItem(TOKEN_KEY, access_token);
     const u = await api.auth.me();
     setUser(u);

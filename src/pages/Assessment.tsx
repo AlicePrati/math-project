@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { SECTIONS } from '../data/topics';
 import {
@@ -8,8 +8,10 @@ import {
 import { getQuestionsForTopic, computeRating } from '../data/questions';
 import { APP_TO_QUIZ } from '../data/questions/mapping';
 import { api } from '../lib/api';
+import { pickNext, pickAnyUnused } from '../lib/adaptiveQuiz';
 import type { Question, SelectionQuestion, TFQuestion, ArrangeQuestion } from '../data/questions';
 import { useTracker } from '../store/useTracker';
+import { useExercises } from '../store/useExercises';
 
 
 // ── Types ────────────────────────────────────────────────────────────────────
@@ -26,22 +28,6 @@ interface QuizGroup {
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
-function sampleStratified(pool: Question[], total: number): Question[] {
-  const byDiff: Record<number, Question[]> = { 1: [], 2: [], 3: [], 4: [], 5: [] };
-  for (const q of pool) byDiff[q.difficulty].push(q);
-  for (const tier of Object.values(byDiff)) tier.sort(() => Math.random() - 0.5);
-
-  const result: Question[] = [];
-  const tiers = ([1, 2, 3, 4, 5] as const).filter((d) => byDiff[d].length > 0);
-  let i = 0;
-  while (result.length < total && tiers.some((d) => byDiff[d].length > 0)) {
-    const tier = byDiff[tiers[i % tiers.length]];
-    if (tier.length > 0) result.push(tier.pop()!);
-    i++;
-  }
-  return result;
-}
-
 function buildQuizSchedule(): QuizGroup[] {
   return SECTIONS.flatMap((section) => {
     const seenQuizIds = new Set<string>();
@@ -56,14 +42,12 @@ function buildQuizSchedule(): QuizGroup[] {
 
     if (allQs.length === 0) return [];
 
-    const questions = sampleStratified(allQs, 10);
-
     return [{
       sectionId: section.id,
       appTopicIds: section.topics.map((t) => t.id),
       label: section.label,
       sectionLabel: section.label,
-      questions,
+      questions: allQs,
     }];
   });
 }
@@ -296,36 +280,41 @@ function initOptionOrder(q: Question): number[] {
   return [];
 }
 
+const QUIZ_LENGTH = 10;
+
 function SingleTopicQuiz({
   group,
+  startDifficulty,
   onComplete,
+  onDifficultyChange,
   onBack,
 }: {
   group: QuizGroup;
-  onComplete: (correctCount: number) => void;
+  startDifficulty: number;
+  onComplete: (correctCount: number, finalDifficulty: number) => void;
+  onDifficultyChange: (level: number) => void;
   onBack: () => void;
 }) {
-  const [questionIdx, setQuestionIdx] = useState(0);
+  const [currentDifficulty, setCurrentDifficulty] = useState(startDifficulty);
+  const [usedIds, setUsedIds] = useState<Set<string>>(new Set());
+  const [answered, setAnswered] = useState(0);
   const [correct, setCorrect] = useState(0);
+  const [warmupDone, setWarmupDone] = useState(false);
+  const [consecutiveCorrect, setConsecutiveCorrect] = useState(0);
+  const [consecutiveWrong, setConsecutiveWrong] = useState(0);
+
+  // group.questions is always non-empty (buildQuizSchedule filters empty sections)
+  const firstQ = (pickNext(group.questions, new Set(), startDifficulty)
+    ?? pickAnyUnused(group.questions, new Set()))!;
+  const [question, setQuestion] = useState<Question>(firstQ);
   const [selected, setSelected] = useState<number | null>(null);
   const [showFeedback, setShowFeedback] = useState(false);
   const [placed, setPlaced] = useState<number[]>([]);
-  const [shuffledBank, setShuffledBank] = useState<string[]>(() => {
-    const q = group.questions[0];
-    return q.type === 'arrange' ? [...q.bank].sort(() => Math.random() - 0.5) : [];
-  });
-  const [optionOrder, setOptionOrder] = useState<number[]>(() => initOptionOrder(group.questions[0]));
+  const [shuffledBank, setShuffledBank] = useState<string[]>(() =>
+    firstQ.type === 'arrange' ? [...(firstQ as ArrangeQuestion).bank].sort(() => Math.random() - 0.5) : [],
+  );
+  const [optionOrder, setOptionOrder] = useState<number[]>(() => initOptionOrder(firstQ));
 
-  useEffect(() => {
-    if (questionIdx === 0) return;
-    const q = group.questions[questionIdx];
-    setShuffledBank(q.type === 'arrange' ? [...q.bank].sort(() => Math.random() - 0.5) : []);
-    setOptionOrder(initOptionOrder(q));
-    setPlaced([]);
-  }, [questionIdx]);
-
-  const question: Question = group.questions[questionIdx];
-  const isLastQuestion = questionIdx === group.questions.length - 1;
   const isArrange = question.type === 'arrange';
   const isTF = question.type === 'tf';
   const correctOriginalIdx = isTF ? (question as TFQuestion).correct : 0;
@@ -338,31 +327,80 @@ function SingleTopicQuiz({
     ? placed.length === (question as ArrangeQuestion).correct.length
     : selected !== null);
   const LABELS = isTF ? ['V', 'F'] : ['A', 'B', 'C', 'D'];
+  const isLastQuestion = answered === QUIZ_LENGTH - 1;
 
   function handleConfirm() {
     if (!showFeedback) {
-      if (isArrange) {
-        if (isArrangeCorrect) setCorrect((c) => c + 1);
-      } else {
-        if (selected === null) return;
-        if (isCorrectSelected) setCorrect((c) => c + 1);
-      }
+      if (!isArrange && selected === null) return;
       setShowFeedback(true);
       return;
     }
 
-    const finalCorrect = isCurrentCorrect ? correct + 1 : correct;
+    const wasCorrect = isCurrentCorrect;
+    const nextCorrect = wasCorrect ? correct + 1 : correct;
+    const nextAnswered = answered + 1;
+    const nextUsedIds = new Set(usedIds);
+    nextUsedIds.add(question.id);
 
-    if (!isLastQuestion) {
-      setQuestionIdx((i) => i + 1);
-      setSelected(null);
-      setPlaced([]);
-      setOptionOrder([]);
-      setShowFeedback(false);
+    // Adaptive difficulty update
+    let nextDifficulty = currentDifficulty;
+    let nextWarmupDone = warmupDone;
+    let nextConsecCorrect = consecutiveCorrect;
+    let nextConsecWrong = consecutiveWrong;
+
+    if (!warmupDone) {
+      if (wasCorrect) {
+        nextDifficulty = Math.min(5, currentDifficulty + 1);
+      } else {
+        nextWarmupDone = true;
+        nextConsecCorrect = 0;
+        nextConsecWrong = 1;
+      }
+    } else {
+      if (wasCorrect) {
+        nextConsecCorrect = consecutiveCorrect + 1;
+        nextConsecWrong = 0;
+        if (nextConsecCorrect >= 2) {
+          nextDifficulty = Math.min(5, currentDifficulty + 1);
+          nextConsecCorrect = 0;
+        }
+      } else {
+        nextConsecWrong = consecutiveWrong + 1;
+        nextConsecCorrect = 0;
+        if (nextConsecWrong >= 2) {
+          nextDifficulty = Math.max(1, currentDifficulty - 1);
+          nextConsecWrong = 0;
+        }
+      }
+    }
+
+    if (isLastQuestion) {
+      onComplete(nextCorrect, nextDifficulty);
       return;
     }
 
-    onComplete(finalCorrect);
+    // Pick next question: prefer current difficulty, fallback to any unused
+    const next = pickNext(group.questions, nextUsedIds, nextDifficulty)
+      ?? pickAnyUnused(group.questions, nextUsedIds);
+
+    if (!next) {
+      onComplete(nextCorrect, nextDifficulty);
+      return;
+    }
+
+    setUsedIds(nextUsedIds);
+    setAnswered(nextAnswered);
+    setCorrect(nextCorrect);
+    setCurrentDifficulty(nextDifficulty);
+    setWarmupDone(nextWarmupDone);
+    setConsecutiveCorrect(nextConsecCorrect);
+    setConsecutiveWrong(nextConsecWrong);
+    setQuestion(next);
+    setOptionOrder(initOptionOrder(next));
+    setShuffledBank(next.type === 'arrange' ? [...(next as ArrangeQuestion).bank].sort(() => Math.random() - 0.5) : []);
+    setSelected(null);
+    setPlaced([]);
+    setShowFeedback(false);
   }
 
   return (
@@ -385,20 +423,22 @@ function SingleTopicQuiz({
               <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 leading-tight">{group.label}</p>
             </div>
             <span className="text-xs text-gray-400 dark:text-gray-500 w-16 text-right tabular-nums">
-              {questionIdx + 1}/{group.questions.length}
+              {answered + 1}/{QUIZ_LENGTH} · lv{currentDifficulty}
             </span>
           </div>
-          {/* Question dots */}
+          {/* Progress dots (fixed 10) */}
           <div className="flex gap-1">
-            {group.questions.map((_, i) => (
+            {Array.from({ length: QUIZ_LENGTH }).map((_, i) => (
               <div
                 key={i}
                 className={[
                   'flex-1 h-1 rounded-full transition-colors',
-                  i < questionIdx || (i === questionIdx && showFeedback)
+                  i < answered
                     ? 'bg-amber-400'
-                    : i === questionIdx
+                    : i === answered && showFeedback
                     ? 'bg-amber-300'
+                    : i === answered
+                    ? 'bg-amber-200'
                     : 'bg-gray-200 dark:bg-gray-700',
                 ].join(' ')}
               />
@@ -634,6 +674,7 @@ function TopicResultScreen({
 
 export default function Assessment() {
   const { data, completeAssessment } = useTracker();
+  const { getQuizDifficulty, setQuizDifficulty } = useExercises();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
@@ -660,8 +701,9 @@ export default function Assessment() {
     setScreen('quiz');
   }
 
-  function handleTopicComplete(correctCount: number) {
+  function handleTopicComplete(correctCount: number, finalDifficulty: number) {
     if (!activeGroup) return;
+    setQuizDifficulty(activeGroup.sectionId, finalDifficulty);
     const rating = computeRating(correctCount);
     const newRatings: Record<string, number> = {};
     for (const appId of activeGroup.appTopicIds) newRatings[appId] = rating;
@@ -693,7 +735,9 @@ export default function Assessment() {
     return (
       <SingleTopicQuiz
         group={activeGroup}
+        startDifficulty={getQuizDifficulty(activeGroup.sectionId)}
         onComplete={handleTopicComplete}
+        onDifficultyChange={(level) => setQuizDifficulty(activeGroup.sectionId, level)}
         onBack={() => { setActiveGroup(null); setScreen('select'); }}
       />
     );

@@ -1,6 +1,6 @@
 from pydantic import BaseModel, EmailStr
 from datetime import datetime
-from typing import Optional, Dict, List
+from typing import Optional, Dict, List, Any, Union
 
 
 # ── Auth ──────────────────────────────────────────────────────────────────────
@@ -8,6 +8,7 @@ from typing import Optional, Dict, List
 class UserRegister(BaseModel):
     email: EmailStr
     password: str
+    username: Optional[str] = None
 
 
 class UserLogin(BaseModel):
@@ -23,10 +24,15 @@ class Token(BaseModel):
 class UserOut(BaseModel):
     id: int
     email: str
+    username: Optional[str] = None
     created_at: datetime
 
     class Config:
         orm_mode = True
+
+
+class UserUpdate(BaseModel):
+    username: Optional[str] = None
 
 
 # ── Questions ─────────────────────────────────────────────────────────────────
@@ -34,10 +40,12 @@ class UserOut(BaseModel):
 class QuestionOut(BaseModel):
     id: str
     topic_id: str
+    type: str                              # 'mcq' | 'tf' | 'arrange'
     difficulty: int
     question: str
-    options: List[str]
-    correct: int
+    options: Optional[List[str]] = None   # mcq/tf only
+    bank: Optional[List[str]] = None      # arrange only
+    correct: Optional[Any] = None         # None (mcq) | int (tf) | List[str] (arrange)
     explanation: str
 
     class Config:

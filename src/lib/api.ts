@@ -46,10 +46,10 @@ export interface BackendProgress {
 
 export const api = {
   auth: {
-    register: (email: string, password: string) =>
+    register: (email: string, password: string, username?: string) =>
       request<{ access_token: string }>('/auth/register', {
         method: 'POST',
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, username }),
       }),
 
     login: (email: string, password: string) =>
@@ -58,7 +58,13 @@ export const api = {
         body: JSON.stringify({ email, password }),
       }),
 
-    me: () => request<{ id: number; email: string }>('/auth/me'),
+    me: () => request<{ id: number; email: string; username?: string }>('/auth/me'),
+
+    updateMe: (username: string) =>
+      request<{ id: number; email: string; username?: string }>('/auth/me', {
+        method: 'PATCH',
+        body: JSON.stringify({ username }),
+      }),
   },
 
   questions: {

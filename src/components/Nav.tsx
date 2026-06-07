@@ -103,7 +103,7 @@ export function Nav() {
         <div className="px-3 pb-4">
           {user ? (
             <>
-              <p className="text-xs text-gray-400 truncate px-3 mb-1">{user.email}</p>
+              <p className="text-xs text-gray-400 truncate px-3 mb-1">{user.username ?? user.email}</p>
               <button
                 onClick={logout}
                 className="flex items-center gap-2 w-full px-3 py-2 rounded-lg text-sm text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition-colors"

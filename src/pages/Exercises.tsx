@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { SECTIONS, TOPIC_MAP } from '../data/topics';
 import { getExercisesForSection, getExercisesForTopic } from '../data/exercises';
 import { useExercises } from '../store/useExercises';
+import { pickNext } from '../lib/adaptiveQuiz';
 import type { Question, SelectionQuestion, TFQuestion, ArrangeQuestion } from '../data/questions';
 
 // ── helpers ───────────────────────────────────────────────────────────────────
@@ -11,6 +12,11 @@ function initOptionOrder(q: Question): number[] {
     return [...(q as SelectionQuestion).options.map((_, i) => i)].sort(() => Math.random() - 0.5);
   }
   if (q.type === 'tf') return [0, 1];
+  return [];
+}
+
+function initShuffledBank(q: Question): string[] {
+  if (q.type === 'arrange') return [...(q as ArrangeQuestion).bank].sort(() => Math.random() - 0.5);
   return [];
 }
 
@@ -26,40 +32,44 @@ function getTopicLabel(topicId: string): string {
 function ExerciseSession({
   sectionId,
   exercises,
+  startDifficulty,
   onBack,
   markComplete,
   isCompleted,
 }: {
   sectionId: string;
   exercises: Question[];
+  startDifficulty: number;
   onBack: () => void;
   markComplete: (id: string) => void;
   isCompleted: (id: string) => boolean;
 }) {
-  const [idx, setIdx] = useState(0);
+  const [currentDifficulty, setCurrentDifficulty] = useState(startDifficulty);
+  const [usedIds, setUsedIds] = useState<Set<string>>(new Set());
+  const [answered, setAnswered] = useState(0);
+  const [correct, setCorrect] = useState(0);
+  const [warmupDone, setWarmupDone] = useState(false);
+  const [consecutiveCorrect, setConsecutiveCorrect] = useState(0);
+  const [consecutiveWrong, setConsecutiveWrong] = useState(0);
+  const [sessionDone, setSessionDone] = useState(false);
+
+  const [exercise, setExercise] = useState<Question | null>(() =>
+    pickNext(exercises, new Set(), startDifficulty),
+  );
   const [selected, setSelected] = useState<number | null>(null);
   const [showFeedback, setShowFeedback] = useState(false);
   const [placed, setPlaced] = useState<number[]>([]);
-  const [shuffledBank, setShuffledBank] = useState<string[]>(() => {
-    const q = exercises[0];
-    return q.type === 'arrange' ? [...q.bank].sort(() => Math.random() - 0.5) : [];
-  });
-  const [optionOrder, setOptionOrder] = useState<number[]>(() => initOptionOrder(exercises[0]));
+  const [optionOrder, setOptionOrder] = useState<number[]>(() =>
+    exercise ? initOptionOrder(exercise) : [],
+  );
+  const [shuffledBank, setShuffledBank] = useState<string[]>(() =>
+    exercise ? initShuffledBank(exercise) : [],
+  );
 
-  useEffect(() => {
-    if (idx === 0) return;
-    const q = exercises[idx];
-    setShuffledBank(q.type === 'arrange' ? [...q.bank].sort(() => Math.random() - 0.5) : []);
-    setOptionOrder(initOptionOrder(q));
-    setPlaced([]);
-    setSelected(null);
-    setShowFeedback(false);
-  }, [idx, exercises]);
+  const section = SECTIONS.find((s) => s.id === sectionId);
 
-  const exercise = exercises[idx];
-  const isLast = idx === exercises.length - 1;
-  const isArrange = exercise.type === 'arrange';
-  const isTF = exercise.type === 'tf';
+  const isArrange = exercise?.type === 'arrange';
+  const isTF = exercise?.type === 'tf';
   const correctOriginalIdx = isTF ? (exercise as TFQuestion).correct : 0;
   const isCorrectSelected =
     !isArrange && selected !== null && optionOrder[selected] === correctOriginalIdx;
@@ -71,26 +81,118 @@ function ExerciseSession({
   const canConfirm =
     showFeedback ||
     (isArrange
-      ? placed.length === (exercise as ArrangeQuestion).correct.length
+      ? placed.length === (exercise as ArrangeQuestion)?.correct.length
       : selected !== null);
   const LABELS = isTF ? ['V', 'F'] : ['A', 'B', 'C', 'D'];
 
+  function loadNext(nextDifficulty: number, nextUsedIds: Set<string>) {
+    const next = pickNext(exercises, nextUsedIds, nextDifficulty);
+    if (!next) {
+      setSessionDone(true);
+      return;
+    }
+    setExercise(next);
+    setOptionOrder(initOptionOrder(next));
+    setShuffledBank(initShuffledBank(next));
+    setSelected(null);
+    setPlaced([]);
+    setShowFeedback(false);
+  }
+
   function handleConfirm() {
+    if (!exercise) return;
+
     if (!showFeedback) {
       if (!isArrange && selected === null) return;
       setShowFeedback(true);
       markComplete(exercise.id);
       return;
     }
-    if (isLast) { onBack(); return; }
-    setIdx((i) => i + 1);
-    setSelected(null);
-    setPlaced([]);
-    setOptionOrder([]);
-    setShowFeedback(false);
+
+    const wasCorrect = isCurrentCorrect;
+    const nextUsedIds = new Set(usedIds);
+    nextUsedIds.add(exercise.id);
+    setUsedIds(nextUsedIds);
+    setAnswered((n) => n + 1);
+    if (wasCorrect) setCorrect((n) => n + 1);
+
+    let nextDifficulty = currentDifficulty;
+    let nextWarmupDone = warmupDone;
+    let nextConsecCorrect = consecutiveCorrect;
+    let nextConsecWrong = consecutiveWrong;
+
+    if (!warmupDone) {
+      if (wasCorrect) {
+        nextDifficulty = Math.min(5, currentDifficulty + 1);
+      } else {
+        nextWarmupDone = true;
+        nextConsecCorrect = 0;
+        nextConsecWrong = 1;
+      }
+    } else {
+      if (wasCorrect) {
+        nextConsecCorrect = consecutiveCorrect + 1;
+        nextConsecWrong = 0;
+        if (nextConsecCorrect >= 2) {
+          nextDifficulty = Math.min(5, currentDifficulty + 1);
+          nextConsecCorrect = 0;
+        }
+      } else {
+        nextConsecWrong = consecutiveWrong + 1;
+        nextConsecCorrect = 0;
+        if (nextConsecWrong >= 2) {
+          nextDifficulty = Math.max(1, currentDifficulty - 1);
+          nextConsecWrong = 0;
+        }
+      }
+    }
+
+    setCurrentDifficulty(nextDifficulty);
+    setWarmupDone(nextWarmupDone);
+    setConsecutiveCorrect(nextConsecCorrect);
+    setConsecutiveWrong(nextConsecWrong);
+
+    loadNext(nextDifficulty, nextUsedIds);
   }
 
-  const section = SECTIONS.find((s) => s.id === sectionId);
+  // ── Session done screen ───────────────────────────────────────────────────
+  if (sessionDone) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col items-center justify-center px-4">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-8 max-w-sm w-full text-center">
+          <div className="text-4xl mb-4">🎯</div>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+            Session complete!
+          </h2>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
+            No more questions at difficulty level {currentDifficulty}.
+          </p>
+          <div className="flex justify-center gap-6 mb-6">
+            <div className="text-center">
+              <p className="text-2xl font-bold text-amber-500">{answered}</p>
+              <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">answered</p>
+            </div>
+            <div className="text-center">
+              <p className="text-2xl font-bold text-green-500">{correct}</p>
+              <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">correct</p>
+            </div>
+            <div className="text-center">
+              <p className="text-2xl font-bold text-indigo-500">{currentDifficulty}</p>
+              <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">final level</p>
+            </div>
+          </div>
+          <button
+            onClick={onBack}
+            className="w-full py-3 rounded-xl font-semibold text-base bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-white transition-colors"
+          >
+            Back to topics
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!exercise) return null;
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col">
@@ -112,23 +214,22 @@ function ExerciseSession({
                 {getTopicLabel(exercise.topicId)}
               </p>
             </div>
-            <span className="text-xs text-gray-400 dark:text-gray-500 w-16 text-right tabular-nums">
-              {idx + 1}/{exercises.length}
-            </span>
+            <div className="flex items-center gap-1 text-xs text-gray-400 dark:text-gray-500 w-16 justify-end">
+              <span className="tabular-nums">{answered + 1}</span>
+              <span className="text-xs">· lv{currentDifficulty}</span>
+            </div>
           </div>
           <div className="flex gap-1">
-            {exercises.map((ex, i) => (
+            {Array.from({ length: answered + 1 }).map((_, i) => (
               <div
                 key={i}
                 className={[
                   'flex-1 h-1 rounded-full transition-colors',
-                  isCompleted(ex.id)
+                  i < answered
                     ? 'bg-amber-400'
-                    : i === idx && showFeedback
+                    : showFeedback
                     ? 'bg-amber-300'
-                    : i === idx
-                    ? 'bg-amber-200'
-                    : 'bg-gray-200 dark:bg-gray-700',
+                    : 'bg-amber-200',
                 ].join(' ')}
               />
             ))}
@@ -153,7 +254,6 @@ function ExerciseSession({
           </p>
         </div>
 
-        {/* Options (mcq / tf) */}
         {!isArrange && (
           <div className="space-y-3 mb-4">
             {optionOrder.map((originalIdx, displayPos) => {
@@ -197,7 +297,6 @@ function ExerciseSession({
           </div>
         )}
 
-        {/* Word bank (arrange) */}
         {isArrange && (
           <>
             <div className="min-h-14 flex flex-wrap gap-2 p-3 rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 mb-3">
@@ -270,7 +369,7 @@ function ExerciseSession({
                 : 'bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-white',
             ].join(' ')}
           >
-            {!showFeedback ? 'Check answer' : isLast ? 'Back to topics' : 'Next exercise →'}
+            {!showFeedback ? 'Check answer' : 'Next exercise →'}
           </button>
         </div>
       </div>
@@ -283,16 +382,20 @@ function ExerciseSession({
 type Screen = 'select' | 'topics' | 'session';
 
 export default function Exercises() {
-  const { markComplete, isCompleted, completedCountForSection } = useExercises();
+  const { markComplete, isCompleted, completedCountForSection, getQuizDifficulty } = useExercises();
   const [screen, setScreen] = useState<Screen>('select');
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const [activeTopic, setActiveTopic] = useState<string | null>(null);
+
+  const sessionExercises = useMemo(
+    () => (activeTopic ? getExercisesForTopic(activeTopic) : []),
+    [activeTopic],
+  );
 
   // ── Topic list screen ──────────────────────────────────────────────────────
   if (screen === 'topics' && activeSection) {
     const allExercises = getExercisesForSection(activeSection);
     const section = SECTIONS.find((s) => s.id === activeSection)!;
-    // unique topicIds in order of first appearance
     const topicIds = [...new Set(allExercises.map((e) => e.topicId))];
 
     return (
@@ -355,11 +458,11 @@ export default function Exercises() {
 
   // ── Session screen ─────────────────────────────────────────────────────────
   if (screen === 'session' && activeSection && activeTopic) {
-    const exercises = getExercisesForTopic(activeTopic);
     return (
       <ExerciseSession
         sectionId={activeSection}
-        exercises={exercises}
+        exercises={sessionExercises}
+        startDifficulty={getQuizDifficulty(activeSection)}
         onBack={() => setScreen('topics')}
         markComplete={markComplete}
         isCompleted={isCompleted}

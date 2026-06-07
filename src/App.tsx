@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './store/useAuth';
 import { Nav } from './components/Nav';
 import Dashboard from './pages/Dashboard';
@@ -9,6 +9,14 @@ import Assessment from './pages/Assessment';
 import TopicStudyPlan from './pages/TopicStudyPlan';
 import Exercises from './pages/Exercises';
 import Login from './pages/Login';
+
+function RequireAuth({ children }: { children: React.ReactNode }) {
+  const { user, isLoading } = useAuth();
+  const location = useLocation();
+  if (isLoading) return null;
+  if (!user) return <Navigate to="/login" state={{ from: location }} replace />;
+  return <>{children}</>;
+}
 
 function AppShell() {
   const { isLoading } = useAuth();
@@ -27,7 +35,7 @@ function AppShell() {
       <main className="md:ml-56 pb-20 md:pb-0 min-h-screen">
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/assessment" element={<Assessment />} />
+          <Route path="/assessment" element={<RequireAuth><Assessment /></RequireAuth>} />
           <Route path="/tracker" element={<Tracker />} />
           <Route path="/plan" element={<Plan />} />
           <Route path="/history" element={<History />} />

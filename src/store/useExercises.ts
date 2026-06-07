@@ -4,6 +4,7 @@ const STORAGE_KEY = 'analisi1_exercises_v1';
 
 interface ExercisesStore {
   completed: Record<string, boolean>;
+  quizDifficultyBySection: Record<string, number>; // sectionId → 1–5, updated only by quiz
 }
 
 function load(): ExercisesStore {
@@ -11,12 +12,15 @@ function load(): ExercisesStore {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
       const parsed = JSON.parse(raw) as Partial<ExercisesStore>;
-      return { completed: parsed.completed ?? {} };
+      return {
+        completed: parsed.completed ?? {},
+        quizDifficultyBySection: parsed.quizDifficultyBySection ?? {},
+      };
     }
   } catch {
     // corrupted — reset
   }
-  return { completed: {} };
+  return { completed: {}, quizDifficultyBySection: {} };
 }
 
 function persist(store: ExercisesStore): void {
@@ -34,6 +38,25 @@ export function useExercises() {
     });
   }, []);
 
+  const getQuizDifficulty = useCallback(
+    (sectionId: string): number => store.quizDifficultyBySection[sectionId] ?? 1,
+    [store.quizDifficultyBySection],
+  );
+
+  const setQuizDifficulty = useCallback((sectionId: string, level: number) => {
+    setStore((prev) => {
+      const next = {
+        ...prev,
+        quizDifficultyBySection: {
+          ...prev.quizDifficultyBySection,
+          [sectionId]: Math.max(1, Math.min(5, level)),
+        },
+      };
+      persist(next);
+      return next;
+    });
+  }, []);
+
   const isCompleted = useCallback(
     (exerciseId: string) => !!store.completed[exerciseId],
     [store.completed],
@@ -44,5 +67,5 @@ export function useExercises() {
     [store.completed],
   );
 
-  return { markComplete, isCompleted, completedCountForSection };
+  return { markComplete, getQuizDifficulty, setQuizDifficulty, isCompleted, completedCountForSection };
 }
