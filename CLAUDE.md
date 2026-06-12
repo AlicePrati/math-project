@@ -39,12 +39,12 @@ There are no tests. Type checking is part of `npm run build` (`tsc -b`).
 - No Redux/Zustand — all state in `localStorage` + custom hooks
 
 ### Routing ([src/App.tsx](src/App.tsx))
-`AuthProvider` wraps the entire tree. `AppShell` shows a spinner while the auth token is being validated, then renders the full app with no login gate.
+`AuthProvider` wraps the entire tree. `AppShell` shows a spinner while the auth token is being validated, then renders the full app with no login gate — except `/assessment`, which is wrapped in `RequireAuth` and redirects to `/login` (preserving `location.state.from`) if there is no authenticated user.
 
 | Path | Page |
 |------|------|
 | `/` | Dashboard |
-| `/assessment` | Assessment (quiz hub) |
+| `/assessment` | Assessment (quiz hub) — requires login |
 | `/tracker` | Tracker |
 | `/plan` | Study plan phases |
 | `/history` | History |
@@ -105,6 +105,7 @@ The core interactive feature. Screen flow: `welcome → select → quiz → resu
 - TF questions (`type: 'tf'`) show `['V','F']` labels; MCQ shows `['A','B','C','D']`
 - Arrange questions (`type: 'arrange'`) show a word bank (with distractors, shuffled via `shuffledBank`); user clicks tokens into an answer area
 - `handleFinish()` calls both `completeAssessment()` (local) and `api.ratings.completeAssessment()` (backend, silent fail)
+- Difficulty is adaptive: `src/lib/adaptiveQuiz.ts` exports `pickNext(pool, usedIds, difficulty)` (next unused question at the target difficulty) and `pickAnyUnused(pool, usedIds)` (fallback). Correct answers raise `currentDifficulty` (max 5), wrong answers lower it (min 1); the starting difficulty comes from `getQuizDifficulty(sectionId)`.
 
 ### Question Data ([src/data/questions/](src/data/questions/))
 Question types (discriminated union in [src/data/questions/types.ts](src/data/questions/types.ts)):
