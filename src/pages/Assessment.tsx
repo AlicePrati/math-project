@@ -286,13 +286,11 @@ function SingleTopicQuiz({
   group,
   startDifficulty,
   onComplete,
-  onDifficultyChange,
   onBack,
 }: {
   group: QuizGroup;
   startDifficulty: number;
   onComplete: (correctCount: number, finalDifficulty: number) => void;
-  onDifficultyChange: (level: number) => void;
   onBack: () => void;
 }) {
   const [currentDifficulty, setCurrentDifficulty] = useState(startDifficulty);
@@ -737,7 +735,6 @@ export default function Assessment() {
         group={activeGroup}
         startDifficulty={getQuizDifficulty(activeGroup.sectionId)}
         onComplete={handleTopicComplete}
-        onDifficultyChange={(level) => setQuizDifficulty(activeGroup.sectionId, level)}
         onBack={() => { setActiveGroup(null); setScreen('select'); }}
       />
     );
