@@ -1,3 +1,10 @@
+# Backend
+backend/.env
+backend/analisi1.db
+backend/venv/
+backend/__pycache__/
+backend/routers/__pycache__/
+
 # Logs
 logs
 *.log
