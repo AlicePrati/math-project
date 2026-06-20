@@ -183,7 +183,7 @@ function TopicSelectScreen({
               {isReassessment ? 'Reassessment' : 'Initial assessment'}
             </h2>
             <span className="text-xs text-gray-400 dark:text-gray-500">
-              {doneCount}/{schedule.length} sezioni
+              {doneCount}/{schedule.length} sections
             </span>
           </div>
           <div className="h-1.5 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">

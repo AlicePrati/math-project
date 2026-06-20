@@ -4,45 +4,45 @@
     "topicId": "algebra_limiti",
     "type": "mcq",
     "difficulty": 1,
-    "question": "Calcola: lim(x→0) sin(3x) / x",
-    "options": ["3", "1/3", "0", "non esiste"],
-    "explanation": "Usando sin(3x)/x = 3 · sin(3x)/(3x) e il limite notevole lim(u→0) sin(u)/u = 1, si ottiene 3 · 1 = 3."
+    "question": "Compute: lim(x→0) sin(3x) / x",
+    "options": ["3", "1/3", "0", "does not exist"],
+    "explanation": "Write sin(3x)/x = 3 · sin(3x)/(3x) and apply the notable limit lim(u→0) sin(u)/u = 1 to get 3 · 1 = 3."
   },
   {
     "id": "ex_limiti_02",
     "topicId": "forme_indeterminate",
     "type": "mcq",
     "difficulty": 2,
-    "question": "Calcola: lim(x→0) (1 − cos x) / x²",
+    "question": "Compute: lim(x→0) (1 − cos x) / x²",
     "options": ["1/2", "1", "0", "∞"],
-    "explanation": "Con Taylor: cos x ≈ 1 − x²/2, quindi (1 − cos x)/x² ≈ (x²/2)/x² = 1/2. Oppure con De L'Hôpital due volte."
+    "explanation": "By Taylor: cos x ≈ 1 − x²/2, so (1 − cos x)/x² ≈ (x²/2)/x² = 1/2. Alternatively, apply L'Hôpital's rule twice."
   },
   {
     "id": "ex_limiti_03",
     "topicId": "confronto_infiniti",
     "type": "mcq",
     "difficulty": 2,
-    "question": "Per x→+∞, quale infinito prevale?",
-    "options": ["eˣ prevale su x¹⁰⁰", "x¹⁰⁰ prevale su eˣ", "Sono dello stesso ordine", "Dipende dai valori di x"],
-    "explanation": "L'esponenziale cresce più velocemente di qualsiasi potenza: lim(x→+∞) xⁿ/eˣ = 0 per ogni n fissato."
+    "question": "As x→+∞, which grows faster?",
+    "options": ["eˣ dominates x¹⁰⁰", "x¹⁰⁰ dominates eˣ", "They grow at the same rate", "Depends on the values of x"],
+    "explanation": "The exponential grows faster than any power: lim(x→+∞) xⁿ/eˣ = 0 for any fixed n."
   },
   {
     "id": "ex_limiti_04",
     "topicId": "limite_eps_delta",
     "type": "tf",
     "difficulty": 2,
-    "question": "Nella definizione ε-δ: se 0 < |x−a| < δ allora |f(x)−L| < ε. La condizione 0 < |x−a| esclude il punto x = a.",
-    "options": ["Vero", "Falso"],
+    "question": "In the ε-δ definition: if 0 < |x−a| < δ then |f(x)−L| < ε. The condition 0 < |x−a| excludes the point x = a.",
+    "options": ["True", "False"],
     "correct": 0,
-    "explanation": "Vero: la definizione richiede x ≠ a (per questo 0 < |x−a|). Il limite descrive il comportamento di f vicino ad a, non il valore in a."
+    "explanation": "True: the definition requires x ≠ a (hence 0 < |x−a|). The limit describes the behaviour of f near a, not the value at a."
   },
   {
     "id": "ex_limiti_05",
     "topicId": "limiti_notevoli",
     "type": "mcq",
     "difficulty": 1,
-    "question": "Quanto vale lim(x→0) (eˣ − 1) / x?",
+    "question": "What is lim(x→0) (eˣ − 1) / x?",
     "options": ["1", "0", "e", "∞"],
-    "explanation": "È uno dei limiti notevoli fondamentali: lim(x→0) (eˣ − 1)/x = 1. Deriva dalla definizione di derivata di eˣ in 0, oppure da Taylor: eˣ ≈ 1 + x."
+    "explanation": "This is one of the fundamental notable limits: lim(x→0) (eˣ − 1)/x = 1. It follows from the definition of the derivative of eˣ at 0, or from the Taylor expansion eˣ ≈ 1 + x."
   }
 ]

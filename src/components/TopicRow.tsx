@@ -10,12 +10,12 @@ interface TopicRowProps {
 function relativeTime(isoTs: string): string {
   const diff = Date.now() - new Date(isoTs).getTime();
   const days = Math.floor(diff / 86_400_000);
-  if (days === 0) return 'oggi';
-  if (days === 1) return 'ieri';
-  if (days < 7) return `${days} giorni fa`;
+  if (days === 0) return 'today';
+  if (days === 1) return 'yesterday';
+  if (days < 7) return `${days} days ago`;
   const weeks = Math.floor(days / 7);
-  if (weeks < 5) return `${weeks} sett. fa`;
-  return `${Math.floor(days / 30)} mesi fa`;
+  if (weeks < 5) return `${weeks}w ago`;
+  return `${Math.floor(days / 30)}mo ago`;
 }
 
 export function TopicRow({ topic, rating, lastTs }: TopicRowProps) {
