@@ -20,8 +20,17 @@ function initShuffledBank(q: Question): string[] {
   return [];
 }
 
+const EXERCISE_TOPIC_LABELS: Record<string, string> = {
+  logica_quantificatori: 'Quantifiers',
+  logica_proposizioni:   'Propositional Logic',
+  implicazione:          'Implication',
+  dimostrazione:         'Proofs',
+  insiemi_operazioni:    'Set Operations',
+};
+
 function getTopicLabel(topicId: string): string {
   return (
+    EXERCISE_TOPIC_LABELS[topicId] ??
     TOPIC_MAP[topicId]?.label ??
     topicId.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
   );
