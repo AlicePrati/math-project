@@ -1,4 +1,4 @@
-import type { Topic } from '../data/topics';
+import type { Topic } from '../courses/maths/data/topics';
 import { StarRating } from './StarRating';
 
 interface TopicRowProps {

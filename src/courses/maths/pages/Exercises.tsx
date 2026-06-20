@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import { SECTIONS, TOPIC_MAP } from '../data/topics';
 import { getExercisesForSection, getExercisesForTopic } from '../data/exercises';
 import { useExercises } from '../store/useExercises';
-import { pickNext } from '../lib/adaptiveQuiz';
+import { pickNext } from '../../../lib/adaptiveQuiz';
 import type { Question, SelectionQuestion, TFQuestion, ArrangeQuestion } from '../data/questions';
 
 // ── helpers ───────────────────────────────────────────────────────────────────

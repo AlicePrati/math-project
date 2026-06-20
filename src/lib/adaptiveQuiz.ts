@@ -1,4 +1,4 @@
-import type { Question } from '../data/questions/types';
+import type { Question } from '../courses/maths/data/questions/types';
 
 function pickRandom<T>(pool: T[]): T {
   return pool[Math.floor(Math.random() * pool.length)];

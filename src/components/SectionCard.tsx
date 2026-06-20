@@ -1,4 +1,4 @@
-import type { Section } from '../data/topics';
+import type { Section } from '../courses/maths/data/topics';
 
 const STAR_COLOR: Record<number, string> = {
   1: 'text-red-400',

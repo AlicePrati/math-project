@@ -2,13 +2,13 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-route
 import { AuthProvider, useAuth } from './store/useAuth';
 import { CourseProvider, useCourse } from './store/CourseContext';
 import { Nav } from './components/Nav';
-import Dashboard from './pages/Dashboard';
-import Tracker from './pages/Tracker';
-import Plan from './pages/Plan';
-import History from './pages/History';
-import Assessment from './pages/Assessment';
-import TopicStudyPlan from './pages/TopicStudyPlan';
-import Exercises from './pages/Exercises';
+import Dashboard from './courses/maths/pages/Dashboard';
+import Tracker from './courses/maths/pages/Tracker';
+import Plan from './courses/maths/pages/Plan';
+import History from './courses/maths/pages/History';
+import Assessment from './courses/maths/pages/Assessment';
+import TopicStudyPlan from './courses/maths/pages/TopicStudyPlan';
+import Exercises from './courses/maths/pages/Exercises';
 import Login from './pages/Login';
 import CoursePlaceholder from './pages/CoursePlaceholder';
 

@@ -7,8 +7,8 @@ import {
 } from '../data/assessmentLevels';
 import { getQuestionsForTopic, computeRating } from '../data/questions';
 import { APP_TO_QUIZ } from '../data/questions/mapping';
-import { api } from '../lib/api';
-import { pickNext, pickAnyUnused } from '../lib/adaptiveQuiz';
+import { api } from '../../../lib/api';
+import { pickNext, pickAnyUnused } from '../../../lib/adaptiveQuiz';
 import type { Question, SelectionQuestion, TFQuestion, ArrangeQuestion } from '../data/questions';
 import { useTracker } from '../store/useTracker';
 import { useExercises } from '../store/useExercises';

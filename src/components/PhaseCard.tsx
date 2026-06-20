@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { Topic } from '../data/topics';
+import type { Topic } from '../courses/maths/data/topics';
 
 interface PhaseCardProps {
   phase: number;

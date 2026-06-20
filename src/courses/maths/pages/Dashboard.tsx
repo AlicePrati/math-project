@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { SECTIONS } from '../data/topics';
 import { useTracker, daysUntilReassessment, isReassessmentDue } from '../store/useTracker';
-import { ProgressRing } from '../components/ProgressRing';
-import { SectionCard } from '../components/SectionCard';
+import { ProgressRing } from '../../../components/ProgressRing';
+import { SectionCard } from '../../../components/SectionCard';
 
 const STAR_COLORS: Record<number, string> = {
   1: 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300',
