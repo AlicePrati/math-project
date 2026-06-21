@@ -7,8 +7,8 @@ import {
 } from '../data/assessmentLevels';
 import { getQuestionsForTopic, computeRating } from '../data/questions';
 import { APP_TO_QUIZ } from '../data/questions/mapping';
-import { api } from '../lib/api';
-import { pickNext, pickAnyUnused } from '../lib/adaptiveQuiz';
+import { api } from '../../../lib/api';
+import { pickNext, pickAnyUnused } from '../../../lib/adaptiveQuiz';
 import type { Question, SelectionQuestion, TFQuestion, ArrangeQuestion } from '../data/questions';
 import { useTracker } from '../store/useTracker';
 import { useExercises } from '../store/useExercises';
@@ -183,7 +183,7 @@ function TopicSelectScreen({
               {isReassessment ? 'Reassessment' : 'Initial assessment'}
             </h2>
             <span className="text-xs text-gray-400 dark:text-gray-500">
-              {doneCount}/{schedule.length} sezioni
+              {doneCount}/{schedule.length} sections
             </span>
           </div>
           <div className="h-1.5 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">

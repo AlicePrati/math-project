@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { SECTIONS } from '../data/topics';
 import { useTracker, isReassessmentDue } from '../store/useTracker';
-import { TopicRow } from '../components/TopicRow';
+import { TopicRow } from '../../../components/TopicRow';
 
 type Filter = 'tutti' | 'critici' | 'medi' | 'solidi';
 

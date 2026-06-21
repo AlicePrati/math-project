@@ -83,3 +83,14 @@ class UserProgressOut(BaseModel):
     last_assessment_date: Optional[datetime]
     ratings: Dict[str, int]
     history: List[RatingHistoryOut]
+
+
+# ── Study Plan ────────────────────────────────────────────────────────────────
+
+class CompleteExerciseIn(BaseModel):
+    exercise_id: str
+    section_id: str
+
+
+class StudyPlanProgressOut(BaseModel):
+    completed_exercise_ids: List[str]

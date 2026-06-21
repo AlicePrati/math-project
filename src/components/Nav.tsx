@@ -73,7 +73,7 @@ function navLinkClass(active: boolean, sidebar: boolean) {
   return `${base} ${padding} text-gray-500 hover:bg-gray-100 hover:text-gray-900`;
 }
 
-function CourseDropdown() {
+export function CourseDropdown() {
   const { course, setCourse } = useCourse();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);

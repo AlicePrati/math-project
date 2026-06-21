@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { SECTIONS } from '../data/topics';
 import { useTracker, daysUntilReassessment, isReassessmentDue } from '../store/useTracker';
-import { ProgressRing } from '../components/ProgressRing';
-import { SectionCard } from '../components/SectionCard';
+import { ProgressRing } from '../../../components/ProgressRing';
+import { SectionCard } from '../../../components/SectionCard';
+import { CourseDropdown } from '../../../components/Nav';
 
 const STAR_COLORS: Record<number, string> = {
   1: 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300',
@@ -93,7 +94,12 @@ export default function Dashboard() {
 
   return (
     <div className="p-4 md:p-6 max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Dashboard</h1>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Dashboard</h1>
+        <div className="md:hidden w-40">
+          <CourseDropdown />
+        </div>
+      </div>
 
 
       {showBanner && (

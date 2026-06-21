@@ -1,0 +1,1038 @@
+[
+  {
+    "topicId": "prerequisiti",
+    "rating": 1,
+    "timeEstimate": "3–4 h",
+    "priority": "critical",
+    "label": "Prerequisites",
+    "whatYouNeed": "",
+    "approach": [],
+    "keyPoints": [],
+    "commonMistakes": [],
+    "exercises": [],
+    "nextStep": "",
+    "videos": [
+      {
+        "title": "Intro To Math Proofs (Full Course)",
+        "url": "https://youtu.be/3czgfHULZCs?si=UM_yVD5E7VcnrDKg"
+      }
+    ],
+    "topics": [
+      {
+        "id": "propositional_logic",
+        "label": "Propositional Logic",
+        "exercises": [
+          {
+            "id": "prereq_r1_logic_001",
+            "question": "A light switch can only be ON (true) or OFF (false). Which of these sentences is a PROPOSITION — something that can be true or false?",
+            "svgKey": "prop_statement_vs_question",
+            "options": [
+              "The number 7 is odd",
+              "Close the door!",
+              "What time is it?",
+              "Maybe it will rain tomorrow"
+            ],
+            "correct": 0,
+            "explanation": "A proposition must have a definite truth value — true or false. \"The number 7 is odd\" is true. Commands, questions, and sentences with \"maybe\" have no truth value.",
+            "retry": [
+              {
+                "question": "Like a light switch that is either ON or OFF, a proposition is either true or false — never both, never neither. Which of these is NOT a proposition?",
+                "svgKey": "prop_statement_vs_question",
+                "options": [
+                  "Open the window!",
+                  "Rome is the capital of Italy",
+                  "2 + 2 = 5",
+                  "The cat is on the table"
+                ],
+                "correct": 0,
+                "explanation": "\"Open the window!\" is a command — it has no truth value. The other three are propositions: Rome=true, 2+2=5=false, cat on table=true or false depending on facts."
+              },
+              {
+                "question": "Which sentence can be clearly assigned as true OR false?",
+                "svgKey": "prop_statement_vs_question",
+                "options": [
+                  "The Moon orbits the Earth",
+                  "Go buy some milk",
+                  "Maybe he is right",
+                  "How much does it cost?"
+                ],
+                "correct": 0,
+                "explanation": "Only \"The Moon orbits the Earth\" has a precise truth value (it is true). The others are a command, an uncertainty, and a question — none of them can be true or false."
+              }
+            ]
+          },
+          {
+            "id": "prereq_r1_logic_002",
+            "question": "NEGATION (¬P) flips the truth value. If P = \"It is raining\" is TRUE, the image shows what happens to ¬P. What is the value of ¬P?",
+            "svgKey": "prop_negation_rain",
+            "options": [
+              "¬P is false",
+              "¬P is true",
+              "¬P is true only at night",
+              "¬P depends on context"
+            ],
+            "correct": 0,
+            "explanation": "Negation always flips the truth value. If P is true, ¬P is always false. \"It is not raining\" is false when it is actually raining.",
+            "retry": [
+              {
+                "question": "The traffic light flips the signal: red becomes green and vice versa. If P = \"The train is on time\" is FALSE, what is ¬P?",
+                "svgKey": "prop_negation_rain",
+                "options": [
+                  "¬P is true",
+                  "¬P is false",
+                  "¬P is indeterminate",
+                  "¬P is true only if the delay is short"
+                ],
+                "correct": 0,
+                "explanation": "If P is false, ¬P is always true. \"The train is NOT on time\" is true when the train is actually late."
+              },
+              {
+                "question": "P = \"Today is Monday\" is false (it is Tuesday). What is the value of ¬P = \"Today is NOT Monday\"?",
+                "svgKey": "prop_negation_rain",
+                "options": [
+                  "True, because today is not Monday",
+                  "False, because negation makes everything false",
+                  "Depends on the time of day",
+                  "Cannot be determined"
+                ],
+                "correct": 0,
+                "explanation": "¬P flips the value: P was false (it is not Monday), so ¬P is true. \"Today is NOT Monday\" is correct — it is Tuesday."
+              }
+            ]
+          },
+          {
+            "id": "prereq_r1_logic_003",
+            "question": "A security door opens ONLY if you insert key A AND key B together. This is like conjunction P ∧ Q. When is \"It is raining ∧ I have an umbrella\" TRUE?",
+            "svgKey": "prop_and_door",
+            "options": [
+              "Only when it is raining AND I have an umbrella",
+              "When it is raining or I have an umbrella",
+              "Whenever at least one of the two is true",
+              "Only when it is not raining"
+            ],
+            "correct": 0,
+            "explanation": "P ∧ Q is true only when BOTH propositions are true. Like the door that needs two keys: one alone is not enough.",
+            "retry": [
+              {
+                "question": "The door opens only with key A AND key B. P = \"I have a driving licence\" (true), Q = \"I have a car\" (false). What is P ∧ Q?",
+                "svgKey": "prop_and_door",
+                "options": [
+                  "False, because Q is false",
+                  "True, because P is true",
+                  "True, because one of them is true",
+                  "Depends on the situation"
+                ],
+                "correct": 0,
+                "explanation": "P ∧ Q requires BOTH to be true. If even one is false, the result is false — like the door that won't open with just one key."
+              },
+              {
+                "question": "P = \"I am enrolled\" (true), Q = \"I have paid the fee\" (true). What is P ∧ Q?",
+                "svgKey": "prop_and_door",
+                "options": [
+                  "True, both conditions are satisfied",
+                  "False, AND requires something more",
+                  "Indeterminate",
+                  "True only if a third condition exists"
+                ],
+                "correct": 0,
+                "explanation": "When both propositions are true, P ∧ Q is true. With both keys the door opens!"
+              }
+            ]
+          },
+          {
+            "id": "prereq_r1_logic_004",
+            "question": "Two switches in parallel: just ONE of them needs to be ON to light the room. This is P ∨ Q (disjunction). When is \"I am hungry ∨ I am thirsty\" FALSE?",
+            "svgKey": "prop_or_light",
+            "options": [
+              "Only when I am not hungry AND not thirsty",
+              "When I am only hungry but not thirsty",
+              "When I am both hungry and thirsty",
+              "It can never be false"
+            ],
+            "correct": 0,
+            "explanation": "P ∨ Q is false only when BOTH propositions are false. If even one is true, the result is true — like the light that turns on with either switch.",
+            "retry": [
+              {
+                "question": "OR circuit: one switch is enough. P = \"I am studying\" (false), Q = \"I am working\" (false). What is P ∨ Q?",
+                "svgKey": "prop_or_light",
+                "options": [
+                  "False, neither one is true",
+                  "True, OR is always true",
+                  "True, because one could become true",
+                  "Indeterminate"
+                ],
+                "correct": 0,
+                "explanation": "P ∨ Q is false only when both are false. If no switch is on, the light stays off."
+              },
+              {
+                "question": "P = \"It is Sunday\" (false, it is Friday), Q = \"It is a holiday\" (false). What is P ∨ Q?",
+                "svgKey": "prop_or_light",
+                "options": [
+                  "False, because both are false",
+                  "True, because Friday is almost the weekend",
+                  "True, because OR includes both cases",
+                  "Depends on the calendar"
+                ],
+                "correct": 0,
+                "explanation": "OR is false only when both are false. It is Friday and not a holiday, so both P and Q are false → P ∨ Q is false."
+              }
+            ]
+          },
+          {
+            "id": "prereq_r1_logic_005",
+            "question": "Event entry rule: \"(You have a ticket ∧ You are at least 18) ∨ You have a VIP pass\". Marco is 16, has a ticket but no VIP pass. Can he enter?",
+            "svgKey": "prop_combo_event",
+            "options": [
+              "No — he has a ticket but is not 18, and has no VIP pass",
+              "Yes — he has a ticket, which is enough",
+              "Yes — the disjunction makes everything true",
+              "Cannot be determined without more information"
+            ],
+            "correct": 0,
+            "explanation": "Ticket=true, Age≥18=false → (true ∧ false) = false. VIP pass=false. So false ∨ false = false. Marco cannot enter. Parentheses first: AND is evaluated before OR.",
+            "retry": [
+              {
+                "question": "Same rule: \"(Ticket ∧ Age≥18) ∨ VIP pass\". Sara is 20, has no ticket, but has a VIP pass. Can she enter?",
+                "svgKey": "prop_combo_event",
+                "options": [
+                  "Yes — VIP pass alone is sufficient",
+                  "No — she has no ticket",
+                  "No — AND requires all conditions",
+                  "Depends on the organiser"
+                ],
+                "correct": 0,
+                "explanation": "(false ∧ true) = false. false ∨ true = TRUE. The VIP pass alone is enough thanks to the disjunction. Sara can enter."
+              },
+              {
+                "question": "P = \"Grade ≥ 18\" (true), Q = \"Attendance ≥ 75%\" (false), R = \"Student with exemption\" (false). The rule is (P ∧ Q) ∨ R. Is the exam passed?",
+                "svgKey": "prop_combo_event",
+                "options": [
+                  "No — (true ∧ false) ∨ false = false",
+                  "Yes — the grade is sufficient",
+                  "Yes — the disjunction saves it",
+                  "Depends on the professor"
+                ],
+                "correct": 0,
+                "explanation": "(P ∧ Q) = (true ∧ false) = false. false ∨ false = FALSE. The grade is fine but attendance is not enough, and there is no exemption — exam not passed."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "implication",
+        "label": "Implication",
+        "exercises": [
+          {
+            "id": "prereq_r1_impl_001",
+            "question": "Placeholder question for Implication",
+            "svgKey": "",
+            "options": ["Option A", "Option B", "Option C", "Option D"],
+            "correct": 0,
+            "explanation": "Placeholder explanation.",
+            "retry": [
+              {
+                "question": "Placeholder retry for Implication",
+                "svgKey": "",
+                "options": ["Option A", "Option B", "Option C", "Option D"],
+                "correct": 0,
+                "explanation": "Placeholder retry explanation."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "quantifiers",
+        "label": "Quantifiers",
+        "exercises": [
+          {
+            "id": "prereq_r1_quant_001",
+            "question": "Placeholder question for Quantifiers",
+            "svgKey": "",
+            "options": ["Option A", "Option B", "Option C", "Option D"],
+            "correct": 0,
+            "explanation": "Placeholder explanation.",
+            "retry": [
+              {
+                "question": "Placeholder retry for Quantifiers",
+                "svgKey": "",
+                "options": ["Option A", "Option B", "Option C", "Option D"],
+                "correct": 0,
+                "explanation": "Placeholder retry explanation."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "sets",
+        "label": "Sets & Operations",
+        "exercises": [
+          {
+            "id": "prereq_r1_sets_001",
+            "question": "Placeholder question for Sets & Operations",
+            "svgKey": "",
+            "options": ["Option A", "Option B", "Option C", "Option D"],
+            "correct": 0,
+            "explanation": "Placeholder explanation.",
+            "retry": [
+              {
+                "question": "Placeholder retry for Sets & Operations",
+                "svgKey": "",
+                "options": ["Option A", "Option B", "Option C", "Option D"],
+                "correct": 0,
+                "explanation": "Placeholder retry explanation."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "proofs",
+        "label": "Proofs",
+        "exercises": [
+          {
+            "id": "prereq_r1_proof_001",
+            "question": "Placeholder question for Proofs",
+            "svgKey": "",
+            "options": ["Option A", "Option B", "Option C", "Option D"],
+            "correct": 0,
+            "explanation": "Placeholder explanation.",
+            "retry": [
+              {
+                "question": "Placeholder retry for Proofs",
+                "svgKey": "",
+                "options": ["Option A", "Option B", "Option C", "Option D"],
+                "correct": 0,
+                "explanation": "Placeholder retry explanation."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "topicId": "prerequisiti",
+    "rating": 2,
+    "timeEstimate": "3–4 h",
+    "priority": "critical",
+    "label": "Prerequisites",
+    "whatYouNeed": "",
+    "approach": [],
+    "keyPoints": [],
+    "commonMistakes": [],
+    "exercises": [],
+    "nextStep": "",
+    "videos": [
+      {
+        "title": "Intro To Math Proofs (Full Course)",
+        "url": "https://youtu.be/3czgfHULZCs?si=UM_yVD5E7VcnrDKg"
+      }
+    ],
+    "topics": [
+      {
+        "id": "propositional_logic",
+        "label": "Propositional Logic",
+        "exercises": [
+          {
+            "id": "prereq_r2_logic_001",
+            "question": "The table shows all rows of ¬P ∨ Q. One row is highlighted in red. Which combination of P and Q makes ¬P ∨ Q FALSE?",
+            "svgKey": "prop_truth_table_neg_or",
+            "options": [
+              "P=True, Q=False (¬P=False, so False ∨ False = False)",
+              "P=False, Q=False (¬P=True, so True ∨ False = True)",
+              "P=True, Q=True (¬P=False, so False ∨ True = True)",
+              "P=False, Q=True (¬P=True, so True ∨ True = True)"
+            ],
+            "correct": 0,
+            "explanation": "¬P ∨ Q is false only when ¬P is false AND Q is false, i.e. when P=True and Q=False. In all other cases at least one term is true.",
+            "retry": [
+              {
+                "question": "¬P ∨ Q: if P=True and Q=True, what is the value of the expression?",
+                "svgKey": "prop_truth_table_neg_or",
+                "options": [
+                  "True — ¬P=False but Q=True saves the OR",
+                  "False — P being true makes everything false",
+                  "False — ¬P is false so the whole thing is false",
+                  "Depends on other factors"
+                ],
+                "correct": 0,
+                "explanation": "¬P = False, but Q = True. False ∨ True = True. OR only needs one of the two to be true."
+              },
+              {
+                "question": "¬P ∨ Q: if P=False and Q=False, what is the value?",
+                "svgKey": "prop_truth_table_neg_or",
+                "options": [
+                  "True — ¬P is True, so True ∨ False = True",
+                  "False — both variables are false",
+                  "False — negation changes nothing",
+                  "Indeterminate"
+                ],
+                "correct": 0,
+                "explanation": "¬P = True (because P is False). True ∨ False = True. The negation turned false P into true ¬P, saving the OR."
+              }
+            ]
+          },
+          {
+            "id": "prereq_r2_logic_002",
+            "question": "Two formulas are LOGICALLY EQUIVALENT if they have the same truth table. A vending machine accepts €1 OR €2 coins. A friend says: \"It accepts neither €1 nor €2\". How do you write the negation of (P ∨ Q)?",
+            "svgKey": "prop_demorgan_or",
+            "options": [
+              "¬P ∧ ¬Q — does not accept €1 AND does not accept €2",
+              "¬P ∨ ¬Q — does not accept €1 OR does not accept €2",
+              "¬(P ∧ Q) — does not accept both at once",
+              "P ∧ Q — accepts both"
+            ],
+            "correct": 0,
+            "explanation": "De Morgan's first law: ¬(P ∨ Q) ≡ ¬P ∧ ¬Q. Negating an OR becomes an AND of negations. \"Accepts neither €1 nor €2\" means both acceptances are negated.",
+            "retry": [
+              {
+                "question": "¬(P ∨ Q) ≡ ? — choose the correct equivalent.",
+                "svgKey": "prop_demorgan_or",
+                "options": [
+                  "¬P ∧ ¬Q",
+                  "¬P ∨ ¬Q",
+                  "P ∧ Q",
+                  "¬P ∧ Q"
+                ],
+                "correct": 0,
+                "explanation": "De Morgan: ¬(A ∨ B) = ¬A ∧ ¬B. The negation enters the brackets and the connective flips: OR → AND."
+              },
+              {
+                "question": "P = \"It is hot\" (True), Q = \"It is humid\" (False). What is ¬(P ∨ Q)?",
+                "svgKey": "prop_demorgan_or",
+                "options": [
+                  "False — P ∨ Q is true, so its negation is false",
+                  "True — negation makes everything true",
+                  "True — Q is false so NOT saves it",
+                  "Indeterminate"
+                ],
+                "correct": 0,
+                "explanation": "P ∨ Q = True ∨ False = True. ¬(True) = False. Via De Morgan: ¬P ∧ ¬Q = False ∧ True = False. Same result."
+              }
+            ]
+          },
+          {
+            "id": "prereq_r2_logic_003",
+            "question": "A TAUTOLOGY is a formula that is always true regardless of the values of P and Q. The image shows P ∨ ¬P: either it rains (P) or it does not (¬P). Which of these is a tautology?",
+            "svgKey": "prop_tautology_excluded_middle",
+            "options": [
+              "P ∨ ¬P — either it rains or it does not, always true",
+              "P ∧ ¬P — it rains and does not rain simultaneously, impossible",
+              "P ∨ Q — depends on the values",
+              "¬P ∧ ¬Q — depends on the values"
+            ],
+            "correct": 0,
+            "explanation": "P ∨ ¬P is always true: if P is true, the first member is true; if P is false, ¬P is true — the OR can never be false. This is the \"law of excluded middle\".",
+            "retry": [
+              {
+                "question": "Which formula is a CONTRADICTION — always false, regardless of the values of P and Q?",
+                "svgKey": "prop_tautology_excluded_middle",
+                "options": [
+                  "P ∧ ¬P — simultaneously true and false: impossible",
+                  "P ∨ ¬P — always true",
+                  "P → Q — depends on values",
+                  "¬(P ∨ Q) — can be true"
+                ],
+                "correct": 0,
+                "explanation": "P ∧ ¬P would require P to be true and false at the same time — impossible. It is always false: a contradiction."
+              },
+              {
+                "question": "Which of these is a tautology?",
+                "svgKey": "prop_tautology_excluded_middle",
+                "options": [
+                  "(P ∧ Q) → P — if it rains AND it is windy, then it rains",
+                  "P → (P ∧ Q) — if it rains, then it rains and it is windy",
+                  "P ∧ Q → ¬P — contradictory",
+                  "¬P → P — not always"
+                ],
+                "correct": 0,
+                "explanation": "(P ∧ Q) → P is always true: if both are true, P is certainly true. Check with the table: an implication is false only when the antecedent is true and the conclusion is false — here P∧Q true and P false is impossible."
+              }
+            ]
+          },
+          {
+            "id": "prereq_r2_logic_004",
+            "question": "De Morgan's second law: ¬(P ∧ Q) ≡ ¬P ∨ ¬Q. The image shows a door that needs Key A AND Key B — but Key B is crossed out (¬Q). What must an attacker do to prevent the door from opening?",
+            "svgKey": "prop_demorgan_and",
+            "options": [
+              "Block key A OR key B — blocking just one is enough",
+              "Block both keys A and B",
+              "Do nothing — AND is already secure",
+              "Block the lock directly"
+            ],
+            "correct": 0,
+            "explanation": "¬(A ∧ B) ≡ ¬A ∨ ¬B. Negating an AND means at least one of the two is false. To prevent the door from opening, blocking just ONE key is enough — consistent with De Morgan.",
+            "retry": [
+              {
+                "question": "¬(P ∧ Q) ≡ ? — choose the correct equivalent.",
+                "svgKey": "prop_demorgan_and",
+                "options": [
+                  "¬P ∨ ¬Q",
+                  "¬P ∧ ¬Q",
+                  "P ∨ Q",
+                  "¬(P ∨ Q)"
+                ],
+                "correct": 0,
+                "explanation": "De Morgan: ¬(A ∧ B) = ¬A ∨ ¬B. The negation enters and the connective flips: AND → OR."
+              },
+              {
+                "question": "P = \"Temperature > 0°\" (False), Q = \"Humidity > 80%\" (True). What is ¬(P ∧ Q)?",
+                "svgKey": "prop_demorgan_and",
+                "options": [
+                  "True — ¬P ∨ ¬Q = True ∨ False = True",
+                  "False — one of them is true so AND is true",
+                  "False — P ∧ Q is false so its negation is false",
+                  "Indeterminate"
+                ],
+                "correct": 0,
+                "explanation": "P ∧ Q = False ∧ True = False. ¬(False) = True. Via De Morgan: ¬P ∨ ¬Q = True ∨ False = True. Same result."
+              }
+            ]
+          },
+          {
+            "id": "prereq_r2_logic_005",
+            "question": "The image shows ¬((A∧B) ∨ (C∧D)) applied step by step. A competition rule: \"(Age≥18 ∧ Resident) ∨ (Guardian ∧ Consent)\". The negation — condition to be EXCLUDED — equals?",
+            "svgKey": "prop_demorgan_nested",
+            "options": [
+              "(Age < 18 ∨ Not resident) ∧ (No guardian ∨ No consent)",
+              "(Age < 18 ∧ Not resident) ∨ (No guardian ∧ No consent)",
+              "Age < 18 ∧ Not resident ∧ No guardian ∧ No consent",
+              "Age < 18 ∨ Not resident ∨ No guardian ∨ No consent"
+            ],
+            "correct": 0,
+            "explanation": "¬((A∧B) ∨ (C∧D)) = ¬(A∧B) ∧ ¬(C∧D) [De Morgan on OR] = (¬A∨¬B) ∧ (¬C∨¬D) [De Morgan on AND]. The negation distributes by flipping every connective.",
+            "retry": [
+              {
+                "question": "Apply De Morgan to ¬((P ∧ Q) ∨ R). What is the correct result?",
+                "svgKey": "prop_demorgan_nested",
+                "options": [
+                  "(¬P ∨ ¬Q) ∧ ¬R",
+                  "(¬P ∧ ¬Q) ∨ ¬R",
+                  "¬P ∨ ¬Q ∨ ¬R",
+                  "¬P ∧ ¬Q ∧ ¬R"
+                ],
+                "correct": 0,
+                "explanation": "First apply De Morgan to the outer OR: ¬((P∧Q) ∨ R) = ¬(P∧Q) ∧ ¬R. Then De Morgan on the inner AND: ¬(P∧Q) = ¬P ∨ ¬Q. Result: (¬P ∨ ¬Q) ∧ ¬R."
+              },
+              {
+                "question": "¬(P ∨ (Q ∧ R)) — what is the equivalent form?",
+                "svgKey": "prop_demorgan_nested",
+                "options": [
+                  "¬P ∧ (¬Q ∨ ¬R)",
+                  "¬P ∨ (¬Q ∧ ¬R)",
+                  "¬P ∧ ¬Q ∧ ¬R",
+                  "¬P ∨ ¬Q ∨ ¬R"
+                ],
+                "correct": 0,
+                "explanation": "De Morgan on the outer OR: ¬P ∧ ¬(Q ∧ R). De Morgan on the inner AND: ¬(Q∧R) = ¬Q ∨ ¬R. Result: ¬P ∧ (¬Q ∨ ¬R)."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "implication",
+        "label": "Implication",
+        "exercises": [
+          {
+            "id": "prereq_r2_impl_001",
+            "question": "Placeholder question for Implication",
+            "svgKey": "",
+            "options": ["Option A", "Option B", "Option C", "Option D"],
+            "correct": 0,
+            "explanation": "Placeholder explanation.",
+            "retry": [
+              {
+                "question": "Placeholder retry for Implication",
+                "svgKey": "",
+                "options": ["Option A", "Option B", "Option C", "Option D"],
+                "correct": 0,
+                "explanation": "Placeholder retry explanation."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "quantifiers",
+        "label": "Quantifiers",
+        "exercises": [
+          {
+            "id": "prereq_r2_quant_001",
+            "question": "Placeholder question for Quantifiers",
+            "svgKey": "",
+            "options": ["Option A", "Option B", "Option C", "Option D"],
+            "correct": 0,
+            "explanation": "Placeholder explanation.",
+            "retry": [
+              {
+                "question": "Placeholder retry for Quantifiers",
+                "svgKey": "",
+                "options": ["Option A", "Option B", "Option C", "Option D"],
+                "correct": 0,
+                "explanation": "Placeholder retry explanation."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "sets",
+        "label": "Sets & Operations",
+        "exercises": [
+          {
+            "id": "prereq_r2_sets_001",
+            "question": "Placeholder question for Sets & Operations",
+            "svgKey": "",
+            "options": ["Option A", "Option B", "Option C", "Option D"],
+            "correct": 0,
+            "explanation": "Placeholder explanation.",
+            "retry": [
+              {
+                "question": "Placeholder retry for Sets & Operations",
+                "svgKey": "",
+                "options": ["Option A", "Option B", "Option C", "Option D"],
+                "correct": 0,
+                "explanation": "Placeholder retry explanation."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "proofs",
+        "label": "Proofs",
+        "exercises": [
+          {
+            "id": "prereq_r2_proof_001",
+            "question": "Placeholder question for Proofs",
+            "svgKey": "",
+            "options": ["Option A", "Option B", "Option C", "Option D"],
+            "correct": 0,
+            "explanation": "Placeholder explanation.",
+            "retry": [
+              {
+                "question": "Placeholder retry for Proofs",
+                "svgKey": "",
+                "options": ["Option A", "Option B", "Option C", "Option D"],
+                "correct": 0,
+                "explanation": "Placeholder retry explanation."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "topicId": "prerequisiti",
+    "rating": 3,
+    "timeEstimate": "3–4 h",
+    "priority": "critical",
+    "label": "Prerequisites",
+    "whatYouNeed": "",
+    "approach": [],
+    "keyPoints": [],
+    "commonMistakes": [],
+    "exercises": [],
+    "nextStep": "",
+    "videos": [
+      {
+        "title": "Intro To Math Proofs (Full Course)",
+        "url": "https://youtu.be/3czgfHULZCs?si=UM_yVD5E7VcnrDKg"
+      }
+    ],
+    "topics": [
+      {
+        "id": "propositional_logic",
+        "label": "Propositional Logic",
+        "exercises": [
+          {
+            "id": "prereq_r3_logic_001",
+            "question": "Placeholder question for Propositional Logic rating 3",
+            "svgKey": "",
+            "options": ["Option A", "Option B", "Option C", "Option D"],
+            "correct": 0,
+            "explanation": "Placeholder explanation.",
+            "retry": [
+              {
+                "question": "Placeholder retry",
+                "svgKey": "",
+                "options": ["Option A", "Option B", "Option C", "Option D"],
+                "correct": 0,
+                "explanation": "Placeholder retry explanation."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "implication",
+        "label": "Implication",
+        "exercises": [
+          {
+            "id": "prereq_r3_impl_001",
+            "question": "Placeholder question for Implication",
+            "svgKey": "",
+            "options": ["Option A", "Option B", "Option C", "Option D"],
+            "correct": 0,
+            "explanation": "Placeholder explanation.",
+            "retry": [
+              {
+                "question": "Placeholder retry for Implication",
+                "svgKey": "",
+                "options": ["Option A", "Option B", "Option C", "Option D"],
+                "correct": 0,
+                "explanation": "Placeholder retry explanation."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "quantifiers",
+        "label": "Quantifiers",
+        "exercises": [
+          {
+            "id": "prereq_r3_quant_001",
+            "question": "Placeholder question for Quantifiers",
+            "svgKey": "",
+            "options": ["Option A", "Option B", "Option C", "Option D"],
+            "correct": 0,
+            "explanation": "Placeholder explanation.",
+            "retry": [
+              {
+                "question": "Placeholder retry for Quantifiers",
+                "svgKey": "",
+                "options": ["Option A", "Option B", "Option C", "Option D"],
+                "correct": 0,
+                "explanation": "Placeholder retry explanation."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "sets",
+        "label": "Sets & Operations",
+        "exercises": [
+          {
+            "id": "prereq_r3_sets_001",
+            "question": "Placeholder question for Sets & Operations",
+            "svgKey": "",
+            "options": ["Option A", "Option B", "Option C", "Option D"],
+            "correct": 0,
+            "explanation": "Placeholder explanation.",
+            "retry": [
+              {
+                "question": "Placeholder retry for Sets & Operations",
+                "svgKey": "",
+                "options": ["Option A", "Option B", "Option C", "Option D"],
+                "correct": 0,
+                "explanation": "Placeholder retry explanation."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "proofs",
+        "label": "Proofs",
+        "exercises": [
+          {
+            "id": "prereq_r3_proof_001",
+            "question": "Placeholder question for Proofs",
+            "svgKey": "",
+            "options": ["Option A", "Option B", "Option C", "Option D"],
+            "correct": 0,
+            "explanation": "Placeholder explanation.",
+            "retry": [
+              {
+                "question": "Placeholder retry for Proofs",
+                "svgKey": "",
+                "options": ["Option A", "Option B", "Option C", "Option D"],
+                "correct": 0,
+                "explanation": "Placeholder retry explanation."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "topicId": "prerequisiti",
+    "rating": 4,
+    "timeEstimate": "3–4 h",
+    "priority": "critical",
+    "label": "Prerequisites",
+    "whatYouNeed": "",
+    "approach": [],
+    "keyPoints": [],
+    "commonMistakes": [],
+    "exercises": [],
+    "nextStep": "",
+    "videos": [
+      {
+        "title": "Intro To Math Proofs (Full Course)",
+        "url": "https://youtu.be/3czgfHULZCs?si=UM_yVD5E7VcnrDKg"
+      }
+    ],
+    "topics": [
+      {
+        "id": "propositional_logic",
+        "label": "Propositional Logic",
+        "exercises": [
+          {
+            "id": "prereq_r4_logic_001",
+            "question": "Placeholder question for Propositional Logic rating 4",
+            "svgKey": "",
+            "options": ["Option A", "Option B", "Option C", "Option D"],
+            "correct": 0,
+            "explanation": "Placeholder explanation.",
+            "retry": [
+              {
+                "question": "Placeholder retry",
+                "svgKey": "",
+                "options": ["Option A", "Option B", "Option C", "Option D"],
+                "correct": 0,
+                "explanation": "Placeholder retry explanation."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "implication",
+        "label": "Implication",
+        "exercises": [
+          {
+            "id": "prereq_r4_impl_001",
+            "question": "Placeholder question for Implication",
+            "svgKey": "",
+            "options": ["Option A", "Option B", "Option C", "Option D"],
+            "correct": 0,
+            "explanation": "Placeholder explanation.",
+            "retry": [
+              {
+                "question": "Placeholder retry for Implication",
+                "svgKey": "",
+                "options": ["Option A", "Option B", "Option C", "Option D"],
+                "correct": 0,
+                "explanation": "Placeholder retry explanation."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "quantifiers",
+        "label": "Quantifiers",
+        "exercises": [
+          {
+            "id": "prereq_r4_quant_001",
+            "question": "Placeholder question for Quantifiers",
+            "svgKey": "",
+            "options": ["Option A", "Option B", "Option C", "Option D"],
+            "correct": 0,
+            "explanation": "Placeholder explanation.",
+            "retry": [
+              {
+                "question": "Placeholder retry for Quantifiers",
+                "svgKey": "",
+                "options": ["Option A", "Option B", "Option C", "Option D"],
+                "correct": 0,
+                "explanation": "Placeholder retry explanation."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "sets",
+        "label": "Sets & Operations",
+        "exercises": [
+          {
+            "id": "prereq_r4_sets_001",
+            "question": "Placeholder question for Sets & Operations",
+            "svgKey": "",
+            "options": ["Option A", "Option B", "Option C", "Option D"],
+            "correct": 0,
+            "explanation": "Placeholder explanation.",
+            "retry": [
+              {
+                "question": "Placeholder retry for Sets & Operations",
+                "svgKey": "",
+                "options": ["Option A", "Option B", "Option C", "Option D"],
+                "correct": 0,
+                "explanation": "Placeholder retry explanation."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "proofs",
+        "label": "Proofs",
+        "exercises": [
+          {
+            "id": "prereq_r4_proof_001",
+            "question": "Placeholder question for Proofs",
+            "svgKey": "",
+            "options": ["Option A", "Option B", "Option C", "Option D"],
+            "correct": 0,
+            "explanation": "Placeholder explanation.",
+            "retry": [
+              {
+                "question": "Placeholder retry for Proofs",
+                "svgKey": "",
+                "options": ["Option A", "Option B", "Option C", "Option D"],
+                "correct": 0,
+                "explanation": "Placeholder retry explanation."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "topicId": "prerequisiti",
+    "rating": 5,
+    "timeEstimate": "3–4 h",
+    "priority": "critical",
+    "label": "Prerequisites",
+    "whatYouNeed": "",
+    "approach": [],
+    "keyPoints": [],
+    "commonMistakes": [],
+    "exercises": [],
+    "nextStep": "",
+    "videos": [
+      {
+        "title": "Intro To Math Proofs (Full Course)",
+        "url": "https://youtu.be/3czgfHULZCs?si=UM_yVD5E7VcnrDKg"
+      }
+    ],
+    "topics": [
+      {
+        "id": "propositional_logic",
+        "label": "Propositional Logic",
+        "exercises": [
+          {
+            "id": "prereq_r5_logic_001",
+            "question": "Placeholder question for Propositional Logic rating 5",
+            "svgKey": "",
+            "options": ["Option A", "Option B", "Option C", "Option D"],
+            "correct": 0,
+            "explanation": "Placeholder explanation.",
+            "retry": [
+              {
+                "question": "Placeholder retry",
+                "svgKey": "",
+                "options": ["Option A", "Option B", "Option C", "Option D"],
+                "correct": 0,
+                "explanation": "Placeholder retry explanation."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "implication",
+        "label": "Implication",
+        "exercises": [
+          {
+            "id": "prereq_r5_impl_001",
+            "question": "Placeholder question for Implication",
+            "svgKey": "",
+            "options": ["Option A", "Option B", "Option C", "Option D"],
+            "correct": 0,
+            "explanation": "Placeholder explanation.",
+            "retry": [
+              {
+                "question": "Placeholder retry for Implication",
+                "svgKey": "",
+                "options": ["Option A", "Option B", "Option C", "Option D"],
+                "correct": 0,
+                "explanation": "Placeholder retry explanation."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "quantifiers",
+        "label": "Quantifiers",
+        "exercises": [
+          {
+            "id": "prereq_r5_quant_001",
+            "question": "Placeholder question for Quantifiers",
+            "svgKey": "",
+            "options": ["Option A", "Option B", "Option C", "Option D"],
+            "correct": 0,
+            "explanation": "Placeholder explanation.",
+            "retry": [
+              {
+                "question": "Placeholder retry for Quantifiers",
+                "svgKey": "",
+                "options": ["Option A", "Option B", "Option C", "Option D"],
+                "correct": 0,
+                "explanation": "Placeholder retry explanation."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "sets",
+        "label": "Sets & Operations",
+        "exercises": [
+          {
+            "id": "prereq_r5_sets_001",
+            "question": "Placeholder question for Sets & Operations",
+            "svgKey": "",
+            "options": ["Option A", "Option B", "Option C", "Option D"],
+            "correct": 0,
+            "explanation": "Placeholder explanation.",
+            "retry": [
+              {
+                "question": "Placeholder retry for Sets & Operations",
+                "svgKey": "",
+                "options": ["Option A", "Option B", "Option C", "Option D"],
+                "correct": 0,
+                "explanation": "Placeholder retry explanation."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "proofs",
+        "label": "Proofs",
+        "exercises": [
+          {
+            "id": "prereq_r5_proof_001",
+            "question": "Placeholder question for Proofs",
+            "svgKey": "",
+            "options": ["Option A", "Option B", "Option C", "Option D"],
+            "correct": 0,
+            "explanation": "Placeholder explanation.",
+            "retry": [
+              {
+                "question": "Placeholder retry for Proofs",
+                "svgKey": "",
+                "options": ["Option A", "Option B", "Option C", "Option D"],
+                "correct": 0,
+                "explanation": "Placeholder retry explanation."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

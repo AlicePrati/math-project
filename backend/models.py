@@ -16,6 +16,7 @@ class User(Base):
     ratings = relationship("UserRating", back_populates="user", cascade="all, delete-orphan")
     history = relationship("RatingHistory", back_populates="user", cascade="all, delete-orphan")
     progress = relationship("UserProgress", back_populates="user", uselist=False, cascade="all, delete-orphan")
+    study_plan_completions = relationship("StudyPlanCompletion", back_populates="user", cascade="all, delete-orphan")
 
 
 class Question(Base):
@@ -71,3 +72,16 @@ class UserProgress(Base):
     last_assessment_date = Column(DateTime, nullable=True)
 
     user = relationship("User", back_populates="progress")
+
+
+class StudyPlanCompletion(Base):
+    __tablename__ = "study_plan_completions"
+    __table_args__ = (UniqueConstraint("user_id", "exercise_id"),)
+
+    id           = Column(Integer, primary_key=True)
+    user_id      = Column(Integer, ForeignKey("users.id"), nullable=False)
+    exercise_id  = Column(String, nullable=False, index=True)
+    section_id   = Column(String, nullable=False)
+    completed_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+    user = relationship("User", back_populates="study_plan_completions")
