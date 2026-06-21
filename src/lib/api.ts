@@ -84,4 +84,18 @@ export const api = {
 
     reset: () => request<{ ok: boolean }>('/ratings/reset', { method: 'DELETE' }),
   },
+
+  studyPlan: {
+    completeExercise: (exerciseId: string, sectionId: string) =>
+      request<{ ok: boolean }>('/study-plan/complete-exercise', {
+        method: 'POST',
+        body: JSON.stringify({ exercise_id: exerciseId, section_id: sectionId }),
+      }),
+
+    progress: (sectionId: string) =>
+      request<{ completed_exercise_ids: string[] }>(`/study-plan/progress?section_id=${sectionId}`),
+
+    questions: (sectionId: string, rating?: number) =>
+      request<unknown[]>(`/study-plan/questions/${sectionId}${rating ? `?rating=${rating}` : ''}`),
+  },
 };

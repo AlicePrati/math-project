@@ -5,6 +5,7 @@ import { useTracker } from '../store/useTracker';
 import { useExercises } from '../store/useExercises';
 import { getStudyPlanForSection, hasSectionPlan } from '../data/studyPlans';
 import type { StudyPlanTopic } from '../data/studyPlans/types';
+import { api } from '../../../lib/api';
 
 const VISUALS: Record<string, React.ReactNode> = {
   // ── Rating 1 — Propositional Logic ──────────────────────────────────────────
@@ -570,11 +571,13 @@ function QuestionCard({
 
 function TopicExerciseFlow({
   topic,
+  sectionId,
   isCompleted,
   onComplete,
   onAllDone,
 }: {
   topic: StudyPlanTopic;
+  sectionId: string;
   isCompleted: (id: string) => boolean;
   onComplete: (id: string) => void;
   onAllDone: () => void;
@@ -638,6 +641,7 @@ function TopicExerciseFlow({
 
   function handleCorrect() {
     onComplete(currentExercise.id);
+    api.studyPlan.completeExercise(currentExercise.id, sectionId).catch(() => {});
   }
 
   // called when user clicks the wrong-answer button ("Try a similar question →")
@@ -653,6 +657,7 @@ function TopicExerciseFlow({
       if (newCount >= 2) {
         // used up 2 retries: mark done and advance
         onComplete(currentExercise.id);
+        api.studyPlan.completeExercise(currentExercise.id, sectionId).catch(() => {});
         advance();
       } else {
         setRetryCount(newCount);
@@ -908,6 +913,7 @@ export default function TopicStudyPlan() {
               <TopicExerciseFlow
                 key={activeTopic.id}
                 topic={activeTopic}
+                sectionId={sectionId ?? ''}
                 isCompleted={isCompleted}
                 onComplete={markComplete}
                 onAllDone={() => setActiveTopicIndex(null)}
