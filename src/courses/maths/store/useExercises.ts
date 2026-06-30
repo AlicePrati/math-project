@@ -67,5 +67,14 @@ export function useExercises() {
     [store.completed],
   );
 
-  return { markComplete, getQuizDifficulty, setQuizDifficulty, isCompleted, completedCountForSection };
+  const resetTopic = useCallback((exerciseIds: string[]) => {
+    setStore((prev) => {
+      const next = { ...prev, completed: { ...prev.completed } };
+      for (const id of exerciseIds) delete next.completed[id];
+      persist(next);
+      return next;
+    });
+  }, []);
+
+  return { markComplete, resetTopic, getQuizDifficulty, setQuizDifficulty, isCompleted, completedCountForSection };
 }

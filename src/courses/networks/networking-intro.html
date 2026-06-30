@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How the Internet Works</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0f1117; --surface: #1a1d27; --border: #2a2d3a;
+    --accent: #4f8ef7; --accent2: #7c3aed;
+    --green: #22c55e; --red: #ef4444;
+    --text: #e8eaf0; --muted: #8b8fa8; --signal: #f59e0b;
+  }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh; display: flex;
+    flex-direction: column; align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  .shell { width: 100%; max-width: 600px; }
+
+  .progress-wrap { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .progress-track { flex: 1; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 2px; transition: width 0.5s ease; }
+  .progress-label { font-size: 12px; color: var(--muted); white-space: nowrap; }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; }
+
+  .intro-screen {
+    padding: 60px 40px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; gap: 32px;
+  }
+  .intro-emoji { font-size: 52px; }
+  .intro-text { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 600; line-height: 1.5; color: var(--text); }
+  .start-btn {
+    padding: 13px 32px; border-radius: 10px;
+    font-size: 15px; font-weight: 600; cursor: pointer; border: none;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff; font-family: 'Inter', sans-serif; transition: transform 0.1s;
+  }
+  .start-btn:active { transform: scale(0.97); }
+
+  .scene {
+    background: #131620; border-bottom: 1px solid var(--border);
+    height: 150px; position: relative;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; overflow: hidden;
+  }
+  .wire { position: absolute; top: 50%; left: 88px; right: 88px; height: 2px; background: var(--border); transform: translateY(-50%); }
+  .node { display: flex; flex-direction: column; align-items: center; gap: 7px; z-index: 2; }
+  .node-icon { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 26px; }
+  .icon-alice  { background: #1e2a4a; border: 2px solid var(--accent); }
+  .icon-bob    { background: #1a2e1a; border: 2px solid var(--green); }
+  .icon-router { background: #2a1f10; border: 2px solid var(--signal); }
+  .node-label  { font-size: 11px; font-weight: 600; color: var(--muted); }
+
+  .flabel {
+    position: absolute; background: #1e2030; border: 1px solid var(--accent);
+    border-radius: 6px; padding: 3px 10px;
+    font-size: 11px; font-weight: 700; color: var(--accent);
+    white-space: nowrap; opacity: 0;
+    transition: opacity 0.5s ease; pointer-events: none; z-index: 5;
+  }
+  .flabel.amber { border-color: var(--signal); color: var(--signal); }
+  .flabel.show  { opacity: 1; }
+
+  .packet {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 34px; height: 24px; border-radius: 5px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px; opacity: 0; z-index: 3;
+    background: var(--accent); box-shadow: 0 0 12px rgba(79,142,247,0.4);
+  }
+  .go-lr    { animation: goLR  2s ease-in-out forwards; }
+  .go-mid   { animation: goMid 1.4s ease-in-out forwards; }
+  .go-end   { animation: goEnd 1.4s ease-in-out forwards; }
+  .go-lr-d1 { animation: goLR 2s 0.0s ease-in-out forwards; }
+  .go-lr-d2 { animation: goLR 2s 0.3s ease-in-out forwards; }
+  .go-lr-d3 { animation: goLR 2s 0.6s ease-in-out forwards; }
+
+  @keyframes goLR  { 0%{left:88px;opacity:1}  100%{left:calc(100% - 88px);opacity:1} }
+  @keyframes goMid { 0%{left:88px;opacity:1}  100%{left:calc(50% - 17px);opacity:1} }
+  @keyframes goEnd { 0%{left:calc(50% - 17px);opacity:1} 100%{left:calc(100% - 88px);opacity:1} }
+
+  .content { padding: 22px 26px; display: flex; flex-direction: column; gap: 16px; }
+
+  /* first pass: title is big, question is smaller below divider */
+  .card-title { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; line-height: 1.35; }
+  .divider { height: 1px; background: var(--border); }
+  .question { font-size: 14px; font-weight: 600; color: var(--muted); }
+
+  /* repeat pass: question promoted to title size */
+  .card-title-q { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; line-height: 1.35; color: var(--text); }
+
+  .options { display: flex; flex-direction: column; gap: 8px; }
+  .option {
+    background: #131620; border: 1.5px solid var(--border);
+    border-radius: 10px; padding: 11px 15px; font-size: 14px;
+    cursor: pointer; transition: border-color 0.15s, background 0.15s;
+    display: flex; align-items: center; gap: 10px;
+    color: var(--text); font-family: 'Inter', sans-serif; text-align: left;
+  }
+  .option:hover:not(.locked) { border-color: var(--accent); background: #1a1f30; }
+  .option.correct { border-color: var(--green); background: #0f2318; color: var(--green); }
+  .option.wrong   { border-color: var(--red);   background: #2a0f0f; color: var(--red); }
+  .option.locked  { cursor: default; }
+  .opt-letter {
+    width: 24px; height: 24px; border-radius: 5px; background: var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; flex-shrink: 0;
+  }
+  .option.correct .opt-letter { background: var(--green); color: #fff; }
+  .option.wrong   .opt-letter { background: var(--red);   color: #fff; }
+
+  .feedback { font-size: 13px; padding: 10px 14px; border-radius: 8px; display: none; line-height: 1.5; }
+  .feedback.correct { background: #0f2318; border: 1px solid var(--green); color: var(--green); }
+  .feedback.wrong   { background: #2a0f0f; border: 1px solid var(--red);   color: #f87171; }
+
+  .next-btn {
+    align-self: flex-end; padding: 11px 22px; border-radius: 10px;
+    font-size: 14px; font-weight: 600; cursor: pointer; border: none;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff; font-family: 'Inter', sans-serif;
+    transition: transform 0.1s; display: none;
+  }
+  .next-btn:active { transform: scale(0.97); }
+
+  .completion { text-align: center; padding: 40px 28px; }
+  .completion-emoji { font-size: 48px; margin-bottom: 14px; }
+  .completion h2 { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .score-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff; font-weight: 700; font-size: 13px;
+    padding: 5px 14px; border-radius: 20px; margin: 12px 0 20px;
+  }
+  .summary { display: flex; flex-direction: column; gap: 10px; text-align: left; margin-top: 4px; }
+  .summary-row { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); }
+  .pill {
+    display: inline-block; background: #1e2a4a; color: var(--accent);
+    font-size: 12px; font-weight: 600; padding: 2px 9px;
+    border-radius: 20px; border: 1px solid #2a3a5a; white-space: nowrap; flex-shrink: 0;
+  }
+  .pill.amber { background: #2a1f10; color: var(--signal); border-color: #3a2f18; }
+  .restart-btn {
+    margin-top: 24px; padding: 11px 22px; border-radius: 10px;
+    font-size: 14px; font-weight: 600; cursor: pointer;
+    background: transparent; border: 1.5px solid var(--border);
+    color: var(--muted); font-family: 'Inter', sans-serif;
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="progress-wrap">
+    <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    <div class="progress-label" id="progressLabel"></div>
+  </div>
+  <div class="card" id="card"></div>
+</div>
+
+<script>
+// title: string = show as teaching line + question below divider
+// title: null  = promote question text to title position, no divider
+const lessons = [
+  // ── Pass 1: introduce each concept ──
+  {
+    scene: 'simple',
+    title: 'Data is the message you send.',
+    question: 'In the postal analogy, data is like…',
+    options: ['The mailbox', 'The letter inside the envelope', 'The post office', 'The postman'],
+    correct: 1,
+    feedback: '✓ Data is the content — the actual message, just like the letter itself.',
+  },
+  {
+    scene: 'address',
+    title: 'An IP address tells the internet where to deliver your data.',
+    question: 'An IP address is equivalent to…',
+    options: ['The sender\'s name', 'A phone number', 'Your home address', 'The stamp'],
+    correct: 2,
+    feedback: '✓ Just like your home address directs the postman, an IP address directs data to the right computer.',
+  },
+  {
+    scene: 'packets',
+    title: 'Data is split into small pieces called packets.',
+    question: 'A packet is like…',
+    options: ['The whole letter sent at once', 'One page of a letter in its own envelope', 'The postal van', 'The address label'],
+    correct: 1,
+    feedback: '✓ Large messages are split into small packets — like splitting a long letter across several envelopes.',
+  },
+  {
+    scene: 'router',
+    title: 'A router forwards your packets toward their destination.',
+    question: 'A router is like…',
+    options: ['The letter writer', 'The recipient', 'A postal sorting office', 'The envelope'],
+    correct: 2,
+    feedback: '✓ A router reads the destination address and passes the packet forward — just like a sorting office.',
+  },
+  {
+    scene: 'protocol',
+    title: 'Protocols are the rules that make communication possible.',
+    question: 'A protocol is like…',
+    options: ['The ink used to write', 'The agreed rules for how to address and send a letter', 'The speed of the van', 'The colour of the envelope'],
+    correct: 1,
+    feedback: '✓ Without shared rules, nobody could understand each other. Protocols are the agreed standards of the internet.',
+  },
+  // ── Pass 2: question promoted to title ──
+  {
+    scene: 'simple',
+    title: null,
+    question: 'Which of these is an example of data?',
+    options: ['192.168.1.1', 'The route a packet takes', 'A photo you send to a friend', 'A router'],
+    correct: 2,
+    feedback: '✓ The photo is the data — the actual content being sent.',
+  },
+  {
+    scene: 'address',
+    title: null,
+    question: 'Why does every computer need a unique IP address?',
+    options: ['To make the internet faster', 'So data knows exactly which device to reach', 'To store your files', 'To connect to Wi-Fi'],
+    correct: 1,
+    feedback: '✓ Without a unique address, data wouldn\'t know which computer to deliver to.',
+  },
+  {
+    scene: 'packets',
+    title: null,
+    question: 'Why split a message into packets instead of sending it all at once?',
+    options: ['It looks nicer', 'Smaller pieces travel more efficiently and can reroute if blocked', 'Packets are easier to read', 'It uses more bandwidth'],
+    correct: 1,
+    feedback: '✓ Like sending several small envelopes — faster and more resilient than one giant parcel.',
+  },
+  {
+    scene: 'router',
+    title: null,
+    question: 'What does a router look at to decide where to send a packet?',
+    options: ['The size of the packet', 'The colour of the cable', 'The destination IP address', 'The time of day'],
+    correct: 2,
+    feedback: '✓ The router reads the destination IP address — like a sorting office reading the address on an envelope.',
+  },
+  {
+    scene: 'protocol',
+    title: null,
+    question: 'What would happen without agreed protocols?',
+    options: ['The internet would be faster', 'Computers couldn\'t understand each other\'s messages', 'Data would travel in bigger packets', 'IP addresses would change'],
+    correct: 1,
+    feedback: '✓ Without shared rules, it\'s like sending a letter in a language nobody else speaks.',
+  },
+  // ── Pass 3: harder, question as title ──
+  {
+    scene: 'simple',
+    title: null,
+    question: 'Data is different from the address because…',
+    options: ['Data is always larger', 'Data is what you send, the address is where you send it', 'Data travels faster than addresses', 'Data is only text'],
+    correct: 1,
+    feedback: '✓ The letter (data) and the address on the envelope are two separate things — content vs. destination.',
+  },
+  {
+    scene: 'address',
+    title: null,
+    question: 'What happens if two computers share the same IP address?',
+    options: ['They get faster connection', 'Data could be delivered to the wrong device', 'They share files automatically', 'Nothing — it\'s allowed'],
+    correct: 1,
+    feedback: '✓ Like two houses with the same address — the postman wouldn\'t know which one to deliver to.',
+  },
+  {
+    scene: 'packets',
+    title: null,
+    question: 'If one packet gets lost in transit, what happens to the rest?',
+    options: ['The whole message is lost', 'The other packets still arrive and the missing one is re-sent', 'All packets stop moving', 'The router deletes them'],
+    correct: 1,
+    feedback: '✓ Like losing one envelope in the post — the others still arrive, and you can ask for that one page to be re-sent.',
+  },
+  {
+    scene: 'router',
+    title: null,
+    question: 'A message travels through five routers to reach its destination. Each router is like…',
+    options: ['A different postal service', 'One sorting office passing the letter to the next', 'A new envelope at each stop', 'A delay in the system'],
+    correct: 1,
+    feedback: '✓ Each router is one sorting office in a chain — reading the address and handing it off to the next stop.',
+  },
+];
+
+let current = -1;
+let score = 0;
+
+function setProgress() {
+  if (current < 0) {
+    document.getElementById('progressFill').style.width = '0%';
+    document.getElementById('progressLabel').textContent = '';
+    return;
+  }
+  const pct = Math.round((current / lessons.length) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = (current + 1) + ' / ' + lessons.length;
+}
+
+function render() {
+  setProgress();
+  if (current < 0) { renderIntro(); return; }
+  if (current >= lessons.length) { renderComplete(); return; }
+
+  const L = lessons[current];
+  const letters = ['A','B','C','D'];
+  const firstPass = L.title !== null;
+
+  document.getElementById('card').innerHTML = `
+    ${buildScene(L.scene)}
+    <div class="content">
+      ${firstPass
+        ? `<div class="card-title">${L.title}</div>
+           <div class="divider"></div>
+           <div class="question">${L.question}</div>`
+        : `<div class="card-title-q">${L.question}</div>`
+      }
+      <div class="options">
+        ${L.options.map((o,i) => `
+          <button class="option" data-i="${i}">
+            <span class="opt-letter">${letters[i]}</span>${o}
+          </button>`).join('')}
+      </div>
+      <div class="feedback" id="fb"></div>
+      <button class="next-btn" id="nextBtn">${current < lessons.length-1 ? 'Next →' : 'Finish →'}</button>
+    </div>
+  `;
+
+  setTimeout(() => animateScene(L.scene), 300);
+
+  document.querySelectorAll('.option').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (document.querySelector('.option.locked')) return;
+      const chosen = parseInt(btn.dataset.i);
+      const ok = chosen === L.correct;
+      if (ok) score++;
+      document.querySelectorAll('.option').forEach(b => b.classList.add('locked'));
+      btn.classList.add(ok ? 'correct' : 'wrong');
+      if (!ok) document.querySelectorAll('.option')[L.correct].classList.add('correct');
+      const fb = document.getElementById('fb');
+      fb.textContent = L.feedback;
+      fb.className = 'feedback ' + (ok ? 'correct' : 'wrong');
+      fb.style.display = 'block';
+      document.getElementById('nextBtn').style.display = 'block';
+    });
+  });
+
+  document.getElementById('nextBtn').addEventListener('click', () => { current++; render(); });
+}
+
+function renderIntro() {
+  document.getElementById('card').innerHTML = `
+    <div class="intro-screen">
+      <div class="intro-emoji">📮</div>
+      <div class="intro-text">We'll learn how the internet works through one analogy — the postal service.</div>
+      <button class="start-btn" id="startBtn">Let's go →</button>
+    </div>
+  `;
+  document.getElementById('startBtn').addEventListener('click', () => { current = 0; render(); });
+}
+
+function buildScene(type) {
+  const alice = `<div class="node"><div class="node-icon icon-alice">🏠</div><div class="node-label">Alice</div></div>`;
+  const bob   = `<div class="node"><div class="node-icon icon-bob">🏠</div><div class="node-label">Bob</div></div>`;
+  const wire  = `<div class="wire"></div>`;
+
+  if (type === 'simple') return `
+    <div class="scene">${wire}${alice}${bob}
+      <div class="packet" id="pkt">✉️</div>
+    </div>`;
+  if (type === 'address') return `
+    <div class="scene">${wire}${alice}${bob}
+      <div class="flabel" id="lbl1" style="top:20px;left:14%">📍 192.168.1.10</div>
+      <div class="flabel" id="lbl2" style="top:20px;right:14%">📍 93.184.216.34</div>
+      <div class="packet" id="pkt">✉️</div>
+    </div>`;
+  if (type === 'packets') return `
+    <div class="scene">${wire}${alice}${bob}
+      <div class="packet go-lr-d1" style="top:calc(50% - 20px);transform:none">📄</div>
+      <div class="packet go-lr-d2" style="top:calc(50% - 2px);transform:none">📄</div>
+      <div class="packet go-lr-d3" style="top:calc(50% + 16px);transform:none">📄</div>
+    </div>`;
+  if (type === 'router') return `
+    <div class="scene">${wire}${alice}
+      <div class="node" style="position:absolute;left:50%;transform:translateX(-50%)">
+        <div class="node-icon icon-router">🏢</div>
+        <div class="node-label">Post Office</div>
+      </div>
+      ${bob}
+      <div class="packet" id="pkt">✉️</div>
+    </div>`;
+  if (type === 'protocol') return `
+    <div class="scene">${wire}${alice}${bob}
+      <div class="flabel amber" id="lbl1" style="top:20px;left:50%;transform:translateX(-50%)">📋 TCP / IP rules</div>
+      <div class="packet" id="pkt">✉️</div>
+    </div>`;
+}
+
+function animateScene(type) {
+  if (type === 'packets') return;
+  if (type === 'address' || type === 'protocol') {
+    setTimeout(() => document.querySelectorAll('.flabel').forEach(l => l.classList.add('show')), 400);
+    const pkt = document.getElementById('pkt');
+    if (pkt) setTimeout(() => pkt.classList.add('go-lr'), 900);
+    return;
+  }
+  if (type === 'router') {
+    const pkt = document.getElementById('pkt');
+    if (!pkt) return;
+    pkt.classList.add('go-mid');
+    setTimeout(() => {
+      pkt.classList.remove('go-mid');
+      pkt.style.left = 'calc(50% - 17px)'; pkt.style.opacity = '1';
+      setTimeout(() => { pkt.style.left = ''; pkt.style.opacity = ''; pkt.classList.add('go-end'); }, 500);
+    }, 1500);
+    return;
+  }
+  const pkt = document.getElementById('pkt');
+  if (!pkt) return;
+  pkt.classList.add('go-lr');
+  setTimeout(() => {
+    pkt.classList.remove('go-lr'); pkt.style.opacity = '0';
+    setTimeout(() => { pkt.style.opacity = ''; pkt.classList.add('go-lr'); }, 300);
+  }, 2300);
+}
+
+function renderComplete() {
+  document.getElementById('progressFill').style.width = '100%';
+  document.getElementById('progressLabel').textContent = '14 / 14';
+  document.getElementById('card').innerHTML = `
+    <div class="completion">
+      <div class="completion-emoji">📮</div>
+      <h2>Lesson complete.</h2>
+      <div class="score-badge">${score} / 14 correct</div>
+      <div class="summary">
+        <div class="summary-row"><span class="pill">Data</span> the letter inside the envelope</div>
+        <div class="summary-row"><span class="pill">IP Address</span> your home address</div>
+        <div class="summary-row"><span class="pill">Packet</span> one envelope of many</div>
+        <div class="summary-row"><span class="pill amber">Router</span> the postal sorting office</div>
+        <div class="summary-row"><span class="pill amber">Protocol</span> the rules of posting</div>
+      </div>
+      <button class="restart-btn" onclick="restart()">← Start over</button>
+    </div>
+  `;
+}
+
+function restart() { current = -1; score = 0; render(); }
+render();
+</script>
+</body>
+</html>
