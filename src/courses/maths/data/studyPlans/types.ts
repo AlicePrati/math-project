@@ -11,6 +11,7 @@ export type StudyPlanVideo = {
 
 export type TopicExercise = {
   id: string;
+  title?: string;
   question: string;
   svgKey?: string;
   options: string[];
@@ -28,7 +29,9 @@ export type TopicExercise = {
 export type StudyPlanTopic = {
   id: string;
   label: string;
+  scene?: string;
   exercises: TopicExercise[];
+  lessons?: TopicExercise[][];
 };
 
 export type StudyPlan = {

@@ -21,10 +21,12 @@
       {
         "id": "propositional_logic",
         "label": "Propositional Logic",
+        "scene": "scene_propositional_logic",
         "exercises": [
           {
             "id": "prereq_r1_logic_001",
-            "question": "A light switch can only be ON (true) or OFF (false). Which of these sentences is a PROPOSITION — something that can be true or false?",
+            "title": "A proposition is a statement that is either true or false.",
+            "question": "Which of these sentences is a PROPOSITION?",
             "svgKey": "prop_statement_vs_question",
             "options": [
               "The number 7 is odd",
@@ -63,7 +65,8 @@
           },
           {
             "id": "prereq_r1_logic_002",
-            "question": "NEGATION (¬P) flips the truth value. If P = \"It is raining\" is TRUE, the image shows what happens to ¬P. What is the value of ¬P?",
+            "title": "NEGATION (¬P) flips the truth value — if P is true, ¬P is false, and vice versa.",
+            "question": "If P = \"It is raining\" is TRUE, the image shows what happens to ¬P. What is the value of ¬P?",
             "svgKey": "prop_negation_rain",
             "options": [
               "¬P is false",
@@ -102,7 +105,8 @@
           },
           {
             "id": "prereq_r1_logic_003",
-            "question": "A security door opens ONLY if you insert key A AND key B together. This is like conjunction P ∧ Q. When is \"It is raining ∧ I have an umbrella\" TRUE?",
+            "title": "CONJUNCTION (P ∧ Q) is true only when BOTH propositions are true.",
+            "question": "A security door opens ONLY if you insert key A and key B together. This is like conjunction P ∧ Q. When is \"It is raining ∧ I have an umbrella\" TRUE?",
             "svgKey": "prop_and_door",
             "options": [
               "Only when it is raining AND I have an umbrella",
@@ -141,7 +145,8 @@
           },
           {
             "id": "prereq_r1_logic_004",
-            "question": "Two switches in parallel: just ONE of them needs to be ON to light the room. This is P ∨ Q (disjunction). When is \"I am hungry ∨ I am thirsty\" FALSE?",
+            "title": "DISJUNCTION (P ∨ Q) is false only when BOTH propositions are false.",
+            "question": "When is \"I am hungry ∨ I am thirsty\" FALSE?",
             "svgKey": "prop_or_light",
             "options": [
               "Only when I am not hungry AND not thirsty",
@@ -180,6 +185,7 @@
           },
           {
             "id": "prereq_r1_logic_005",
+            "title": "Parentheses come first: AND (∧) binds tighter than OR (∨)",
             "question": "Event entry rule: \"(You have a ticket ∧ You are at least 18) ∨ You have a VIP pass\". Marco is 16, has a ticket but no VIP pass. Can he enter?",
             "svgKey": "prop_combo_event",
             "options": [
@@ -217,6 +223,412 @@
               }
             ]
           }
+        ],
+        "lessons": [
+          [
+            {
+              "id": "prereq_r1_logic_001",
+              "title": "A proposition is a statement that is either true or false.",
+              "question": "Which of these sentences is a PROPOSITION?",
+              "svgKey": "prop_statement_vs_question",
+              "options": [
+                "The number 7 is odd",
+                "Close the door!",
+                "What time is it?",
+                "Maybe it will rain tomorrow"
+              ],
+              "correct": 0,
+              "explanation": "A proposition must have a definite truth value — true or false. \"The number 7 is odd\" is true. Commands, questions, and sentences with \"maybe\" have no truth value.",
+              "retry": [
+                {
+                  "question": "Like a light switch that is either ON or OFF, a proposition is either true or false — never both, never neither. Which of these is NOT a proposition?",
+                  "svgKey": "prop_statement_vs_question",
+                  "options": [
+                    "Open the window!",
+                    "Rome is the capital of Italy",
+                    "2 + 2 = 5",
+                    "The cat is on the table"
+                  ],
+                  "correct": 0,
+                  "explanation": "\"Open the window!\" is a command — it has no truth value. The other three are propositions: Rome=true, 2+2=5=false, cat on table=true or false depending on facts."
+                },
+                {
+                  "question": "Which sentence can be clearly assigned as true OR false?",
+                  "svgKey": "prop_statement_vs_question",
+                  "options": [
+                    "The Moon orbits the Earth",
+                    "Go buy some milk",
+                    "Maybe he is right",
+                    "How much does it cost?"
+                  ],
+                  "correct": 0,
+                  "explanation": "Only \"The Moon orbits the Earth\" has a precise truth value (it is true). The others are a command, an uncertainty, and a question — none of them can be true or false."
+                }
+              ]
+            },
+            {
+              "id": "prereq_r1_logic_002",
+              "title": "NEGATION (¬P) flips the truth value — if P is true, ¬P is false, and vice versa.",
+              "question": "If P = \"It is raining\" is TRUE, the image shows what happens to ¬P. What is the value of ¬P?",
+              "svgKey": "prop_negation_rain",
+              "options": [
+                "¬P is false",
+                "¬P is true",
+                "¬P is true only at night",
+                "¬P depends on context"
+              ],
+              "correct": 0,
+              "explanation": "Negation always flips the truth value. If P is true, ¬P is always false. \"It is not raining\" is false when it is actually raining.",
+              "retry": [
+                {
+                  "question": "The traffic light flips the signal: red becomes green and vice versa. If P = \"The train is on time\" is FALSE, what is ¬P?",
+                  "svgKey": "prop_negation_rain",
+                  "options": [
+                    "¬P is true",
+                    "¬P is false",
+                    "¬P is indeterminate",
+                    "¬P is true only if the delay is short"
+                  ],
+                  "correct": 0,
+                  "explanation": "If P is false, ¬P is always true. \"The train is NOT on time\" is true when the train is actually late."
+                },
+                {
+                  "question": "P = \"Today is Monday\" is false (it is Tuesday). What is the value of ¬P = \"Today is NOT Monday\"?",
+                  "svgKey": "prop_negation_rain",
+                  "options": [
+                    "True, because today is not Monday",
+                    "False, because negation makes everything false",
+                    "Depends on the time of day",
+                    "Cannot be determined"
+                  ],
+                  "correct": 0,
+                  "explanation": "¬P flips the value: P was false (it is not Monday), so ¬P is true. \"Today is NOT Monday\" is correct — it is Tuesday."
+                }
+              ]
+            },
+            {
+              "id": "prereq_r1_logic_003",
+              "title": "CONJUNCTION (P ∧ Q) is true only when BOTH propositions are true.",
+              "question": "A security door opens ONLY if you insert key A and key B together. This is like conjunction P ∧ Q. When is \"It is raining ∧ I have an umbrella\" TRUE?",
+              "svgKey": "prop_and_door",
+              "options": [
+                "Only when it is raining AND I have an umbrella",
+                "When it is raining or I have an umbrella",
+                "Whenever at least one of the two is true",
+                "Only when it is not raining"
+              ],
+              "correct": 0,
+              "explanation": "P ∧ Q is true only when BOTH propositions are true. Like the door that needs two keys: one alone is not enough.",
+              "retry": [
+                {
+                  "question": "The door opens only with key A AND key B. P = \"I have a driving licence\" (true), Q = \"I have a car\" (false). What is P ∧ Q?",
+                  "svgKey": "prop_and_door",
+                  "options": [
+                    "False, because Q is false",
+                    "True, because P is true",
+                    "True, because one of them is true",
+                    "Depends on the situation"
+                  ],
+                  "correct": 0,
+                  "explanation": "P ∧ Q requires BOTH to be true. If even one is false, the result is false — like the door that won't open with just one key."
+                },
+                {
+                  "question": "P = \"I am enrolled\" (true), Q = \"I have paid the fee\" (true). What is P ∧ Q?",
+                  "svgKey": "prop_and_door",
+                  "options": [
+                    "True, both conditions are satisfied",
+                    "False, AND requires something more",
+                    "Indeterminate",
+                    "True only if a third condition exists"
+                  ],
+                  "correct": 0,
+                  "explanation": "When both propositions are true, P ∧ Q is true. With both keys the door opens!"
+                }
+              ]
+            },
+            {
+              "id": "prereq_r1_logic_004",
+              "title": "DISJUNCTION (P ∨ Q) is false only when BOTH propositions are false.",
+              "question": "When is \"I am hungry ∨ I am thirsty\" FALSE?",
+              "svgKey": "prop_or_light",
+              "options": [
+                "Only when I am not hungry AND not thirsty",
+                "When I am only hungry but not thirsty",
+                "When I am both hungry and thirsty",
+                "It can never be false"
+              ],
+              "correct": 0,
+              "explanation": "P ∨ Q is false only when BOTH propositions are false. If even one is true, the result is true — like the light that turns on with either switch.",
+              "retry": [
+                {
+                  "question": "OR circuit: one switch is enough. P = \"I am studying\" (false), Q = \"I am working\" (false). What is P ∨ Q?",
+                  "svgKey": "prop_or_light",
+                  "options": [
+                    "False, neither one is true",
+                    "True, OR is always true",
+                    "True, because one could become true",
+                    "Indeterminate"
+                  ],
+                  "correct": 0,
+                  "explanation": "P ∨ Q is false only when both are false. If no switch is on, the light stays off."
+                },
+                {
+                  "question": "P = \"It is Sunday\" (false, it is Friday), Q = \"It is a holiday\" (false). What is P ∨ Q?",
+                  "svgKey": "prop_or_light",
+                  "options": [
+                    "False, because both are false",
+                    "True, because Friday is almost the weekend",
+                    "True, because OR includes both cases",
+                    "Depends on the calendar"
+                  ],
+                  "correct": 0,
+                  "explanation": "OR is false only when both are false. It is Friday and not a holiday, so both P and Q are false → P ∨ Q is false."
+                }
+              ]
+            },
+            {
+              "id": "prereq_r1_logic_005",
+              "title": "Parentheses come first: AND (∧) binds tighter than OR (∨)",
+              "question": "Event entry rule: \"(You have a ticket ∧ You are at least 18) ∨ You have a VIP pass\". Marco is 16, has a ticket but no VIP pass. Can he enter?",
+              "svgKey": "prop_combo_event",
+              "options": [
+                "No — he has a ticket but is not 18, and has no VIP pass",
+                "Yes — he has a ticket, which is enough",
+                "Yes — the disjunction makes everything true",
+                "Cannot be determined without more information"
+              ],
+              "correct": 0,
+              "explanation": "Ticket=true, Age≥18=false → (true ∧ false) = false. VIP pass=false. So false ∨ false = false. Marco cannot enter. Parentheses first: AND is evaluated before OR.",
+              "retry": [
+                {
+                  "question": "Same rule: \"(Ticket ∧ Age≥18) ∨ VIP pass\". Sara is 20, has no ticket, but has a VIP pass. Can she enter?",
+                  "svgKey": "prop_combo_event",
+                  "options": [
+                    "Yes — VIP pass alone is sufficient",
+                    "No — she has no ticket",
+                    "No — AND requires all conditions",
+                    "Depends on the organiser"
+                  ],
+                  "correct": 0,
+                  "explanation": "(false ∧ true) = false. false ∨ true = TRUE. The VIP pass alone is enough thanks to the disjunction. Sara can enter."
+                },
+                {
+                  "question": "P = \"Grade ≥ 18\" (true), Q = \"Attendance ≥ 75%\" (false), R = \"Student with exemption\" (false). The rule is (P ∧ Q) ∨ R. Is the exam passed?",
+                  "svgKey": "prop_combo_event",
+                  "options": [
+                    "No — (true ∧ false) ∨ false = false",
+                    "Yes — the grade is sufficient",
+                    "Yes — the disjunction saves it",
+                    "Depends on the professor"
+                  ],
+                  "correct": 0,
+                  "explanation": "(P ∧ Q) = (true ∧ false) = false. false ∨ false = FALSE. The grade is fine but attendance is not enough, and there is no exemption — exam not passed."
+                }
+              ]
+            }
+          ],
+          [
+            {
+              "id": "prereq_r1_logic_l2_001",
+              "title": "CONDITIONAL (P → Q) is false ONLY when P is true and Q is false.",
+              "question": "\"If it rains (P) → I bring an umbrella (Q)\". Today it is not raining and I did not bring an umbrella. Is the implication P → Q true?",
+              "svgKey": "prop_conditional_umbrella",
+              "options": [
+                "True — when P is false, the implication is always true",
+                "False — I did not bring an umbrella",
+                "False — both conditions must be checked",
+                "Cannot be determined"
+              ],
+              "correct": 0,
+              "explanation": "P → Q is false only when P is true and Q is false. Since P is false (it is not raining), the implication is automatically true, regardless of Q.",
+              "retry": [
+                {
+                  "question": "\"If the alarm rings (P) → I wake up (Q)\". The alarm did not ring and I did not wake up (I was already awake). Is P → Q true?",
+                  "svgKey": "prop_conditional_umbrella",
+                  "options": [
+                    "True — P is false, so the implication is true",
+                    "False — I should have woken up",
+                    "False — the alarm never rang",
+                    "Cannot be determined"
+                  ],
+                  "correct": 0,
+                  "explanation": "P is false (the alarm did not ring), so P → Q is automatically true no matter what Q is."
+                },
+                {
+                  "question": "\"If you study (P) → you pass (Q)\". You did not study and you did not pass. Is P → Q true?",
+                  "svgKey": "prop_conditional_umbrella",
+                  "options": [
+                    "True — P is false, so the implication holds vacuously",
+                    "False — you did not pass",
+                    "False — studying is required",
+                    "Cannot be determined"
+                  ],
+                  "correct": 0,
+                  "explanation": "Whenever P is false, P → Q is true regardless of Q. The implication is not broken — it is vacuously satisfied."
+                }
+              ]
+            },
+            {
+              "id": "prereq_r1_logic_l2_002",
+              "title": "The \"true that fools you\" case: when both P and Q are true, P → Q is simply true.",
+              "question": "P = \"I am over 18\" (true), Q = \"I can vote\" (true). What is the value of P → Q?",
+              "svgKey": "prop_conditional_true_true",
+              "options": [
+                "True — P true and Q true make the implication true",
+                "False — P must always be false",
+                "Indeterminate",
+                "True only in some countries"
+              ],
+              "correct": 0,
+              "explanation": "The only case where P → Q is false is P true and Q false. Here both are true, so the implication is true.",
+              "retry": [
+                {
+                  "question": "P = \"The light is green\" (true), Q = \"Cars can go\" (true). What is P → Q?",
+                  "svgKey": "prop_conditional_true_true",
+                  "options": [
+                    "True — both P and Q are true",
+                    "False — green does not guarantee anything",
+                    "Indeterminate",
+                    "True only at intersections"
+                  ],
+                  "correct": 0,
+                  "explanation": "With P true and Q true, P → Q is true — this is the most intuitive case of the conditional."
+                },
+                {
+                  "question": "P = \"The exam was passed\" (true), Q = \"The credit is earned\" (true). What is P → Q?",
+                  "svgKey": "prop_conditional_true_true",
+                  "options": [
+                    "True — both conditions hold, so the implication is true",
+                    "False — passing does not always mean earning credit",
+                    "Indeterminate",
+                    "Depends on the university"
+                  ],
+                  "correct": 0,
+                  "explanation": "P → Q is false only when P is true and Q is false. Both being true makes the implication true."
+                }
+              ]
+            },
+            {
+              "id": "prereq_r1_logic_l2_003",
+              "title": "BICONDITIONAL (P ↔ Q) is true when P and Q have the SAME truth value.",
+              "question": "P = \"The number is even\" (false, the number is 7), Q = \"The number is divisible by 2\" (false). What is P ↔ Q?",
+              "svgKey": "prop_biconditional_parity",
+              "options": [
+                "True — both are false, same truth value",
+                "False — both propositions are false",
+                "True only if both are true",
+                "Cannot be determined"
+              ],
+              "correct": 0,
+              "explanation": "P ↔ Q is true when P and Q share the same value (both true or both false). Here both are false → the biconditional is true.",
+              "retry": [
+                {
+                  "question": "P = \"The shape is a square\" (false, it is a triangle), Q = \"The shape has 4 sides\" (false). What is P ↔ Q?",
+                  "svgKey": "prop_biconditional_parity",
+                  "options": [
+                    "True — both false, so they match",
+                    "False — neither is true",
+                    "True only if it is a square",
+                    "Cannot be determined"
+                  ],
+                  "correct": 0,
+                  "explanation": "Both P and Q are false, which means they have the same truth value — so P ↔ Q is true."
+                },
+                {
+                  "question": "P = \"5 is prime\" (true), Q = \"5 is odd\" (true). What is P ↔ Q?",
+                  "svgKey": "prop_biconditional_parity",
+                  "options": [
+                    "True — both are true, same truth value",
+                    "False — primality and parity are unrelated",
+                    "Indeterminate",
+                    "True only for even numbers"
+                  ],
+                  "correct": 0,
+                  "explanation": "P and Q are both true, so they share the same truth value — the biconditional P ↔ Q is true."
+                }
+              ]
+            },
+            {
+              "id": "prereq_r1_logic_l2_004",
+              "title": "DE MORGAN: ¬(P ∧ Q) is equivalent to (¬P ∨ ¬Q).",
+              "question": "P = \"I have the ticket\" (true), Q = \"I am over 18\" (false). Calculate ¬(P ∧ Q).",
+              "svgKey": "prop_demorgan_ticket",
+              "options": [
+                "True — P ∧ Q is false (one requirement is missing), so its negation is true",
+                "False — P is true so P ∧ Q is true",
+                "True only if both are false",
+                "Cannot be determined"
+              ],
+              "correct": 0,
+              "explanation": "P ∧ Q = (true ∧ false) = false. The negation of false is true. So ¬(P ∧ Q) is true: not both conditions are satisfied together.",
+              "retry": [
+                {
+                  "question": "P = \"I have signed up\" (true), Q = \"I have paid\" (false). Calculate ¬(P ∧ Q).",
+                  "svgKey": "prop_demorgan_ticket",
+                  "options": [
+                    "True — P ∧ Q is false since Q is false, so the negation is true",
+                    "False — P is true",
+                    "True only if I have paid",
+                    "Cannot be determined"
+                  ],
+                  "correct": 0,
+                  "explanation": "P ∧ Q = (true ∧ false) = false, so ¬(P ∧ Q) = true. By De Morgan this equals ¬P ∨ ¬Q = false ∨ true = true."
+                },
+                {
+                  "question": "P = \"Internet connected\" (false), Q = \"Server online\" (true). Calculate ¬(P ∧ Q).",
+                  "svgKey": "prop_demorgan_ticket",
+                  "options": [
+                    "True — P ∧ Q is false since P is false, so the negation is true",
+                    "False — Q is true so the conjunction holds",
+                    "True only if both are true",
+                    "Cannot be determined"
+                  ],
+                  "correct": 0,
+                  "explanation": "P ∧ Q = (false ∧ true) = false. ¬(false) = true. By De Morgan, ¬P ∨ ¬Q = true ∨ false = true — matches."
+                }
+              ]
+            },
+            {
+              "id": "prereq_r1_logic_l2_005",
+              "title": "COMPOUND NEGATION with AND/OR: evaluate ¬P first, then combine.",
+              "question": "P = \"It is raining\" (false), Q = \"It is windy\" (true). Calculate ¬P ∧ Q.",
+              "svgKey": "prop_negation_and_wind",
+              "options": [
+                "True — ¬P is true (not raining) and Q is true, so the conjunction is true",
+                "False — P is false so everything is false",
+                "True only if it rains",
+                "Cannot be determined"
+              ],
+              "correct": 0,
+              "explanation": "¬P = ¬false = true. Q = true. true ∧ true = true. Both conditions of the conjunction are satisfied.",
+              "retry": [
+                {
+                  "question": "P = \"The shop is closed\" (false), Q = \"It is a holiday\" (true). Calculate ¬P ∧ Q.",
+                  "svgKey": "prop_negation_and_wind",
+                  "options": [
+                    "True — ¬P is true (shop is open) and Q is true",
+                    "False — the shop being open contradicts the holiday",
+                    "True only on weekdays",
+                    "Cannot be determined"
+                  ],
+                  "correct": 0,
+                  "explanation": "¬P = ¬false = true. Q = true. true ∧ true = true — the conjunction holds."
+                },
+                {
+                  "question": "P = \"The light is off\" (false), Q = \"It is daytime\" (true). Calculate ¬P ∧ Q.",
+                  "svgKey": "prop_negation_and_wind",
+                  "options": [
+                    "True — ¬P is true (light is on) and Q is true, so the conjunction is true",
+                    "False — daytime makes the light irrelevant",
+                    "True only at night",
+                    "Cannot be determined"
+                  ],
+                  "correct": 0,
+                  "explanation": "¬P = ¬false = true (the light is on). Q = true. true ∧ true = true."
+                }
+              ]
+            }
+          ]
         ]
       },
       {
@@ -335,9 +747,11 @@
       {
         "id": "propositional_logic",
         "label": "Propositional Logic",
+        "scene": "scene_propositional_logic",
         "exercises": [
           {
             "id": "prereq_r2_logic_001",
+            "title": "A truth table lists every possible combination of truth values and shows when a formula is true or false.",
             "question": "The table shows all rows of ¬P ∨ Q. One row is highlighted in red. Which combination of P and Q makes ¬P ∨ Q FALSE?",
             "svgKey": "prop_truth_table_neg_or",
             "options": [
@@ -377,6 +791,7 @@
           },
           {
             "id": "prereq_r2_logic_002",
+            "title": "De Morgan's first law: ¬(P ∨ Q) ≡ ¬P ∧ ¬Q — negating an OR flips it to an AND of negations.",
             "question": "Two formulas are LOGICALLY EQUIVALENT if they have the same truth table. A vending machine accepts €1 OR €2 coins. A friend says: \"It accepts neither €1 nor €2\". How do you write the negation of (P ∨ Q)?",
             "svgKey": "prop_demorgan_or",
             "options": [
@@ -416,6 +831,7 @@
           },
           {
             "id": "prereq_r2_logic_003",
+            "title": "A TAUTOLOGY is always true; a CONTRADICTION is always false. P ∨ ¬P is the classic tautology (law of excluded middle).",
             "question": "A TAUTOLOGY is a formula that is always true regardless of the values of P and Q. The image shows P ∨ ¬P: either it rains (P) or it does not (¬P). Which of these is a tautology?",
             "svgKey": "prop_tautology_excluded_middle",
             "options": [
@@ -455,6 +871,7 @@
           },
           {
             "id": "prereq_r2_logic_004",
+            "title": "De Morgan's second law: ¬(P ∧ Q) ≡ ¬P ∨ ¬Q — negating an AND flips it to an OR of negations.",
             "question": "De Morgan's second law: ¬(P ∧ Q) ≡ ¬P ∨ ¬Q. The image shows a door that needs Key A AND Key B — but Key B is crossed out (¬Q). What must an attacker do to prevent the door from opening?",
             "svgKey": "prop_demorgan_and",
             "options": [
@@ -494,6 +911,7 @@
           },
           {
             "id": "prereq_r2_logic_005",
+            "title": "Nested De Morgan: apply the law step by step, working from the outermost parentheses inward.",
             "question": "The image shows ¬((A∧B) ∨ (C∧D)) applied step by step. A competition rule: \"(Age≥18 ∧ Resident) ∨ (Guardian ∧ Consent)\". The negation — condition to be EXCLUDED — equals?",
             "svgKey": "prop_demorgan_nested",
             "options": [
@@ -649,21 +1067,130 @@
       {
         "id": "propositional_logic",
         "label": "Propositional Logic",
+        "scene": "scene_propositional_logic",
         "exercises": [
           {
             "id": "prereq_r3_logic_001",
-            "question": "Placeholder question for Propositional Logic rating 3",
-            "svgKey": "",
-            "options": ["Option A", "Option B", "Option C", "Option D"],
+            "title": "De Morgan's law: ¬(P ∨ Q) ≡ ¬P ∧ ¬Q — the negation of an OR is an AND of negations (not an OR).",
+            "question": "A student claims that ¬(P ∨ Q) is the same as ¬P ∨ ¬Q. Build the truth tables. What is the correct equivalence?",
+            "svgKey": "prop_truth_table_neg_or",
+            "options": ["¬(P ∨ Q) ≡ ¬P ∧ ¬Q (the student is wrong)", "¬(P ∨ Q) ≡ ¬P ∨ ¬Q (the student is right)", "¬(P ∨ Q) ≡ P ∧ Q", "¬(P ∨ Q) ≡ ¬P → ¬Q"],
             "correct": 0,
-            "explanation": "Placeholder explanation.",
+            "explanation": "By De Morgan's law, the negation of a disjunction is the conjunction of the negations: ¬(P ∨ Q) ≡ ¬P ∧ ¬Q. The student confused ∧ with ∨ in the result.",
             "retry": [
               {
-                "question": "Placeholder retry",
-                "svgKey": "",
-                "options": ["Option A", "Option B", "Option C", "Option D"],
+                "question": "When is ¬(P ∨ Q) true?",
+                "svgKey": "prop_truth_table_neg_or",
+                "options": ["Only when both P and Q are false", "When at least one of P, Q is true", "Only when both are true", "Always"],
                 "correct": 0,
-                "explanation": "Placeholder retry explanation."
+                "explanation": "P ∨ Q is true if either is true, so its negation is true only when both P and Q are false."
+              },
+              {
+                "question": "Which row makes ¬P ∧ ¬Q true?",
+                "svgKey": "prop_truth_table_neg_or",
+                "options": ["P=F, Q=F", "P=T, Q=F", "P=F, Q=T", "P=T, Q=T"],
+                "correct": 0,
+                "explanation": "Both negations are true only when both originals are false."
+              }
+            ]
+          },
+          {
+            "id": "prereq_r3_logic_002",
+            "title": "Both De Morgan laws: ¬(A ∨ B) ≡ ¬A ∧ ¬B and ¬(A ∧ B) ≡ ¬A ∨ ¬B.",
+            "question": "Which expression is logically equivalent to ¬(A ∨ B) by De Morgan's law?",
+            "svgKey": "prop_demorgan_or",
+            "options": ["¬A ∧ ¬B", "¬A ∨ ¬B", "A ∧ B", "¬(A ∧ B)"],
+            "correct": 0,
+            "explanation": "De Morgan: negating an OR turns it into an AND of the negated parts: ¬(A ∨ B) ≡ ¬A ∧ ¬B.",
+            "retry": [
+              {
+                "question": "What does ¬(A ∧ B) equal by De Morgan?",
+                "svgKey": "prop_demorgan_or",
+                "options": ["¬A ∨ ¬B", "¬A ∧ ¬B", "A ∨ B", "¬A → B"],
+                "correct": 0,
+                "explanation": "Negating an AND turns it into an OR of the negated parts."
+              },
+              {
+                "question": "'It is not the case that it is sunny or warm' means:",
+                "svgKey": "prop_demorgan_or",
+                "options": ["It is not sunny and not warm", "It is not sunny or not warm", "It is sunny and warm", "It is not warm only"],
+                "correct": 0,
+                "explanation": "Negating 'sunny or warm' gives 'not sunny and not warm'."
+              }
+            ]
+          },
+          {
+            "id": "prereq_r3_logic_003",
+            "title": "Tautology (always true), Contradiction (always false), Contingency (sometimes true, sometimes false).",
+            "question": "The formula P ∨ ¬P is true in every row of its truth table. How is such a formula classified?",
+            "svgKey": "prop_tautology_excluded_middle",
+            "options": ["A tautology", "A contradiction", "A contingency", "A contrapositive"],
+            "correct": 0,
+            "explanation": "P ∨ ¬P (the law of excluded middle) is always true regardless of P, so it is a tautology.",
+            "retry": [
+              {
+                "question": "A formula that is false in every row is called:",
+                "svgKey": "prop_tautology_excluded_middle",
+                "options": ["A contradiction", "A tautology", "A contingency", "An implication"],
+                "correct": 0,
+                "explanation": "Always-false formulas are contradictions, e.g. P ∧ ¬P."
+              },
+              {
+                "question": "A formula that is true in some rows and false in others is:",
+                "svgKey": "prop_tautology_excluded_middle",
+                "options": ["A contingency", "A tautology", "A contradiction", "A biconditional"],
+                "correct": 0,
+                "explanation": "Such a formula's truth depends on the inputs, making it a contingency."
+              }
+            ]
+          },
+          {
+            "id": "prereq_r3_logic_004",
+            "title": "Double negation: ¬(¬P) ≡ P. Combined with De Morgan, you can always simplify nested negations.",
+            "question": "Simplify ¬(¬P ∧ Q) using De Morgan's law.",
+            "svgKey": "prop_demorgan_nested",
+            "options": ["P ∨ ¬Q", "¬P ∨ Q", "P ∧ ¬Q", "¬P ∧ ¬Q"],
+            "correct": 0,
+            "explanation": "¬(¬P ∧ Q) ≡ ¬(¬P) ∨ ¬Q ≡ P ∨ ¬Q. The double negation on P cancels.",
+            "retry": [
+              {
+                "question": "Simplify ¬(P ∧ ¬Q).",
+                "svgKey": "prop_demorgan_nested",
+                "options": ["¬P ∨ Q", "¬P ∧ Q", "P ∨ ¬Q", "P ∧ Q"],
+                "correct": 0,
+                "explanation": "De Morgan gives ¬P ∨ ¬(¬Q) = ¬P ∨ Q."
+              },
+              {
+                "question": "What is ¬(¬P)?",
+                "svgKey": "prop_demorgan_nested",
+                "options": ["P", "¬P", "P ∨ ¬P", "False"],
+                "correct": 0,
+                "explanation": "Double negation: ¬(¬P) ≡ P."
+              }
+            ]
+          },
+          {
+            "id": "prereq_r3_logic_005",
+            "title": "DNF (Disjunctive Normal Form) = OR of AND-clauses. CNF (Conjunctive Normal Form) = AND of OR-clauses.",
+            "question": "Which formula is in Disjunctive Normal Form (DNF) — a disjunction of conjunctions?",
+            "svgKey": "prop_demorgan_and",
+            "options": ["(P ∧ Q) ∨ (¬P ∧ R)", "(P ∨ Q) ∧ (¬P ∨ R)", "¬(P ∧ Q)", "P → (Q ∧ R)"],
+            "correct": 0,
+            "explanation": "DNF is an OR of AND-clauses. (P ∧ Q) ∨ (¬P ∧ R) fits. The second option is CNF (AND of ORs); the others contain a negated group or an implication.",
+            "retry": [
+              {
+                "question": "Which is in Conjunctive Normal Form (CNF) — an AND of ORs?",
+                "svgKey": "prop_demorgan_and",
+                "options": ["(P ∨ Q) ∧ (¬P ∨ R)", "(P ∧ Q) ∨ (¬P ∧ R)", "P → Q", "¬(P ∨ Q)"],
+                "correct": 0,
+                "explanation": "CNF is a conjunction of disjunctive clauses."
+              },
+              {
+                "question": "DNF is a disjunction of what kind of terms?",
+                "svgKey": "prop_demorgan_and",
+                "options": ["Conjunctions of literals", "Disjunctions of literals", "Implications", "Negated groups"],
+                "correct": 0,
+                "explanation": "DNF = OR of AND-terms (each AND-term is a conjunction of literals)."
               }
             ]
           }
@@ -785,21 +1312,130 @@
       {
         "id": "propositional_logic",
         "label": "Propositional Logic",
+        "scene": "scene_propositional_logic",
         "exercises": [
           {
             "id": "prereq_r4_logic_001",
-            "question": "Placeholder question for Propositional Logic rating 4",
-            "svgKey": "",
-            "options": ["Option A", "Option B", "Option C", "Option D"],
+            "title": "Satisfiability: a formula is satisfiable if at least one truth assignment makes it true; unsatisfiable if none do.",
+            "question": "A formula is satisfiable if some assignment makes it true. Which formula is unsatisfiable?",
+            "svgKey": "prop_truth_table_neg_or",
+            "options": ["(P ∨ Q) ∧ ¬P ∧ ¬Q", "(P ∨ Q) ∧ ¬P", "P → Q", "¬P ∨ Q"],
             "correct": 0,
-            "explanation": "Placeholder explanation.",
+            "explanation": "(P ∨ Q) ∧ ¬P ∧ ¬Q requires P∨Q true while both ¬P and ¬Q hold — impossible. No assignment satisfies it.",
             "retry": [
               {
-                "question": "Placeholder retry",
-                "svgKey": "",
-                "options": ["Option A", "Option B", "Option C", "Option D"],
+                "question": "A formula true under at least one assignment is:",
+                "svgKey": "prop_truth_table_neg_or",
+                "options": ["Satisfiable", "Unsatisfiable", "A tautology", "Always false"],
                 "correct": 0,
-                "explanation": "Placeholder retry explanation."
+                "explanation": "Satisfiable means at least one satisfying assignment exists."
+              },
+              {
+                "question": "A tautology is satisfiable by:",
+                "svgKey": "prop_truth_table_neg_or",
+                "options": ["Every assignment", "No assignment", "Exactly one assignment", "Only false assignments"],
+                "correct": 0,
+                "explanation": "Tautologies are true under all assignments, hence satisfiable."
+              }
+            ]
+          },
+          {
+            "id": "prereq_r4_logic_002",
+            "title": "To convert to CNF: replace → with ¬P ∨ Q, then distribute ∨ over ∧ to get a conjunction of disjunctive clauses.",
+            "question": "Converting P → (Q ∧ R) toward CNF: which is a correct equivalent first step?",
+            "svgKey": "prop_demorgan_nested",
+            "options": ["¬P ∨ (Q ∧ R), then distribute to (¬P ∨ Q) ∧ (¬P ∨ R)", "P ∧ ¬(Q ∧ R)", "(P ∨ Q) ∧ (P ∨ R)", "¬P ∧ Q ∧ R"],
+            "correct": 0,
+            "explanation": "Replace → using P→X ≡ ¬P∨X giving ¬P∨(Q∧R), then distribute ∨ over ∧ to obtain (¬P∨Q)∧(¬P∨R).",
+            "retry": [
+              {
+                "question": "P → Q is equivalent to:",
+                "svgKey": "prop_demorgan_nested",
+                "options": ["¬P ∨ Q", "P ∨ ¬Q", "¬P ∧ Q", "P ∧ Q"],
+                "correct": 0,
+                "explanation": "Material implication: P→Q ≡ ¬P∨Q."
+              },
+              {
+                "question": "Distributing ∨ over ∧: A ∨ (B ∧ C) =",
+                "svgKey": "prop_demorgan_nested",
+                "options": ["(A ∨ B) ∧ (A ∨ C)", "(A ∧ B) ∨ (A ∧ C)", "A ∧ B ∧ C", "A ∨ B ∨ C"],
+                "correct": 0,
+                "explanation": "OR distributes over AND giving a conjunction of disjunctions (CNF form)."
+              }
+            ]
+          },
+          {
+            "id": "prereq_r4_logic_003",
+            "title": "Resolution: from (A ∨ P) and (B ∨ ¬P), cancel the complementary pair P/¬P to derive A ∨ B.",
+            "question": "The resolution rule combines clauses (A ∨ P) and (B ∨ ¬P) to derive which resolvent?",
+            "svgKey": "prop_tautology_excluded_middle",
+            "options": ["A ∨ B", "A ∧ B", "P ∨ ¬P", "A ∨ B ∨ P"],
+            "correct": 0,
+            "explanation": "Resolution cancels the complementary literals P and ¬P, producing the disjunction of the remaining literals: A ∨ B.",
+            "retry": [
+              {
+                "question": "Resolving (P) and (¬P) gives:",
+                "svgKey": "prop_tautology_excluded_middle",
+                "options": ["The empty clause (a contradiction)", "P", "¬P", "A tautology"],
+                "correct": 0,
+                "explanation": "Resolving complementary unit clauses yields the empty clause, signaling unsatisfiability."
+              },
+              {
+                "question": "Resolution operates on formulas in:",
+                "svgKey": "prop_tautology_excluded_middle",
+                "options": ["CNF (clauses)", "DNF", "Implication form", "Arbitrary form"],
+                "correct": 0,
+                "explanation": "Resolution works on sets of disjunctive clauses (CNF)."
+              }
+            ]
+          },
+          {
+            "id": "prereq_r4_logic_004",
+            "title": "Logical consequence: Q follows from P (written P ⊨ Q) when every assignment making P true also makes Q true.",
+            "question": "Q is a logical consequence of P when P → Q is a tautology. Which Q is a consequence of P = (A ∧ B)?",
+            "svgKey": "prop_demorgan_or",
+            "options": ["Q = A", "Q = ¬A", "Q = A → ¬B", "Q = ¬A ∧ ¬B"],
+            "correct": 0,
+            "explanation": "Whenever A∧B is true, A is true, so (A∧B)→A is a tautology; A is a logical consequence. The others can fail when A∧B holds.",
+            "retry": [
+              {
+                "question": "P logically entails Q means:",
+                "svgKey": "prop_demorgan_or",
+                "options": ["Every model of P is a model of Q", "P and Q are unrelated", "Q entails P", "P ∨ Q is a tautology"],
+                "correct": 0,
+                "explanation": "Entailment: all assignments making P true also make Q true."
+              },
+              {
+                "question": "From A ∧ B you can always conclude:",
+                "svgKey": "prop_demorgan_or",
+                "options": ["B", "¬A", "A ∨ ¬B is false", "neither A nor B"],
+                "correct": 0,
+                "explanation": "Conjunction elimination: A∧B entails each conjunct, including B."
+              }
+            ]
+          },
+          {
+            "id": "prereq_r4_logic_005",
+            "title": "Exclusive OR (P ⊕ Q) is true when exactly one of P, Q is true — equivalent to ¬(P ↔ Q).",
+            "question": "Which formula is logically equivalent to ¬(P ∧ Q) ∧ ¬(¬P ∧ ¬Q)?",
+            "svgKey": "prop_demorgan_and",
+            "options": ["P ⊕ Q (exclusive or)", "P ∧ Q", "P ↔ Q", "P ∨ Q"],
+            "correct": 0,
+            "explanation": "¬(P∧Q) rules out both-true; ¬(¬P∧¬Q) rules out both-false. What remains is exactly one true — exclusive or, P ⊕ Q.",
+            "retry": [
+              {
+                "question": "¬(¬P ∧ ¬Q) simplifies to:",
+                "svgKey": "prop_demorgan_and",
+                "options": ["P ∨ Q", "P ∧ Q", "¬P ∨ ¬Q", "P ↔ Q"],
+                "correct": 0,
+                "explanation": "By De Morgan and double negation, ¬(¬P∧¬Q) ≡ P∨Q."
+              },
+              {
+                "question": "P ⊕ Q (XOR) is true when:",
+                "svgKey": "prop_demorgan_and",
+                "options": ["Exactly one of P, Q is true", "Both are true", "Both are false", "Neither matters"],
+                "correct": 0,
+                "explanation": "Exclusive or is true iff the operands differ."
               }
             ]
           }
@@ -921,21 +1557,145 @@
       {
         "id": "propositional_logic",
         "label": "Propositional Logic",
+        "scene": "scene_propositional_logic",
         "exercises": [
           {
             "id": "prereq_r5_logic_001",
-            "question": "Placeholder question for Propositional Logic rating 5",
-            "svgKey": "",
-            "options": ["Option A", "Option B", "Option C", "Option D"],
+            "title": "Tautology vs. logical consequence: a tautology is always true on its own; consequence (P ⊨ Q) means every model of P is a model of Q.",
+            "question": "Which statement correctly captures the distinction between 'P is a tautology' and 'Q is a logical consequence of P'?",
+            "svgKey": "prop_tautology_excluded_middle",
+            "options": [
+              "A tautology is true under every interpretation; logical consequence means Q is true under every interpretation that makes P true",
+              "A tautology and logical consequence are the same notion expressed in different words",
+              "A tautology is true under some interpretation, while logical consequence requires truth under all interpretations",
+              "Logical consequence means P and Q have the same truth value under every interpretation"
+            ],
             "correct": 0,
-            "explanation": "Placeholder explanation.",
+            "explanation": "A tautology is a single formula true under all valuations. Logical consequence (P ⊨ Q) is a relation: every model of P is also a model of Q. They are linked — P ⊨ Q holds iff (P → Q) is a tautology — but the concepts are not identical.",
             "retry": [
               {
-                "question": "Placeholder retry",
-                "svgKey": "",
-                "options": ["Option A", "Option B", "Option C", "Option D"],
+                "question": "If (P → Q) is a tautology, what can you conclude?",
+                "svgKey": "prop_tautology_excluded_middle",
+                "options": ["Q is a logical consequence of P", "P is a logical consequence of Q", "P and Q are both tautologies", "P and Q are logically equivalent"],
                 "correct": 0,
-                "explanation": "Placeholder retry explanation."
+                "explanation": "(P → Q) being a tautology means there is no valuation making P true and Q false, which is exactly the definition of Q being a logical consequence of P."
+              },
+              {
+                "question": "Is the formula (P ∨ ¬P) a tautology, a contradiction, or contingent?",
+                "svgKey": "prop_tautology_excluded_middle",
+                "options": ["A tautology, by the law of excluded middle", "A contradiction, since P and ¬P cannot both hold", "Contingent, because it depends on the truth value of P", "Neither a tautology nor a contradiction"],
+                "correct": 0,
+                "explanation": "P ∨ ¬P is true whether P is true or false, so it is true under every valuation — a tautology, the law of excluded middle."
+              }
+            ]
+          },
+          {
+            "id": "prereq_r5_logic_002",
+            "title": "A set of connectives is functionally complete when every truth function can be built from it — NAND alone is sufficient, because ¬P = P NAND P.",
+            "question": "It is known that {¬, ∧, ∨} is functionally complete. Which single connective is ALSO functionally complete on its own?",
+            "svgKey": "prop_demorgan_and",
+            "options": [
+              "NAND (the Sheffer stroke), since ¬P = P NAND P and other connectives can be built from it",
+              "AND, since every truth function can be written as a conjunction",
+              "OR, since every truth function can be written as a disjunction",
+              "Implication →, since material implication can express all of classical logic"
+            ],
+            "correct": 0,
+            "explanation": "NAND (and likewise NOR) is functionally complete by itself: ¬P = P↑P, P∧Q = (P↑Q)↑(P↑Q), P∨Q = (P↑P)↑(Q↑Q). AND and OR alone are monotone, so they cannot produce negation.",
+            "retry": [
+              {
+                "question": "Why are {∧, ∨} together NOT functionally complete?",
+                "svgKey": "prop_demorgan_and",
+                "options": ["Both are monotone, so they can never produce negation", "They are redundant, since ∧ can be defined from ∨", "They cannot express conjunction of three variables", "They are only complete when combined with implication"],
+                "correct": 0,
+                "explanation": "Both ∧ and ∨ are monotone: changing an input from false to true never changes an output from true to false. Negation is non-monotone, so no composition of monotone functions can yield it."
+              },
+              {
+                "question": "Using NOR (↓) only, how is ¬P expressed?",
+                "svgKey": "prop_demorgan_or",
+                "options": ["¬P = P ↓ P", "¬P = P ↓ ¬P", "¬P = (P ↓ P) ↓ P", "¬P cannot be expressed with NOR alone"],
+                "correct": 0,
+                "explanation": "P ↓ P = ¬(P ∨ P) = ¬P. NOR is functionally complete, and negation is its simplest derived operation."
+              }
+            ]
+          },
+          {
+            "id": "prereq_r5_logic_003",
+            "title": "Apply De Morgan iteratively from outside in, then use double-negation elimination (¬¬P ≡ P) to simplify — work layer by layer.",
+            "question": "Apply De Morgan's laws to fully simplify ¬(¬(P ∧ Q) ∨ ¬R).",
+            "svgKey": "prop_demorgan_nested",
+            "options": ["(P ∧ Q) ∧ R", "(P ∨ Q) ∧ R", "¬P ∨ ¬Q ∨ ¬R", "(P ∧ Q) ∨ R"],
+            "correct": 0,
+            "explanation": "Outer De Morgan: ¬(A ∨ B) = ¬A ∧ ¬B with A = ¬(P∧Q), B = ¬R, giving ¬¬(P∧Q) ∧ ¬¬R = (P∧Q) ∧ R after double-negation elimination.",
+            "retry": [
+              {
+                "question": "Which is the correct De Morgan dual of ¬(A ∧ B)?",
+                "svgKey": "prop_demorgan_and",
+                "options": ["¬A ∨ ¬B", "¬A ∧ ¬B", "A ∨ B", "¬(A ∨ B)"],
+                "correct": 0,
+                "explanation": "De Morgan: the negation of a conjunction is the disjunction of negations, ¬(A ∧ B) = ¬A ∨ ¬B."
+              },
+              {
+                "question": "Simplify ¬(¬P ∨ ¬Q).",
+                "svgKey": "prop_demorgan_or",
+                "options": ["P ∧ Q", "P ∨ Q", "¬P ∧ ¬Q", "¬(P ∧ Q)"],
+                "correct": 0,
+                "explanation": "¬(¬P ∨ ¬Q) = ¬¬P ∧ ¬¬Q = P ∧ Q by De Morgan followed by double-negation elimination."
+              }
+            ]
+          },
+          {
+            "id": "prereq_r5_logic_004",
+            "title": "Key inference rules: modus ponens (P, P→Q ⊢ Q), modus tollens (¬Q, P→Q ⊢ ¬P), hypothetical syllogism (P→Q, Q→R ⊢ P→R).",
+            "question": "From premises 'P → Q' and 'Q → R', which inference rule lets you conclude 'P → R'?",
+            "svgKey": "prop_truth_table_neg_or",
+            "options": ["Hypothetical syllogism (transitivity of implication)", "Modus ponens", "Modus tollens", "Disjunctive syllogism"],
+            "correct": 0,
+            "explanation": "Hypothetical syllogism chains two implications: from P→Q and Q→R infer P→R. Modus ponens requires an asserted antecedent; modus tollens uses a denied consequent.",
+            "retry": [
+              {
+                "question": "From 'P → Q' and 'P', which rule yields 'Q'?",
+                "svgKey": "prop_truth_table_neg_or",
+                "options": ["Modus ponens", "Modus tollens", "Hypothetical syllogism", "Disjunctive syllogism"],
+                "correct": 0,
+                "explanation": "Modus ponens (affirming the antecedent): given P → Q and P, conclude Q."
+              },
+              {
+                "question": "From 'P → Q' and '¬Q', which rule yields '¬P'?",
+                "svgKey": "prop_truth_table_neg_or",
+                "options": ["Modus tollens", "Modus ponens", "Hypothetical syllogism", "Affirming the consequent"],
+                "correct": 0,
+                "explanation": "Modus tollens (denying the consequent): given P → Q and ¬Q, conclude ¬P."
+              }
+            ]
+          },
+          {
+            "id": "prereq_r5_logic_005",
+            "title": "Classical propositional logic requires every formula to have a definite truth value — self-referential sentences that deny their own truth break this principle.",
+            "question": "Consider the self-referential sentence 'This sentence is false.' What does it illustrate?",
+            "svgKey": "prop_tautology_excluded_middle",
+            "options": [
+              "The Liar paradox: it can be neither consistently true nor false, showing why natural language self-reference can break the principle of bivalence",
+              "A tautology, because it refers to itself and is therefore always true",
+              "A contradiction in propositional logic that modus ponens resolves",
+              "A well-formed propositional formula whose truth value is simply false"
+            ],
+            "correct": 0,
+            "explanation": "If the Liar sentence is true, then it is false; if false, then it is true — neither assignment is consistent. Classical propositional logic forbids such self-reference to preserve bivalence and consistency.",
+            "retry": [
+              {
+                "question": "Why can the Liar sentence not be assigned a classical truth value?",
+                "svgKey": "prop_tautology_excluded_middle",
+                "options": ["Each assignment (true or false) entails the opposite, so neither is consistent", "It is too long to evaluate in a finite truth table", "It contains no logical connectives", "It is a tautology and tautologies have no truth value"],
+                "correct": 0,
+                "explanation": "Assuming it true forces it false and vice versa; both candidate values are self-defeating."
+              },
+              {
+                "question": "Classical propositional logic avoids the Liar paradox primarily by:",
+                "svgKey": "prop_tautology_excluded_middle",
+                "options": ["Not permitting sentences to refer to their own truth value", "Declaring all self-referential sentences true by convention", "Using three truth values instead of two", "Requiring every sentence to be a tautology"],
+                "correct": 0,
+                "explanation": "Standard propositional logic has no mechanism for a formula to denote its own truth value, which keeps the system bivalent and consistent."
               }
             ]
           }

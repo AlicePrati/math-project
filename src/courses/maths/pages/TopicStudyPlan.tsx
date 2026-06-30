@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { SECTION_MAP } from '../data/topics';
 import { useTracker } from '../store/useTracker';
@@ -7,119 +7,147 @@ import { getStudyPlanForSection, hasSectionPlan } from '../data/studyPlans';
 import type { StudyPlanTopic } from '../data/studyPlans/types';
 import { api } from '../../../lib/api';
 
-const VISUALS: Record<string, React.ReactNode> = {
-  // ── Rating 1 — Propositional Logic ──────────────────────────────────────────
-  prop_statement_vs_question: (
-    <svg viewBox="0 0 280 130" className="w-full max-w-xs mx-auto" aria-hidden="true">
-      <rect x="8" y="8" width="122" height="114" rx="10" fill="#f0fdf4" stroke="#86efac" strokeWidth="1.5"/>
-      <text x="69" y="28" textAnchor="middle" fontSize="10" fill="#166534" fontWeight="700">PROPOSITION ✓</text>
-      <rect x="18" y="36" width="102" height="22" rx="5" fill="#dcfce7" stroke="#86efac" strokeWidth="1"/>
-      <text x="69" y="51" textAnchor="middle" fontSize="9" fill="#166534">"7 is odd"  → T or F</text>
-      <rect x="18" y="64" width="102" height="22" rx="5" fill="#dcfce7" stroke="#86efac" strokeWidth="1"/>
-      <text x="69" y="79" textAnchor="middle" fontSize="9" fill="#166534">"Rome is in Italy" → T</text>
-      <rect x="18" y="92" width="102" height="22" rx="5" fill="#dcfce7" stroke="#86efac" strokeWidth="1"/>
-      <text x="69" y="107" textAnchor="middle" fontSize="9" fill="#166534">"2+2=5"  → F</text>
+// ── Animated scenes per svgKey ──────────────────────────────────────────────
 
-      <rect x="150" y="8" width="122" height="114" rx="10" fill="#fef2f2" stroke="#fca5a5" strokeWidth="1.5"/>
-      <text x="211" y="28" textAnchor="middle" fontSize="10" fill="#991b1b" fontWeight="700">NOT A PROPOSITION ✗</text>
-      <rect x="160" y="36" width="102" height="22" rx="5" fill="#fee2e2" stroke="#fca5a5" strokeWidth="1"/>
-      <text x="211" y="51" textAnchor="middle" fontSize="9" fill="#991b1b">"Close the door!"</text>
-      <rect x="160" y="64" width="102" height="22" rx="5" fill="#fee2e2" stroke="#fca5a5" strokeWidth="1"/>
-      <text x="211" y="79" textAnchor="middle" fontSize="9" fill="#991b1b">"What time is it?"</text>
-      <rect x="160" y="92" width="102" height="22" rx="5" fill="#fee2e2" stroke="#fca5a5" strokeWidth="1"/>
-      <text x="211" y="107" textAnchor="middle" fontSize="9" fill="#991b1b">"Maybe it will rain"</text>
-    </svg>
-  ),
-  prop_negation_rain: (
-    <svg viewBox="0 0 280 120" className="w-full max-w-xs mx-auto" aria-hidden="true">
-      <rect x="8" y="8" width="100" height="104" rx="10" fill="#dbeafe" stroke="#93c5fd" strokeWidth="1.5"/>
-      <text x="58" y="26" textAnchor="middle" fontSize="10" fill="#1e40af" fontWeight="700">P = True</text>
-      <text x="58" y="58" textAnchor="middle" fontSize="32">🌧️</text>
-      <text x="58" y="88" textAnchor="middle" fontSize="9" fill="#1e40af">"It is raining"</text>
-      <text x="58" y="103" textAnchor="middle" fontSize="9" fill="#1e40af">is TRUE</text>
+function AnimPropStatementVsQuestion() {
+  const [idx, setIdx] = useState(0);
+  const items = [
+    { text: '"7 is odd"', is: true },
+    { text: '"Close the door!"', is: false },
+    { text: '"Rome is in Italy"', is: true },
+    { text: '"What time is it?"', is: false },
+    { text: '"2 + 2 = 5"', is: true },
+  ];
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  useEffect(() => {
+    timerRef.current = setInterval(() => setIdx(i => (i + 1) % items.length), 1400);
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  }, []);
+  const item = items[idx];
+  return (
+    <div className="flex flex-col items-center gap-2 py-3">
+      <div className={`w-full max-w-xs rounded-xl border-2 px-4 py-3 text-center transition-all duration-500 ${item.is ? 'bg-green-50 dark:bg-green-900/30 border-green-400' : 'bg-red-50 dark:bg-red-900/30 border-red-400'}`}>
+        <p className="text-sm font-mono text-gray-800 dark:text-gray-200">{item.text}</p>
+        <p className={`text-xs font-bold mt-1 ${item.is ? 'text-green-700 dark:text-green-300' : 'text-red-700 dark:text-red-300'}`}>
+          {item.is ? '✓ proposition — has a truth value' : '✗ not a proposition'}
+        </p>
+      </div>
+    </div>
+  );
+}
 
-      <text x="140" y="62" textAnchor="middle" fontSize="24" fill="#374151" fontWeight="700">¬</text>
+function AnimPropNegation() {
+  const [pTrue, setPTrue] = useState(true);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  useEffect(() => {
+    timerRef.current = setInterval(() => setPTrue(v => !v), 1500);
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  }, []);
+  return (
+    <div className="flex items-center justify-center gap-4 py-3">
+      <div className={`flex flex-col items-center justify-center w-24 h-20 rounded-xl border-2 transition-all duration-500 ${pTrue ? 'bg-blue-50 dark:bg-blue-900/30 border-blue-400' : 'bg-amber-50 dark:bg-amber-900/30 border-amber-400'}`}>
+        <span className="text-3xl">{pTrue ? '🌧️' : '☀️'}</span>
+        <span className={`text-xs font-bold mt-1 ${pTrue ? 'text-blue-700 dark:text-blue-300' : 'text-amber-700 dark:text-amber-300'}`}>P = {pTrue ? 'T' : 'F'}</span>
+      </div>
+      <span className="text-2xl font-bold text-gray-500 dark:text-gray-400">¬</span>
+      <div className={`flex flex-col items-center justify-center w-24 h-20 rounded-xl border-2 transition-all duration-500 ${!pTrue ? 'bg-blue-50 dark:bg-blue-900/30 border-blue-400' : 'bg-amber-50 dark:bg-amber-900/30 border-amber-400'}`}>
+        <span className="text-3xl">{!pTrue ? '🌧️' : '☀️'}</span>
+        <span className={`text-xs font-bold mt-1 ${!pTrue ? 'text-blue-700 dark:text-blue-300' : 'text-amber-700 dark:text-amber-300'}`}>¬P = {!pTrue ? 'T' : 'F'}</span>
+      </div>
+    </div>
+  );
+}
 
-      <rect x="172" y="8" width="100" height="104" rx="10" fill="#fef3c7" stroke="#fcd34d" strokeWidth="1.5"/>
-      <text x="222" y="26" textAnchor="middle" fontSize="10" fill="#92400e" fontWeight="700">¬P = False</text>
-      <text x="222" y="58" textAnchor="middle" fontSize="32">☀️</text>
-      <text x="222" y="88" textAnchor="middle" fontSize="9" fill="#92400e">"NOT raining"</text>
-      <text x="222" y="103" textAnchor="middle" fontSize="9" fill="#92400e">is FALSE</text>
-    </svg>
-  ),
-  prop_and_door: (
-    <svg viewBox="0 0 280 130" className="w-full max-w-xs mx-auto" aria-hidden="true">
-      <rect x="100" y="30" width="80" height="90" rx="8" fill="#92400e" stroke="#78350f" strokeWidth="2"/>
-      <rect x="115" y="45" width="50" height="65" rx="4" fill="#b45309"/>
-      <circle cx="157" cy="78" r="7" fill="#fbbf24"/>
-      <text x="140" y="125" textAnchor="middle" fontSize="9" fill="#4b5563">P ∧ Q: need BOTH keys</text>
+function AnimPropAnd() {
+  const [tick, setTick] = useState(0);
+  const states = [{p:true,q:true},{p:true,q:false},{p:false,q:true},{p:false,q:false}];
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  useEffect(() => {
+    timerRef.current = setInterval(() => setTick(t => (t + 1) % states.length), 1400);
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  }, []);
+  const {p, q} = states[tick];
+  const result = p && q;
+  const key = (on: boolean, label: string) => (
+    <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border-2 transition-all duration-400 ${on ? 'bg-green-50 dark:bg-green-900/30 border-green-400' : 'bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-600'}`}>
+      <span className="text-lg">{on ? '🗝️' : '🔑'}</span>
+      <span className={`text-xs font-bold ${on ? 'text-green-700 dark:text-green-300' : 'text-gray-400'}`}>{label} = {on ? 'T' : 'F'}</span>
+    </div>
+  );
+  return (
+    <div className="flex flex-col items-center gap-2 py-3">
+      <div className="flex gap-2">{key(p,'P')}{key(q,'Q')}</div>
+      <div className={`px-4 py-2 rounded-xl border-2 text-sm font-bold transition-all duration-500 ${result ? 'bg-green-100 dark:bg-green-900/40 border-green-400 text-green-800 dark:text-green-200' : 'bg-red-100 dark:bg-red-900/40 border-red-400 text-red-800 dark:text-red-200'}`}>
+        P ∧ Q = {result ? '✓ T' : '✗ F'} — {result ? 'door opens' : 'door stays locked'}
+      </div>
+    </div>
+  );
+}
 
-      <rect x="10" y="35" width="72" height="28" rx="6" fill="#dcfce7" stroke="#86efac" strokeWidth="1.5"/>
-      <text x="46" y="53" textAnchor="middle" fontSize="11">🗝️</text>
-      <text x="80" y="50" fontSize="8" fill="#166534" fontWeight="600">Key A (P)</text>
-      <path d="M82 49 Q100 49 110 60" stroke="#f59e0b" strokeWidth="2" fill="none" strokeDasharray="4,3"/>
+function AnimPropOr() {
+  const [tick, setTick] = useState(0);
+  const states = [{p:true,q:false},{p:false,q:true},{p:true,q:true},{p:false,q:false}];
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  useEffect(() => {
+    timerRef.current = setInterval(() => setTick(t => (t + 1) % states.length), 1400);
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  }, []);
+  const {p, q} = states[tick];
+  const result = p || q;
+  const sw = (on: boolean, label: string) => (
+    <div className={`flex flex-col items-center justify-center w-20 h-16 rounded-xl border-2 transition-all duration-400 ${on ? 'bg-blue-50 dark:bg-blue-900/30 border-blue-400' : 'bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-600'}`}>
+      <span className="text-xl">{on ? '🔛' : '⬛'}</span>
+      <span className={`text-xs font-bold ${on ? 'text-blue-700 dark:text-blue-300' : 'text-gray-400'}`}>{label}={on?'T':'F'}</span>
+    </div>
+  );
+  return (
+    <div className="flex flex-col items-center gap-2 py-3">
+      <div className="flex items-center gap-3">{sw(p,'P')}<span className="text-lg font-bold text-gray-400">∨</span>{sw(q,'Q')}</div>
+      <div className={`px-4 py-2 rounded-xl border-2 text-sm font-bold transition-all duration-500 ${result ? 'bg-amber-100 dark:bg-amber-900/40 border-amber-400 text-amber-800 dark:text-amber-200' : 'bg-gray-100 dark:bg-gray-800 border-gray-300 text-gray-500'}`}>
+        {result ? '💡 light ON — P ∨ Q = T' : '🌑 light OFF — P ∨ Q = F'}
+      </div>
+    </div>
+  );
+}
 
-      <rect x="10" y="78" width="72" height="28" rx="6" fill="#dcfce7" stroke="#86efac" strokeWidth="1.5"/>
-      <text x="46" y="96" textAnchor="middle" fontSize="11">🗝️</text>
-      <text x="80" y="93" fontSize="8" fill="#166534" fontWeight="600">Key B (Q)</text>
-      <path d="M82 92 Q100 92 110 85" stroke="#f59e0b" strokeWidth="2" fill="none" strokeDasharray="4,3"/>
+function AnimPropCombo() {
+  const [tick, setTick] = useState(0);
+  const cases = [
+    {t:true, a:true, vip:false, label:'Ticket ∧ Age ≥ 18 → ✓'},
+    {t:true, a:false, vip:false, label:'Ticket but Age < 18 → ✗'},
+    {t:false, a:false, vip:true, label:'VIP pass alone → ✓'},
+    {t:false, a:false, vip:false, label:'Nothing → ✗'},
+  ];
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  useEffect(() => {
+    timerRef.current = setInterval(() => setTick(i => (i + 1) % cases.length), 1600);
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  }, []);
+  const c = cases[tick];
+  const enter = (c.t && c.a) || c.vip;
+  return (
+    <div className="flex flex-col items-center gap-2 py-3">
+      <div className="flex gap-2 text-xs">
+        <span className={`px-2 py-1 rounded-lg border font-mono ${c.t ? 'bg-blue-100 dark:bg-blue-900/30 border-blue-400 text-blue-800 dark:text-blue-200' : 'bg-gray-100 dark:bg-gray-800 border-gray-300 text-gray-400'}`}>Ticket={c.t?'T':'F'}</span>
+        <span className={`px-2 py-1 rounded-lg border font-mono ${c.a ? 'bg-blue-100 dark:bg-blue-900/30 border-blue-400 text-blue-800 dark:text-blue-200' : 'bg-gray-100 dark:bg-gray-800 border-gray-300 text-gray-400'}`}>Age≥18={c.a?'T':'F'}</span>
+        <span className={`px-2 py-1 rounded-lg border font-mono ${c.vip ? 'bg-purple-100 dark:bg-purple-900/30 border-purple-400 text-purple-800 dark:text-purple-200' : 'bg-gray-100 dark:bg-gray-800 border-gray-300 text-gray-400'}`}>VIP={c.vip?'T':'F'}</span>
+      </div>
+      <div className={`px-4 py-2 rounded-xl border-2 text-sm font-bold transition-all duration-500 ${enter ? 'bg-green-100 dark:bg-green-900/40 border-green-400 text-green-800 dark:text-green-200' : 'bg-red-100 dark:bg-red-900/40 border-red-400 text-red-800 dark:text-red-200'}`}>
+        {c.label}
+      </div>
+    </div>
+  );
+}
 
-      <rect x="198" y="55" width="72" height="28" rx="6" fill="#dcfce7" stroke="#86efac" strokeWidth="1.5"/>
-      <text x="234" y="68" textAnchor="middle" fontSize="9" fill="#166534" fontWeight="700">🔓 Opens</text>
-      <text x="234" y="79" textAnchor="middle" fontSize="8" fill="#166534">only with A AND B</text>
-      <path d="M180 78 L198 69" stroke="#374151" strokeWidth="1.5" markerEnd="url(#arrd)"/>
-      <defs>
-        <marker id="arrd" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-          <path d="M0 0 L6 3 L0 6" fill="none" stroke="#374151" strokeWidth="1.2"/>
-        </marker>
-      </defs>
-    </svg>
-  ),
-  prop_or_light: (
-    <svg viewBox="0 0 280 130" className="w-full max-w-xs mx-auto" aria-hidden="true">
-      <text x="140" y="118" textAnchor="middle" fontSize="9" fill="#4b5563">P ∨ Q: ONE switch is enough</text>
-      <circle cx="222" cy="58" r="26" fill="#fef3c7" stroke="#f59e0b" strokeWidth="2"/>
-      <text x="222" y="64" textAnchor="middle" fontSize="24">💡</text>
-      <line x1="196" y1="58" x2="168" y2="58" stroke="#374151" strokeWidth="2.5"/>
-      <line x1="168" y1="58" x2="140" y2="36" stroke="#374151" strokeWidth="2.5"/>
-      <line x1="168" y1="58" x2="140" y2="80" stroke="#374151" strokeWidth="2.5"/>
+const VISUALS: Record<string, () => React.ReactElement | null> = {
+  prop_statement_vs_question: AnimPropStatementVsQuestion,
+  prop_negation_rain: AnimPropNegation,
+  prop_and_door: AnimPropAnd,
+  prop_or_light: AnimPropOr,
+  prop_combo_event: AnimPropCombo,
 
-      <rect x="50" y="22" width="86" height="28" rx="6" fill="#dbeafe" stroke="#3b82f6" strokeWidth="1.5"/>
-      <text x="93" y="34" textAnchor="middle" fontSize="9" fill="#1e40af" fontWeight="600">Switch A (P)</text>
-      <text x="93" y="45" textAnchor="middle" fontSize="8" fill="#1e40af">ON = True</text>
-      <line x1="136" y1="36" x2="140" y2="36" stroke="#374151" strokeWidth="2.5"/>
-
-      <rect x="50" y="66" width="86" height="28" rx="6" fill="#dbeafe" stroke="#3b82f6" strokeWidth="1.5"/>
-      <text x="93" y="78" textAnchor="middle" fontSize="9" fill="#1e40af" fontWeight="600">Switch B (Q)</text>
-      <text x="93" y="89" textAnchor="middle" fontSize="8" fill="#1e40af">ON = True</text>
-      <line x1="136" y1="80" x2="140" y2="80" stroke="#374151" strokeWidth="2.5"/>
-    </svg>
-  ),
-  prop_combo_event: (
-    <svg viewBox="0 0 280 150" className="w-full max-w-xs mx-auto" aria-hidden="true">
-      <text x="140" y="16" textAnchor="middle" fontSize="10" fill="#374151" fontWeight="700">Entry rule: (Ticket ∧ Age≥18) ∨ VIP pass</text>
-      <rect x="8" y="26" width="118" height="50" rx="8" fill="#dbeafe" stroke="#3b82f6" strokeWidth="1.5"/>
-      <text x="67" y="44" textAnchor="middle" fontSize="9" fill="#1e40af" fontWeight="600">Branch 1</text>
-      <text x="67" y="57" textAnchor="middle" fontSize="9" fill="#1e40af">Ticket ∧ Age ≥ 18</text>
-      <text x="67" y="70" textAnchor="middle" fontSize="9" fill="#1e40af">both must be TRUE</text>
-
-      <rect x="154" y="26" width="118" height="50" rx="8" fill="#fce7f3" stroke="#ec4899" strokeWidth="1.5"/>
-      <text x="213" y="44" textAnchor="middle" fontSize="9" fill="#9d174d" fontWeight="600">Branch 2</text>
-      <text x="213" y="57" textAnchor="middle" fontSize="9" fill="#9d174d">VIP pass</text>
-      <text x="213" y="70" textAnchor="middle" fontSize="9" fill="#9d174d">alone is enough</text>
-
-      <text x="140" y="98" textAnchor="middle" fontSize="18" fill="#374151">∨</text>
-
-      <rect x="80" y="112" width="120" height="30" rx="8" fill="#dcfce7" stroke="#22c55e" strokeWidth="1.5"/>
-      <text x="140" y="132" textAnchor="middle" fontSize="11" fill="#166534" fontWeight="700">✓ Enter</text>
-
-      <path d="M67 76 Q67 100 100 112" stroke="#374151" strokeWidth="1.5" fill="none" strokeDasharray="4,3"/>
-      <path d="M213 76 Q213 100 180 112" stroke="#374151" strokeWidth="1.5" fill="none" strokeDasharray="4,3"/>
-    </svg>
-  ),
-
-  // ── Rating 2 — Propositional Logic ──────────────────────────────────────────
-  prop_truth_table_neg_or: (
+  // ── Rating 2+ — static SVGs wrapped as components ────────────────────────
+  prop_truth_table_neg_or: () => (
     <svg viewBox="0 0 280 150" className="w-full max-w-xs mx-auto" aria-hidden="true">
       <rect x="8" y="8" width="264" height="134" rx="8" fill="#f9fafb" stroke="#e5e7eb" strokeWidth="1.5"/>
       <text x="46" y="28" fontSize="10" fill="#6b7280" fontWeight="700">P</text>
@@ -144,7 +172,7 @@ const VISUALS: Record<string, React.ReactNode> = {
       <text x="264" y="68" fontSize="8" fill="#dc2626" fontWeight="600" textAnchor="end">← only false row</text>
     </svg>
   ),
-  prop_demorgan_or: (
+  prop_demorgan_or: () => (
     <svg viewBox="0 0 280 140" className="w-full max-w-xs mx-auto" aria-hidden="true">
       <rect x="80" y="10" width="120" height="120" rx="12" fill="#f1f5f9" stroke="#94a3b8" strokeWidth="2"/>
       <rect x="95" y="25" width="90" height="50" rx="6" fill="#fff" stroke="#94a3b8" strokeWidth="1.5"/>
@@ -167,62 +195,53 @@ const VISUALS: Record<string, React.ReactNode> = {
       <text x="20" y="114" fontSize="9" fill="#374151" fontWeight="600">¬P ∧ ¬Q</text>
     </svg>
   ),
-  prop_tautology_excluded_middle: (
+  prop_tautology_excluded_middle: () => (
     <svg viewBox="0 0 280 130" className="w-full max-w-xs mx-auto" aria-hidden="true">
       <rect x="8" y="8" width="264" height="114" rx="10" fill="#f9fafb" stroke="#e5e7eb" strokeWidth="1.5"/>
       <rect x="18" y="20" width="80" height="80" rx="8" fill="#dbeafe" stroke="#3b82f6" strokeWidth="1.5"/>
       <text x="58" y="60" textAnchor="middle" fontSize="36">🌧️</text>
       <text x="58" y="90" textAnchor="middle" fontSize="9" fill="#1e40af" fontWeight="600">P = "raining"</text>
       <text x="58" y="103" textAnchor="middle" fontSize="9" fill="#1e40af">True</text>
-
       <text x="140" y="65" textAnchor="middle" fontSize="14" fill="#374151" fontWeight="700">P ∨ ¬P</text>
-
       <rect x="182" y="20" width="80" height="80" rx="8" fill="#fef3c7" stroke="#fcd34d" strokeWidth="1.5"/>
       <text x="222" y="60" textAnchor="middle" fontSize="36">☀️</text>
       <text x="222" y="90" textAnchor="middle" fontSize="9" fill="#92400e" fontWeight="600">¬P = "not raining"</text>
       <text x="222" y="103" textAnchor="middle" fontSize="9" fill="#92400e">True</text>
-
       <rect x="88" y="110" width="104" height="18" rx="5" fill="#dcfce7" stroke="#86efac" strokeWidth="1"/>
       <text x="140" y="123" textAnchor="middle" fontSize="9" fill="#166534" fontWeight="700">Always TRUE ✓</text>
     </svg>
   ),
-  prop_demorgan_and: (
+  prop_demorgan_and: () => (
     <svg viewBox="0 0 280 140" className="w-full max-w-xs mx-auto" aria-hidden="true">
       <rect x="90" y="30" width="80" height="90" rx="8" fill="#92400e" stroke="#78350f" strokeWidth="2"/>
       <rect x="105" y="45" width="50" height="65" rx="4" fill="#b45309"/>
       <circle cx="147" cy="78" r="7" fill="#fbbf24"/>
-
       <rect x="10" y="35" width="66" height="24" rx="6" fill="#dcfce7" stroke="#86efac" strokeWidth="1.5"/>
       <text x="43" y="50" textAnchor="middle" fontSize="9" fill="#166534">🗝️ Key A (P)</text>
       <rect x="10" y="70" width="66" height="24" rx="6" fill="#fee2e2" stroke="#fca5a5" strokeWidth="1.5"/>
       <text x="43" y="85" textAnchor="middle" fontSize="9" fill="#991b1b">🗝️ Key B (Q)</text>
       <line x1="33" y1="82" x2="43" y2="78" stroke="#ef4444" strokeWidth="2"/>
       <line x1="43" y1="72" x2="43" y2="88" stroke="#ef4444" strokeWidth="2"/>
-
       <rect x="204" y="52" width="68" height="36" rx="6" fill="#fee2e2" stroke="#fca5a5" strokeWidth="1.5"/>
       <text x="238" y="67" textAnchor="middle" fontSize="9" fill="#991b1b" fontWeight="600">🔒 Stays locked</text>
       <text x="238" y="80" textAnchor="middle" fontSize="8" fill="#991b1b">¬Q is enough</text>
       <path d="M170 78 L204 70" stroke="#374151" strokeWidth="1.5" fill="none" strokeDasharray="4,3"/>
-
       <text x="140" y="132" textAnchor="middle" fontSize="9" fill="#4b5563">¬(P ∧ Q) ≡ ¬P ∨ ¬Q: block ONE key</text>
     </svg>
   ),
-  prop_demorgan_nested: (
+  prop_demorgan_nested: () => (
     <svg viewBox="0 0 280 150" className="w-full max-w-xs mx-auto" aria-hidden="true">
       <text x="140" y="14" textAnchor="middle" fontSize="9" fill="#374151" fontWeight="700">¬((A∧B) ∨ (C∧D))  ≡  (¬A∨¬B) ∧ (¬C∨¬D)</text>
       <rect x="8" y="22" width="122" height="52" rx="8" fill="#dbeafe" stroke="#3b82f6" strokeWidth="1.5"/>
       <text x="69" y="38" textAnchor="middle" fontSize="9" fill="#1e40af" fontWeight="600">Original</text>
       <text x="69" y="53" textAnchor="middle" fontSize="10" fill="#1e40af">(A ∧ B) ∨ (C ∧ D)</text>
       <text x="69" y="67" textAnchor="middle" fontSize="8" fill="#1e40af">AND inside OR</text>
-
       <text x="140" y="55" textAnchor="middle" fontSize="16" fill="#374151">¬</text>
       <path d="M130 55 L150 55" stroke="#374151" strokeWidth="1.5" fill="none"/>
-
       <rect x="150" y="22" width="122" height="52" rx="8" fill="#fce7f3" stroke="#ec4899" strokeWidth="1.5"/>
       <text x="211" y="38" textAnchor="middle" fontSize="9" fill="#9d174d" fontWeight="600">Negated</text>
       <text x="211" y="53" textAnchor="middle" fontSize="10" fill="#9d174d">(¬A ∨ ¬B) ∧ (¬C ∨ ¬D)</text>
       <text x="211" y="67" textAnchor="middle" fontSize="8" fill="#9d174d">OR inside AND</text>
-
       <line x1="8" y1="90" x2="272" y2="90" stroke="#e5e7eb" strokeWidth="1"/>
       <text x="60" y="106" textAnchor="middle" fontSize="8" fill="#6b7280">Step 1: De Morgan on ∨</text>
       <text x="60" y="118" textAnchor="middle" fontSize="8" fill="#374151" fontWeight="600">¬(A∧B) ∧ ¬(C∧D)</text>
@@ -237,246 +256,269 @@ const VISUALS: Record<string, React.ReactNode> = {
     </svg>
   ),
 
-  // ── SVG generici mantenuti per futuri argomenti ───────────────────────────
-  negation_traffic: (
+  // ── Lesson 2 — Conditional, biconditional, De Morgan, compound negation ──
+  prop_conditional_umbrella: () => (
     <svg viewBox="0 0 280 130" className="w-full max-w-xs mx-auto" aria-hidden="true">
-      <rect x="30" y="10" width="80" height="110" rx="12" fill="#1f2937" stroke="#374151" strokeWidth="2"/>
-      <circle cx="70" cy="40" r="22" fill="#ef4444"/>
-      <circle cx="70" cy="75" r="22" fill="#1f2937" stroke="#4b5563" strokeWidth="1"/>
-      <circle cx="70" cy="110" r="22" fill="#1f2937" stroke="#4b5563" strokeWidth="1"/>
-      <text x="70" y="40" textAnchor="middle" dominantBaseline="middle" fontSize="16">🔴</text>
-      <text x="70" y="130" textAnchor="middle" fontSize="9" fill="#9ca3af">P = "luce verde"</text>
-
-      <text x="155" y="65" textAnchor="middle" fontSize="28" fill="#374151">¬</text>
-
-      <rect x="170" y="10" width="80" height="110" rx="12" fill="#1f2937" stroke="#374151" strokeWidth="2"/>
-      <circle cx="210" cy="40" r="22" fill="#1f2937" stroke="#4b5563" strokeWidth="1"/>
-      <circle cx="210" cy="75" r="22" fill="#1f2937" stroke="#4b5563" strokeWidth="1"/>
-      <circle cx="210" cy="110" r="22" fill="#22c55e"/>
-      <text x="210" y="110" textAnchor="middle" dominantBaseline="middle" fontSize="16">🟢</text>
-      <text x="210" y="130" textAnchor="middle" fontSize="9" fill="#9ca3af">¬P = "NON luce verde"</text>
+      <rect x="8" y="8" width="264" height="114" rx="10" fill="#f9fafb" stroke="#e5e7eb" strokeWidth="1.5"/>
+      <text x="140" y="26" textAnchor="middle" fontSize="10" fill="#374151" fontWeight="700">P → Q : "if it rains → I bring an umbrella"</text>
+      <text x="58" y="55" textAnchor="middle" fontSize="30">☀️</text>
+      <text x="58" y="80" textAnchor="middle" fontSize="9" fill="#1e40af" fontWeight="600">P = false</text>
+      <text x="58" y="93" textAnchor="middle" fontSize="9" fill="#6b7280">not raining</text>
+      <text x="120" y="65" textAnchor="middle" fontSize="18" fill="#374151">→</text>
+      <text x="190" y="55" textAnchor="middle" fontSize="30">🌂</text>
+      <text x="190" y="80" textAnchor="middle" fontSize="9" fill="#1e40af" fontWeight="600">Q = false</text>
+      <text x="190" y="93" textAnchor="middle" fontSize="9" fill="#6b7280">no umbrella</text>
+      <rect x="88" y="100" width="104" height="18" rx="5" fill="#dcfce7" stroke="#86efac" strokeWidth="1"/>
+      <text x="140" y="113" textAnchor="middle" fontSize="9" fill="#166534" fontWeight="700">P false → P→Q is TRUE</text>
     </svg>
   ),
-  and_two_keys: (
-    <svg viewBox="0 0 280 140" className="w-full max-w-xs mx-auto" aria-hidden="true">
-      <rect x="90" y="50" width="100" height="70" rx="10" fill="#78350f" stroke="#92400e" strokeWidth="2"/>
-      <circle cx="140" cy="85" r="18" fill="#fef3c7" stroke="#f59e0b" strokeWidth="2"/>
-      <rect x="133" y="83" width="14" height="24" rx="3" fill="#fef3c7" stroke="#f59e0b" strokeWidth="1.5"/>
-      <text x="140" y="90" textAnchor="middle" fontSize="16">🔒</text>
-      <text x="40" y="55" fontSize="20">🗝️</text>
-      <text x="40" y="72" fontSize="9" fill="#374151" fontWeight="600">Chiave A</text>
-      <path d="M65 55 Q90 55 110 75" stroke="#f59e0b" strokeWidth="2" fill="none" strokeDasharray="4,3"/>
-      <text x="195" y="55" fontSize="20">🗝️</text>
-      <text x="195" y="72" fontSize="9" fill="#374151" fontWeight="600">Chiave B</text>
-      <path d="M205 55 Q190 55 170 75" stroke="#f59e0b" strokeWidth="2" fill="none" strokeDasharray="4,3"/>
-      <text x="140" y="135" textAnchor="middle" fontSize="9" fill="#4b5563">P ∧ Q: serve A <tspan fontWeight="700">E</tspan> B per aprire</text>
-    </svg>
-  ),
-  or_switch: (
-    <svg viewBox="0 0 280 140" className="w-full max-w-xs mx-auto" aria-hidden="true">
-      <circle cx="220" cy="70" r="22" fill="#fef3c7" stroke="#f59e0b" strokeWidth="2"/>
-      <text x="220" y="70" textAnchor="middle" dominantBaseline="middle" fontSize="20">💡</text>
-      <line x1="198" y1="70" x2="160" y2="70" stroke="#374151" strokeWidth="2.5"/>
-      <line x1="160" y1="70" x2="130" y2="45" stroke="#374151" strokeWidth="2.5"/>
-      <line x1="160" y1="70" x2="130" y2="95" stroke="#374151" strokeWidth="2.5"/>
-      <rect x="70" y="30" width="55" height="30" rx="6" fill="#dbeafe" stroke="#3b82f6" strokeWidth="1.5"/>
-      <text x="97" y="49" textAnchor="middle" fontSize="11" fill="#1e40af" fontWeight="600">Interrutt. A</text>
-      <rect x="70" y="80" width="55" height="30" rx="6" fill="#dbeafe" stroke="#3b82f6" strokeWidth="1.5"/>
-      <text x="97" y="99" textAnchor="middle" fontSize="11" fill="#1e40af" fontWeight="600">Interrutt. B</text>
-      <line x1="70" y1="45" x2="130" y2="45" stroke="#374151" strokeWidth="2.5"/>
-      <line x1="70" y1="95" x2="130" y2="95" stroke="#374151" strokeWidth="2.5"/>
-      <text x="140" y="130" textAnchor="middle" fontSize="9" fill="#4b5563">P ∨ Q: basta A <tspan fontWeight="700">O</tspan> B per accendere</text>
-    </svg>
-  ),
-  connectives_combo: (
-    <svg viewBox="0 0 280 140" className="w-full max-w-xs mx-auto" aria-hidden="true">
-      <rect x="10" y="10" width="260" height="120" rx="10" fill="#f9fafb" stroke="#e5e7eb" strokeWidth="1.5"/>
-      <text x="140" y="32" textAnchor="middle" fontSize="11" fill="#374151" fontWeight="700">Regola ingresso evento:</text>
-      <rect x="20" y="42" width="240" height="30" rx="6" fill="#dbeafe" stroke="#93c5fd" strokeWidth="1"/>
-      <text x="140" y="57" textAnchor="middle" fontSize="10" fill="#1e40af">(Biglietto ∧ Età≥18) ∨ VIP_pass</text>
-      <text x="140" y="78" textAnchor="middle" fontSize="9" fill="#6b7280">→ se hai biglietto E hai 18 anni: entri</text>
-      <text x="140" y="93" textAnchor="middle" fontSize="9" fill="#6b7280">→ oppure: se hai VIP pass entri comunque</text>
-      <text x="140" y="108" textAnchor="middle" fontSize="9" fill="#6b7280">La parentesi prima! AND lega più forte di OR</text>
-      <text x="140" y="123" textAnchor="middle" fontSize="9" fill="#9ca3af" fontStyle="italic">(come × lega più di + in aritmetica)</text>
-    </svg>
-  ),
-  proposition_lightswitch: (
+  prop_conditional_true_true: () => (
     <svg viewBox="0 0 280 130" className="w-full max-w-xs mx-auto" aria-hidden="true">
-      <rect x="10" y="10" width="120" height="110" rx="16" fill="#f0fdf4" stroke="#86efac" strokeWidth="2"/>
-      <rect x="40" y="30" width="60" height="70" rx="10" fill="#fff" stroke="#d1d5db" strokeWidth="1.5"/>
-      <rect x="52" y="42" width="36" height="22" rx="6" fill="#22c55e"/>
-      <circle cx="70" cy="53" r="8" fill="#fff"/>
-      <text x="70" y="90" textAnchor="middle" fontSize="11" fill="#166534" fontWeight="700">Vero (T)</text>
-      <text x="70" y="105" textAnchor="middle" fontSize="9" fill="#4b5563">luce accesa</text>
-
-      <rect x="150" y="10" width="120" height="110" rx="16" fill="#fef2f2" stroke="#fca5a5" strokeWidth="2"/>
-      <rect x="180" y="30" width="60" height="70" rx="10" fill="#fff" stroke="#d1d5db" strokeWidth="1.5"/>
-      <rect x="192" y="66" width="36" height="22" rx="6" fill="#ef4444"/>
-      <circle cx="210" cy="77" r="8" fill="#fff"/>
-      <text x="210" y="90" textAnchor="middle" fontSize="11" fill="#991b1b" fontWeight="700">Falso (F)</text>
-      <text x="210" y="105" textAnchor="middle" fontSize="9" fill="#4b5563">luce spenta</text>
+      <rect x="8" y="8" width="264" height="114" rx="10" fill="#f9fafb" stroke="#e5e7eb" strokeWidth="1.5"/>
+      <text x="140" y="26" textAnchor="middle" fontSize="10" fill="#374151" fontWeight="700">P → Q : "over 18 → can vote"</text>
+      <rect x="20" y="38" width="100" height="55" rx="8" fill="#dbeafe" stroke="#3b82f6" strokeWidth="1.5"/>
+      <text x="70" y="60" textAnchor="middle" fontSize="22">🎂</text>
+      <text x="70" y="80" textAnchor="middle" fontSize="9" fill="#1e40af" fontWeight="600">P = true</text>
+      <text x="135" y="68" textAnchor="middle" fontSize="18" fill="#374151">→</text>
+      <rect x="160" y="38" width="100" height="55" rx="8" fill="#dbeafe" stroke="#3b82f6" strokeWidth="1.5"/>
+      <text x="210" y="60" textAnchor="middle" fontSize="22">🗳️</text>
+      <text x="210" y="80" textAnchor="middle" fontSize="9" fill="#1e40af" fontWeight="600">Q = true</text>
+      <rect x="70" y="100" width="140" height="18" rx="5" fill="#dcfce7" stroke="#86efac" strokeWidth="1"/>
+      <text x="140" y="113" textAnchor="middle" fontSize="9" fill="#166534" fontWeight="700">true → true: P→Q is TRUE</text>
     </svg>
   ),
-  truth_table_and: (
-    <svg viewBox="0 0 280 150" className="w-full max-w-xs mx-auto" aria-hidden="true">
-      <rect x="10" y="10" width="260" height="130" rx="8" fill="#f9fafb" stroke="#e5e7eb" strokeWidth="1.5"/>
-      <text x="55" y="32" fontSize="11" fill="#6b7280" fontWeight="700">P</text>
-      <text x="120" y="32" fontSize="11" fill="#6b7280" fontWeight="700">Q</text>
-      <text x="185" y="32" fontSize="11" fill="#6b7280" fontWeight="700">P ∧ Q</text>
-      <line x1="20" y1="38" x2="265" y2="38" stroke="#e5e7eb" strokeWidth="1"/>
-      {[
-        {p:'T',q:'T',r:'T',rc:'#16a34a'},
-        {p:'T',q:'F',r:'F',rc:'#dc2626'},
-        {p:'F',q:'T',r:'F',rc:'#dc2626'},
-        {p:'F',q:'F',r:'F',rc:'#dc2626'},
-      ].map(({p,q,r,rc},i)=>(
-        <g key={i}>
-          <text x="55" y={57+i*24} fontSize="13" fill="#374151" fontFamily="monospace">{p}</text>
-          <text x="120" y={57+i*24} fontSize="13" fill="#374151" fontFamily="monospace">{q}</text>
-          <text x="188" y={57+i*24} fontSize="14" fill={rc} fontWeight="700" fontFamily="monospace">{r}</text>
-        </g>
-      ))}
-      <rect x="170" y="44" width="80" height="22" rx="4" fill="#dcfce7" stroke="#86efac" strokeWidth="1"/>
-      <text x="252" y="58" fontSize="9" fill="#16a34a" fontWeight="600">← solo T∧T=T</text>
-    </svg>
-  ),
-  vending_machine: (
-    <svg viewBox="0 0 280 150" className="w-full max-w-xs mx-auto" aria-hidden="true">
-      <rect x="80" y="10" width="120" height="130" rx="12" fill="#dbeafe" stroke="#3b82f6" strokeWidth="2"/>
-      <rect x="95" y="25" width="90" height="55" rx="6" fill="#fff" stroke="#93c5fd" strokeWidth="1.5"/>
-      <text x="140" y="48" textAnchor="middle" fontSize="20">🥤</text>
-      <text x="140" y="68" textAnchor="middle" fontSize="9" fill="#1e40af">prodotto</text>
-      <rect x="100" y="92" width="80" height="22" rx="6" fill="#fef3c7" stroke="#fcd34d" strokeWidth="1.5"/>
-      <text x="140" y="107" textAnchor="middle" fontSize="10" fill="#92400e">inserisci moneta</text>
-      <text x="20" y="55" fontSize="9" fill="#374151" fontWeight="600">P = moneta</text>
-      <text x="20" y="70" fontSize="9" fill="#374151">inserita</text>
-      <text x="185" y="55" fontSize="9" fill="#374151" fontWeight="600">Q = bevanda</text>
-      <text x="185" y="70" fontSize="9" fill="#374151">erogata</text>
-      <text x="140" y="148" textAnchor="middle" fontSize="9" fill="#6b7280">P → Q: solo falso se P=T e Q=F</text>
-    </svg>
-  ),
-  group_chat: (
-    <svg viewBox="0 0 280 140" className="w-full max-w-xs mx-auto" aria-hidden="true">
-      <rect x="10" y="10" width="260" height="120" rx="12" fill="#f0fdf4" stroke="#86efac" strokeWidth="1.5"/>
-      <circle cx="50" cy="45" r="18" fill="#fde68a" stroke="#f59e0b" strokeWidth="2"/>
-      <circle cx="100" cy="45" r="18" fill="#dbeafe" stroke="#3b82f6" strokeWidth="2"/>
-      <circle cx="150" cy="45" r="18" fill="#fce7f3" stroke="#ec4899" strokeWidth="2"/>
-      <circle cx="200" cy="45" r="18" fill="#d1fae5" stroke="#10b981" strokeWidth="2"/>
-      <text x="50" y="50" textAnchor="middle" fontSize="14">😀</text>
-      <text x="100" y="50" textAnchor="middle" fontSize="14">😊</text>
-      <text x="150" y="50" textAnchor="middle" fontSize="14">🙂</text>
-      <text x="200" y="50" textAnchor="middle" fontSize="14">😄</text>
-      <rect x="20" y="78" width="240" height="22" rx="6" fill="#dcfce7" stroke="#86efac" strokeWidth="1"/>
-      <text x="140" y="93" textAnchor="middle" fontSize="10" fill="#166534" fontWeight="600">∀x: tutti hanno letto il messaggio</text>
-      <rect x="20" y="108" width="240" height="22" rx="6" fill="#dbeafe" stroke="#93c5fd" strokeWidth="1"/>
-      <text x="140" y="123" textAnchor="middle" fontSize="10" fill="#1e40af" fontWeight="600">∃x: almeno uno ha risposto</text>
-    </svg>
-  ),
-  proof_chain: (
+  prop_biconditional_parity: () => (
     <svg viewBox="0 0 280 130" className="w-full max-w-xs mx-auto" aria-hidden="true">
-      <rect x="10" y="20" width="60" height="30" rx="6" fill="#dbeafe" stroke="#3b82f6" strokeWidth="1.5"/>
-      <text x="40" y="39" textAnchor="middle" fontSize="10" fill="#1e40af" fontWeight="600">Ipotesi</text>
-      <path d="M70 35 L100 35" stroke="#6b7280" strokeWidth="2" markerEnd="url(#arr2)"/>
-      <rect x="100" y="20" width="60" height="30" rx="6" fill="#fef3c7" stroke="#f59e0b" strokeWidth="1.5"/>
-      <text x="130" y="39" textAnchor="middle" fontSize="10" fill="#92400e" fontWeight="600">Passo 1</text>
-      <path d="M160 35 L190 35" stroke="#6b7280" strokeWidth="2" markerEnd="url(#arr2)"/>
-      <rect x="190" y="20" width="60" height="30" rx="6" fill="#dcfce7" stroke="#22c55e" strokeWidth="1.5"/>
-      <text x="220" y="39" textAnchor="middle" fontSize="10" fill="#166534" fontWeight="600">Tesi ✓</text>
-      <text x="40" y="80" textAnchor="middle" fontSize="9" fill="#6b7280">Assioma</text>
-      <text x="130" y="80" textAnchor="middle" fontSize="9" fill="#6b7280">Teorema noto</text>
-      <text x="220" y="80" textAnchor="middle" fontSize="9" fill="#6b7280">Dimostrato</text>
-      <line x1="40" y1="50" x2="40" y2="68" stroke="#d1d5db" strokeWidth="1" strokeDasharray="3,2"/>
-      <line x1="130" y1="50" x2="130" y2="68" stroke="#d1d5db" strokeWidth="1" strokeDasharray="3,2"/>
-      <line x1="220" y1="50" x2="220" y2="68" stroke="#d1d5db" strokeWidth="1" strokeDasharray="3,2"/>
-      <defs>
-        <marker id="arr2" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
-          <path d="M1 1 L7 4 L1 7" fill="none" stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-        </marker>
-      </defs>
+      <rect x="8" y="8" width="264" height="114" rx="10" fill="#f9fafb" stroke="#e5e7eb" strokeWidth="1.5"/>
+      <text x="140" y="26" textAnchor="middle" fontSize="10" fill="#374151" fontWeight="700">P ↔ Q : number = 7</text>
+      <rect x="20" y="38" width="105" height="55" rx="8" fill="#fee2e2" stroke="#fca5a5" strokeWidth="1.5"/>
+      <text x="72" y="60" textAnchor="middle" fontSize="11" fill="#991b1b" fontWeight="600">P: "is even"</text>
+      <text x="72" y="78" textAnchor="middle" fontSize="10" fill="#991b1b">false</text>
+      <text x="140" y="68" textAnchor="middle" fontSize="16" fill="#374151">↔</text>
+      <rect x="155" y="38" width="105" height="55" rx="8" fill="#fee2e2" stroke="#fca5a5" strokeWidth="1.5"/>
+      <text x="207" y="60" textAnchor="middle" fontSize="11" fill="#991b1b" fontWeight="600">Q: "÷ by 2"</text>
+      <text x="207" y="78" textAnchor="middle" fontSize="10" fill="#991b1b">false</text>
+      <rect x="70" y="100" width="140" height="18" rx="5" fill="#dcfce7" stroke="#86efac" strokeWidth="1"/>
+      <text x="140" y="113" textAnchor="middle" fontSize="9" fill="#166534" fontWeight="700">same value (F=F) → P↔Q is TRUE</text>
     </svg>
   ),
-  sets_numbers: (
+  prop_demorgan_ticket: () => (
     <svg viewBox="0 0 280 130" className="w-full max-w-xs mx-auto" aria-hidden="true">
-      <rect x="10" y="15" width="260" height="90" rx="14" fill="#f0fdf4" stroke="#86efac" strokeWidth="2"/>
-      <rect x="25" y="28" width="230" height="64" rx="10" fill="#dbeafe" stroke="#93c5fd" strokeWidth="1.5"/>
-      <rect x="42" y="38" width="180" height="44" rx="8" fill="#fef3c7" stroke="#fcd34d" strokeWidth="1.5"/>
-      <rect x="60" y="47" width="130" height="26" rx="6" fill="#fce7f3" stroke="#f9a8d4" strokeWidth="1.5"/>
-      <rect x="78" y="52" width="80" height="16" rx="4" fill="#e0e7ff" stroke="#a5b4fc" strokeWidth="1.5"/>
-      <text x="118" y="63" textAnchor="middle" fontSize="9" fill="#3730a3" fontWeight="700">ℕ</text>
-      <text x="155" y="63" textAnchor="middle" fontSize="8" fill="#831843">ℤ</text>
-      <text x="175" y="68" textAnchor="middle" fontSize="8" fill="#78350f">ℚ</text>
-      <text x="228" y="68" textAnchor="middle" fontSize="8" fill="#166534">ℝ</text>
-      <text x="140" y="115" textAnchor="middle" fontSize="9" fill="#4b5563">ℕ ⊂ ℤ ⊂ ℚ ⊂ ℝ  —  √2 ∈ ℝ ma √2 ∉ ℚ</text>
+      <rect x="8" y="8" width="264" height="114" rx="10" fill="#f9fafb" stroke="#e5e7eb" strokeWidth="1.5"/>
+      <text x="140" y="24" textAnchor="middle" fontSize="10" fill="#374151" fontWeight="700">¬(P ∧ Q) ≡ ¬P ∨ ¬Q</text>
+      <rect x="20" y="34" width="100" height="50" rx="8" fill="#dcfce7" stroke="#86efac" strokeWidth="1.5"/>
+      <text x="70" y="55" textAnchor="middle" fontSize="20">🎫</text>
+      <text x="70" y="75" textAnchor="middle" fontSize="9" fill="#166534" fontWeight="600">P = true</text>
+      <rect x="160" y="34" width="100" height="50" rx="8" fill="#fee2e2" stroke="#fca5a5" strokeWidth="1.5"/>
+      <text x="210" y="55" textAnchor="middle" fontSize="20">🔞</text>
+      <text x="210" y="75" textAnchor="middle" fontSize="9" fill="#991b1b" fontWeight="600">Q = false</text>
+      <text x="140" y="64" textAnchor="middle" fontSize="14" fill="#374151">∧</text>
+      <rect x="70" y="92" width="140" height="28" rx="6" fill="#dcfce7" stroke="#86efac" strokeWidth="1"/>
+      <text x="140" y="106" textAnchor="middle" fontSize="9" fill="#166534" fontWeight="700">P∧Q false → ¬(P∧Q) is TRUE</text>
+      <text x="140" y="117" textAnchor="middle" fontSize="7" fill="#16a34a">one requirement missing</text>
     </svg>
   ),
-  quantifiers_all_some: (
-    <svg viewBox="0 0 280 140" className="w-full max-w-xs mx-auto" aria-hidden="true">
-      <ellipse cx="95" cy="70" rx="75" ry="55" fill="#fef3c7" stroke="#f59e0b" strokeWidth="2" />
-      <ellipse cx="185" cy="70" rx="75" ry="55" fill="#dbeafe" stroke="#3b82f6" strokeWidth="2" />
-      <ellipse cx="95" cy="70" rx="40" ry="30" fill="#fde68a" stroke="#d97706" strokeWidth="1.5" />
-      <text x="60" y="55" fontSize="11" fill="#92400e" fontWeight="600">∀x P(x)</text>
-      <text x="50" y="72" fontSize="10" fill="#78350f">all elements</text>
-      <text x="48" y="87" fontSize="10" fill="#78350f">satisfy P</text>
-      <text x="155" y="55" fontSize="11" fill="#1e40af" fontWeight="600">∃x P(x)</text>
-      <text x="152" y="72" fontSize="10" fill="#1e3a8a">at least one</text>
-      <text x="155" y="87" fontSize="10" fill="#1e3a8a">satisfies P</text>
-      <circle cx="185" cy="90" r="5" fill="#3b82f6" />
-      <text x="195" y="94" fontSize="9" fill="#1e40af">one is enough</text>
-    </svg>
-  ),
-  implication_arrow: (
-    <svg viewBox="0 0 300 150" className="w-full max-w-xs mx-auto" aria-hidden="true">
-      <rect x="10" y="10" width="280" height="130" rx="8" fill="#f9fafb" stroke="#e5e7eb" strokeWidth="1.5" />
-      <text x="30" y="35" fontSize="11" fill="#6b7280" fontWeight="700">P</text>
-      <text x="100" y="35" fontSize="11" fill="#6b7280" fontWeight="700">Q</text>
-      <text x="170" y="35" fontSize="11" fill="#6b7280" fontWeight="700">P → Q</text>
-      <line x1="20" y1="42" x2="280" y2="42" stroke="#e5e7eb" strokeWidth="1" />
-      {[
-        { p: 'T', q: 'T', r: 'T', rc: '#16a34a' },
-        { p: 'T', q: 'F', r: 'F', rc: '#dc2626' },
-        { p: 'F', q: 'T', r: 'T', rc: '#16a34a' },
-        { p: 'F', q: 'F', r: 'T', rc: '#16a34a' },
-      ].map(({ p, q, r, rc }, i) => (
-        <g key={i}>
-          <text x="30" y={62 + i * 24} fontSize="13" fill="#374151" fontFamily="monospace">{p}</text>
-          <text x="100" y={62 + i * 24} fontSize="13" fill="#374151" fontFamily="monospace">{q}</text>
-          <text x="175" y={62 + i * 24} fontSize="14" fill={rc} fontWeight="700" fontFamily="monospace">{r}</text>
-        </g>
-      ))}
-      <rect x="155" y="73" width="100" height="22" rx="4" fill="#fee2e2" stroke="#fca5a5" strokeWidth="1" />
-      <text x="260" y="87" fontSize="9" fill="#dc2626" fontWeight="600">← only false case</text>
-    </svg>
-  ),
-  sets_venn: (
-    <svg viewBox="0 0 300 150" className="w-full max-w-xs mx-auto" aria-hidden="true">
-      <ellipse cx="95" cy="75" rx="70" ry="50" fill="#dbeafe" fillOpacity="0.7" stroke="#3b82f6" strokeWidth="2" />
-      <ellipse cx="185" cy="75" rx="70" ry="50" fill="#fce7f3" fillOpacity="0.7" stroke="#ec4899" strokeWidth="2" />
-      <text x="52" y="72" fontSize="12" fill="#1e40af" fontWeight="700">A</text>
-      <text x="230" y="72" fontSize="12" fill="#9d174d" fontWeight="700">B</text>
-      <text x="128" y="65" fontSize="9" fill="#4b5563" fontWeight="600">A∩B</text>
-      <text x="20" y="120" fontSize="9" fill="#1e40af">A only: A\B</text>
-      <text x="190" y="120" fontSize="9" fill="#9d174d">B only: B\A</text>
-      <text x="100" y="135" fontSize="9" fill="#374151">A∪B = everything shown</text>
-    </svg>
-  ),
-  number_line: (
-    <svg viewBox="0 0 300 130" className="w-full max-w-xs mx-auto" aria-hidden="true">
-      <rect x="10" y="15" width="280" height="55" rx="12" fill="#f0fdf4" stroke="#86efac" strokeWidth="1.5" />
-      <rect x="25" y="25" width="250" height="35" rx="9" fill="#dbeafe" stroke="#93c5fd" strokeWidth="1.5" />
-      <rect x="45" y="33" width="200" height="20" rx="6" fill="#fef3c7" stroke="#fcd34d" strokeWidth="1.5" />
-      <rect x="70" y="38" width="140" height="10" rx="4" fill="#fce7f3" stroke="#f9a8d4" strokeWidth="1.5" />
-      <text x="75" y="47" fontSize="8" fill="#831843" fontWeight="700">N</text>
-      <text x="48" y="52" fontSize="8" fill="#78350f" fontWeight="700">Z</text>
-      <text x="27" y="57" fontSize="8" fill="#1e40af" fontWeight="700">Q</text>
-      <text x="12" y="62" fontSize="8" fill="#166534" fontWeight="700">R</text>
-      <text x="60" y="90" fontSize="9" fill="#4b5563">N ⊂ Z ⊂ Q ⊂ R</text>
-      <text x="30" y="108" fontSize="8" fill="#6b7280">√2, π ∈ R but ∉ Q (irrational)</text>
+  prop_negation_and_wind: () => (
+    <svg viewBox="0 0 280 130" className="w-full max-w-xs mx-auto" aria-hidden="true">
+      <rect x="8" y="8" width="264" height="114" rx="10" fill="#f9fafb" stroke="#e5e7eb" strokeWidth="1.5"/>
+      <text x="140" y="24" textAnchor="middle" fontSize="10" fill="#374151" fontWeight="700">¬P ∧ Q : "not raining AND windy"</text>
+      <rect x="20" y="34" width="100" height="55" rx="8" fill="#fef3c7" stroke="#fcd34d" strokeWidth="1.5"/>
+      <text x="70" y="56" textAnchor="middle" fontSize="22">☀️</text>
+      <text x="70" y="76" textAnchor="middle" fontSize="9" fill="#92400e" fontWeight="600">¬P = true</text>
+      <text x="70" y="86" textAnchor="middle" fontSize="7" fill="#92400e">(P=false)</text>
+      <text x="135" y="68" textAnchor="middle" fontSize="16" fill="#374151">∧</text>
+      <rect x="160" y="34" width="100" height="55" rx="8" fill="#dbeafe" stroke="#3b82f6" strokeWidth="1.5"/>
+      <text x="210" y="56" textAnchor="middle" fontSize="22">🌬️</text>
+      <text x="210" y="76" textAnchor="middle" fontSize="9" fill="#1e40af" fontWeight="600">Q = true</text>
+      <rect x="70" y="96" width="140" height="18" rx="5" fill="#dcfce7" stroke="#86efac" strokeWidth="1"/>
+      <text x="140" y="109" textAnchor="middle" fontSize="9" fill="#166534" fontWeight="700">true ∧ true → ¬P∧Q is TRUE</text>
     </svg>
   ),
 };
 
+// ── Animated scene: two propositions flickering ON / OFF ──────────────────
+function ScenePropositionalLogic() {
+  const [tick, setTick] = useState(0);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => {
+    timerRef.current = setInterval(() => setTick(t => t + 1), 1200);
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  }, []);
+
+  const pOn = tick % 3 !== 2;
+  const qOn = tick % 4 !== 3;
+
+  const box = (label: string, val: boolean) => (
+    <div
+      className={`flex flex-col items-center justify-center w-24 h-20 rounded-xl border-2 transition-all duration-500 ${
+        val
+          ? 'bg-green-100 dark:bg-green-900/40 border-green-400 dark:border-green-600'
+          : 'bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-600'
+      }`}
+    >
+      <span className="text-2xl">{val ? '💡' : '🔌'}</span>
+      <span className={`text-xs font-mono font-bold mt-1 ${val ? 'text-green-700 dark:text-green-300' : 'text-gray-400 dark:text-gray-500'}`}>
+        {label} = {val ? 'T' : 'F'}
+      </span>
+    </div>
+  );
+
+  return (
+    <div className="flex items-center justify-center gap-4 py-3">
+      {box('P', pOn)}
+      <span className="text-xl font-bold text-gray-400 dark:text-gray-500">∧</span>
+      {box('Q', qOn)}
+      <span className="text-xl font-bold text-gray-400 dark:text-gray-500">=</span>
+      <div
+        className={`flex flex-col items-center justify-center w-24 h-20 rounded-xl border-2 transition-all duration-500 ${
+          pOn && qOn
+            ? 'bg-amber-100 dark:bg-amber-900/40 border-amber-400 dark:border-amber-600'
+            : 'bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-600'
+        }`}
+      >
+        <span className="text-2xl">{pOn && qOn ? '✅' : '❌'}</span>
+        <span className={`text-xs font-mono font-bold mt-1 ${pOn && qOn ? 'text-amber-700 dark:text-amber-300' : 'text-gray-400 dark:text-gray-500'}`}>
+          P∧Q = {pOn && qOn ? 'T' : 'F'}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function TopicScene({ sceneKey }: { sceneKey: string }) {
+  if (sceneKey === 'scene_propositional_logic') return <ScenePropositionalLogic />;
+  return null;
+}
+
+// ── Intro screen shown before the first exercise ───────────────────────────
+const TOPIC_EMOJI: Record<string, string> = {
+  propositional_logic: '⚡',
+  implication: '➡️',
+  quantifiers: '∀',
+  sets: '⊆',
+  proofs: '📐',
+};
+
+function TopicIntroScreen({ topic, onOpenLessons }: { topic: StudyPlanTopic; onOpenLessons: () => void }) {
+  const emoji = TOPIC_EMOJI[topic.id] ?? '📖';
+  return (
+    <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 p-8 flex flex-col items-center text-center space-y-5">
+      <span className="text-5xl">{emoji}</span>
+      <div className="space-y-1">
+        <p className="text-lg font-bold text-gray-900 dark:text-gray-100">{topic.label}</p>
+        <p className="text-sm text-gray-500 dark:text-gray-400">
+          {topic.exercises.length} question{topic.exercises.length !== 1 ? 's' : ''} — each teaches a concept, then checks it
+        </p>
+      </div>
+      {topic.scene && (
+        <div className="w-full">
+          <TopicScene sceneKey={topic.scene} />
+        </div>
+      )}
+      <button
+        onClick={onOpenLessons}
+        className="mt-2 px-8 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-white font-semibold text-sm transition-colors"
+      >
+        Lessons
+      </button>
+    </div>
+  );
+}
+
+// ── Lesson picker: one button per exercise/lesson in the topic ────────────
+function LessonsScreen({
+  topic,
+  isCompleted,
+  onSelectLesson,
+  onBack,
+}: {
+  topic: StudyPlanTopic;
+  isCompleted: (id: string) => boolean;
+  onSelectLesson: (index: number) => void;
+  onBack: () => void;
+}) {
+  return (
+    <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 space-y-4">
+      <div className="flex items-center justify-between">
+        <button
+          onClick={onBack}
+          className="flex items-center gap-1 text-xs text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+        >
+          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+          Back
+        </button>
+        <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">{topic.label}</p>
+      </div>
+      <div className="grid grid-cols-1 gap-2">
+        {Array.from({ length: 5 }, (_, idx) => {
+          const lessonExercises = topic.lessons?.[idx] ?? (idx === 0 ? topic.exercises : []);
+          const available = lessonExercises.length > 0;
+          const done = available && lessonExercises.every(e => isCompleted(e.id));
+          return (
+            <button
+              key={idx}
+              onClick={() => onSelectLesson(idx)}
+              className={`w-full flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl border-2 font-semibold text-sm transition-all ${
+                !available
+                  ? 'border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500'
+                  : done
+                  ? 'border-green-300 dark:border-green-700 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300'
+                  : 'border-gray-200 dark:border-gray-700 hover:border-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/20 text-gray-700 dark:text-gray-300'
+              }`}
+            >
+              {done && <span>✓</span>}
+              Lesson {idx + 1}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// ── Completion screen shown after all exercises are done ──────────────────
+function TopicCompletionScreen({ topic, onBack, onRetry }: { topic: StudyPlanTopic; onBack: () => void; onRetry: () => void }) {
+  return (
+    <div className="bg-white dark:bg-gray-900 rounded-2xl border border-green-300 dark:border-green-700 p-6 flex flex-col items-center text-center space-y-5">
+      <span className="text-4xl">🎉</span>
+      <div className="space-y-1">
+        <p className="text-base font-bold text-green-700 dark:text-green-300">Topic complete!</p>
+        <p className="text-sm text-gray-500 dark:text-gray-400">Concepts covered:</p>
+      </div>
+      <div className="flex flex-wrap justify-center gap-2">
+        {(topic.lessons ? topic.lessons.flat() : topic.exercises).map(e => e.title ? (
+          <span
+            key={e.id}
+            className="px-3 py-1 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-200 border border-green-300 dark:border-green-700"
+          >
+            {e.title.split('—')[0].split(':')[0].trim().slice(0, 60)}
+          </span>
+        ) : null)}
+      </div>
+      <div className="flex gap-3 mt-2">
+        <button
+          onClick={onRetry}
+          className="px-5 py-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm font-semibold transition-colors"
+        >
+          ↺ Riprova
+        </button>
+        <button
+          onClick={onBack}
+          className="px-5 py-2.5 rounded-xl bg-green-500 hover:bg-green-400 text-white text-sm font-semibold transition-colors"
+        >
+          Back to map
+        </button>
+      </div>
+    </div>
+  );
+}
+
 type QuestionSlide = {
   question: string;
+  title?: string;
   svgKey?: string;
   options: string[];
   correct: number;
@@ -489,39 +531,97 @@ function QuestionCard({
   onCorrect,
   onWrong,
   onNext,
+  onBack,
+  onPrevQuestion,
+  onNextQuestion,
 }: {
   slide: QuestionSlide;
   isRetry: boolean;
   onCorrect: () => void;
   onWrong: () => void;
   onNext: () => void;
+  onBack?: () => void;
+  onPrevQuestion?: () => void;
+  onNextQuestion?: () => void;
 }) {
+  const [optionOrder] = useState<number[]>(() =>
+    slide.options.map((_, i) => i).sort(() => Math.random() - 0.5)
+  );
   const [selected, setSelected] = useState<number | null>(null);
   const answered = selected !== null;
   const isCorrect = answered && selected === slide.correct;
 
-  function handleSelect(i: number) {
+  function handleSelect(originalIdx: number) {
     if (answered) return;
-    setSelected(i);
-    if (i === slide.correct) onCorrect();
+    setSelected(originalIdx);
+    if (originalIdx === slide.correct) onCorrect();
     else onWrong();
   }
 
+  const firstPass = Boolean(slide.title) && !isRetry;
+
   return (
     <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 p-5 space-y-4">
-      {isRetry && (
-        <p className="text-xs font-semibold text-amber-600 dark:text-amber-400 uppercase tracking-wide">
-          Similar question — try again
-        </p>
+      <div className="flex items-center justify-between">
+        {onBack ? (
+          <button
+            onClick={onBack}
+            className="flex items-center gap-1 text-xs text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+          >
+            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+            Exit to lessons
+          </button>
+        ) : <span />}
+        {isRetry && (
+          <p className="text-xs font-semibold text-amber-600 dark:text-amber-400 uppercase tracking-wide">
+            Similar question — try again
+          </p>
+        )}
+      </div>
+      {(onPrevQuestion || onNextQuestion) && (
+        <div className="flex items-center justify-between -mt-1">
+          <button
+            onClick={onPrevQuestion}
+            disabled={!onPrevQuestion}
+            className="flex items-center gap-1 text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-amber-600 dark:hover:text-amber-400 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+          >
+            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+            Previous question
+          </button>
+          <button
+            onClick={onNextQuestion}
+            disabled={!onNextQuestion}
+            className="flex items-center gap-1 text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-amber-600 dark:hover:text-amber-400 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+          >
+            Next question
+            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
       )}
-      {slide.svgKey && VISUALS[slide.svgKey] && (
-        <div>{VISUALS[slide.svgKey]}</div>
+      {slide.svgKey && VISUALS[slide.svgKey] && (() => {
+        const C = VISUALS[slide.svgKey!];
+        return <C />;
+      })()}
+      {firstPass ? (
+        <>
+          <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 leading-snug">{slide.title}</p>
+          <div className="border-t border-gray-200 dark:border-gray-700" />
+          <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{slide.question}</p>
+        </>
+      ) : (
+        <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 leading-snug">{slide.question}</p>
       )}
-      <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{slide.question}</p>
       <div className="space-y-2">
-        {slide.options.map((opt, i) => {
-          const isCorrectOpt = i === slide.correct;
-          const isSelectedOpt = selected === i;
+        {optionOrder.map((originalIdx, displayPos) => {
+          const opt = slide.options[originalIdx];
+          const isCorrectOpt = originalIdx === slide.correct;
+          const isSelectedOpt = selected === originalIdx;
           let cls = 'w-full text-left text-sm px-3 py-2.5 rounded-xl border-2 transition-all leading-relaxed font-medium ';
           if (!answered) {
             cls += 'border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/20';
@@ -533,8 +633,8 @@ function QuestionCard({
             cls += 'border-gray-100 dark:border-gray-800 text-gray-300 dark:text-gray-600';
           }
           return (
-            <button key={i} disabled={answered} onClick={() => handleSelect(i)} className={cls}>
-              <span className="font-mono text-xs mr-2 opacity-50">{String.fromCharCode(65 + i)}.</span>
+            <button key={originalIdx} disabled={answered} onClick={() => handleSelect(originalIdx)} className={cls}>
+              <span className="font-mono text-xs mr-2 opacity-50">{String.fromCharCode(65 + displayPos)}.</span>
               {opt}
             </button>
           );
@@ -574,56 +674,147 @@ function TopicExerciseFlow({
   sectionId,
   isCompleted,
   onComplete,
+  onResetTopic,
   onAllDone,
 }: {
   topic: StudyPlanTopic;
   sectionId: string;
   isCompleted: (id: string) => boolean;
   onComplete: (id: string) => void;
+  onResetTopic: (ids: string[]) => void;
   onAllDone: () => void;
 }) {
-  const exercises = topic.exercises;
+  // All exercises across every lesson — used to decide when the whole topic is done.
+  const allExercises = topic.lessons ? topic.lessons.flat() : topic.exercises;
+  const allAlreadyDone = allExercises.length > 0 && allExercises.every(e => isCompleted(e.id));
 
-  const initialStep = () => {
-    const first = exercises.findIndex(e => !isCompleted(e.id));
-    return first === -1 ? exercises.length : first;
-  };
-
-  const [stepIndex, setStepIndex] = useState(initialStep);
-  // retryCount: how many wrong answers on the current exercise (resets per exercise)
+  // 'intro' shown first, then 'lessons' (picker), then 'exercise', then 'done'
+  const [flowPhase, setFlowPhase] = useState<'intro' | 'lessons' | 'exercise' | 'comingSoon' | 'done'>(
+    allAlreadyDone ? 'done' : 'intro'
+  );
+  const [selectedLessonIndex, setSelectedLessonIndex] = useState(0);
+  const [stepIndex, setStepIndex] = useState(0);
   const [retryCount, setRetryCount] = useState(0);
-  // retryIndex: which retry question to show next (never resets, cycles through pool)
   const [retryIndex, setRetryIndex] = useState(0);
-  // phase: 'main' | 'retry' | 'advance' — what we're currently showing
-  const [phase, setPhase] = useState<'main' | 'retry'>('main');
+  const [cardPhase, setCardPhase] = useState<'main' | 'retry'>('main');
+
+  // Exercises for the lesson currently in progress.
+  const exercises = topic.lessons?.[selectedLessonIndex] ?? (selectedLessonIndex === 0 ? topic.exercises : []);
 
   const currentExercise = exercises[stepIndex] ?? null;
 
-  function advance() {
-    const next = stepIndex + 1;
-    setStepIndex(next);
+  function selectLesson(idx: number) {
+    const lessonExercises = topic.lessons?.[idx] ?? (idx === 0 ? topic.exercises : []);
+    if (lessonExercises.length === 0) {
+      setFlowPhase('comingSoon');
+      return;
+    }
+    setSelectedLessonIndex(idx);
+    setStepIndex(0);
     setRetryCount(0);
-    setPhase('main');
+    setRetryIndex(0);
+    setCardPhase('main');
+    setFlowPhase('exercise');
   }
 
-  if (!currentExercise) {
+  function advance() {
+    const next = stepIndex + 1;
+    if (next >= exercises.length) {
+      setFlowPhase(allExercises.every(e => isCompleted(e.id)) ? 'done' : 'lessons');
+    } else {
+      setStepIndex(next);
+      setRetryCount(0);
+      setRetryIndex(0);
+      setCardPhase('main');
+    }
+  }
+
+  function backToLessons() {
+    setRetryCount(0);
+    setRetryIndex(0);
+    setCardPhase('main');
+    setFlowPhase(allExercises.every(e => isCompleted(e.id)) ? 'done' : 'lessons');
+  }
+
+  // Free navigation between questions in the current lesson — works whether or not
+  // the question has been answered yet.
+  function goToPrevQuestion() {
+    if (stepIndex === 0) return;
+    setStepIndex(stepIndex - 1);
+    setRetryCount(0);
+    setRetryIndex(0);
+    setCardPhase('main');
+  }
+
+  function goToNextQuestion() {
+    if (stepIndex >= exercises.length - 1) return;
+    setStepIndex(stepIndex + 1);
+    setRetryCount(0);
+    setRetryIndex(0);
+    setCardPhase('main');
+  }
+
+  if (flowPhase === 'intro') {
+    return <TopicIntroScreen topic={topic} onOpenLessons={() => setFlowPhase('lessons')} />;
+  }
+
+  if (flowPhase === 'lessons') {
     return (
-      <div className="bg-white dark:bg-gray-900 rounded-2xl border border-green-300 dark:border-green-700 p-6 text-center space-y-2">
-        <p className="text-2xl">🎉</p>
-        <p className="text-sm font-semibold text-green-700 dark:text-green-300">Topic completed!</p>
+      <LessonsScreen
+        topic={topic}
+        isCompleted={isCompleted}
+        onSelectLesson={selectLesson}
+        onBack={() => setFlowPhase('intro')}
+      />
+    );
+  }
+
+  if (flowPhase === 'comingSoon') {
+    return (
+      <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 p-8 flex flex-col items-center text-center space-y-4">
+        <span className="text-4xl">🚧</span>
+        <p className="text-base font-bold text-gray-900 dark:text-gray-100">Coming soon</p>
+        <p className="text-sm text-gray-500 dark:text-gray-400">This lesson isn&apos;t ready yet — check back later.</p>
         <button
-          onClick={onAllDone}
-          className="mt-2 px-4 py-2 rounded-xl bg-green-500 hover:bg-green-400 text-white text-sm font-semibold transition-colors"
+          onClick={() => setFlowPhase('lessons')}
+          className="mt-2 px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-white text-sm font-semibold transition-colors"
         >
-          Back to map
+          ← Back to lessons
         </button>
       </div>
     );
   }
 
+  if (flowPhase === 'done') {
+    return (
+      <TopicCompletionScreen
+        topic={topic}
+        onBack={onAllDone}
+        onRetry={() => {
+          onResetTopic(allExercises.map(e => e.id));
+          setRetryCount(0);
+          setRetryIndex(0);
+          setCardPhase('main');
+          setFlowPhase('intro');
+        }}
+      />
+    );
+  }
+
+  if (!currentExercise) {
+    return (
+      <LessonsScreen
+        topic={topic}
+        isCompleted={isCompleted}
+        onSelectLesson={selectLesson}
+        onBack={() => setFlowPhase('intro')}
+      />
+    );
+  }
+
   const retryPool = currentExercise.retry;
 
-  const slide: QuestionSlide = phase === 'retry'
+  const slide: QuestionSlide = cardPhase === 'retry'
     ? {
         question: retryPool[retryIndex % retryPool.length].question,
         svgKey: retryPool[retryIndex % retryPool.length].svgKey,
@@ -632,6 +823,7 @@ function TopicExerciseFlow({
         explanation: retryPool[retryIndex % retryPool.length].explanation,
       }
     : {
+        title: currentExercise.title,
         question: currentExercise.question,
         svgKey: currentExercise.svgKey,
         options: currentExercise.options,
@@ -640,29 +832,25 @@ function TopicExerciseFlow({
       };
 
   function handleCorrect() {
-    onComplete(currentExercise.id);
-    api.studyPlan.completeExercise(currentExercise.id, sectionId).catch(() => {});
+    onComplete(currentExercise!.id);
+    api.studyPlan.completeExercise(currentExercise!.id, sectionId).catch(() => {});
   }
 
-  // called when user clicks the wrong-answer button ("Try a similar question →")
   function handleWrong() {}
 
   function handleNext() {
-    if (isCompleted(currentExercise.id)) {
-      // correct answer was given — just advance
+    if (isCompleted(currentExercise!.id)) {
       advance();
     } else {
-      // wrong answer — check retry budget
       const newCount = retryCount + 1;
       if (newCount >= 2) {
-        // used up 2 retries: mark done and advance
-        onComplete(currentExercise.id);
-        api.studyPlan.completeExercise(currentExercise.id, sectionId).catch(() => {});
+        onComplete(currentExercise!.id);
+        api.studyPlan.completeExercise(currentExercise!.id, sectionId).catch(() => {});
         advance();
       } else {
         setRetryCount(newCount);
         setRetryIndex(i => i + 1);
-        setPhase('retry');
+        setCardPhase('retry');
       }
     }
   }
@@ -671,15 +859,18 @@ function TopicExerciseFlow({
     <div className="space-y-3">
       <div className="flex items-center justify-between px-1">
         <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">{topic.label}</p>
-        <p className="text-xs text-gray-400">{Math.min(stepIndex + 1, exercises.length)} / {exercises.length}</p>
+        <p className="text-xs text-gray-400">{stepIndex + 1} / {exercises.length}</p>
       </div>
       <QuestionCard
-        key={`${stepIndex}-${phase}-${retryIndex}`}
+        key={`${stepIndex}-${cardPhase}-${retryIndex}`}
         slide={slide}
-        isRetry={phase === 'retry'}
+        isRetry={cardPhase === 'retry'}
         onCorrect={handleCorrect}
         onWrong={handleWrong}
         onNext={handleNext}
+        onBack={backToLessons}
+        onPrevQuestion={stepIndex > 0 ? goToPrevQuestion : undefined}
+        onNextQuestion={stepIndex < exercises.length - 1 ? goToNextQuestion : undefined}
       />
     </div>
   );
@@ -798,10 +989,11 @@ export default function TopicStudyPlan() {
   const { topicId: sectionId } = useParams<{ topicId: string }>();
   const navigate = useNavigate();
   const { data } = useTracker();
-  const { markComplete, isCompleted } = useExercises();
+  const { markComplete, resetTopic, isCompleted } = useExercises();
 
   const [searchParams] = useSearchParams();
   const [activeTopicIndex, setActiveTopicIndex] = useState<number | null>(null);
+  const [remoteTopics, setRemoteTopics] = useState<StudyPlanTopic[] | null>(null);
 
   const section = sectionId ? SECTION_MAP[sectionId] : undefined;
 
@@ -814,8 +1006,20 @@ export default function TopicStudyPlan() {
   const plan = sectionId ? getStudyPlanForSection(sectionId, displayRating) : undefined;
   const hasAnyPlan = sectionId ? hasSectionPlan(sectionId) : false;
 
+  useEffect(() => {
+    if (!sectionId) return;
+    setRemoteTopics(null);
+    api.studyPlan.questions(sectionId, displayRating)
+      .then((data) => {
+        const entry = (data as { topics?: StudyPlanTopic[] }[])[0];
+        if (entry?.topics) setRemoteTopics(entry.topics);
+      })
+      .catch(() => {});
+  }, [sectionId, displayRating]);
+
   function isTopicDone(topic: StudyPlanTopic) {
-    return topic.exercises.length > 0 && topic.exercises.every(e => isCompleted(e.id));
+    const all = topic.lessons ? topic.lessons.flat() : topic.exercises;
+    return all.length > 0 && all.every(e => isCompleted(e.id));
   }
 
   if (!section) {
@@ -831,7 +1035,8 @@ export default function TopicStudyPlan() {
     );
   }
 
-  const activeTopic = activeTopicIndex !== null && plan?.topics ? plan.topics[activeTopicIndex] : null;
+  const topics = remoteTopics ?? plan?.topics;
+  const activeTopic = activeTopicIndex !== null && topics ? topics[activeTopicIndex] : null;
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
@@ -867,10 +1072,10 @@ export default function TopicStudyPlan() {
         {plan && (
           <>
             {/* MAP VIEW — shown when no topic is active */}
-            {!activeTopic && plan.topics && plan.topics.length > 0 && (
+            {!activeTopic && topics && topics.length > 0 && (
               <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6">
                 <TopicMap
-                  topics={plan.topics}
+                  topics={topics}
                   isTopicDone={isTopicDone}
                   activeIndex={null}
                   onSelect={(idx) => setActiveTopicIndex(idx)}
@@ -916,6 +1121,7 @@ export default function TopicStudyPlan() {
                 sectionId={sectionId ?? ''}
                 isCompleted={isCompleted}
                 onComplete={markComplete}
+                onResetTopic={resetTopic}
                 onAllDone={() => setActiveTopicIndex(null)}
               />
             )}
